@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitSystem : MonoBehaviour {
+public class UnitSystem : MonoBehaviour
+{
     #region private members
     private IGameManager _gameManager;
     [SerializeField] private BaseUnit _unitPrefab;

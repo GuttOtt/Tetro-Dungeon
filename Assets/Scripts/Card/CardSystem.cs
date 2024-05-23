@@ -1,9 +1,9 @@
 using Card;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardSystem : MonoBehaviour {
+public class CardSystem : MonoBehaviour
+{
     #region private members
     private IGameManager _gameManager;
     [SerializeField]
@@ -45,7 +45,7 @@ public class CardSystem : MonoBehaviour {
             _selectedCard = Utils.Pick<BaseCard>();
 
             //카드를 선택했다면 카드에 맞는 유닛 블럭 마커를 생성
-            if (_selectedCard != null ) {
+            if (_selectedCard != null) {
                 Debug.Log("Selected");
                 _unitBlockMarker.gameObject.SetActive(true);
                 _unitBlockMarker.Draw(_selectedCard.Polyomino, _selectedCard.UnitConfig);

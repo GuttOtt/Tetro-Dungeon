@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using EnumTypes;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -12,10 +11,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Properties
     public int MaxHP { get => _maxHP; }
     public int MaxMP { get => _maxMP; }
-    public int Attack { get => _attack; }
+    public int Attack { get => _attack; }   
     public int Range { get => _range; }
     public Action OnDie { get; set; }
-    public Cell CurentCell { get => _currentCell; set => _currentCell = value; }
+    public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
+    public CharacterTypes Owner { get; }
     #endregion
 
     public void Init(int maxHP, int maxMP, int attack, int range) {

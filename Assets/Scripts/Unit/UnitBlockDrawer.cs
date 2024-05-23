@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,13 +20,13 @@ public class UnitBlockDrawer : MonoBehaviour
             unitDrawer.Draw(unitConfig);
             _unitDrawers.Add(unitDrawer);
         }
-        
+
     }
 
     public void Clear() {
         _polyominoDrawer.ClearBlocks();
-        foreach (UnitDrawer unitDrawer in _unitDrawers) { 
-            Destroy(unitDrawer.gameObject); 
+        foreach (UnitDrawer unitDrawer in _unitDrawers) {
+            Destroy(unitDrawer.gameObject);
         }
         _unitDrawers.Clear();
     }

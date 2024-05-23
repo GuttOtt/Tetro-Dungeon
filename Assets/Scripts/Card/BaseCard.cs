@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Card
@@ -31,7 +29,7 @@ namespace Card
 
             _polyominoDrawer.Draw(Polyomino.Shape);
         }
-        
+
         private void DrawUnit() {
             _unitInCardDrawer.Draw(UnitConfig);
         }

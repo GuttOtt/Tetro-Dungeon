@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Cell : MonoBehaviour
 {
     [Serializable]
-    public struct Position {
+    public struct Position
+    {
         public int row;
         public int col;
     }
@@ -34,7 +32,14 @@ public class Cell : MonoBehaviour
             return false;
         }
         else {
+            unit.CurrentCell?.UnitOut();
             this._unit = unit;
+
+            //Transform ¿Ãµø
+            Transform unitTransform = (unit as BaseUnit).transform;
+            unitTransform.parent = this.transform;
+            unitTransform.localPosition = Vector3.zero;
+
             return true;
         }
     }

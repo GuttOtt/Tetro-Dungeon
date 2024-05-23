@@ -1,13 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+namespace EnumTypes
+{
+    public enum CharacterTypes
+    {
+        None, Player, Enemy,
 
-namespace EnumTypes {
-    public enum CharacterTypes {
-        None, Player, Enemy
+        
     }
-
-    public enum CardPileTypes {
+    public static class CharacterTypeExtensions
+    {
+        public static CharacterTypes Opponent(this CharacterTypes characterType) {
+            switch (characterType) {
+                case CharacterTypes.Player:
+                    return CharacterTypes.Enemy;
+                case CharacterTypes.Enemy:
+                    return CharacterTypes.Player;
+                default:
+                    return characterType;
+            }
+        }
+    }
+    public enum CardPileTypes
+    {
         Deck, Hand, Discard,
     }
 }

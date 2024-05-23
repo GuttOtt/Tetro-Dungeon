@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 using EnumTypes;
-using UnityEngine.Rendering;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Board : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class Board : MonoBehaviour
     [SerializeField] private int row, column;
     [SerializeField] private Cell cellPrefab;
     private Cell[,] cells;
-    private Dictionary<CharacterTypes, List<IUnit>> unitDic;
+    private Dictionary<CharacterTypes, List<IUnit>> unitDic = new Dictionary<CharacterTypes, List<IUnit>>();
     #endregion
 
     #region properties
@@ -30,7 +27,7 @@ public class Board : MonoBehaviour
         Vector3 cellSize = cellPrefab.GetComponent<SpriteRenderer>().bounds.size;
 
         //¼¿ ¹èÄ¡
-        for (int x = 0; x < column; x++) { 
+        for (int x = 0; x < column; x++) {
             for (int y = 0; y < row; y++) {
                 cellPrefab.name = $"({x},{y})";
                 Cell cell = Instantiate(cellPrefab, this.transform);
@@ -47,6 +44,10 @@ public class Board : MonoBehaviour
                 }
             }
         }
+
+        //À¯´Ö µñ¼Å³Ê¸® ÃÊ±âÈ­
+        unitDic.Add(CharacterTypes.Player, new List<IUnit>());
+        unitDic.Add(CharacterTypes.Enemy, new List<IUnit>());
     }
 
 
@@ -79,7 +80,7 @@ public class Board : MonoBehaviour
         return true;
     }
 
-    public bool Place(Cell topLeft, Polyomino polyomino,  UnitConfig unitConfig, CharacterTypes characterType = CharacterTypes.Player) {
+    public bool Place(Cell topLeft, Polyomino polyomino, UnitConfig unitConfig, CharacterTypes characterType = CharacterTypes.Player) {
         if (!IsPlacable(polyomino, topLeft)) return false;
 
         int[,] shape = polyomino.Shape;
@@ -90,11 +91,11 @@ public class Board : MonoBehaviour
 
         for (int x = 0; x < shape.GetLength(0); x++) {
             for (int y = 0; y < shape.GetLength(1); y++) {
-                if (shape[x, y] == 0) continue; 
+                if (shape[x, y] == 0) continue;
                 Cell cell = cells[x + xTopLeft, y + yTopLeft];
                 BaseUnit unit = unitSystem.CreateUnit(unitConfig) as BaseUnit;
                 cell.UnitIn(unit);
-                unit.CurentCell = cell;
+                unit.CurrentCell = cell;
                 unit.transform.parent = cell.transform;
                 unit.transform.localPosition = Vector3.zero;
                 unitDic[characterType].Add(unit);
@@ -102,5 +103,16 @@ public class Board : MonoBehaviour
         }
 
         return true;
+    }
+
+    public List<IUnit> GetUnits(CharacterTypes chracterType) {
+        return unitDic[chracterType];
+    }
+
+    public Cell GetCell(int col, int row) {
+        if (col < 0 || this.column <= col || row < 0 || this.row <= row) {
+            return null;
+        }
+        return cells[col, row];
     }
 }

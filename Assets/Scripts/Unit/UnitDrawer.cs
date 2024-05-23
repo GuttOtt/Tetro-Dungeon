@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UnitDrawer : MonoBehaviour {
+public class UnitDrawer : MonoBehaviour
+{
     [SerializeField]
     private SpriteRenderer _unitSprite;
 
     [SerializeField]
-    private TMP_Text _hpText, _mpText, _attackText, _rangeText; 
+    private TMP_Text _hpText, _mpText, _attackText, _rangeText;
 
     public void Draw(UnitConfig unitConfig) {
         //스프라이트
