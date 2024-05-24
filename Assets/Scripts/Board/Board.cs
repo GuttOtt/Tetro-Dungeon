@@ -93,7 +93,7 @@ public class Board : MonoBehaviour
             for (int y = 0; y < shape.GetLength(1); y++) {
                 if (shape[x, y] == 0) continue;
                 Cell cell = cells[x + xTopLeft, y + yTopLeft];
-                BaseUnit unit = unitSystem.CreateUnit(unitConfig) as BaseUnit;
+                BaseUnit unit = unitSystem.CreateUnit(unitConfig, characterType) as BaseUnit;
                 cell.UnitIn(unit);
                 unit.CurrentCell = cell;
                 unit.transform.parent = cell.transform;

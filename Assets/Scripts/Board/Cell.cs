@@ -37,6 +37,7 @@ public class Cell : MonoBehaviour
 
             //Transform ¿Ãµø
             Transform unitTransform = (unit as BaseUnit).transform;
+            Debug.Log(unitTransform);
             unitTransform.parent = this.transform;
             unitTransform.localPosition = Vector3.zero;
 

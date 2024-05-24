@@ -1,3 +1,4 @@
+using EnumTypes;
 using UnityEngine;
 
 public class UnitSystem : MonoBehaviour
@@ -11,9 +12,9 @@ public class UnitSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
     }
 
-    public IUnit CreateUnit(UnitConfig unitConfig) {
+    public IUnit CreateUnit(UnitConfig unitConfig, CharacterTypes owner) {
         BaseUnit unit = Instantiate(_unitPrefab);
-        unit.Init(unitConfig);
+        unit.Init(unitConfig, owner);
 
         return unit;
     }
