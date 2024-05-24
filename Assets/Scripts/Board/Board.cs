@@ -1,5 +1,6 @@
 using EnumTypes;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -94,13 +95,24 @@ public class Board : MonoBehaviour
                 if (shape[x, y] == 0) continue;
                 Cell cell = cells[x + xTopLeft, y + yTopLeft];
                 BaseUnit unit = unitSystem.CreateUnit(unitConfig, characterType) as BaseUnit;
-                cell.UnitIn(unit);
-                unit.CurrentCell = cell;
-                unit.transform.parent = cell.transform;
-                unit.transform.localPosition = Vector3.zero;
-                unitDic[characterType].Add(unit);
+                Place(cell, unit);
             }
         }
+
+        return true;
+    }
+
+    public bool Place(Cell cell, BaseUnit unit) {
+        if (cell.Unit != null) {
+            return false;
+        }
+
+        cell.UnitIn(unit);
+        unit.CurrentCell = cell;
+        unit.transform.parent = cell.transform;
+        unit.transform.localPosition = Vector3.zero;
+        unitDic[unit.Owner].Add(unit);
+
 
         return true;
     }
@@ -114,5 +126,17 @@ public class Board : MonoBehaviour
             return null;
         }
         return cells[col, row];
+    }
+
+    public List<Cell> GetAllEmptyCell(CharacterTypes owner) {
+        List<Cell> allCell = new List<Cell>();
+
+        foreach (Cell cell in cells) {
+            if (cell.Unit == null && cell.CharacterType == owner) {
+                allCell.Add(cell);
+            }
+        }
+
+        return allCell.ToList();
     }
 }

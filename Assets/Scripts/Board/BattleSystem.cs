@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenByDescending(unit => unit.CurrentCell.position.col).ToList();
 
+        //플레이어 유닛 액션
         foreach (var unit in playerUnits) {
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
             //이동할 수 있다면, 이동시키고 다음 유닛으로
@@ -47,6 +48,13 @@ public class BattleSystem : MonoBehaviour
             //이동할 수 없다면, 공격을 시도
             UnitAttack(unit);
         }
+
+        //적 유닛 액션
+
+
+
+        //유닛의 죽음 처리
+
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
     }
