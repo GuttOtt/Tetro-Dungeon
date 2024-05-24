@@ -29,6 +29,10 @@ public class CardSystem : MonoBehaviour
         MoveUnitBlockMarker();
     }
 
+    public UnitConfig GetRandomUnitConfig() {
+        return _unitPool[Random.Range(0, _unitPool.Count)];
+    }
+
     public BaseCard CreateCard(UnitConfig unitConfig, Polyomino polyomino) {
         BaseCard card = Instantiate(_cardPrefab);
         card.Init(unitConfig, polyomino);
@@ -82,7 +86,11 @@ public class CardSystem : MonoBehaviour
             _unitBlockMarker.Clear();
             _unitBlockMarker.gameObject.SetActive(false);
 
+            //임시코드
+            Destroy((_selectedCard as BaseCard).gameObject);
+
             _selectedCard = null;
+
         }
     }
 

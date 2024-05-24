@@ -32,6 +32,7 @@ public class EnemySystem : MonoBehaviour {
             int r = Random.Range(0, unitPool.Count);
             UnitConfig config = unitPool[r];
             BaseUnit unit = _unitSystem.CreateUnit(config, CharacterTypes.Enemy) as BaseUnit;
+            //unit.GetComponent<SpriteRenderer>().color = Color.red;
             
             //유닛을 unitList에 추가
             unitList.Add(unit);
