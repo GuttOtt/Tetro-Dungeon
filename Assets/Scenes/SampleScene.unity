@@ -1259,6 +1259,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitBlockMarker: {fileID: 1641007580}
+  _unitPool:
+  - {fileID: 11400000, guid: 8036e5f23a734f045a0b89b54986af6c, type: 2}
+  - {fileID: 11400000, guid: d9e8f0f574d1aa84a80b1385d436d776, type: 2}
+  - {fileID: 11400000, guid: f4ab148cd63f8064089a1c32b9822a35, type: 2}
+  - {fileID: 11400000, guid: 5fe11962aca75d444871389be37e42a1, type: 2}
+  _cardPrefab: {fileID: 9058701112474785303, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
+  deckNumber: 10
 --- !u!4 &1521026326
 Transform:
   m_ObjectHideFlags: 0
@@ -1635,9 +1642,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4047165083426500640, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5396450679634773964, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 513878361742662239, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}

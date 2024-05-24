@@ -1,5 +1,5 @@
 public interface ICardPile
 {
-    public bool AddCard(ICard card);
+    public void AddCard(ICard card);
     public void RemoveCard(ICard card);
 }

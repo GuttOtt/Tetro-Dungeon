@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _owner: 0
+  _unitDrawer: {fileID: 0}
 --- !u!114 &1771185104075080121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdeaf440d45d1e547a46a46bc933d886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitSprite: {fileID: 0}
+  _unitSprite: {fileID: 8751597319246219353}
   _hpText: {fileID: 5456607161611829881}
   _mpText: {fileID: 0}
   _attackText: {fileID: 6202231365352694041}

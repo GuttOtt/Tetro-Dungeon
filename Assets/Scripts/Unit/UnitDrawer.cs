@@ -22,5 +22,16 @@ public class UnitDrawer : MonoBehaviour
         _rangeText?.SetText(unitConfig.Range.ToString());
     }
 
+    public void UpdateHP(int hp, Color color) {
+        _hpText?.SetText(hp.ToString());
+        _hpText.color = color;
+    }
 
+    public void Highlight() {
+        _unitSprite.color = Color.yellow;
+    }
+
+    public void Unhighlight() {
+        _unitSprite.color = Color.white;
+    }
 }

@@ -42,26 +42,54 @@ public class BattleSystem : MonoBehaviour
 
         //플레이어 유닛 액션
         foreach (var unit in playerUnits) {
+            //하이라이트하고 딜레이
+            (unit as BaseUnit).Highlight();
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+
             //이동할 수 있다면, 이동시키고 다음 유닛으로
-            if (MoveUnit(unit, attackTurn)) continue;
+            if (CheckMovable(unit, attackTurn)) {
+                MoveUnit(unit);
+            }
             //이동할 수 없다면, 공격을 시도
-            UnitAttack(unit);
+            else {
+                UnitAttack(unit);
+            }
+
+            //하이라이트 끄기
+            (unit as BaseUnit).Unhighlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
         }
 
         //적 유닛 액션
+        foreach (var unit in enemyUnits) {
+            //하이라이트하고 딜레이
+            (unit as BaseUnit).Highlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
 
+            //이동할 수 있다면, 이동시키고 다음 유닛으로
+            if (CheckMovable(unit, attackTurn)) {
+                MoveUnit(unit);
+            }
+            //이동할 수 없다면, 공격을 시도
+            else {
+                UnitAttack(unit);
+            }
+
+            //하이라이트 끄기
+            (unit as BaseUnit).Unhighlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+        }
 
 
         //유닛의 죽음 처리
-
+        ProcessDeath(playerUnits);
+        ProcessDeath(enemyUnits);
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
     }
 
-    private bool MoveUnit(IUnit unit, CharacterTypes attackTurn) {
+    private bool CheckMovable(IUnit unit, CharacterTypes attackTurn) {
         if (unit.Owner != attackTurn) {
-            Debug.Log("이 유닛의 이동 턴이 아닙니다");
             return false;
         }
         Cell currentCell = unit.CurrentCell;
@@ -74,14 +102,26 @@ public class BattleSystem : MonoBehaviour
         Cell forwardCell = _board.GetCell(targetColumn, currentCell.position.row);
 
         //forwardCell에 이미 유닛이 있거나, forwardCell이 존재하지 않는다면 false
-        if (forwardCell == null || forwardCell.Unit != null) return false;
+        if (forwardCell == null || forwardCell.Unit != null)
+            return false;
+
+        return true;
+    }
+
+    private void MoveUnit(IUnit unit) {
+        Cell currentCell = unit.CurrentCell;
+
+        // 전방으로 한 칸의 위치 계산
+        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
+        int targetColumn = currentCell.position.col + forwardOffset;
+
+        //유닛의 앞쪽 셀을 가져옴
+        Cell forwardCell = _board.GetCell(targetColumn, currentCell.position.row);
 
         //유닛 이동하고 return true
         currentCell.UnitOut();
         forwardCell.UnitIn(unit);
         unit.CurrentCell = forwardCell;
-
-        return true;
     }
 
     private void UnitAttack(IUnit unit) {
@@ -92,14 +132,23 @@ public class BattleSystem : MonoBehaviour
         int originRow = currentCell.position.row;
 
         //가까운 유닛을 우선으로 공격
-        for (int attackCol = originCol + 1; attackCol <= originCol + range; attackCol++) {
-            Cell targetCell = _board.GetCell(attackCol, originRow);
+        for (int i = 1; i <= range; i++) {
+            Cell targetCell = _board.GetCell(originCol + forwardOffset * i, originRow);
             IUnit targetUnit = targetCell.Unit;
 
-            if (targetUnit != null) {
+            if (targetUnit != null && unit.Owner != targetUnit.Owner) {
                 //사정거리 내에 유닛이 있으면 공격하고 루프 종료
                 targetUnit.TakeDamage(unit.Attack);
                 break;
+            }
+        }
+    }
+
+    private void ProcessDeath(List<IUnit> units) {
+        foreach (IUnit unit in units) {
+            BaseUnit baseUnit = unit as BaseUnit;
+            if (baseUnit.CurrentHP <= 0) {
+                Destroy(baseUnit.gameObject);
             }
         }
     }

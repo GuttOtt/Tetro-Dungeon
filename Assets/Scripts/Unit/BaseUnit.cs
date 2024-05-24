@@ -6,10 +6,13 @@ using Unity.Mathematics;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
+    #region private members
     private Cell _currentCell;
     private UnitConfig _config;
     private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range;
     [SerializeField] private CharacterTypes _owner;
+    [SerializeField] private UnitDrawer _unitDrawer;
+    #endregion
 
     #region Properties
     public int MaxHP { get => _maxHP; }
@@ -19,12 +22,31 @@ public class BaseUnit : MonoBehaviour, IUnit
     public Action OnDie { get; set; }
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
+    public int CurrentHP { 
+        get => _currentHP;
+        private set {
+            _currentHP = value;
+            if (_currentHP < _maxHP) {
+                _unitDrawer.UpdateHP(_currentHP, Color.red);
+            }
+            else if (_maxHP < _currentHP) {
+                _unitDrawer.UpdateHP(_currentHP, Color.green);
+            }
+            else {
+                _unitDrawer.UpdateHP(_currentHP, Color.black);
+            }
+        }
+    }
     #endregion
 
 
     public void Init(UnitConfig config, CharacterTypes owner) {
         //Config
         _config = config;
+
+        //Draw
+        _unitDrawer = GetComponent<UnitDrawer>();
+        _unitDrawer.Draw(config);
 
         //Stats
         _maxHP = config.MaxHP;
@@ -36,15 +58,21 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         _owner = owner;
 
-        //Draw
-        GetComponent<UnitDrawer>().Draw(config);
     }
 
     public void TakeDamage(int damage) {
-        _currentHP -= damage;
+        CurrentHP -= damage;
     }
 
     public void Die() {
         OnDie();
+    }
+
+    public void Highlight() {
+        _unitDrawer.Highlight();
+    }
+
+    public void Unhighlight() {
+        _unitDrawer.Unhighlight();
     }
 }
