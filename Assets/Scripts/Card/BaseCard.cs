@@ -38,7 +38,7 @@ namespace Card
         private void Start() {
             //프로토타이핑용 임시코드
             UnitConfig = FindObjectOfType<GameManager>().GetSystem<CardSystem>().GetRandomUnitConfig();
-            Polyomino = new Polyomino(Polyomino.Tetrominoes[Random.Range(0, 19)]);
+            Polyomino = Polyomino.GetRandomPolyomino();
             DrawPolyomino();
             DrawUnit();
         }

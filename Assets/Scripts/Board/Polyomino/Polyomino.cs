@@ -72,7 +72,7 @@ public class Polyomino
     public static readonly Dictionary<int, int[][,]> MinoDict = new Dictionary<int, int[][,]> {
         { 1, Monominoes },
         { 2, Dominoes}, 
-        { 3, Monominoes },
+        { 3, Triominoes },
         { 4, Tetrominoes }
     };
     #endregion
@@ -90,6 +90,6 @@ public class Polyomino
     }
 
     public static Polyomino GetRandomPolyomino() {//블럭 크기
-        return GetRandomPolyomino(UnityEngine.Random.Range(0, 4));
+        return GetRandomPolyomino(UnityEngine.Random.Range(1, 5));
     }
 }
