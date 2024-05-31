@@ -36,11 +36,6 @@ namespace Card
         #endregion
 
         private void Start() {
-            //프로토타이핑용 임시코드
-            UnitConfig = FindObjectOfType<GameManager>().GetSystem<CardSystem>().GetRandomUnitConfig();
-            Polyomino = Polyomino.GetRandomPolyomino();
-            DrawPolyomino();
-            DrawUnit();
         }
     }
 }

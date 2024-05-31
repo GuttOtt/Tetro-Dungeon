@@ -10,19 +10,29 @@ public class EnemySystem : MonoBehaviour {
     //Manager and Systems
     private IGameManager _gameManager;
     private UnitSystem _unitSystem;
+
     //Unit 관련
     [SerializeField]
     private List<UnitConfig> unitPool = new List<UnitConfig>();
     private List<BaseUnit> unitList = new List<BaseUnit>();//이번 턴에 소환할 유닛들
+
     [SerializeField]
     private GameObject unitListDisplay;
+
     [SerializeField]
     private Vector2 unitGap; //unitListDisplay 사이에 표시되는 unit 사이의 갭
+
+    [SerializeField]
+    private int unitAmount = 5; //한 턴에 소환되는 유닛의 수(임시)
     #endregion
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<IGameManager>();
         _unitSystem = _gameManager.GetSystem<UnitSystem>();
+    }
+
+    public void DecideUnitList() {
+        DecideUnitList(unitAmount);
     }
 
     public void DecideUnitList(int number) {

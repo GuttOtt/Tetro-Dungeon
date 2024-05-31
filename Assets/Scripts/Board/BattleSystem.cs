@@ -11,10 +11,14 @@ public class BattleSystem : MonoBehaviour
     #region private members
     private IGameManager _gameManager;
     private Board _board;
+    
+    //배틀 진행 시의 딜레이
     [SerializeField]
     private float delayPerUnit = 0.5f;
     [SerializeField]
     private float delayPerTick = 1f;
+
+    private bool _isProcessing = false;
     #endregion
 
     [SerializeField]
@@ -26,8 +30,13 @@ public class BattleSystem : MonoBehaviour
     }
 
     public async void StartBattle() {
+        if (_isProcessing)
+            return;
+
         Debug.Log("Battle Started");
+        _isProcessing = true;
         await ComputeTick(CharacterTypes.Player);
+        _isProcessing= false;
     }
 
     public async UniTask ComputeTick(CharacterTypes attackTurn) {

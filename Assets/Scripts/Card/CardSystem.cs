@@ -17,6 +17,9 @@ public class CardSystem : MonoBehaviour
     private BaseCard _cardPrefab;
     [SerializeField]
     private int deckNumber;
+
+    //카드를 마우스로 선택할 수 있는 상태인지
+    private bool _isInputOn = false;
     #endregion
 
     private void Awake() {
@@ -39,6 +42,7 @@ public class CardSystem : MonoBehaviour
         return card;
     }
 
+    #region Deck And Hand Methods
     public void DrawCard() {
 
     }
@@ -46,6 +50,7 @@ public class CardSystem : MonoBehaviour
     public void ShuffleDeck() {
 
     }
+    #endregion
 
     public void SetDeck(int deckAmount) {
         for (int i = 0; i < deckAmount; i++) {
@@ -56,9 +61,25 @@ public class CardSystem : MonoBehaviour
         }
     }
 
+    #region Selecting and Playing Cards
+    public void SetInputOn() {
+        _isInputOn = true;
+
+        //카드 호버 시의 애니메이션 등도 여기서 켤 수 있도록 한다
+    }
+
+    public void SetInputOff() {
+        _isInputOn= false;
+
+        //카드 호버 시의 애니메이션 등도 여기서 끌 수 있도록 한다
+    }
+
     private void SelectCard() {
+        if (!_isInputOn) {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0)) {
-            Debug.Log("Clicked");
             _selectedCard = Utils.Pick<BaseCard>();
 
             //카드를 선택했다면 카드에 맞는 유닛 블럭 마커를 생성
@@ -102,4 +123,5 @@ public class CardSystem : MonoBehaviour
             _unitBlockMarker.transform.position = mousePosition;
         }
     }
+    #endregion
 }
