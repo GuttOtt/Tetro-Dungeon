@@ -20,8 +20,13 @@ public class Hand : MonoBehaviour, ICardPile {
     public void RemoveCard(ICard card) {
         if (!_hands.Contains(card))
             return;
+
         _hands.Remove(card);
         Arrange();
+    }
+
+    public bool IsContain(ICard card) {
+        return _hands.Contains(card);
     }
 
     private void Arrange() {
@@ -34,7 +39,7 @@ public class Hand : MonoBehaviour, ICardPile {
         }
 
         //Get origin
-        float xOrigin = _hands.Count % 2 == 0 ? _hands.Count / 2 * 0.5f * -_cardSize.x
+        float xOrigin = _hands.Count % 2 == 0 ? (_hands.Count / 2 - 0.5f) * -_cardSize.x
             : _hands.Count / 2 * -_cardSize.x;
 
         for (int i = 0; i < _hands.Count; i++) {

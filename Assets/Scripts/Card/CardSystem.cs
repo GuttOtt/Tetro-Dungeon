@@ -13,6 +13,7 @@ public class CardSystem : MonoBehaviour
 
     private Deck _deck;
     private Hand _hand;
+    private Discards _discards;
     
     private ICard _selectedCard;
 
@@ -33,6 +34,7 @@ public class CardSystem : MonoBehaviour
 
         _deck = GetComponent<Deck>();
         _hand = GetComponent<Hand>();
+        _discards = GetComponent<Discards>();
     }
 
     private void Update() {
@@ -100,6 +102,9 @@ public class CardSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) {
             _selectedCard = Utils.Pick<BaseCard>();
 
+            if (!_hand.IsContain(_selectedCard))
+                return;
+
             //카드를 선택했다면 카드에 맞는 유닛 블럭 마커를 생성
             if (_selectedCard != null) {
                 Debug.Log("Selected");
@@ -125,12 +130,13 @@ public class CardSystem : MonoBehaviour
             _unitBlockMarker.Clear();
             _unitBlockMarker.gameObject.SetActive(false);
 
-            _selectedCard = null;
-
             //유닛 배치에 성공한 경우 카드를 Discard로 보냄
             if (isPlaced) {
-
+                _hand.RemoveCard(_selectedCard);
+                _discards.AddCard(_selectedCard);
             }
+
+            _selectedCard = null;
         }
     }
 
