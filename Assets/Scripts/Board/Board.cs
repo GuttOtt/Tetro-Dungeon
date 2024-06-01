@@ -16,6 +16,8 @@ public class Board : MonoBehaviour
     #region properties
     public List<IUnit> PlayerUnits { get => unitDic[CharacterTypes.Player]; }
     public List<IUnit> EnemyUnits { get => unitDic[CharacterTypes.Enemy]; }
+    public int Row { get => row; }
+    public int Column { get => column; }
     #endregion
 
     private void Awake() {
@@ -80,6 +82,7 @@ public class Board : MonoBehaviour
         return true;
     }
 
+    //Place UnitBlock
     public bool Place(Cell topLeft, Polyomino polyomino, UnitConfig unitConfig, CharacterTypes characterType = CharacterTypes.Player) {
         if (!IsPlacable(polyomino, topLeft)) return false;
 
@@ -101,6 +104,7 @@ public class Board : MonoBehaviour
         return true;
     }
 
+    //Place a Unit
     public bool Place(Cell cell, BaseUnit unit) {
         if (cell.Unit != null) {
             return false;
@@ -112,6 +116,7 @@ public class Board : MonoBehaviour
         unit.transform.localPosition = Vector3.zero;
         unitDic[unit.Owner].Add(unit);
 
+        unit.OnDie += () => unitDic[unit.Owner].Remove(unit);
 
         return true;
     }

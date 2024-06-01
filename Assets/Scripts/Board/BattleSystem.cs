@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -18,15 +19,30 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     private float delayPerTick = 1f;
 
+    //배틀이 진행중인가?
     private bool _isProcessing = false;
-    #endregion
 
-    [SerializeField]
-    List<BaseUnit> list = new List<BaseUnit>();
+    //라이프 (이후 다른 클래스로 옮겨야 할 수도 있음)
+    private Dictionary<CharacterTypes, int> _lifeDic;
+    [SerializeField] private TMP_Text _playerLifeText;
+    [SerializeField] private TMP_Text _enemyLifeText;
+    private Dictionary<CharacterTypes, TMP_Text> _lifeTextDic = new Dictionary<CharacterTypes, TMP_Text>();
+    #endregion
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
+
+        //Set Life
+        _lifeDic = new Dictionary<CharacterTypes, int>() { 
+            { CharacterTypes.Player, 10 },
+            { CharacterTypes.Enemy, 10 }
+        };
+
+        _lifeTextDic.Add(CharacterTypes.Player, _playerLifeText);
+        _lifeTextDic.Add(CharacterTypes.Enemy, _enemyLifeText);
+        UpdateLifeText(CharacterTypes.Player);
+        UpdateLifeText(CharacterTypes.Enemy);
     }
 
     public async void StartBattle(CharacterTypes attackTurn) {
@@ -35,7 +51,15 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log("Battle Started");
         _isProcessing = true;
-        await ComputeTick(attackTurn);
+
+        //Attack Turn의 유닛이 전부 사라질 때까지 전투
+        while (true) {
+            if (_board.GetUnits(attackTurn).Count == 0) break;
+
+            await ComputeTick(attackTurn);
+        }
+
+        //배틀 종료
         _isProcessing= false;
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
@@ -95,7 +119,7 @@ public class BattleSystem : MonoBehaviour
         ProcessDeath(playerUnits);
         ProcessDeath(enemyUnits);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayPerTick));
     }
 
     private bool CheckMovable(IUnit unit, CharacterTypes attackTurn) {
@@ -128,10 +152,17 @@ public class BattleSystem : MonoBehaviour
         //유닛의 앞쪽 셀을 가져옴
         Cell forwardCell = _board.GetCell(targetColumn, currentCell.position.row);
 
-        //유닛 이동하고 return true
+        //유닛 이동
         currentCell.UnitOut();
         forwardCell.UnitIn(unit);
         unit.CurrentCell = forwardCell;
+
+        //끝 열에 도달했다면 유닛을 죽이고 라이프 데미지
+        int endCol = unit.Owner == CharacterTypes.Player ? _board.Column - 1 : 0;
+        if (forwardCell.position.col == endCol) {
+            LifeDamage(unit.Owner.Opponent(), unit.Attack);
+            unit.Die();
+        }
     }
 
     private void UnitAttack(IUnit unit) {
@@ -158,8 +189,19 @@ public class BattleSystem : MonoBehaviour
         foreach (IUnit unit in units) {
             BaseUnit baseUnit = unit as BaseUnit;
             if (baseUnit.CurrentHP <= 0) {
-                Destroy(baseUnit.gameObject);
+                baseUnit.Die();
             }
         }
     }
+
+    #region Life Damage
+    private void LifeDamage(CharacterTypes characterType, int damage) {
+        _lifeDic[characterType] -= damage;
+        UpdateLifeText(characterType);
+    }
+
+    private void UpdateLifeText(CharacterTypes charactertype) {
+        _lifeTextDic[charactertype].text = "Life: " + _lifeDic[charactertype].ToString();
+    }
+    #endregion
 }

@@ -34,6 +34,7 @@ public class Cell : MonoBehaviour
         else {
             unit.CurrentCell?.UnitOut();
             this._unit = unit;
+            (unit as BaseUnit).OnDie += () => UnitOut();
 
             //Transform ÀÌµ¿
             Transform unitTransform = (unit as BaseUnit).transform;
@@ -48,6 +49,7 @@ public class Cell : MonoBehaviour
     public IUnit UnitOut() {
         if (_unit == null) return null;
 
+        (_unit as BaseUnit).OnDie -= () => UnitOut();
         var temp = _unit;
         _unit = null;
         return temp;

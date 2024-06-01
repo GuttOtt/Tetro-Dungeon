@@ -7,6 +7,7 @@ using Unity.Mathematics;
 public class BaseUnit : MonoBehaviour, IUnit
 {
     #region private members
+    private UnitSystem _unitSystem;
     private Cell _currentCell;
     private UnitConfig _config;
     private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range;
@@ -40,7 +41,10 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public void Init(UnitConfig config, CharacterTypes owner) {
+    public void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner) {
+        //System
+        _unitSystem = unitSystem;
+
         //Config
         _config = config;
 
@@ -66,6 +70,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void Die() {
         OnDie();
+        _unitSystem.DestroyUnit(this);
     }
 
     public void Highlight() {

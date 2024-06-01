@@ -8,4 +8,5 @@ public interface IUnit
     public Cell CurrentCell { get; set;  }
     public EnumTypes.CharacterTypes Owner { get; }
     public void TakeDamage(int damage);
+    public void Die();
 }
