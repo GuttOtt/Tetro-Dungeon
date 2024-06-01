@@ -20,7 +20,6 @@ public class Board : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
-        Init();
     }
 
     public void Init() {

@@ -1,5 +1,8 @@
+using Cysharp.Threading.Tasks;
+using EnumTypes;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PhaseSystem : MonoBehaviour {
@@ -14,14 +17,20 @@ public class PhaseSystem : MonoBehaviour {
     private CardSystem _cardSystem;
     private BattleSystem _battleSystem;
     private EnemySystem _enemySystem;
+
+    //페이즈 표시 관련
+    [SerializeField] private TMP_Text _phaseText;
+
+    //현재 공격 턴
+    private CharacterTypes _attackTurn = CharacterTypes.Player;
     #endregion
 
     public CardSystem CardSystem { get => _cardSystem; }
     public BattleSystem BattleSystem { get => _battleSystem; }
     public EnemySystem EnemySystem { get => _enemySystem; }
+    public CharacterTypes AttackTurn { get => _attackTurn; }
 
-
-    private void Start() {
+    private void Awake() {
         _gameManager = transform.parent.GetComponent<IGameManager>();
         _cardSystem = _gameManager.GetSystem<CardSystem>();
         _battleSystem = _gameManager.GetSystem<BattleSystem>();
@@ -35,19 +44,27 @@ public class PhaseSystem : MonoBehaviour {
         _endPhase = new EndPhase();
     }
 
-    public void ToStandbyPhase() {
+    public async void ToStandbyPhase() {
+        _phaseText.text = "Standby Phase";
         _phaseContext.Transit(_standbyPhase);
+
+        await UniTask.WaitForSeconds(2);
+
+        ToMainPhase();
     }
 
     public void ToMainPhase() {
+        _phaseText.text = "Main Phase";
         _phaseContext.Transit(_mainPhase);
     }
 
     public void ToBattlePhase() {
+        _phaseText.text = "Battle Phase";
         _phaseContext.Transit(_battlePhase);
     }
 
     public void ToEndPhase() {
+        _phaseText.text = "End Phase";
         _phaseContext.Transit(_endPhase);
     }
 }
@@ -72,7 +89,7 @@ public class StandbyPhase : IPhase {
     public void EnterPhase(PhaseSystem phaseSystem) {
         //Draw
         CardSystem cardSystem = phaseSystem.CardSystem;
-        cardSystem.DrawCard();
+        cardSystem.DrawCard(5);
 
         //Decide Enemy Units
         EnemySystem enemySystem = phaseSystem.EnemySystem;
@@ -101,7 +118,7 @@ public class BattlePhase : IPhase {
         phaseSystem.EnemySystem.PlaceUnit();
 
         //Start Battle
-        phaseSystem.BattleSystem.StartBattle();
+        phaseSystem.BattleSystem.StartBattle(phaseSystem.AttackTurn);
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {

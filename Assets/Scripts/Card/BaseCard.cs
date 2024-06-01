@@ -21,6 +21,9 @@ namespace Card
         public void Init(UnitConfig unitConfig, Polyomino polyomino) {
             UnitConfig = unitConfig;
             Polyomino = polyomino;
+
+            DrawPolyomino();
+            DrawUnit();
         }
 
         #region Presentation
@@ -35,7 +38,5 @@ namespace Card
         }
         #endregion
 
-        private void Start() {
-        }
     }
 }

@@ -6,10 +6,16 @@ public class CardSystem : MonoBehaviour
 {
     #region private members
     private IGameManager _gameManager;
-    [SerializeField] private UnitBlockDrawer _unitBlockMarker;
-    private List<ICard> cards;
-    private Deck deck;
+    [SerializeField]
+    private UnitBlockDrawer _unitBlockMarker;
+
+    private List<ICard> _cards;
+
+    private Deck _deck;
+    private Hand _hand;
+    
     private ICard _selectedCard;
+
 
     [SerializeField]
     private List<UnitConfig> _unitPool = new List<UnitConfig>();
@@ -24,6 +30,9 @@ public class CardSystem : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
+
+        _deck = GetComponent<Deck>();
+        _hand = GetComponent<Hand>();
     }
 
     private void Update() {
@@ -43,12 +52,19 @@ public class CardSystem : MonoBehaviour
     }
 
     #region Deck And Hand Methods
-    public void DrawCard() {
+    public void DrawCard(int amount) {
+        for (int i = 0; i < amount; i++) {
+            DrawCard();
+        }
+    }
 
+    public void DrawCard() {
+        ICard card = _deck.Draw();
+        _hand.AddCard(card);
     }
 
     public void ShuffleDeck() {
-
+        _deck.Shuffle();
     }
     #endregion
 
@@ -57,8 +73,10 @@ public class CardSystem : MonoBehaviour
             UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
             Polyomino polyomino = Polyomino.GetRandomPolyomino();
             BaseCard card = CreateCard(config, polyomino);
-            deck.AddCard(card);
+            _deck.AddCard(card);
         }
+
+        _deck.Shuffle();
     }
 
     #region Selecting and Playing Cards
@@ -96,22 +114,23 @@ public class CardSystem : MonoBehaviour
 
             Vector3 topLeftPos = _unitBlockMarker.GetTopLeftPosition();
             Cell topLeftCell = Utils.Pick<Cell>(topLeftPos);
-            Debug.Log("Cell: " + topLeftCell);
+            bool isPlaced = false;
 
             if (topLeftCell != null) {
                 Board board = _gameManager.GetSystem<Board>();
-                board.Place(topLeftCell, _selectedCard.Polyomino, _selectedCard.UnitConfig);
+                isPlaced = board.Place(topLeftCell, _selectedCard.Polyomino, _selectedCard.UnitConfig);
             }
 
             //Unit Block Marker를 Clear하고 비활성화
             _unitBlockMarker.Clear();
             _unitBlockMarker.gameObject.SetActive(false);
 
-            //임시코드
-            Destroy((_selectedCard as BaseCard).gameObject);
-
             _selectedCard = null;
 
+            //유닛 배치에 성공한 경우 카드를 Discard로 보냄
+            if (isPlaced) {
+
+            }
         }
     }
 

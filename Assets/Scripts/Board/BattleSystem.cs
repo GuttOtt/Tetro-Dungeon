@@ -29,14 +29,15 @@ public class BattleSystem : MonoBehaviour
         _board = _gameManager.GetSystem<Board>();
     }
 
-    public async void StartBattle() {
+    public async void StartBattle(CharacterTypes attackTurn) {
         if (_isProcessing)
             return;
 
         Debug.Log("Battle Started");
         _isProcessing = true;
-        await ComputeTick(CharacterTypes.Player);
+        await ComputeTick(attackTurn);
         _isProcessing= false;
+        _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
     public async UniTask ComputeTick(CharacterTypes attackTurn) {

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
+    #region private members
     [SerializeField]
     private CardSystem _cardSystem;
 
@@ -11,6 +12,25 @@ public class GameManager : MonoBehaviour, IGameManager
     [SerializeField]
     private Board _board;
 
+    [SerializeField]
+    private PhaseSystem _phaseSystem;
+
+    [SerializeField]
+    private BattleSystem _battleSystem;
+
+    [SerializeField]
+    private EnemySystem _enemySystem;
+    #endregion
+
+    private void Start() {
+        StartBattleScene();
+    }
+
+    private void StartBattleScene() {
+        _cardSystem.SetDeck(15);
+        _board.Init();
+        _phaseSystem.ToStandbyPhase();
+    }
 
     public T GetSystem<T>() where T : class {
         if (typeof(T) == typeof(CardSystem)) {
@@ -21,6 +41,15 @@ public class GameManager : MonoBehaviour, IGameManager
         }
         else if (typeof(T) == typeof(Board)) {
             return _board as T;
+        }
+        else if (typeof(T) == typeof(PhaseSystem)) {
+            return _phaseSystem as T;
+        }
+        else if(typeof(T) == typeof(BattleSystem)) {
+            return _battleSystem as T;
+        }
+        else if (typeof(T) == typeof(EnemySystem)) {
+            return _enemySystem as T;
         }
         else {
             Debug.LogError($"System of type {typeof(T)} is not supported.");
