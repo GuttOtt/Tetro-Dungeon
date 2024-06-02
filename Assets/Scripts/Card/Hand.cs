@@ -9,6 +9,8 @@ public class Hand : MonoBehaviour, ICardPile {
     private Vector2 _cardSize;
     #endregion
 
+    public List<ICard> Hands { get => _hands; }
+
     public void AddCard(ICard card) {
         _hands.Add(card);
         BaseCard baseCard = card as BaseCard;
@@ -47,4 +49,5 @@ public class Hand : MonoBehaviour, ICardPile {
             card.transform.localPosition = new Vector2(xOrigin + i * _cardSize.x, 0);
         }
     }
+
 }

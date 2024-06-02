@@ -1,5 +1,6 @@
 using Card;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CardSystem : MonoBehaviour
@@ -54,6 +55,16 @@ public class CardSystem : MonoBehaviour
     }
 
     #region Deck And Hand Methods
+    public void SetDeck(int deckAmount) {
+        for (int i = 0; i < deckAmount; i++) {
+            UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
+            Polyomino polyomino = Polyomino.GetRandomPolyomino();
+            BaseCard card = CreateCard(config, polyomino);
+            _deck.AddCard(card);
+        }
+
+        _deck.Shuffle();
+    }
     public void DrawCard(int amount) {
         for (int i = 0; i < amount; i++) {
             DrawCard();
@@ -68,18 +79,17 @@ public class CardSystem : MonoBehaviour
     public void ShuffleDeck() {
         _deck.Shuffle();
     }
+
+    public void DiscardAllHand() {
+        List<ICard> temp = _hand.Hands.ToList();
+
+        foreach (var card in temp) {
+            _hand.RemoveCard(card);
+            _discards.AddCard(card);
+        }
+    }
     #endregion
 
-    public void SetDeck(int deckAmount) {
-        for (int i = 0; i < deckAmount; i++) {
-            UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-            Polyomino polyomino = Polyomino.GetRandomPolyomino();
-            BaseCard card = CreateCard(config, polyomino);
-            _deck.AddCard(card);
-        }
-
-        _deck.Shuffle();
-    }
 
     #region Selecting and Playing Cards
     public void SetInputOn() {

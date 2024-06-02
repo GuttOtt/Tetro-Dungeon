@@ -109,6 +109,9 @@ public class MainPhase : IPhase {
     public void ExitPhase(PhaseSystem phaseSystem) {
         //Card Input Off
         phaseSystem.CardSystem.SetInputOff();
+
+        //Discard all hands
+        phaseSystem.CardSystem.DiscardAllHand();
     }
 }
 
@@ -118,7 +121,7 @@ public class BattlePhase : IPhase {
         phaseSystem.EnemySystem.PlaceUnit();
 
         //Start Battle
-        phaseSystem.BattleSystem.StartBattle(phaseSystem.AttackTurn);
+        phaseSystem.BattleSystem.StartBattle(phaseSystem.AttackTurn).Forget();
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {

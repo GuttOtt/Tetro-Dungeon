@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -28,6 +29,9 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private TMP_Text _playerLifeText;
     [SerializeField] private TMP_Text _enemyLifeText;
     private Dictionary<CharacterTypes, TMP_Text> _lifeTextDic = new Dictionary<CharacterTypes, TMP_Text>();
+
+    //배틀 UniTask를 중단하기 위한 CancellationToken
+    private CancellationTokenSource battleCancel = new CancellationTokenSource();
     #endregion
 
     private enum UnitActionTypes {
@@ -50,7 +54,7 @@ public class BattleSystem : MonoBehaviour
         UpdateLifeText(CharacterTypes.Enemy);
     }
 
-    public async void StartBattle(CharacterTypes attackTurn) {
+    public async UniTask StartBattle(CharacterTypes attackTurn) {
         if (_isProcessing)
             return;
 
@@ -61,7 +65,15 @@ public class BattleSystem : MonoBehaviour
         while (true) {
             if (_board.GetUnits(attackTurn).Count == 0) break;
 
+            //틱 진행
             await ComputeTick(attackTurn);
+
+            //에너미 체력이 0 이하라면 플레이어 승리 판정
+            if (_lifeDic[CharacterTypes.Enemy] <= 0) {
+                _gameManager.PlayerWin();
+                _isProcessing = false;
+                return;
+            }
         }
 
         //남은 방어 유닛들의 공격력만큼 공격턴 캐릭터에게 데미지
@@ -70,6 +82,13 @@ public class BattleSystem : MonoBehaviour
             LifeDamage(attackTurn, unit.Attack);
             unit.Die();
             await UniTask.WaitForSeconds(0.5f);
+        }
+
+        //플레이어 체력이 0 이하라면 플레이어 패배 판정
+        if (_lifeDic[CharacterTypes.Player] <= 0) {
+            _gameManager.PlayerLose();
+            _isProcessing = false;
+            return;
         }
 
         //배틀 종료
@@ -173,6 +192,10 @@ public class BattleSystem : MonoBehaviour
         ProcessDeath(enemyUnits);
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayPerTick));
+    }
+
+    private void StopBattle() {
+
     }
 
     private bool CheckMovable(IUnit unit, CharacterTypes attackTurn) {

@@ -1,8 +1,13 @@
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
+//전반적인 게임 플로우 제어 및
+//System 들의 컴포지트 루트 담당
 public class GameManager : MonoBehaviour, IGameManager
 {
     #region private members
+    #region Systems
     [SerializeField]
     private CardSystem _cardSystem;
 
@@ -20,6 +25,11 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private EnemySystem _enemySystem;
+
+    #endregion
+
+    [SerializeField]
+    private TMP_Text _victoryText;
     #endregion
 
     private void Start() {
@@ -55,5 +65,15 @@ public class GameManager : MonoBehaviour, IGameManager
             Debug.LogError($"System of type {typeof(T)} is not supported.");
             return null;
         }
+    }
+
+    public void PlayerWin() {
+        _victoryText.gameObject.SetActive(true);
+        _victoryText.text = "Player Wins!";
+    }
+
+    public void PlayerLose() {
+        _victoryText.gameObject.SetActive(true);
+        _victoryText.text = "Player Loses...";
     }
 }
