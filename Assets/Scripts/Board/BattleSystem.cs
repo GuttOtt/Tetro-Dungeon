@@ -250,6 +250,7 @@ public class BattleSystem : MonoBehaviour
 
         return null;
     }
+
     private void MoveUnit(IUnit unit) {
         Cell currentCell = unit.CurrentCell;
 
