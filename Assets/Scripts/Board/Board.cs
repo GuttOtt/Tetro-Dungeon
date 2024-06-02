@@ -122,7 +122,7 @@ public class Board : MonoBehaviour
     }
 
     public List<IUnit> GetUnits(CharacterTypes chracterType) {
-        return unitDic[chracterType];
+        return unitDic[chracterType].ToList();
     }
 
     public Cell GetCell(int col, int row) {

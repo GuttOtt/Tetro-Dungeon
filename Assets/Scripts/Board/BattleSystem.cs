@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
@@ -28,6 +29,10 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private TMP_Text _enemyLifeText;
     private Dictionary<CharacterTypes, TMP_Text> _lifeTextDic = new Dictionary<CharacterTypes, TMP_Text>();
     #endregion
+
+    private enum UnitActionTypes {
+        Move, Attack, None
+    }
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
@@ -59,6 +64,14 @@ public class BattleSystem : MonoBehaviour
             await ComputeTick(attackTurn);
         }
 
+        //남은 방어 유닛들의 공격력만큼 공격턴 캐릭터에게 데미지
+        List<IUnit> defenceUnits = _board.GetUnits(attackTurn.Opponent());
+        foreach (IUnit unit in defenceUnits) {
+            LifeDamage(attackTurn, unit.Attack);
+            unit.Die();
+            await UniTask.WaitForSeconds(0.5f);
+        }
+
         //배틀 종료
         _isProcessing= false;
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
@@ -72,8 +85,48 @@ public class BattleSystem : MonoBehaviour
         playerUnits = playerUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenByDescending(unit => unit.CurrentCell.position.col).ToList();
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
-            .ThenByDescending(unit => unit.CurrentCell.position.col).ToList();
+            .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
+        //액션 결정
+        Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
+        List<IUnit> allUnit = new List<IUnit>();
+        allUnit.AddRange(playerUnits);
+        allUnit.AddRange(enemyUnits);
+
+        foreach (IUnit unit in allUnit) {
+            if (CheckMovable(unit, attackTurn)) {
+                actionDic.Add(unit, UnitActionTypes.Move);
+            }
+            else if (CheckAttackable(unit)) {
+                actionDic.Add(unit, UnitActionTypes.Attack);
+            }
+            else {
+                actionDic.Add(unit, UnitActionTypes.None);
+            }
+        }
+
+        //액션 진행
+        foreach (IUnit unit in actionDic.Keys) {
+            UnitActionTypes action = actionDic[unit];
+
+            //하이라이트하고 딜레이
+            (unit as BaseUnit).Highlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+
+            switch (action) {
+                case UnitActionTypes.Move:
+                    MoveUnit(unit);
+                    break;
+                case UnitActionTypes.Attack:
+                    UnitAttack(unit);
+                    break;
+                case UnitActionTypes.None:
+                    break;
+            }
+
+            (unit as BaseUnit).Unhighlight();
+        }
+        /*
         //플레이어 유닛 액션
         foreach (var unit in playerUnits) {
             //하이라이트하고 딜레이
@@ -113,7 +166,7 @@ public class BattleSystem : MonoBehaviour
             (unit as BaseUnit).Unhighlight();
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
         }
-
+        */
 
         //유닛의 죽음 처리
         ProcessDeath(playerUnits);
@@ -142,6 +195,38 @@ public class BattleSystem : MonoBehaviour
         return true;
     }
 
+    private bool CheckAttackable(IUnit unit) {
+        IUnit targetUnit = GetAttackTarget(unit);
+        if (targetUnit != null)
+            return true;
+        else
+            return false;
+    }
+    private void UnitAttack(IUnit unit) {
+        IUnit targetUnit = GetAttackTarget(unit);
+        targetUnit.TakeDamage(unit.Attack);
+    }
+
+    //사정거리 내에 공격할 수 있는 유닛이 있으면 그 유닛을 반환, 없으면 null
+    private IUnit GetAttackTarget(IUnit unit) {
+        int range = unit.Range;
+        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
+        Cell currentCell = unit.CurrentCell;
+        int originCol = currentCell.position.col;
+        int originRow = currentCell.position.row;
+
+        //가까운 유닛을 우선으로 공격
+        for (int i = 1; i <= range; i++) {
+            Cell targetCell = _board.GetCell(originCol + forwardOffset * i, originRow);
+            IUnit targetUnit = targetCell.Unit;
+
+            if (targetUnit != null && unit.Owner != targetUnit.Owner) {
+                return targetUnit;
+            }
+        }
+
+        return null;
+    }
     private void MoveUnit(IUnit unit) {
         Cell currentCell = unit.CurrentCell;
 
@@ -165,25 +250,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void UnitAttack(IUnit unit) {
-        int range = unit.Range;
-        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
-        Cell currentCell = unit.CurrentCell;
-        int originCol = currentCell.position.col;
-        int originRow = currentCell.position.row;
-
-        //가까운 유닛을 우선으로 공격
-        for (int i = 1; i <= range; i++) {
-            Cell targetCell = _board.GetCell(originCol + forwardOffset * i, originRow);
-            IUnit targetUnit = targetCell.Unit;
-
-            if (targetUnit != null && unit.Owner != targetUnit.Owner) {
-                //사정거리 내에 유닛이 있으면 공격하고 루프 종료
-                targetUnit.TakeDamage(unit.Attack);
-                break;
-            }
-        }
-    }
+    
 
     private void ProcessDeath(List<IUnit> units) {
         foreach (IUnit unit in units) {
