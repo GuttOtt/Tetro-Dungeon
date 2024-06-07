@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Critical : BaseUnit
+public class CriticalAttack : BaseUnit
 {
     public override void AttackAction(TurnContext turnContext) {
         IUnit attackTarget = GetAttackTarget(turnContext.Board);

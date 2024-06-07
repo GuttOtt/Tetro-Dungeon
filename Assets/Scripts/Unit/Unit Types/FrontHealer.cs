@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Healer : BaseUnit
+public class FrontHealer : BaseUnit
 {
     public override bool IsAttackable(TurnContext turnContext) {
         Board board = turnContext.Board;

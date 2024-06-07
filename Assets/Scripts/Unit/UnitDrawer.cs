@@ -34,4 +34,8 @@ public class UnitDrawer : MonoBehaviour
     public void Unhighlight() {
         _unitSprite.color = Color.white;
     }
+
+    public void ChangeColor(Color color) {
+        _unitSprite.color = color;
+    }
 }

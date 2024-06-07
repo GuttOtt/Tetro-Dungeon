@@ -42,7 +42,7 @@ public class EnemySystem : MonoBehaviour {
             int r = Random.Range(0, unitPool.Count);
             UnitConfig config = unitPool[r];
             BaseUnit unit = _unitSystem.CreateUnit(config, CharacterTypes.Enemy) as BaseUnit;
-            //unit.GetComponent<SpriteRenderer>().color = Color.red;
+            unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
             
             //¿Ø¥÷¿ª unitListø° √ﬂ∞°
             unitList.Add(unit);
@@ -62,6 +62,7 @@ public class EnemySystem : MonoBehaviour {
 
             //º±≈√«— ºøø° ¿Ø¥÷ º“»Ø
             board.Place(cell, unit);
+            unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
 
             availableCells.Remove(cell);
         }

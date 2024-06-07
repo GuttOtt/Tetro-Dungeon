@@ -78,7 +78,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     public void Unhighlight() {
-        _unitDrawer.Unhighlight();
+        //_unitDrawer.Unhighlight();
+        if (Owner == CharacterTypes.Player)
+            _unitDrawer.ChangeColor(Color.white);
+        else
+            _unitDrawer.ChangeColor(new Color(1, 0.5f, 0.5f));
     }
 
     #region Unit Action Pattern

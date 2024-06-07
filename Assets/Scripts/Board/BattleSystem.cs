@@ -206,7 +206,12 @@ public class BattleSystem : MonoBehaviour
         
 
         //끝 열에 도달한 유닛이 있다면 삭제하고 라이프 데미지
-
+        foreach (var unit in attackTurnUnits) {
+            int endCol = attackTurn == CharacterTypes.Player ? _board.Column - 1 : 0;
+            if (unit.CurrentCell.position.col == endCol) {
+                LifeDamage(attackTurn.Opponent(), unit.Attack);
+            }
+        }
 
         //유닛의 죽음 처리
         ProcessDeath(playerUnits);
