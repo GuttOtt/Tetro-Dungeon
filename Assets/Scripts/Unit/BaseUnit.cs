@@ -168,5 +168,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         CurrentHP -= damage;
     }
 
+
+    public virtual void TakeHeal(TurnContext turnContext, int amount) {
+        CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
+    }
     #endregion
 }

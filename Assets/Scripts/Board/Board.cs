@@ -143,4 +143,28 @@ public class Board : MonoBehaviour
 
         return allCell.ToList();
     }
+
+    public List<Cell> GetNearbyCells(Cell cell, bool isContainingCenter = true) {
+        int xCenter = cell.position.col;
+        int yCenter = cell.position.row;
+
+        int startCol = xCenter == 0 ? 0 : xCenter - 1;
+        int endCol = xCenter == this.column - 1 ? this.column - 1 : xCenter + 1;
+        int startRow = yCenter == 0 ? 0 : yCenter - 1;
+        int endRow = yCenter == this.row - 1 ? this.row - 1 : yCenter + 1;
+
+        List<Cell> nearbyCells = new List<Cell>();
+
+        for (int i = startCol; i <= endCol; i++) {
+            for (int j = startRow; j <= endRow; j++) {
+                nearbyCells.Add(cells[i, j]);
+            }
+        }
+
+        //중심을 포함하지 않는다면, 중심에 있는 셀은 제거
+        if (!isContainingCenter)
+            nearbyCells.Remove(cell);
+
+        return nearbyCells;
+    }
 }

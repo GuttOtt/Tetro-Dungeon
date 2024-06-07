@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AoEHealer : MonoBehaviour
+public class AoEHealer : BaseUnit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public override void AttackAction(TurnContext turnContext) {
+        Board board = turnContext.Board;
 
-    // Update is called once per frame
-    void Update()
-    {
+        List<Cell> nearbyCells = board.GetNearbyCells(CurrentCell, false);
         
+        foreach (Cell nearbyCell in nearbyCells) {
+            if (nearbyCell.Unit != null && nearbyCell.Unit.Owner == Owner) {
+                (nearbyCell.Unit as BaseUnit).TakeHeal(turnContext, Attack);
+            }
+        }
     }
 }
