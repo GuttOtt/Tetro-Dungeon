@@ -6,11 +6,9 @@ using UnityEngine;
 public class TurnContext {
     public Board Board { get; set; }
     public CharacterTypes MoveTurn { get; set;}
-    public BaseUnit CurrentActionUnit { get; set; }
 
-    public TurnContext(Board board, CharacterTypes moveTurn, BaseUnit currentActionUnit) {
+    public TurnContext(Board board, CharacterTypes moveTurn) {
         Board = board;
         MoveTurn = moveTurn;
-        CurrentActionUnit = currentActionUnit;
     }
 }

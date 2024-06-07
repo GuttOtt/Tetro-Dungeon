@@ -1334,6 +1334,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9e8f0f574d1aa84a80b1385d436d776, type: 2}
   - {fileID: 11400000, guid: f4ab148cd63f8064089a1c32b9822a35, type: 2}
   - {fileID: 11400000, guid: 5fe11962aca75d444871389be37e42a1, type: 2}
+  - {fileID: 11400000, guid: a1ac1bb4f4e38c941b1859f5178c50a6, type: 2}
+  - {fileID: 11400000, guid: 2f495074046ddcc4b9db33e5cac3c35b, type: 2}
   _cardPrefab: {fileID: 9058701112474785303, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
   deckNumber: 10
 --- !u!4 &1521026326

@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class AoEHealer : BaseUnit
 {
+    public override bool IsAttackable(TurnContext turnContext) {
+        return true;
+    }
+
     public override void AttackAction(TurnContext turnContext) {
+        Debug.Log("AoE Heal");
         Board board = turnContext.Board;
 
         List<Cell> nearbyCells = board.GetNearbyCells(CurrentCell, false);

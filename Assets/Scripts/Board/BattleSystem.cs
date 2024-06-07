@@ -106,28 +106,31 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
-        /*
+        
         //액션 결정
         Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
         List<IUnit> allUnit = new List<IUnit>();
         allUnit.AddRange(playerUnits);
         allUnit.AddRange(enemyUnits);
 
+        TurnContext turnContext = new TurnContext(_board, attackTurn);
         
         foreach (IUnit unit in allUnit) {
-            if ((unit as BaseUnit).IsMovable()) {
+            BaseUnit baseUnit = unit as BaseUnit;
+
+            if (baseUnit.IsMovable(turnContext)) {
                 actionDic.Add(unit, UnitActionTypes.Move);
             }
-            else if (CheckAttackable(unit)) {
+            else if (baseUnit.IsAttackable(turnContext)) {
                 actionDic.Add(unit, UnitActionTypes.Attack);
             }
             else {
                 actionDic.Add(unit, UnitActionTypes.None);
             }
         }
-        */
-
         
+
+        /*
         //액션 결정
         Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
         List<IUnit> allUnit = new List<IUnit>();
@@ -145,28 +148,31 @@ public class BattleSystem : MonoBehaviour
                 actionDic.Add(unit, UnitActionTypes.None);
             }
         }
+        */
         
 
         //액션 진행
         foreach (IUnit unit in actionDic.Keys) {
             UnitActionTypes action = actionDic[unit];
 
+            BaseUnit baseUnit = unit as BaseUnit;
+
             //하이라이트하고 딜레이
-            (unit as BaseUnit).Highlight();
+            baseUnit.Highlight();
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
 
             switch (action) {
                 case UnitActionTypes.Move:
-                    MoveUnit(unit);
+                    baseUnit.Move(turnContext);
                     break;
                 case UnitActionTypes.Attack:
-                    UnitAttack(unit);
+                    baseUnit.AttackAction(turnContext);
                     break;
                 case UnitActionTypes.None:
                     break;
             }
 
-            (unit as BaseUnit).Unhighlight();
+            baseUnit.Unhighlight();
         }
         /*
         //플레이어 유닛 액션
@@ -209,6 +215,9 @@ public class BattleSystem : MonoBehaviour
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
         }
         */
+
+        //끝 열에 도달한 유닛이 있다면 삭제하고 라이프 데미지
+
 
         //유닛의 죽음 처리
         ProcessDeath(playerUnits);

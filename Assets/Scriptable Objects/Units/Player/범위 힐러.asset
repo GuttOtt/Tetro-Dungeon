@@ -17,4 +17,4 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 1
   _range: 0
-  _unitTypeString: AoeHealer
+  _unitTypeString: AoEHealer

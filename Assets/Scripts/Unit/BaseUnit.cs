@@ -84,7 +84,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Unit Action Pattern
 
     #region Move
-    public virtual bool IsMoveable(TurnContext turnContext) {
+    public virtual bool IsMovable(TurnContext turnContext) {
         CharacterTypes moveTurn = turnContext.MoveTurn;
 
         if (Owner != moveTurn) {
