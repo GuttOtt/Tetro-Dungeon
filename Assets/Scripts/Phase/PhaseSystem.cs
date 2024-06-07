@@ -132,7 +132,7 @@ public class BattlePhase : IPhase {
 
 public class EndPhase : IPhase {
     public void EnterPhase(PhaseSystem phaseSystem) {
-
+        phaseSystem.ToStandbyPhase();
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {

@@ -44,8 +44,8 @@ public class BattleSystem : MonoBehaviour
 
         //Set Life
         _lifeDic = new Dictionary<CharacterTypes, int>() { 
-            { CharacterTypes.Player, 10 },
-            { CharacterTypes.Enemy, 10 }
+            { CharacterTypes.Player, 15 },
+            { CharacterTypes.Enemy, 15 }
         };
 
         _lifeTextDic.Add(CharacterTypes.Player, _playerLifeText);
@@ -210,6 +210,7 @@ public class BattleSystem : MonoBehaviour
             int endCol = attackTurn == CharacterTypes.Player ? _board.Column - 1 : 0;
             if (unit.CurrentCell.position.col == endCol) {
                 LifeDamage(attackTurn.Opponent(), unit.Attack);
+                unit.Die();
             }
         }
 
