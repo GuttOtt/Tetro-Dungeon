@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
-  m_Name: "\uBC29\uD328\uBCD1"
+  m_Name: "\uBC94\uC704 \uD790\uB7EC"
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: f1527f40bc4cb8f4a8ee39a18ac21cf4, type: 3}
-  _maxHp: 10
+  _sprite: {fileID: 21300000, guid: 605de9c15c5efef48824ce741ccaf602, type: 3}
+  _maxHp: 3
   _maxMP: 0
   _attack: 1
-  _range: 1
+  _range: 0
+  _unitTypeString: AoeHealer

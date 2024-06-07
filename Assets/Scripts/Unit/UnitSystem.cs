@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks.Triggers;
 using EnumTypes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class UnitSystem : MonoBehaviour
 {
     #region private members
     private IGameManager _gameManager;
-    [SerializeField] private BaseUnit _unitPrefab;
+    [SerializeField] private GameObject _unitPrefab;
     private List<IUnit> _units = new List<IUnit>();
     #endregion
 
@@ -16,7 +17,23 @@ public class UnitSystem : MonoBehaviour
     }
 
     public IUnit CreateUnit(UnitConfig unitConfig, CharacterTypes owner) {
-        BaseUnit unit = Instantiate(_unitPrefab);
+        GameObject unitGO = Instantiate(_unitPrefab);
+
+        //유닛 패턴 생성
+        string unitTypeString = unitConfig.UnitTypeString;
+        if (unitTypeString == string.Empty || unitTypeString == null) {
+            unitTypeString = "BaseUnit";
+        }
+
+        Type unitType = Type.GetType(unitTypeString);
+
+        if (unitType == null) {
+            Debug.Log(unitType);
+            Debug.LogError("해당하는 unit type이 없습니다");
+        }
+
+        BaseUnit unit = unitGO.AddComponent(unitType) as BaseUnit;
+
         unit.Init(this, unitConfig, owner);
         _units.Add(unit);
 

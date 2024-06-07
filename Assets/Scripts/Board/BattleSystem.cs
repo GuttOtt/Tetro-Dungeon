@@ -106,6 +106,28 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
+        /*
+        //액션 결정
+        Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
+        List<IUnit> allUnit = new List<IUnit>();
+        allUnit.AddRange(playerUnits);
+        allUnit.AddRange(enemyUnits);
+
+        
+        foreach (IUnit unit in allUnit) {
+            if ((unit as BaseUnit).IsMovable()) {
+                actionDic.Add(unit, UnitActionTypes.Move);
+            }
+            else if (CheckAttackable(unit)) {
+                actionDic.Add(unit, UnitActionTypes.Attack);
+            }
+            else {
+                actionDic.Add(unit, UnitActionTypes.None);
+            }
+        }
+        */
+
+        
         //액션 결정
         Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
         List<IUnit> allUnit = new List<IUnit>();
@@ -123,6 +145,7 @@ public class BattleSystem : MonoBehaviour
                 actionDic.Add(unit, UnitActionTypes.None);
             }
         }
+        
 
         //액션 진행
         foreach (IUnit unit in actionDic.Keys) {
