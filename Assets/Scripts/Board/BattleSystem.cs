@@ -106,14 +106,15 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
-        
+        TurnContext turnContext = new TurnContext(_board, attackTurn);
+
+        /*
         //액션 결정
         Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
         List<IUnit> allUnit = new List<IUnit>();
         allUnit.AddRange(playerUnits);
         allUnit.AddRange(enemyUnits);
 
-        TurnContext turnContext = new TurnContext(_board, attackTurn);
         
         foreach (IUnit unit in allUnit) {
             BaseUnit baseUnit = unit as BaseUnit;
@@ -128,29 +129,9 @@ public class BattleSystem : MonoBehaviour
                 actionDic.Add(unit, UnitActionTypes.None);
             }
         }
-        
+        */
 
         /*
-        //액션 결정
-        Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
-        List<IUnit> allUnit = new List<IUnit>();
-        allUnit.AddRange(playerUnits);
-        allUnit.AddRange(enemyUnits);
-
-        foreach (IUnit unit in allUnit) {
-            if (CheckMovable(unit, attackTurn)) {
-                actionDic.Add(unit, UnitActionTypes.Move);
-            }
-            else if (CheckAttackable(unit)) {
-                actionDic.Add(unit, UnitActionTypes.Attack);
-            }
-            else {
-                actionDic.Add(unit, UnitActionTypes.None);
-            }
-        }
-        */
-        
-
         //액션 진행
         foreach (IUnit unit in actionDic.Keys) {
             UnitActionTypes action = actionDic[unit];
@@ -174,47 +155,55 @@ public class BattleSystem : MonoBehaviour
 
             baseUnit.Unhighlight();
         }
-        /*
-        //플레이어 유닛 액션
-        foreach (var unit in playerUnits) {
-            //하이라이트하고 딜레이
-            (unit as BaseUnit).Highlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-
-            //이동할 수 있다면, 이동시키고 다음 유닛으로
-            if (CheckMovable(unit, attackTurn)) {
-                MoveUnit(unit);
-            }
-            //이동할 수 없다면, 공격을 시도
-            else {
-                UnitAttack(unit);
-            }
-
-            //하이라이트 끄기
-            (unit as BaseUnit).Unhighlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-        }
-
-        //적 유닛 액션
-        foreach (var unit in enemyUnits) {
-            //하이라이트하고 딜레이
-            (unit as BaseUnit).Highlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-
-            //이동할 수 있다면, 이동시키고 다음 유닛으로
-            if (CheckMovable(unit, attackTurn)) {
-                MoveUnit(unit);
-            }
-            //이동할 수 없다면, 공격을 시도
-            else {
-                UnitAttack(unit);
-            }
-
-            //하이라이트 끄기
-            (unit as BaseUnit).Unhighlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-        }
         */
+
+        List<IUnit> attackTurnUnits = attackTurn == CharacterTypes.Player ? playerUnits : enemyUnits;
+        List<IUnit> defenceTurnUnits = attackTurn == CharacterTypes.Player ? enemyUnits : playerUnits;
+
+        //방어 턴 유닛 액션
+        foreach (var unit in defenceTurnUnits) {
+            BaseUnit baseUnit = unit as BaseUnit;
+
+            //하이라이트하고 딜레이
+            baseUnit.Highlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+
+            //이동할 수 있다면, 이동시키고 다음 유닛으로
+            if (baseUnit.IsMovable(turnContext)) {
+                baseUnit.Move(turnContext);
+            }
+            //이동할 수 없다면, 공격을 시도
+            else if (baseUnit.IsAttackable(turnContext)) {
+                baseUnit.AttackAction(turnContext);
+            }
+
+            //하이라이트 끄기
+            (unit as BaseUnit).Unhighlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+        }
+
+        //공격 턴 유닛 액션
+        foreach (var unit in attackTurnUnits) {
+            BaseUnit baseUnit = unit as BaseUnit;
+
+            //하이라이트하고 딜레이
+            baseUnit.Highlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+
+            //이동할 수 있다면, 이동시키고 다음 유닛으로
+            if (baseUnit.IsMovable(turnContext)) {
+                baseUnit.Move(turnContext);
+            }
+            //이동할 수 없다면, 공격을 시도
+            else if (baseUnit.IsAttackable(turnContext)) {
+                baseUnit.AttackAction(turnContext);
+            }
+
+            //하이라이트 끄기
+            (unit as BaseUnit).Unhighlight();
+            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
+        }
+        
 
         //끝 열에 도달한 유닛이 있다면 삭제하고 라이프 데미지
 
