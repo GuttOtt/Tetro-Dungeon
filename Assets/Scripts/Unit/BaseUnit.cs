@@ -153,10 +153,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         //가까운 유닛을 우선으로 공격
         for (int i = 1; i <= range; i++) {
             Cell targetCell = board.GetCell(originCol + forwardOffset * i, originRow);
-            IUnit targetUnit = targetCell.Unit;
 
-            if (targetUnit != null && Owner != targetUnit.Owner) {
-                return targetUnit;
+            if (targetCell != null && targetCell.Unit != null && targetCell.Unit.Owner != Owner) {
+                return targetCell.Unit;
             }
         }
 

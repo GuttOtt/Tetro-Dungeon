@@ -10,7 +10,6 @@ public class AoEHealer : BaseUnit
     }
 
     public override void AttackAction(TurnContext turnContext) {
-        Debug.Log("AoE Heal");
         Board board = turnContext.Board;
 
         List<Cell> nearbyCells = board.GetNearbyCells(CurrentCell, false);
