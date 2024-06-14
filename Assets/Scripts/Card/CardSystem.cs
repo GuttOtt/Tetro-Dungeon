@@ -1,6 +1,7 @@
 using Card;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class CardSystem : MonoBehaviour
@@ -28,6 +29,9 @@ public class CardSystem : MonoBehaviour
 
     //카드를 마우스로 선택할 수 있는 상태인지
     private bool _isInputOn = false;
+
+    //현재 배치중인 블럭의 polyomino
+    private Polyomino _selectedPolyomino;
     #endregion
 
     private void Awake() {
@@ -42,6 +46,13 @@ public class CardSystem : MonoBehaviour
         SelectCard();
         PlayCard();
         MoveUnitBlockMarker();
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            SpinUnitBlockMarker(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) {
+            SpinUnitBlockMarker(true);
+        }
     }
 
     public UnitConfig GetRandomUnitConfig() {
@@ -120,6 +131,7 @@ public class CardSystem : MonoBehaviour
                 Debug.Log("Selected");
                 _unitBlockMarker.gameObject.SetActive(true);
                 _unitBlockMarker.Draw(_selectedCard.Polyomino, _selectedCard.UnitConfig);
+                _selectedPolyomino = _selectedCard.Polyomino;
             }
         }
     }
@@ -133,7 +145,7 @@ public class CardSystem : MonoBehaviour
 
             if (topLeftCell != null) {
                 Board board = _gameManager.GetSystem<Board>();
-                isPlaced = board.Place(topLeftCell, _selectedCard.Polyomino, _selectedCard.UnitConfig);
+                isPlaced = board.Place(topLeftCell, _selectedPolyomino, _selectedCard.UnitConfig);
             }
 
             //Unit Block Marker를 Clear하고 비활성화
@@ -148,6 +160,26 @@ public class CardSystem : MonoBehaviour
 
             _selectedCard = null;
         }
+    }
+
+    private void SpinUnitBlockMarker(bool clockwise) {
+        //유닛 블럭 마커가 없다면 리턴
+        if (!_unitBlockMarker.gameObject.activeSelf) {
+            return;
+        }
+
+        Polyomino originPolyomino = _selectedPolyomino;
+        Polyomino rotatedPolyomino;
+
+        if (clockwise) {
+            rotatedPolyomino = originPolyomino.ClockwiseSpin();
+        }
+        else {
+            rotatedPolyomino = originPolyomino.AnticlockwiseSpin();
+        }
+
+        _unitBlockMarker.Draw(rotatedPolyomino, _selectedCard.UnitConfig);
+        _selectedPolyomino = rotatedPolyomino;
     }
 
     private void MoveUnitBlockMarker() {

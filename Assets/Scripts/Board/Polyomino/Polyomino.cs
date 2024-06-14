@@ -83,6 +83,36 @@ public class Polyomino
         Shape = shape;
     }
 
+    public Polyomino ClockwiseSpin() {
+        int[,] originShape = Shape;
+        int originCol = originShape.GetLength(0);
+        int originRow = originShape.GetLength(1);
+        int[,] rotatedShape = new int[originRow, originCol];
+
+        for (int i = 0; i < originRow; i++) {
+            for (int j = 0; j < originCol; j++) {
+                rotatedShape[i, j] = originShape[j, originRow - 1 - i];
+            }
+        }
+
+        return new Polyomino(rotatedShape);
+    }
+
+    public Polyomino AnticlockwiseSpin() {
+        int[,] originShape = Shape;
+        int originCol = originShape.GetLength(0);
+        int originRow = originShape.GetLength(1);
+        int[,] rotatedShape = new int[originRow, originCol];
+
+        for (int i = 0; i < originRow; i++) {
+            for (int j = 0; j < originCol; j++) {
+                rotatedShape[i, j] = originShape[originCol - 1 - j, i];
+            }
+        }
+
+        return new Polyomino(rotatedShape);
+    }
+
     public static Polyomino GetRandomPolyomino(int number) {//블럭 크기
         int[][,] Minoes = MinoDict[number];
         int[,] shape = Minoes[UnityEngine.Random.Range(0, Minoes.Length)];

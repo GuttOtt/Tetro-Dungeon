@@ -20,13 +20,14 @@ public class UnitBlockDrawer : MonoBehaviour
             unitDrawer.Draw(unitConfig);
             _unitDrawers.Add(unitDrawer);
         }
-
     }
 
     public void Clear() {
         _polyominoDrawer.ClearBlocks();
         foreach (UnitDrawer unitDrawer in _unitDrawers) {
-            Destroy(unitDrawer.gameObject);
+            if (unitDrawer != null && unitDrawer.gameObject != null) {
+                Destroy(unitDrawer.gameObject);
+            }
         }
         _unitDrawers.Clear();
     }

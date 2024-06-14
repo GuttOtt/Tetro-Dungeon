@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df848766d7c125c4191bbfbf8ebd7ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayPerUnit: 0.3
+  delayPerUnit: 0.1
   delayPerTick: 1
   _playerLifeText: {fileID: 358434368}
   _enemyLifeText: {fileID: 522040892}

@@ -10,7 +10,7 @@ public class FrontHealer : BaseUnit
         int forwardOffset = Owner == EnumTypes.CharacterTypes.Player ? 1 : -1;
         Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
 
-        if (forwardCell != null || forwardCell.Unit == null)
+        if (forwardCell == null || forwardCell.Unit == null) 
             return false;
         else
             return true;
@@ -22,7 +22,7 @@ public class FrontHealer : BaseUnit
         int forwardOffset = Owner == EnumTypes.CharacterTypes.Player ? 1 : -1;
         Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
         
-        if (forwardCell != null || forwardCell.Unit == null)
+        if (forwardCell == null || forwardCell.Unit == null)
             return;
 
         IUnit targetUnit = forwardCell.Unit;
