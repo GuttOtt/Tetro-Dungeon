@@ -18,3 +18,4 @@ MonoBehaviour:
   _attack: 2
   _range: 1
   _unitTypeString: Leech
+  _synergies: 00000000

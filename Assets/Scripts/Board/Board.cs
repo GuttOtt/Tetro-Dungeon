@@ -1,4 +1,5 @@
 using EnumTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,6 +23,10 @@ public class Board : MonoBehaviour
     public List<IUnit> EnemyUnits { get => unitDic[CharacterTypes.Enemy]; }
     public int Row { get => row; }
     public int Column { get => column; }
+    #endregion
+
+    #region Events
+    public event Action onPlaceUnit;
     #endregion
 
     private void Awake() {
@@ -127,6 +132,8 @@ public class Board : MonoBehaviour
         }
         */
 
+        onPlaceUnit.Invoke();
+
         return true;
     }
 
@@ -143,6 +150,7 @@ public class Board : MonoBehaviour
         unitDic[unit.Owner].Add(unit);
 
         unit.OnDie += () => unitDic[unit.Owner].Remove(unit);
+
 
         return true;
     }
@@ -192,5 +200,39 @@ public class Board : MonoBehaviour
             nearbyCells.Remove(cell);
 
         return nearbyCells;
+    }
+
+    public Cell[] GetRowCells(int col) {
+        Cell[] rowCells = new Cell[row];
+
+        for (int i = 0; i < row; i++) {
+            rowCells[i] = cells[col, i];
+        }
+
+        return rowCells;
+    }
+
+    public bool IsRowFull(int col) {
+        for (int i = 0; i < row; i++) {
+            if (cells[col, i].Unit == null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public List<UnitBlock> GetBlocksInRow(int col) {
+        List<UnitBlock> unitBlocks= new List<UnitBlock>();
+
+        for (int i = 0; i < row; i++) {
+            UnitBlock block = _unitBlockSystem.GetUnitBlock(cells[col, i]);
+
+            if (block != null && !unitBlocks.Contains(block)) {
+                unitBlocks.Add(block);
+            }
+        }
+
+        return unitBlocks;
     }
 }

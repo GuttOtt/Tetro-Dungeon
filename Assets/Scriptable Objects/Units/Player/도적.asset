@@ -17,3 +17,5 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 3
   _range: 1
+  _unitTypeString: 
+  _synergies: 00000000

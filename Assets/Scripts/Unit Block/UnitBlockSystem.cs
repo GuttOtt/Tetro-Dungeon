@@ -52,5 +52,12 @@ public class UnitBlockSystem : MonoBehaviour {
         return unitBlock;
     }
 
+    public UnitBlock GetUnitBlock(Cell cell) {
+        foreach (UnitBlock block in _unitBlocks) {
+            if (block.IsContain(cell))
+                return block;
+        }
 
+        return null;
+    }
 }

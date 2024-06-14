@@ -1,3 +1,6 @@
+using EnumTypes;
+using System.Collections.Generic;
+
 public interface IUnit
 {
     public int MaxHP { get; }
@@ -5,8 +8,12 @@ public interface IUnit
     public int Attack { get; }
     public int Range { get; }
     public int CurrentHP { get; }    
+    
     public Cell CurrentCell { get; set;  }
     public EnumTypes.CharacterTypes Owner { get; }
+
+    public List<SynergyTypes> Synergies { get; }
+
     public void TakeDamage(int damage);
     public void Die();
 }

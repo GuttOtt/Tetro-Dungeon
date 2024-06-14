@@ -23,4 +23,8 @@ namespace EnumTypes
     {
         Deck, Hand, Discard,
     }
+
+    public enum SynergyTypes {
+        A, B, C, D, E,
+    }
 }

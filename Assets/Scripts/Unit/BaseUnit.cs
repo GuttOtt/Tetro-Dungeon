@@ -3,6 +3,7 @@ using UnityEngine;
 using EnumTypes;
 using System.Buffers;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -11,6 +12,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private Cell _currentCell;
     private UnitConfig _config;
     private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range;
+    private List<SynergyTypes> _synergies;
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
     #endregion
@@ -38,6 +40,8 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
     }
+
+    public List<SynergyTypes> Synergies { get => _synergies; }
     #endregion
 
 
@@ -61,6 +65,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         _range = config.Range;
 
         _owner = owner;
+
+        //Synergies
+        _synergies = config.Synergies;
 
     }
 

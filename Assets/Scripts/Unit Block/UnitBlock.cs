@@ -1,3 +1,4 @@
+using EnumTypes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,10 @@ public class UnitBlock : MonoBehaviour {
     [SerializeField] private PolyominoDrawer _drawer;
     #endregion
 
+    #region Properties
+    public List<SynergyTypes> Synergies { get => _units[0].Synergies; }
+    #endregion
+
     public void Init(List<Cell> cells, List<IUnit> units, Polyomino polyomino) {
         _cells = cells.ToList();
         _units = units.ToList();
@@ -35,6 +40,14 @@ public class UnitBlock : MonoBehaviour {
 
         _drawer?.Draw(_polyomino.Shape);
         SetRandomColor();
+    }
+
+    public bool IsContain(Cell cell) {
+        return _cells.Contains(cell);
+    }
+
+    public void Highlight() {
+        //_drawer?.SetColor(Color.white);
     }
 
     private void SetRandomColor() {
