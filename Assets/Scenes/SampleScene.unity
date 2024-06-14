@@ -934,6 +934,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522040890}
   m_CullTransparentMesh: 1
+--- !u!1 &587640736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 587640737}
+  - component: {fileID: 587640738}
+  m_Layer: 0
+  m_Name: UnitBlock System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &587640737
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587640736}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1714875010}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &587640738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587640736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e04606ee5e416444970f878bf6403e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitBlockPrefab: {fileID: 2562449032272545998, guid: 046cf03a9e43aad4ba95852a1d5d5668, type: 3}
 --- !u!1 &999216284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1786,7 @@ MonoBehaviour:
   _phaseSystem: {fileID: 1665464140}
   _battleSystem: {fileID: 1309255134}
   _enemySystem: {fileID: 1281322542}
+  _unitBlockSystem: {fileID: 587640738}
   _victoryText: {fileID: 1524232225}
 --- !u!4 &1714875010
 Transform:
@@ -1761,6 +1807,7 @@ Transform:
   - {fileID: 1309255133}
   - {fileID: 1281322541}
   - {fileID: 1665464139}
+  - {fileID: 587640737}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1733329271

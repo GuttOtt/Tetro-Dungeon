@@ -2,11 +2,15 @@ using EnumTypes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Board : MonoBehaviour
 {
     #region private members
+    //Manager and systems
     private IGameManager _gameManager;
+    private UnitBlockSystem _unitBlockSystem;
+
     [SerializeField] private int row, column;
     [SerializeField] private Cell cellPrefab;
     private Cell[,] cells;
@@ -22,6 +26,7 @@ public class Board : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
+        _unitBlockSystem = _gameManager.GetSystem<UnitBlockSystem>();
     }
 
     public void Init() {
@@ -92,6 +97,26 @@ public class Board : MonoBehaviour
 
         UnitSystem unitSystem = _gameManager.GetSystem<UnitSystem>();
 
+        List<Cell> cellsToPlace = new List<Cell>();
+        List<IUnit> units = new List<IUnit>();
+
+        for (int x = 0; x < shape.GetLength(0); x++) {
+            for (int y = 0; y < shape.GetLength(1); y++) {
+                if (shape[x, y] != 0) {
+                    cellsToPlace.Add(cells[xTopLeft + x, yTopLeft + y]);
+                }
+            }
+        }
+
+        foreach (Cell cell in cellsToPlace) {
+            BaseUnit unit = unitSystem.CreateUnit(unitConfig, characterType) as BaseUnit;
+            Place(cell, unit);
+            units.Add(unit);
+        }
+
+        _unitBlockSystem.CreateUnitBlock(cellsToPlace, units, polyomino, topLeft);
+
+        /*
         for (int x = 0; x < shape.GetLength(0); x++) {
             for (int y = 0; y < shape.GetLength(1); y++) {
                 if (shape[x, y] == 0) continue;
@@ -100,6 +125,7 @@ public class Board : MonoBehaviour
                 Place(cell, unit);
             }
         }
+        */
 
         return true;
     }

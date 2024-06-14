@@ -66,4 +66,10 @@ public class PolyominoDrawer : MonoBehaviour
         }
         drawnBlocks.Clear();
     }
+
+    public void SetColor(Color color) {
+        foreach (GameObject block in drawnBlocks) {
+            block.GetComponent<SpriteRenderer>().color = color;
+        }
+    }
 }

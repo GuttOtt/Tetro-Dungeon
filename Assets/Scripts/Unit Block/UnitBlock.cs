@@ -15,14 +15,14 @@ public class UnitBlock : MonoBehaviour {
 
     #region private members
     private List<Cell> _cells;
-    private List<BaseUnit> _units;
+    private List<IUnit> _units;
     private List<Position> _positions;
     private Polyomino _polyomino;
 
     [SerializeField] private PolyominoDrawer _drawer;
     #endregion
 
-    public void Init(List<Cell> cells, List<BaseUnit> units, Polyomino polyomino) {
+    public void Init(List<Cell> cells, List<IUnit> units, Polyomino polyomino) {
         _cells = cells.ToList();
         _units = units.ToList();
         _polyomino = polyomino;
@@ -34,5 +34,16 @@ public class UnitBlock : MonoBehaviour {
         }
 
         _drawer?.Draw(_polyomino.Shape);
+        SetRandomColor();
+    }
+
+    private void SetRandomColor() {
+        float r = Random.Range(0f, 1f);
+        float g = Random.Range(0f, 1f);
+        float b = Random.Range(0f, 1f);
+
+        Color color = new Color(r, g, b);
+
+        _drawer?.SetColor(color);
     }
 }

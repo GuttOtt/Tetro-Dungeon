@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour, IGameManager
     [SerializeField]
     private EnemySystem _enemySystem;
 
+    [SerializeField]
+    private UnitBlockSystem _unitBlockSystem;
     #endregion
 
     [SerializeField]
@@ -60,6 +62,9 @@ public class GameManager : MonoBehaviour, IGameManager
         }
         else if (typeof(T) == typeof(EnemySystem)) {
             return _enemySystem as T;
+        }
+        else if (typeof(T) == typeof(UnitBlockSystem)) {
+            return _unitBlockSystem as T;
         }
         else {
             Debug.LogError($"System of type {typeof(T)} is not supported.");
