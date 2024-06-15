@@ -9,7 +9,7 @@ public class UnitConfig : ScriptableObject
     private Sprite _sprite;
 
     [SerializeField]
-    private int _maxHp, _maxMP, _attack, _range;
+    private int _maxHp, _maxMP, _attack, _range, _unitTypeValue;
 
     [SerializeField]
     private string _unitTypeString;
@@ -23,5 +23,6 @@ public class UnitConfig : ScriptableObject
     public int Attack { get => _attack; }
     public int Range { get => _range; }
     public string UnitTypeString { get => _unitTypeString; }
+    public int UnitTypeValue { get => _unitTypeValue; }
     public List<SynergyTypes> Synergies { get => _synergies; }
 }

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
-  m_Name: "\uCE58\uBA85\uD0C0"
+  m_Name: "\uC81C\uC555"
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 21300000, guid: 608016d27c9f85540b994d01fd7997b4, type: 3}
+  _sprite: {fileID: 21300000, guid: 7e26cc68e86148243b749acae9f77029, type: 3}
   _maxHp: 5
   _maxMP: 0
-  _attack: 2
+  _attack: 3
   _range: 1
-  _unitTypeValue: 0
-  _unitTypeString: CriticalAttack
+  _unitTypeValue: 2
+  _unitTypeString: Domination
   _synergies: 00000000

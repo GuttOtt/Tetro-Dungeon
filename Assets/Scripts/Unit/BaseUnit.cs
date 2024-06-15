@@ -11,7 +11,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private UnitSystem _unitSystem;
     private Cell _currentCell;
     private UnitConfig _config;
-    private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range;
+    private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range, _unitTypeValue;
     private List<SynergyTypes> _synergies;
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
@@ -22,6 +22,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int MaxMP { get => _maxMP; }
     public int Attack { get => _attack; }   
     public int Range { get => _range; }
+    public int UnitTypeValue { get => _unitTypeValue; }
     public Action OnDie { get; set; }
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
@@ -63,6 +64,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         _currentMP = config.MaxMP;
         _attack = config.Attack;
         _range = config.Range;
+        _unitTypeValue = config.UnitTypeValue;
 
         _owner = owner;
 

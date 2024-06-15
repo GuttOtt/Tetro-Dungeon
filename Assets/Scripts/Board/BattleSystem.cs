@@ -301,8 +301,6 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    
-
     private void ProcessDeath(List<IUnit> units) {
         foreach (IUnit unit in units) {
             BaseUnit baseUnit = unit as BaseUnit;
