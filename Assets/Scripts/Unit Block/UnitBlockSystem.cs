@@ -12,6 +12,10 @@ public class UnitBlockSystem : MonoBehaviour {
     private UnitBlock unitBlockPrefab;
     #endregion
 
+    #region Properties
+    public List<UnitBlock> UnitBlocks { get => _unitBlocks; }
+    #endregion
+
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
     }
@@ -59,5 +63,9 @@ public class UnitBlockSystem : MonoBehaviour {
         }
 
         return null;
+    }
+
+    private void DestroyAllBlock() {
+
     }
 }
