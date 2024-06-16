@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using EnumTypes;
 using TMPro;
+using System.Linq;
 
 public class SynergySystem : MonoBehaviour {
     #region private members
@@ -27,32 +28,17 @@ public class SynergySystem : MonoBehaviour {
         Dictionary<SynergyTypes, int> synergyDic = new Dictionary<SynergyTypes, int>();
 
         List<UnitBlock> unitBlocks = new List<UnitBlock>();
+        unitBlocks = _gameManager.GetSystem<UnitBlockSystem>().UnitBlocks.ToList();
 
-        for (int i = 0; i < _board.Column / 2; i++) {
-            List<UnitBlock> blocksInRow = new List<UnitBlock>();
-            
-            if (_board.IsRowFull(i)) {
-                blocksInRow = _board.GetBlocksInRow(i);
-            }
-
-            foreach (UnitBlock block in blocksInRow) {
-                if (!unitBlocks.Contains(block)) {
-                    unitBlocks.Add(block);
-                }
-            }
-        }
-
-        foreach (UnitBlock block in unitBlocks) {
-            foreach (SynergyTypes synergy in block.Synergies) {
-                if (synergyDic.ContainsKey(synergy)) {
-                    synergyDic[synergy]++;
+        foreach (UnitBlock unitBlock in unitBlocks) {
+            foreach (SynergyTypes synergyType in unitBlock.Synergies) {
+                if (synergyDic.ContainsKey(synergyType)) {
+                    synergyDic[synergyType]++;
                 }
                 else {
-                    synergyDic[synergy] = 1;
+                    synergyDic.Add(synergyType, 1);
                 }
             }
-
-            block.Highlight();
         }
 
         _synergyDic = synergyDic;
