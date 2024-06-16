@@ -73,17 +73,23 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     }
 
-    public void TakeDamage(int damage) {
-        CurrentHP -= damage;
-    }
-
     public void Die() {
         OnDie();
         _unitSystem.DestroyUnit(this);
     }
+    public virtual void Die(TurnContext turnContext) {
+        Die();
+    }
 
     public void Highlight() {
-        _unitDrawer.Highlight();
+        if (_unitDrawer != null)
+        {
+            _unitDrawer.Highlight();
+        }
+        else
+        {
+            Debug.LogWarning("UnitDrawer is missing or destroyed.");
+        }
     }
 
     public void Unhighlight() {
@@ -149,7 +155,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public virtual void AttackAction(TurnContext turnContext) {
         IUnit attackTarget = GetAttackTarget(turnContext.Board);
 
-        attackTarget.TakeDamage(Attack);
+        attackTarget.TakeDamage(turnContext, Attack);
     }
 
     protected IUnit GetAttackTarget(Board board) {
@@ -178,6 +184,10 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public virtual void TakeDamage(TurnContext turnContext, int damage) {
         CurrentHP -= damage;
+        if (CurrentHP <= 0)
+        {
+            Die(turnContext);
+        }
     }
 
 

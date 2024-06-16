@@ -14,6 +14,5 @@ public interface IUnit
 
     public List<SynergyTypes> Synergies { get; }
 
-    public void TakeDamage(int damage);
-    public void Die();
+    public void TakeDamage(TurnContext turnContext, int damage);
 }

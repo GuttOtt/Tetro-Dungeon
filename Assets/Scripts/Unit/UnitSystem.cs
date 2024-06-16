@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks.Triggers;
 using EnumTypes;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitSystem : MonoBehaviour
@@ -42,7 +43,8 @@ public class UnitSystem : MonoBehaviour
     
     public void DestroyUnit(IUnit unit) {
         BaseUnit baseUnit = unit as BaseUnit;
-
+        if (baseUnit == null) return;
+        
         _units.Remove(baseUnit);
         Destroy(baseUnit.gameObject);
     }

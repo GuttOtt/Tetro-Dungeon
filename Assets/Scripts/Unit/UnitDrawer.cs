@@ -28,14 +28,35 @@ public class UnitDrawer : MonoBehaviour
     }
 
     public void Highlight() {
-        _unitSprite.color = Color.yellow;
+        if (_unitSprite != null)
+        {
+            _unitSprite.color = Color.yellow;
+        }
+        else
+        {
+            Debug.LogWarning("SpriteRenderer is missing or destroyed.");
+        }
     }
 
     public void Unhighlight() {
-        _unitSprite.color = Color.white;
+        if (_unitSprite != null)
+        {
+            _unitSprite.color = Color.white;
+        }
+        else
+        {
+            Debug.LogWarning("SpriteRenderer is missing or destroyed.");
+        }
     }
 
     public void ChangeColor(Color color) {
-        _unitSprite.color = color;
+        if (_unitSprite != null)
+        {
+            _unitSprite.color = color;
+        }
+        else
+        {
+            Debug.LogWarning("SpriteRenderer is missing or destroyed.");
+        }
     }
 }

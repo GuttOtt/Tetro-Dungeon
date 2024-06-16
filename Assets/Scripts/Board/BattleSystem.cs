@@ -80,7 +80,7 @@ public class BattleSystem : MonoBehaviour
         List<IUnit> defenceUnits = _board.GetUnits(attackTurn.Opponent());
         foreach (IUnit unit in defenceUnits) {
             LifeDamage(attackTurn, unit.Attack);
-            unit.Die();
+            (unit as BaseUnit).Die();
             await UniTask.WaitForSeconds(0.5f);
         }
 
@@ -161,7 +161,8 @@ public class BattleSystem : MonoBehaviour
         List<IUnit> defenceTurnUnits = attackTurn == CharacterTypes.Player ? enemyUnits : playerUnits;
 
         //방어 턴 유닛 액션
-        foreach (var unit in defenceTurnUnits) {
+        foreach (IUnit unit in defenceTurnUnits) {
+            if (unit.CurrentHP <= 0) continue;
             BaseUnit baseUnit = unit as BaseUnit;
 
             //하이라이트하고 딜레이
@@ -181,9 +182,12 @@ public class BattleSystem : MonoBehaviour
             (unit as BaseUnit).Unhighlight();
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
         }
+
+        ProcessDeath(ref playerUnits, ref enemyUnits);
 
         //공격 턴 유닛 액션
-        foreach (var unit in attackTurnUnits) {
+        foreach (IUnit unit in attackTurnUnits) {
+            if (unit.CurrentHP <= 0) continue;
             BaseUnit baseUnit = unit as BaseUnit;
 
             //하이라이트하고 딜레이
@@ -203,20 +207,19 @@ public class BattleSystem : MonoBehaviour
             (unit as BaseUnit).Unhighlight();
             await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
         }
-        
+
+        ProcessDeath(ref playerUnits, ref enemyUnits);
 
         //끝 열에 도달한 유닛이 있다면 삭제하고 라이프 데미지
         foreach (var unit in attackTurnUnits) {
             int endCol = attackTurn == CharacterTypes.Player ? _board.Column - 1 : 0;
             if (unit.CurrentCell.position.col == endCol) {
                 LifeDamage(attackTurn.Opponent(), unit.Attack);
-                unit.Die();
+                (unit as BaseUnit).Die();
             }
         }
 
-        //유닛의 죽음 처리
-        ProcessDeath(playerUnits);
-        ProcessDeath(enemyUnits);
+        ProcessDeath(ref playerUnits, ref enemyUnits);
 
         await UniTask.Delay(TimeSpan.FromSeconds(delayPerTick));
     }
@@ -252,10 +255,10 @@ public class BattleSystem : MonoBehaviour
         else
             return false;
     }
-    private void UnitAttack(IUnit unit) {
-        IUnit targetUnit = GetAttackTarget(unit);
-        targetUnit.TakeDamage(unit.Attack);
-    }
+    //private void UnitAttack(IUnit unit) {
+    //    IUnit targetUnit = GetAttackTarget(unit);
+    //    targetUnit.TakeDamage(turnContext, unit.Attack);
+    //}
 
     //사정거리 내에 공격할 수 있는 유닛이 있으면 그 유닛을 반환, 없으면 null
     private IUnit GetAttackTarget(IUnit unit) {
@@ -297,17 +300,13 @@ public class BattleSystem : MonoBehaviour
         int endCol = unit.Owner == CharacterTypes.Player ? _board.Column - 1 : 0;
         if (forwardCell.position.col == endCol) {
             LifeDamage(unit.Owner.Opponent(), unit.Attack);
-            unit.Die();
+            (unit as BaseUnit).Die();
         }
     }
 
-    private void ProcessDeath(List<IUnit> units) {
-        foreach (IUnit unit in units) {
-            BaseUnit baseUnit = unit as BaseUnit;
-            if (baseUnit.CurrentHP <= 0) {
-                baseUnit.Die();
-            }
-        }
+    private void ProcessDeath(ref List<IUnit> playerUnits, ref List<IUnit> enemyUnits) {
+        playerUnits = _board.PlayerUnits.ToList();
+        enemyUnits = _board.EnemyUnits.ToList();
     }
 
     #region Life Damage

@@ -23,7 +23,7 @@ public class Sniper : BaseUnit
             IUnit targetUnit = targetCell.Unit;
 
             if (targetUnit != null && Owner != targetUnit.Owner) {
-                targetUnit.TakeDamage(Attack);
+                targetUnit.TakeDamage(turnContext, Attack);
                 return;
             }
         }

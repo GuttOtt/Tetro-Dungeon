@@ -8,7 +8,8 @@ public class Domination : BaseUnit
         var target = GetAttackTarget(turnContext.Board);
         if (target.CurrentHP < UnitTypeValue)
         {
-            target.Die();
+            Debug.Log($"{base.name}ÀÌ {(target as BaseUnit).name} Á¦¾Ð !");
+            (target as BaseUnit).Die();
         }
         else 
         {

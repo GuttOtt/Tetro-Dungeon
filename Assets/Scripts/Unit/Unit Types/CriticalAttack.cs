@@ -10,6 +10,6 @@ public class CriticalAttack : BaseUnit
         int r = UnityEngine.Random.Range(0, 100);
         int damage = r < 25 ? Attack * 2 : Attack;
 
-        attackTarget?.TakeDamage(damage);
+        attackTarget?.TakeDamage(turnContext,damage);
     }
 }
