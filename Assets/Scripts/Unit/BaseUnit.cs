@@ -11,7 +11,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private UnitSystem _unitSystem;
     private Cell _currentCell;
     private UnitConfig _config;
-    private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _range, _unitTypeValue;
+    private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _currentAttack, _range, _unitTypeValue;
     private List<SynergyTypes> _synergies;
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
@@ -20,13 +20,31 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Properties
     public int MaxHP { get => _maxHP; }
     public int MaxMP { get => _maxMP; }
-    public int Attack { get => _attack; }   
+    public int Attack { 
+        get => _currentAttack;
+        private set
+        {
+            _currentAttack = value;
+            if (_currentAttack < _attack)
+            {
+                _unitDrawer.UpdateAttack(-_currentAttack, Color.red);
+            }
+            else if (_attack < _currentAttack)
+            {
+                _unitDrawer.UpdateAttack(_currentAttack, Color.green);
+            }
+            else
+            {
+                _unitDrawer.UpdateAttack(_currentAttack, Color.black);
+            }
+        }
+    }
     public int Range { get => _range; }
     public int UnitTypeValue { get => _unitTypeValue; }
     public Action OnDie { get; set; }
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
-    public int CurrentHP { 
+    public int CurrentHP {
         get => _currentHP;
         private set {
             _currentHP = value;
@@ -63,6 +81,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         _maxMP = config.MaxMP;
         _currentMP = config.MaxMP;
         _attack = config.Attack;
+        _currentAttack = config.Attack;
         _range = config.Range;
         _unitTypeValue = config.UnitTypeValue;
 
@@ -77,6 +96,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         OnDie();
         _unitSystem.DestroyUnit(this);
     }
+
     public virtual void Die(TurnContext turnContext) {
         Die();
     }
@@ -194,5 +214,14 @@ public class BaseUnit : MonoBehaviour, IUnit
     public virtual void TakeHeal(TurnContext turnContext, int amount) {
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
     }
+
+    #region Stat
+    public void SetAttack(int value) => Attack = value;
+    public void SetCurrentHP(int value) => CurrentHP = value;
+
+    public void ChangeAttack(int value) => Attack += value;
+    public void ChangeCurrentHP(int value) => CurrentHP += value;
+    #endregion
+
     #endregion
 }
