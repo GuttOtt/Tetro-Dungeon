@@ -198,6 +198,14 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
     #endregion
 
+    #region Stat
+    public void SetAttack(int value) => Attack = value;
+    public void SetCurrentHP(int value) => CurrentHP = value;
+
+    public void ChangeAttack(int value) => Attack += value;
+    public void ChangeCurrentHP(int value) => CurrentHP += value;
+    #endregion
+
     public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker) {
         TakeDamage(turnContext, damage);
     }
@@ -210,18 +218,11 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
 
-
     public virtual void TakeHeal(TurnContext turnContext, int amount) {
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
     }
 
-    #region Stat
-    public void SetAttack(int value) => Attack = value;
-    public void SetCurrentHP(int value) => CurrentHP = value;
-
-    public void ChangeAttack(int value) => Attack += value;
-    public void ChangeCurrentHP(int value) => CurrentHP += value;
-    #endregion
+    
 
     #endregion
 }
