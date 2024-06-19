@@ -347,7 +347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b174c01e03229a8408473eed6d41bdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allSynergyList: []
   _synergyText: {fileID: 823572300}
+  _delayPerSynergy: 2
 --- !u!1 &358434366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,6 +1961,7 @@ MonoBehaviour:
   _battleSystem: {fileID: 1309255134}
   _enemySystem: {fileID: 1281322542}
   _unitBlockSystem: {fileID: 587640738}
+  _synergySystem: {fileID: 309008915}
   _victoryText: {fileID: 1524232225}
 --- !u!4 &1714875010
 Transform:

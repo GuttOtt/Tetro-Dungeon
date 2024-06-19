@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -14,6 +15,7 @@ public class BattleSystem : MonoBehaviour
     #region private members
     private IGameManager _gameManager;
     private Board _board;
+    private SynergySystem _synergySystem;
     
     //배틀 진행 시의 딜레이
     [SerializeField]
@@ -34,6 +36,9 @@ public class BattleSystem : MonoBehaviour
     private CancellationTokenSource battleCancel = new CancellationTokenSource();
     #endregion
 
+    #region Events
+    #endregion
+
     private enum UnitActionTypes {
         Move, Attack, None
     }
@@ -41,6 +46,7 @@ public class BattleSystem : MonoBehaviour
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
+        _synergySystem = _gameManager.GetSystem<SynergySystem>();
 
         //Set Life
         _lifeDic = new Dictionary<CharacterTypes, int>() { 
@@ -60,6 +66,9 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log("Battle Started");
         _isProcessing = true;
+
+        //배틀 시작 시 발생하는 Synergy 효과들 발동
+        await _synergySystem.OnBattleBeginEffects(new TurnContext(_board, attackTurn));
 
         //Attack Turn의 유닛이 전부 사라질 때까지 전투
         while (true) {
@@ -107,6 +116,9 @@ public class BattleSystem : MonoBehaviour
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
         TurnContext turnContext = new TurnContext(_board, attackTurn);
+
+        //틱 시작 시 발동하는 시너지 효과들 발동
+        await _synergySystem.OnTickBegin(new TurnContext(_board, attackTurn));
 
         /*
         //액션 결정
