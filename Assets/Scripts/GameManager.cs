@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private SynergySystem _synergySystem;
+
+    [SerializeField]
+    private TroopCardSystem _troopCardSystem;
     #endregion
 
     [SerializeField]
@@ -71,6 +74,9 @@ public class GameManager : MonoBehaviour, IGameManager
         }
         else if (typeof(T) == typeof(SynergySystem)) {
             return _synergySystem as T;
+        }
+        else if (typeof(T) == typeof(TroopCardSystem)) {
+            return _troopCardSystem as T;
         }
         else {
             Debug.LogError($"System of type {typeof(T)} is not supported.");

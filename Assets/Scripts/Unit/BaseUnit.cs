@@ -204,6 +204,8 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void ChangeAttack(int value) => Attack += value;
     public void ChangeCurrentHP(int value) => CurrentHP += value;
+
+    public void ChangeMaxHP(int value) => _maxHP += value;
     #endregion
 
     public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker) {

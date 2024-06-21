@@ -11,16 +11,17 @@ namespace Card
         private UnitDrawer _unitInCardDrawer;
         [SerializeField]
         private UnitConfig _unitConfig;
+        private TroopCard _troopCard;
         #endregion
 
         #region properties
-        public Polyomino Polyomino { get; private set; }
+        public Polyomino Polyomino { get => _troopCard.Polyomino; }
         public UnitConfig UnitConfig { get => _unitConfig; private set => _unitConfig = value; }
         #endregion
 
-        public void Init(UnitConfig unitConfig, Polyomino polyomino) {
+        public void Init(UnitConfig unitConfig, TroopCard troopCard) {
             UnitConfig = unitConfig;
-            Polyomino = polyomino;
+            _troopCard = troopCard;
 
             DrawPolyomino();
             DrawUnit();

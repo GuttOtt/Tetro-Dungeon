@@ -8,6 +8,8 @@ public class CardSystem : MonoBehaviour
 {
     #region private members
     private IGameManager _gameManager;
+    private TroopCardSystem _troopCardSystem;
+
     [SerializeField]
     private UnitBlockDrawer _unitBlockMarker;
 
@@ -36,6 +38,7 @@ public class CardSystem : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
+        _troopCardSystem = _gameManager.GetSystem<TroopCardSystem>();
 
         _deck = GetComponent<Deck>();
         _hand = GetComponent<Hand>();
@@ -59,9 +62,9 @@ public class CardSystem : MonoBehaviour
         return _unitPool[Random.Range(0, _unitPool.Count)];
     }
 
-    public BaseCard CreateCard(UnitConfig unitConfig, Polyomino polyomino) {
+    public BaseCard CreateCard(UnitConfig unitConfig, TroopCard troopCard) {
         BaseCard card = Instantiate(_cardPrefab);
-        card.Init(unitConfig, polyomino);
+        card.Init(unitConfig, troopCard);
         return card;
     }
 
@@ -69,8 +72,8 @@ public class CardSystem : MonoBehaviour
     public void SetDeck(int deckAmount) {
         for (int i = 0; i < deckAmount; i++) {
             UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-            Polyomino polyomino = Polyomino.GetRandomPolyomino();
-            BaseCard card = CreateCard(config, polyomino);
+            TroopCard troopCard = _troopCardSystem.CreateRandomTroopCard();
+            BaseCard card = CreateCard(config, troopCard);
             _deck.AddCard(card);
         }
 

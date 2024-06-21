@@ -202,34 +202,18 @@ public class Board : MonoBehaviour
         return nearbyCells;
     }
 
-    public Cell[] GetRowCells(int col) {
-        Cell[] rowCells = new Cell[row];
+    public List<UnitBlock> GetNearbyBlocks(UnitBlock unitBlock) {
+        List<UnitBlock> unitBlocks = new List<UnitBlock>();
 
-        for (int i = 0; i < row; i++) {
-            rowCells[i] = cells[col, i];
-        }
+        foreach (Cell cell in unitBlock.Cells) {
+            List<Cell> nearbyCells = GetNearbyCells(cell, false);
 
-        return rowCells;
-    }
+            foreach (Cell nearbyCell in nearbyCells) {
+                UnitBlock nearbyBlock = _unitBlockSystem.GetUnitBlock(nearbyCell);
 
-    public bool IsRowFull(int col) {
-        for (int i = 0; i < row; i++) {
-            if (cells[col, i].Unit == null) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public List<UnitBlock> GetBlocksInRow(int col) {
-        List<UnitBlock> unitBlocks= new List<UnitBlock>();
-
-        for (int i = 0; i < row; i++) {
-            UnitBlock block = _unitBlockSystem.GetUnitBlock(cells[col, i]);
-
-            if (block != null && !unitBlocks.Contains(block)) {
-                unitBlocks.Add(block);
+                if (nearbyBlock != null && !unitBlocks.Contains(nearbyBlock) && nearbyBlock != unitBlock) {
+                    unitBlocks.Add(unitBlock);
+                }
             }
         }
 
