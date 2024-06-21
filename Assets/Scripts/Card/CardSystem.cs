@@ -144,22 +144,24 @@ public class CardSystem : MonoBehaviour
 
             Vector3 topLeftPos = _unitBlockMarker.GetTopLeftPosition();
             Cell topLeftCell = Utils.Pick<Cell>(topLeftPos);
-            bool isPlaced = false;
 
-            if (topLeftCell != null) {
-                Board board = _gameManager.GetSystem<Board>();
-                isPlaced = board.Place(topLeftCell, _selectedPolyomino, _selectedCard.UnitConfig);
+            Board board = _gameManager.GetSystem<Board>();
+
+            if (topLeftCell != null && board.IsPlacable(_selectedPolyomino, topLeftCell)) {
+                UnitBlock unitBlock = board.Place(topLeftCell, _selectedPolyomino, _selectedCard.UnitConfig);
+
+                //Troop의 OnPlace 효과 발동
+                TurnContext turnContext = new TurnContext(board, EnumTypes.CharacterTypes.None);
+                _selectedCard.TroopCard.TroopEffect.OnPlace(turnContext, unitBlock);
+
+                //카드를 Discard로 보냄
+                _hand.RemoveCard(_selectedCard);
+                _discards.AddCard(_selectedCard);
             }
 
             //Unit Block Marker를 Clear하고 비활성화
             _unitBlockMarker.Clear();
             _unitBlockMarker.gameObject.SetActive(false);
-
-            //유닛 배치에 성공한 경우 카드를 Discard로 보냄
-            if (isPlaced) {
-                _hand.RemoveCard(_selectedCard);
-                _discards.AddCard(_selectedCard);
-            }
 
             _selectedCard = null;
         }

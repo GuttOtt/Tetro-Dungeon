@@ -93,8 +93,8 @@ public class Board : MonoBehaviour
     }
 
     //Place UnitBlock
-    public bool Place(Cell topLeft, Polyomino polyomino, UnitConfig unitConfig, CharacterTypes characterType = CharacterTypes.Player) {
-        if (!IsPlacable(polyomino, topLeft)) return false;
+    public UnitBlock Place(Cell topLeft, Polyomino polyomino, UnitConfig unitConfig, CharacterTypes characterType = CharacterTypes.Player) {
+        if (!IsPlacable(polyomino, topLeft)) return null;
 
         int[,] shape = polyomino.Shape;
         int xTopLeft = topLeft.position.col;
@@ -119,22 +119,11 @@ public class Board : MonoBehaviour
             units.Add(unit);
         }
 
-        _unitBlockSystem.CreateUnitBlock(cellsToPlace, units, polyomino, topLeft);
-
-        /*
-        for (int x = 0; x < shape.GetLength(0); x++) {
-            for (int y = 0; y < shape.GetLength(1); y++) {
-                if (shape[x, y] == 0) continue;
-                Cell cell = cells[x + xTopLeft, y + yTopLeft];
-                BaseUnit unit = unitSystem.CreateUnit(unitConfig, characterType) as BaseUnit;
-                Place(cell, unit);
-            }
-        }
-        */
+        UnitBlock unitBlock = _unitBlockSystem.CreateUnitBlock(cellsToPlace, units, polyomino, topLeft);
 
         onPlaceUnit.Invoke();
 
-        return true;
+        return unitBlock;
     }
 
     //Place a Unit
@@ -203,7 +192,7 @@ public class Board : MonoBehaviour
     }
 
     public List<UnitBlock> GetNearbyBlocks(UnitBlock unitBlock) {
-        List<UnitBlock> unitBlocks = new List<UnitBlock>();
+        List<UnitBlock> nearbyBlocks = new List<UnitBlock>();
 
         foreach (Cell cell in unitBlock.Cells) {
             List<Cell> nearbyCells = GetNearbyCells(cell, false);
@@ -211,12 +200,12 @@ public class Board : MonoBehaviour
             foreach (Cell nearbyCell in nearbyCells) {
                 UnitBlock nearbyBlock = _unitBlockSystem.GetUnitBlock(nearbyCell);
 
-                if (nearbyBlock != null && !unitBlocks.Contains(nearbyBlock) && nearbyBlock != unitBlock) {
-                    unitBlocks.Add(unitBlock);
+                if (nearbyBlock != null && !nearbyBlocks.Contains(nearbyBlock) && nearbyBlock != unitBlock) {
+                    nearbyBlocks.Add(nearbyBlock);
                 }
             }
         }
 
-        return unitBlocks;
+        return nearbyBlocks;
     }
 }

@@ -15,6 +15,7 @@ namespace Card
         #endregion
 
         #region properties
+        public TroopCard TroopCard { get => _troopCard; }
         public Polyomino Polyomino { get => _troopCard.Polyomino; }
         public UnitConfig UnitConfig { get => _unitConfig; private set => _unitConfig = value; }
         #endregion
