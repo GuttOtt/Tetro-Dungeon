@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Dragon Synergy
   m_EditorClassIdentifier: 
   _synergyType: 0
-  _minSynergyValue: 2
+  _minSynergyCount: 0
+  _synergyValue: 3

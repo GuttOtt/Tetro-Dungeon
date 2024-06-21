@@ -5,7 +5,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 public class GunnerSynergy : BaseSynergy {
-    public override void OnBattleBegin(TurnContext turnContext, int synergyValue) {
+    public override void OnBattleBegin(TurnContext turnContext, int synergyCount) {
         Debug.Log("총잡이 시너지 효과 발동");
 
         Board board = turnContext.Board;
@@ -28,7 +28,7 @@ public class GunnerSynergy : BaseSynergy {
             }
 
             if (targetUnit != null) {
-                targetUnit.TakeDamage(turnContext, synergyValue);
+                targetUnit.TakeDamage(turnContext, synergyCount * (int)_synergyValue);
             }
         }
     }

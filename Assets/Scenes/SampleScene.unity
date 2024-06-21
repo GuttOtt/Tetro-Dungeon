@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allSynergyList: []
   _synergyText: {fileID: 823572300}
-  _delayPerSynergy: 2
+  _delayPerSynergy: 1
 --- !u!1 &358434366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayPerUnit: 0.2
-  delayPerTick: 1
+  delayPerTick: 0.5
   _playerMaxLife: 200
   _enemyMaxLife: 200
   _playerLifeText: {fileID: 358434368}

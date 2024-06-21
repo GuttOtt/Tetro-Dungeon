@@ -18,6 +18,7 @@ public class UnitBlockSystem : MonoBehaviour {
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
+        _gameManager.GetSystem<BattleSystem>().OnStartBattle += DestroyAllBlock;
     }
 
     public UnitBlock CreateUnitBlock(List<Cell> cells, List<IUnit> units, Polyomino polyomino, Cell topLeftCell) {
@@ -66,6 +67,10 @@ public class UnitBlockSystem : MonoBehaviour {
     }
 
     private void DestroyAllBlock() {
+        foreach(UnitBlock block in _unitBlocks) {
+            Destroy(block.gameObject);
+        }
 
+        _unitBlocks.Clear();
     }
 }

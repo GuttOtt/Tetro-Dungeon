@@ -41,6 +41,7 @@ public class BattleSystem : MonoBehaviour
     #endregion
 
     #region Events
+    public event Action OnStartBattle;
     #endregion
 
     #region
@@ -69,6 +70,8 @@ public class BattleSystem : MonoBehaviour
     public async UniTask StartBattle(CharacterTypes attackTurn) {
         if (_isProcessing)
             return;
+
+        OnStartBattle.Invoke();
 
         _attackTurn = attackTurn;
 

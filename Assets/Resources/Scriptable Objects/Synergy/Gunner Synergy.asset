@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Gunner Synergy
   m_EditorClassIdentifier: 
   _synergyType: 1
-  _minSynergyValue: 2
+  _minSynergyCount: 0
+  _synergyValue: 5

@@ -29,6 +29,8 @@ public class EnemySystem : MonoBehaviour {
     private void Awake() {
         _gameManager = transform.parent.GetComponent<IGameManager>();
         _unitSystem = _gameManager.GetSystem<UnitSystem>();
+
+        unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
     }
 
     public void DecideUnitList() {

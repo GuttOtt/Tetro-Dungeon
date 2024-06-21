@@ -8,10 +8,12 @@ public class BaseSynergy:ScriptableObject {
     [SerializeField]
     protected SynergyTypes _synergyType;
     [SerializeField]
-    protected int _minSynergyValue; // minimum synergy value to be activated
+    protected int _minSynergyCount; // minimum synergy value to be activated
+    [SerializeField]
+    protected float _synergyValue;
 
     public virtual SynergyTypes SynergyType { get => _synergyType; }
-    public virtual int MinSynergyValue { get => _minSynergyValue; }
+    public virtual int MinSynergyCount { get => _minSynergyCount; }
 
     public virtual void Init() {
 

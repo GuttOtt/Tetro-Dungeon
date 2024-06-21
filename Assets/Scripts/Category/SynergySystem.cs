@@ -122,7 +122,7 @@ public class SynergySystem : MonoBehaviour {
             if (synergy == null) {
                 Debug.LogError($"synergyType {synergyType}에 해당하는 synergy가 존재하지 않습니다. synergy Type enum 혹은 synergy Scriptable Object를 확인해주세요.");
             }
-            else if (synergy.MinSynergyValue <= _synergyDic[synergyType]) {
+            else if (synergy.MinSynergyCount <= _synergyDic[synergyType]) {
                 synergies.Add(synergy);
             }
         }
