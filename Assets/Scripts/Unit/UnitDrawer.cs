@@ -26,6 +26,10 @@ public class UnitDrawer : MonoBehaviour
         _hpText?.SetText(hp.ToString());
         _hpText.color = color;
     }
+    public void UpdateAttack(int attack, Color color) {
+        _attackText?.SetText(attack.ToString());
+        _attackText.color = color;
+    }
 
     public void Highlight() {
         if (_unitSprite != null)
