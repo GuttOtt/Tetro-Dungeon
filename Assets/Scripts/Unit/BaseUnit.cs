@@ -195,4 +195,5 @@ public class BaseUnit : MonoBehaviour, IUnit
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
     }
     #endregion
+
 }
