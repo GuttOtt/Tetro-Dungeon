@@ -40,6 +40,8 @@ public class CardSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
         _troopCardSystem = _gameManager.GetSystem<TroopCardSystem>();
 
+        _unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
+
         _deck = GetComponent<Deck>();
         _hand = GetComponent<Hand>();
         _discards = GetComponent<Discards>();
@@ -58,9 +60,6 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-    public UnitConfig GetRandomUnitConfig() {
-        return _unitPool[Random.Range(0, _unitPool.Count)];
-    }
 
     public BaseCard CreateCard(UnitConfig unitConfig, TroopCard troopCard) {
         BaseCard card = Instantiate(_cardPrefab);
@@ -151,7 +150,7 @@ public class CardSystem : MonoBehaviour
                 UnitBlock unitBlock = board.Place(topLeftCell, _selectedPolyomino, _selectedCard.UnitConfig);
 
                 //Troop의 OnPlace 효과 발동
-                TurnContext turnContext = new TurnContext(board, EnumTypes.CharacterTypes.None);
+                TurnContext turnContext = _gameManager.CreateTurnContext();
                 _selectedCard.TroopCard.TroopEffect.OnPlace(turnContext, unitBlock);
 
                 //카드를 Discard로 보냄

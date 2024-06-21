@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7181e7b328babb545ba5cdb8ad6e6c53, type: 3}
   m_Name: BuffNearbyTroops_Attack1
   m_EditorClassIdentifier: 
-  _attack: 1
+  Description: 
+  _attack: 5
   _hp: 0

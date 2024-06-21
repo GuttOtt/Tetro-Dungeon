@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99fdbc1a3b2184486ee98f1892d4a3, type: 3}
-  m_Name: Gunner Synergy
+  m_Script: {fileID: 11500000, guid: 7c798e8b57211e44e9b0b66fccee2fea, type: 3}
+  m_Name: A5H0R0
   m_EditorClassIdentifier: 
-  _synergyType: 1
-  _minSynergyValue: 2
+  _attack: 5
+  _hp: 0
+  _range: 0

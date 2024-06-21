@@ -1026,6 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507e0f030afa90b4cb1338263cfbae34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _allTroopEffect: []
 --- !u!1 &587640736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1544,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayPerUnit: 0.2
   delayPerTick: 1
+  _playerMaxLife: 200
+  _enemyMaxLife: 200
   _playerLifeText: {fileID: 358434368}
   _enemyLifeText: {fileID: 522040892}
 --- !u!1 &1418810072
@@ -1609,8 +1612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitBlockMarker: {fileID: 1641007580}
-  _unitPool:
-  - {fileID: 11400000, guid: 3c42213bb6880c64eb89a6e6177da951, type: 2}
+  _unitPool: []
   _cardPrefab: {fileID: 9058701112474785303, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
   deckNumber: 10
 --- !u!4 &1521026326

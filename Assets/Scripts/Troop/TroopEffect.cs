@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class TroopEffect : ScriptableObject {
+    public string Description;
+
     public virtual void OnPlace(TurnContext turnContext, UnitBlock unitBlock) {
 
     }

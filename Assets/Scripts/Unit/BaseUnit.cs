@@ -31,7 +31,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
             else if (_attack < _currentAttack)
             {
-                _unitDrawer.UpdateAttack(_currentAttack, Color.green);
+                _unitDrawer.UpdateAttack(_currentAttack, new Color(0, 0.8f, 0));
             }
             else
             {
@@ -52,7 +52,7 @@ public class BaseUnit : MonoBehaviour, IUnit
                 _unitDrawer.UpdateHP(_currentHP, Color.red);
             }
             else if (_maxHP < _currentHP) {
-                _unitDrawer.UpdateHP(_currentHP, Color.green);
+                _unitDrawer.UpdateHP(_currentHP, new Color(0, 0.8f, 0));
             }
             else {
                 _unitDrawer.UpdateHP(_currentHP, Color.black);

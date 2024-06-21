@@ -26,7 +26,11 @@ public class BattleSystem : MonoBehaviour
     //배틀이 진행중인가?
     private bool _isProcessing = false;
 
+    //현재 공격 턴
+    private CharacterTypes _attackTurn;
+
     //라이프 (이후 다른 클래스로 옮겨야 할 수도 있음)
+    [SerializeField] private int _playerMaxLife, _enemyMaxLife;
     private Dictionary<CharacterTypes, int> _lifeDic;
     [SerializeField] private TMP_Text _playerLifeText;
     [SerializeField] private TMP_Text _enemyLifeText;
@@ -39,9 +43,11 @@ public class BattleSystem : MonoBehaviour
     #region Events
     #endregion
 
-    private enum UnitActionTypes {
-        Move, Attack, None
-    }
+    #region
+    public bool IsProcessing { get => _isProcessing; }
+    public CharacterTypes AttackTurn { get => _attackTurn; }
+    #endregion
+
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
@@ -50,8 +56,8 @@ public class BattleSystem : MonoBehaviour
 
         //Set Life
         _lifeDic = new Dictionary<CharacterTypes, int>() { 
-            { CharacterTypes.Player, 15 },
-            { CharacterTypes.Enemy, 15 }
+            { CharacterTypes.Player, _playerMaxLife },
+            { CharacterTypes.Enemy, _enemyMaxLife }
         };
 
         _lifeTextDic.Add(CharacterTypes.Player, _playerLifeText);
@@ -64,11 +70,13 @@ public class BattleSystem : MonoBehaviour
         if (_isProcessing)
             return;
 
+        _attackTurn = attackTurn;
+
         Debug.Log("Battle Started");
         _isProcessing = true;
 
         //배틀 시작 시 발생하는 Synergy 효과들 발동
-        await _synergySystem.OnBattleBeginEffects(new TurnContext(_board, attackTurn));
+        await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
         //Attack Turn의 유닛이 전부 사라질 때까지 전투
         while (true) {
@@ -102,6 +110,7 @@ public class BattleSystem : MonoBehaviour
 
         //배틀 종료
         _isProcessing= false;
+        _attackTurn = CharacterTypes.None;
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
@@ -115,10 +124,10 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
-        TurnContext turnContext = new TurnContext(_board, attackTurn);
+        TurnContext turnContext = _gameManager.CreateTurnContext();
 
         //틱 시작 시 발동하는 시너지 효과들 발동
-        await _synergySystem.OnTickBegin(new TurnContext(_board, attackTurn));
+        await _synergySystem.OnTickBegin(turnContext);
 
         /*
         //액션 결정

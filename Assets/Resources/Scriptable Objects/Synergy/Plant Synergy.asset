@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e03898054917374ea7c7e8eb2008e60, type: 3}
   m_Name: Plant Synergy
   m_EditorClassIdentifier: 
-  _synergyType: 7
+  _synergyType: 2
   _minSynergyValue: 2

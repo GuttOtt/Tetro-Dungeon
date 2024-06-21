@@ -25,6 +25,6 @@ namespace EnumTypes
     }
 
     public enum SynergyTypes {
-        A, B, C, D, E,Dragon, Gunner, Plant
+        Dragon, Gunner, Plant
     }
 }

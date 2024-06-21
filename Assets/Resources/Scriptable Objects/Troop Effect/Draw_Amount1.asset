@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be99fdbc1a3b2184486ee98f1892d4a3, type: 3}
-  m_Name: Gunner Synergy
+  m_Script: {fileID: 11500000, guid: 8ef2f0d250a2a85478a69080d7e6e2af, type: 3}
+  m_Name: Draw_Amount1
   m_EditorClassIdentifier: 
-  _synergyType: 1
-  _minSynergyValue: 2
+  Description: 
+  _drawAmount: 1

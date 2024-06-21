@@ -1,3 +1,4 @@
+using EnumTypes;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
@@ -92,5 +93,13 @@ public class GameManager : MonoBehaviour, IGameManager
     public void PlayerLose() {
         _victoryText.gameObject.SetActive(true);
         _victoryText.text = "Player Loses...";
+    }
+
+    public TurnContext CreateTurnContext() {
+        Board board = _board;
+        CharacterTypes moveTurn = _battleSystem.IsProcessing ? _battleSystem.AttackTurn : CharacterTypes.None;
+        CardSystem cardSystem = _cardSystem;
+
+        return new TurnContext(board, moveTurn, cardSystem);
     }
 }
