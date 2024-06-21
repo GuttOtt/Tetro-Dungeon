@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace Card
@@ -9,6 +10,8 @@ namespace Card
         private PolyominoDrawer _polyominoDrawer;
         [SerializeField]
         private UnitDrawer _unitInCardDrawer;
+        [SerializeField]
+        private TMP_Text _troopDescription;
         [SerializeField]
         private UnitConfig _unitConfig;
         private TroopCard _troopCard;
@@ -26,6 +29,7 @@ namespace Card
 
             DrawPolyomino();
             DrawUnit();
+            DrawTroopDescription();
         }
 
         #region Presentation
@@ -36,7 +40,12 @@ namespace Card
         }
 
         private void DrawUnit() {
-            _unitInCardDrawer.Draw(UnitConfig);
+            _unitInCardDrawer.Draw(UnitConfig, TroopCard.StatDecorator.Attack, TroopCard.StatDecorator.HP);
+        }
+
+        private void DrawTroopDescription() {
+            _troopDescription.text = "";
+            _troopDescription.text += TroopCard.TroopEffect.Description;
         }
         #endregion
 

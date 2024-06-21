@@ -13,7 +13,7 @@ public class PlantSynergy : BaseSynergy {
         List<IUnit> playerUnits = board.GetUnits(CharacterTypes.Player);
 
         foreach (IUnit unit in playerUnits) {
-            unit.TakeHeal(turnContext, synergyCount * (int) _synergyValue);
+            (unit as BaseUnit).ChangeCurrentHP(synergyCount * (int) _synergyValue);
 
         }
 

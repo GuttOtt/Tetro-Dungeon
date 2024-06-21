@@ -5,6 +5,7 @@ using UnityEngine;
 public class Deck : MonoBehaviour, ICardPile
 {
     [SerializeField] private Transform _deckParent;
+    [SerializeField] private Discards _discards;
     private List<ICard> _decks = new List<ICard>();
 
     public void AddCard(ICard card) {
@@ -20,8 +21,13 @@ public class Deck : MonoBehaviour, ICardPile
     }
 
     public ICard Draw() {
-        if (_decks.Count == 0)
-            return null;
+        if (_decks.Count == 0) {
+            foreach (ICard card in _discards.GetAllCard()) {
+                AddCard(card);
+            }
+            _discards.Clear();
+            Shuffle();
+        }
 
         ICard topCard = _decks[0];
         RemoveCard(topCard);

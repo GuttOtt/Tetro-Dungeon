@@ -13,6 +13,10 @@ public class GunnerSynergy : BaseSynergy {
         List<IUnit> playerUnits = board.GetUnits(CharacterTypes.Player);
 
         foreach (IUnit unit in playerUnits) {
+            if (!unit.Synergies.Contains(SynergyTypes.Gunner)) {
+                continue;
+            }
+
             int originCol = unit.CurrentCell.position.col;
             int originRow = unit.CurrentCell.position.row;
 

@@ -1,6 +1,7 @@
 using Card;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -21,5 +22,13 @@ public class Discards : MonoBehaviour, ICardPile {
         if (!_discards.Contains(card))
             return;
         _discards.Remove(card);
+    }
+
+    public List<ICard> GetAllCard() {
+        return _discards.ToList();
+    }
+
+    public void Clear() {
+        _discards.Clear();
     }
 }

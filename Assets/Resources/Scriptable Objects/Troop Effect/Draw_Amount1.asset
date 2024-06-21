@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef2f0d250a2a85478a69080d7e6e2af, type: 3}
   m_Name: Draw_Amount1
   m_EditorClassIdentifier: 
-  Description: 
+  Description: Draw 1
   _drawAmount: 1

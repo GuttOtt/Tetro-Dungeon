@@ -7,19 +7,30 @@ public class UnitDrawer : MonoBehaviour
     private SpriteRenderer _unitSprite;
 
     [SerializeField]
-    private TMP_Text _hpText, _mpText, _attackText, _rangeText;
+    private TMP_Text _hpText, _mpText, _attackText, _rangeText, _synergyText;
 
-    public void Draw(UnitConfig unitConfig) {
+    public void Draw(UnitConfig unitConfig, int attackBuff = 0, int hpBuff = 0) {
         //스프라이트
         if (_unitSprite != null) {
             _unitSprite.sprite = unitConfig.Sprite;
         }
 
+        int attack = unitConfig.Attack + attackBuff;
+        int hp = unitConfig.MaxHP + hpBuff;
+
         //텍스트
-        _hpText?.SetText(unitConfig.MaxHP.ToString());
-        _mpText?.SetText(unitConfig.MaxMP.ToString());
+        _hpText?.SetText(hp.ToString());
+        _mpText?.SetText(attack.ToString());
         _attackText?.SetText(unitConfig.Attack.ToString());
         _rangeText?.SetText(unitConfig.Range.ToString());
+        _synergyText?.SetText(unitConfig.Synergies[0].ToString());
+
+        if (0 < attackBuff) {
+            _attackText.color = new Color(0, 0.7f, 0);
+        }
+        if (0 < hpBuff) {
+            _hpText.color = new Color(0, 0.7f, 0);
+        }
     }
 
     public void UpdateHP(int hp, Color color) {

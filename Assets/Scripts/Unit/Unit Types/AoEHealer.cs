@@ -16,7 +16,7 @@ public class AoEHealer : BaseUnit
         
         foreach (Cell nearbyCell in nearbyCells) {
             if (nearbyCell.Unit != null && nearbyCell.Unit.Owner == Owner) {
-                (nearbyCell.Unit as BaseUnit).TakeHeal(turnContext, Attack);
+                (nearbyCell.Unit as BaseUnit).TakeHeal(turnContext, Attack / 4);
             }
         }
     }
