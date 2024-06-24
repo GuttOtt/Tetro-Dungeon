@@ -1,9 +1,7 @@
-using System;
-using UnityEngine;
 using EnumTypes;
-using System.Buffers;
-using Unity.Mathematics;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -13,6 +11,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private UnitConfig _config;
     private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _currentAttack, _range, _unitTypeValue;
     private List<SynergyTypes> _synergies;
+    
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
     #endregion
@@ -20,7 +19,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Properties
     public int MaxHP { get => _maxHP; }
     public int MaxMP { get => _maxMP; }
-    public int Attack { 
+    public int Attack
+    {
         get => _currentAttack;
         private set
         {
@@ -44,17 +44,22 @@ public class BaseUnit : MonoBehaviour, IUnit
     public Action OnDie { get; set; }
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
-    public int CurrentHP {
+    public int CurrentHP
+    {
         get => _currentHP;
-        private set {
+        private set
+        {
             _currentHP = value;
-            if (_currentHP < _maxHP) {
+            if (_currentHP < _maxHP)
+            {
                 _unitDrawer.UpdateHP(_currentHP, Color.red);
             }
-            else if (_maxHP < _currentHP) {
+            else if (_maxHP < _currentHP)
+            {
                 _unitDrawer.UpdateHP(_currentHP, new Color(0, 0.8f, 0));
             }
-            else {
+            else
+            {
                 _unitDrawer.UpdateHP(_currentHP, Color.black);
             }
         }
@@ -64,7 +69,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner) {
+    public void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner)
+    {
         //System
         _unitSystem = unitSystem;
 
@@ -74,7 +80,6 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Draw
         _unitDrawer = GetComponent<UnitDrawer>();
         _unitDrawer.Draw(config);
-
         //Stats
         _maxHP = config.MaxHP;
         _currentHP = config.MaxHP;
@@ -84,6 +89,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         _currentAttack = config.Attack;
         _range = config.Range;
         _unitTypeValue = config.UnitTypeValue;
+        _unitDrawer._healthBar.SetMaxHealth(MaxHP);
 
         _owner = owner;
 
@@ -92,16 +98,19 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     }
 
-    public void Die() {
+    public void Die()
+    {
         OnDie();
         _unitSystem.DestroyUnit(this);
     }
 
-    public virtual void Die(TurnContext turnContext) {
+    public virtual void Die(TurnContext turnContext)
+    {
         Die();
     }
 
-    public void Highlight() {
+    public void Highlight()
+    {
         if (_unitDrawer != null)
         {
             _unitDrawer.Highlight();
@@ -112,7 +121,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
 
-    public void Unhighlight() {
+    public void Unhighlight()
+    {
         //_unitDrawer.Unhighlight();
         if (Owner == CharacterTypes.Player)
             _unitDrawer.ChangeColor(Color.white);
@@ -123,10 +133,12 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Unit Action Pattern
 
     #region Move
-    public virtual bool IsMovable(TurnContext turnContext) {
+    public virtual bool IsMovable(TurnContext turnContext)
+    {
         CharacterTypes moveTurn = turnContext.MoveTurn;
 
-        if (Owner != moveTurn) {
+        if (Owner != moveTurn)
+        {
             return false;
         }
 
@@ -140,7 +152,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         return true;
     }
 
-    public virtual void Move(TurnContext turnContext) {
+    public virtual void Move(TurnContext turnContext)
+    {
         Cell forwardCell = GetForwardCell(turnContext.Board);
 
         //유닛 이동
@@ -149,7 +162,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         CurrentCell = forwardCell;
     }
 
-    protected Cell GetForwardCell(Board board) {
+    protected Cell GetForwardCell(Board board)
+    {
         Cell currentCell = CurrentCell;
 
         // 전방으로 한 칸의 위치 계산
@@ -164,7 +178,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
     #region Attack
-    public virtual bool IsAttackable(TurnContext turnContext) {
+    public virtual bool IsAttackable(TurnContext turnContext)
+    {
         IUnit targetUnit = GetAttackTarget(turnContext.Board);
         if (targetUnit != null)
             return true;
@@ -172,13 +187,15 @@ public class BaseUnit : MonoBehaviour, IUnit
             return false;
     }
 
-    public virtual void AttackAction(TurnContext turnContext) {
+    public virtual void AttackAction(TurnContext turnContext)
+    {
         IUnit attackTarget = GetAttackTarget(turnContext.Board);
 
         attackTarget.TakeDamage(turnContext, Attack);
     }
 
-    protected IUnit GetAttackTarget(Board board) {
+    protected IUnit GetAttackTarget(Board board)
+    {
         int range = Range;
         int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
         Cell currentCell = CurrentCell;
@@ -186,10 +203,12 @@ public class BaseUnit : MonoBehaviour, IUnit
         int originRow = currentCell.position.row;
 
         //가까운 유닛을 우선으로 공격
-        for (int i = 1; i <= range; i++) {
+        for (int i = 1; i <= range; i++)
+        {
             Cell targetCell = board.GetCell(originCol + forwardOffset * i, originRow);
 
-            if (targetCell != null && targetCell.Unit != null && targetCell.Unit.Owner != Owner) {
+            if (targetCell != null && targetCell.Unit != null && targetCell.Unit.Owner != Owner)
+            {
                 return targetCell.Unit;
             }
         }
@@ -208,11 +227,13 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeMaxHP(int value) => _maxHP += value;
     #endregion
 
-    public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker) {
+    public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker)
+    {
         TakeDamage(turnContext, damage);
     }
 
-    public virtual void TakeDamage(TurnContext turnContext, int damage) {
+    public virtual void TakeDamage(TurnContext turnContext, int damage)
+    {
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
@@ -220,11 +241,12 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
 
-    public virtual void TakeHeal(TurnContext turnContext, int amount) {
+    public virtual void TakeHeal(TurnContext turnContext, int amount)
+    {
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
     }
 
-    
+
 
     #endregion
 

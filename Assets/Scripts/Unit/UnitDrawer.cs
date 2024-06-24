@@ -1,3 +1,4 @@
+using Assets.Scripts.Unit.UI;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,14 @@ public class UnitDrawer : MonoBehaviour
 
     [SerializeField]
     private TMP_Text _hpText, _mpText, _attackText, _rangeText, _synergyText;
+
+    public UnitHealthBar _healthBar;
+
+    public void Start()
+    {
+        // 체력 바
+        _healthBar = GetComponentInChildren<UnitHealthBar>();
+    }
 
     public void Draw(UnitConfig unitConfig, int attackBuff = 0, int hpBuff = 0) {
         //스프라이트
@@ -35,6 +44,7 @@ public class UnitDrawer : MonoBehaviour
 
     public void UpdateHP(int hp, Color color) {
         _hpText?.SetText(hp.ToString());
+        _healthBar.SetHealth(hp);
         _hpText.color = color;
     }
     public void UpdateAttack(int attack, Color color) {
