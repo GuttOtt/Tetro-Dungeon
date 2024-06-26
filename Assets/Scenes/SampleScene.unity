@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f892ffde89bc48d41bdd275c3c391f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  row: 4
+  row: 3
   column: 6
   cellPrefab: {fileID: 1373246608024058941, guid: 0c02e8c9e78819c449f78e7b7e9ca560, type: 3}
 --- !u!4 &130838225
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3ff01dd677bd374685f8877ec82847e, type: 2}
   unitListDisplay: {fileID: 378587713}
   unitGap: {x: 1.5, y: 0}
-  unitAmount: 10
+  unitAmount: 9
 --- !u!1 &1309255132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deckParent: {fileID: 1733329272}
+  _discards: {fileID: 0}
 --- !u!114 &1521026328
 MonoBehaviour:
   m_ObjectHideFlags: 0
