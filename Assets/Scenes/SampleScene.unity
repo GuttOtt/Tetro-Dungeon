@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df848766d7c125c4191bbfbf8ebd7ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayPerUnit: 0.2
+  delayPerUnit: 0
   delayPerTick: 0.5
   _playerMaxLife: 200
   _enemyMaxLife: 200
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deckParent: {fileID: 1733329272}
+  _discards: {fileID: 0}
 --- !u!114 &1521026328
 MonoBehaviour:
   m_ObjectHideFlags: 0

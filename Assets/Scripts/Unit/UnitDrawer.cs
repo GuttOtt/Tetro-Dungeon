@@ -10,12 +10,24 @@ public class UnitDrawer : MonoBehaviour
     [SerializeField]
     private TMP_Text _hpText, _mpText, _attackText, _rangeText, _synergyText;
 
+    [SerializeField]
+    public GameObject _tooltip;
+
     public UnitHealthBar _healthBar;
 
-    public void Start()
+    private TextMeshProUGUI _tooltip_name;
+    private TextMeshProUGUI _tooltip_effect;
+
+    public void Awake()
     {
         // 체력 바
         _healthBar = GetComponentInChildren<UnitHealthBar>();
+        // Tooltip 내의 Name TextMeshPro 컴포넌트 찾기
+        if (_tooltip != null)
+        {
+            _tooltip_name = _tooltip.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
+            _tooltip_effect = _tooltip.transform.Find("Effect")?.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     public void Draw(UnitConfig unitConfig, int attackBuff = 0, int hpBuff = 0) {
@@ -33,6 +45,9 @@ public class UnitDrawer : MonoBehaviour
         _attackText?.SetText(unitConfig.Attack.ToString());
         _rangeText?.SetText(unitConfig.Range.ToString());
         _synergyText?.SetText(unitConfig.Synergies[0].ToString());
+
+        _tooltip_name?.SetText(unitConfig.Name);
+        _tooltip_effect?.SetText(unitConfig.EffectDescription);
 
         if (0 < attackBuff) {
             _attackText.color = new Color(0, 0.7f, 0);

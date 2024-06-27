@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/TextMesh Pro/Fonts/NotoSansKR-Bold SDF.asset
+Assets/TextMesh Pro/Fonts/NotoSansKR-Bold SDF.asset.meta
+Assets/TextMesh Pro/Fonts/NotoSansKR-Bold.ttf
+Assets/TextMesh Pro/Fonts/NotoSansKR-Bold.ttf.meta

@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uC778\uB0B4\uC2EC"
   m_EditorClassIdentifier: 
+  _name: "\uC778\uB0B4\uC2EC"
   _sprite: {fileID: 21300000, guid: 9fd8118121bd90b43b53c1dfff76bff9, type: 3}
   _maxHp: 8
   _maxMP: 0
   _attack: 2
   _range: 1
   _unitTypeValue: 1
+  _effectDescription: "\uD53C\uACA9 \uC2DC \uCCB4\uB825 n \uC0C1\uC2B9"
   _unitTypeString: Patience
   _synergies: 00000000

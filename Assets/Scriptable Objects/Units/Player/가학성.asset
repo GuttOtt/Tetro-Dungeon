@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uAC00\uD559\uC131"
   m_EditorClassIdentifier: 
+  _name: "\uAC00\uD559\uC131"
   _sprite: {fileID: 21300000, guid: 3751d906ba487bd47ab2c49375fc2de3, type: 3}
   _maxHp: 4
   _maxMP: 0
   _attack: 4
   _range: 1
   _unitTypeValue: 1
+  _effectDescription: "\uD53C\uACA9 \uC2DC \uACF5\uACA9\uB825 n \uC0C1\uC2B9"
   _unitTypeString: Sadism
   _synergies: 00000000

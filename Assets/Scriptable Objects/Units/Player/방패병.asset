@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uBC29\uD328\uBCD1"
   m_EditorClassIdentifier: 
+  _name: "\uBC29\uD328"
   _sprite: {fileID: 21300000, guid: f1527f40bc4cb8f4a8ee39a18ac21cf4, type: 3}
   _maxHp: 8
   _maxMP: 0

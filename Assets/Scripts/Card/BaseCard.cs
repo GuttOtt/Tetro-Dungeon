@@ -20,13 +20,12 @@ namespace Card
         #region properties
         public TroopCard TroopCard { get => _troopCard; }
         public Polyomino Polyomino { get => _troopCard.Polyomino; }
-        public UnitConfig UnitConfig { get => _unitConfig; private set => _unitConfig = value; }
+        public UnitConfig UnitConfig { get; private set; }
         #endregion
 
         public void Init(UnitConfig unitConfig, TroopCard troopCard) {
             UnitConfig = unitConfig;
             _troopCard = troopCard;
-
             DrawPolyomino();
             DrawUnit();
             DrawTroopDescription();
