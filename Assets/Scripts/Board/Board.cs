@@ -145,10 +145,7 @@ public class Board : MonoBehaviour
         return true;
     }
 
-    public List<IUnit> GetUnits(CharacterTypes chracterType) {
-        return unitDic[chracterType].ToList();
-    }
-
+    #region Getting Cell
     public Cell GetCell(int col, int row) {
         if (col < 0 || this.column <= col || row < 0 || this.row <= row) {
             return null;
@@ -209,7 +206,18 @@ public class Board : MonoBehaviour
 
         return nearbyBlocks;
     }
+    #endregion
 
+    #region Getting Unit
+    public List<IUnit> GetUnits(CharacterTypes chracterType) {
+        return unitDic[chracterType].ToList();
+    }
+
+    /// <summary>
+    /// center Cell을 기준으로 가장 가까운 characterType 유닛을 반환
+    /// maxDistance는 체크하는 최대 거리
+    /// 상하좌우 한 칸의 거리는 1, 대각선은 루트 2로 가정함
+    /// </summary>
     public IUnit GetClosestUnit(Cell center, CharacterTypes characterType, int maxDistance) {
         List<IUnit> units = GetUnits(characterType);
 
@@ -227,8 +235,13 @@ public class Board : MonoBehaviour
 
         return closest;
     }
+    #endregion
 
     private float GetDistance(Cell cell1, Cell cell2) {
         return Mathf.Sqrt((cell1.position.col - cell2.position.col)^2 + (cell1.position.row - cell2.position.row)^2); 
     }
+
+    #region Pathfinding
+
+    #endregion
 }
