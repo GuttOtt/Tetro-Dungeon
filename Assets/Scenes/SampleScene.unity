@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   row: 4
-  column: 6
+  column: 8
   cellPrefab: {fileID: 1373246608024058941, guid: 0c02e8c9e78819c449f78e7b7e9ca560, type: 3}
 --- !u!4 &130838225
 Transform:
@@ -164,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 130838223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 3, z: 0}
+  m_LocalPosition: {x: -7, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3ff01dd677bd374685f8877ec82847e, type: 2}
   unitListDisplay: {fileID: 378587713}
   unitGap: {x: 1.5, y: 0}
-  unitAmount: 10
+  unitAmount: 3
 --- !u!1 &1309255132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,12 +1542,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df848766d7c125c4191bbfbf8ebd7ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayPerUnit: 0
-  delayPerTick: 0.5
-  _playerMaxLife: 200
-  _enemyMaxLife: 200
+  _playerMaxLife: 500
+  _enemyMaxLife: 500
   _playerLifeText: {fileID: 358434368}
   _enemyLifeText: {fileID: 522040892}
+  _battleSpeed: 0.5
 --- !u!1 &1418810072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,7 +1646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deckParent: {fileID: 1733329272}
-  _discards: {fileID: 0}
+  _discards: {fileID: 1521026329}
 --- !u!114 &1521026328
 MonoBehaviour:
   m_ObjectHideFlags: 0

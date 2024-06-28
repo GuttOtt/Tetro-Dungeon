@@ -18,6 +18,7 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 15
   _range: 1
+  _speed: 1
   _unitTypeValue: 0
   _unitTypeString: FrontHealer
   _effectDescription: "\"\uC790\uC2E0 \uBC14\uB85C \uC55E\uC758 \uC544\uAD70 \uC720\uB2DB\uC758

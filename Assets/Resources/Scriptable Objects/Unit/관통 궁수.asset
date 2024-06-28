@@ -19,6 +19,7 @@ MonoBehaviour:
   _attack: 15
   _range: 2
   _unitTypeValue: 0
+  _speed: 1.2
   _unitTypeString: PenetrateArcher
   _effectDescription: "\uC0AC\uAC70\uB9AC \uB0B4\uC758 \uBAA8\uB4E0 \uC801\uC744
     \uACF5\uACA9"

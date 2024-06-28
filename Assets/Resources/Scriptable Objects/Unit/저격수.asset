@@ -19,6 +19,7 @@ MonoBehaviour:
   _attack: 25
   _range: 3
   _unitTypeValue: 0
+  _speed: 1.2
   _unitTypeString: Sniper
   _effectDescription: "\uAC00\uC7A5 \uB4A4\uC5D0 \uC788\uB294 \uC801 \uC720\uB2DB\uC744
     \uACF5\uACA9"

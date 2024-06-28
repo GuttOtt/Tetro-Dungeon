@@ -8,6 +8,8 @@ public interface IUnit
     public int Attack { get; }
     public int Range { get; }
     public int CurrentHP { get; }    
+
+    public float Speed { get; }
     
     public Cell CurrentCell { get; set;  }
     public EnumTypes.CharacterTypes Owner { get; }

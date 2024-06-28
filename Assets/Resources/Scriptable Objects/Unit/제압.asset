@@ -18,6 +18,7 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 10
   _range: 2
+  _speed: 1
   _unitTypeValue: 10
   _unitTypeString: Domination
   _effectDescription: "\uC801 \uCCB4\uB825\uC774 n \uC774\uD558\uBA74 \uD30C\uAD34"

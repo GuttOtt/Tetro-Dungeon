@@ -6,31 +6,27 @@ using UnityEngine;
 public class UnitConfig : ScriptableObject
 {
     [SerializeField]
-    private string _name;
-
-    [SerializeField]
     private Sprite _sprite;
 
     [SerializeField]
     private int _maxHp, _maxMP, _attack, _range, _unitTypeValue;
 
     [SerializeField]
-    private string _unitTypeString;
+    private float _speed;
 
     [SerializeField]
-    private string _effectDescription;
+    private string _unitTypeString;
 
     [SerializeField]
     private List<SynergyTypes> _synergies = new List<SynergyTypes>();
 
-    public string Name { get => base.name; }
     public Sprite Sprite { get => _sprite; }
     public int MaxHP { get => _maxHp; }
     public int MaxMP { get => _maxMP; }
     public int Attack { get => _attack; }
     public int Range { get => _range; }
+    public float Speed { get => _speed; }
+    public string UnitTypeString { get => _unitTypeString; }
     public int UnitTypeValue { get => _unitTypeValue; }
-    public string UnitTypeString => _unitTypeString;
-    public string EffectDescription { get => _effectDescription; }
     public List<SynergyTypes> Synergies { get => _synergies; }
 }

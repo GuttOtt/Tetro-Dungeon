@@ -19,6 +19,7 @@ MonoBehaviour:
   _attack: 20
   _range: 1
   _unitTypeValue: 5
+  _speed: 1.1
   _unitTypeString: Destroyer
   _effectDescription: "\uC801 \uC720\uB2DB \uD30C\uAD34 \uC2DC \uACF5\uACA9\uB825
     \uCCB4\uB825 n \uC0C1\uC2B9"

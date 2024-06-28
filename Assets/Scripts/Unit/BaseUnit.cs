@@ -10,6 +10,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     private Cell _currentCell;
     private UnitConfig _config;
     private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _currentAttack, _range, _unitTypeValue;
+    private float _speed;
+    private float _actionCoolDown;
     private List<SynergyTypes> _synergies;
     
     [SerializeField] private CharacterTypes _owner;
@@ -40,6 +42,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
     public int Range { get => _range; }
+    public float Speed { get => _speed; }
+
     public int UnitTypeValue { get => _unitTypeValue; }
     public Action OnDie { get; set; }
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
@@ -66,6 +70,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     public List<SynergyTypes> Synergies { get => _synergies; }
+    public bool IsActionCoolDown { get => _actionCoolDown <= (1/Speed); }
     #endregion
 
 
@@ -80,6 +85,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Draw
         _unitDrawer = GetComponent<UnitDrawer>();
         _unitDrawer.Draw(config);
+
         //Stats
         _maxHP = config.MaxHP;
         _currentHP = config.MaxHP;
@@ -88,6 +94,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         _attack = config.Attack;
         _currentAttack = config.Attack;
         _range = config.Range;
+        _speed = config.Speed;
+
         _unitTypeValue = config.UnitTypeValue;
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
 
@@ -95,6 +103,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Synergies
         _synergies = config.Synergies;
+
 
     }
 
@@ -131,49 +140,80 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     #region Unit Action Pattern
-
-    #region Move
-    public virtual bool IsMovable(TurnContext turnContext)
-    {
-        CharacterTypes moveTurn = turnContext.MoveTurn;
-
-        if (Owner != moveTurn)
-        {
-            return false;
+    public void Act(TurnContext turnContext) {
+        if (IsAttackable(turnContext)) {
+            AttackAction(turnContext);
+            Debug.Log($"{_config.name} Attack");
+        }
+        else if (IsMovable(turnContext)) {
+            Move(turnContext);
+        }
+        else {
+            Debug.Log($"{_config.name} None Action");
         }
 
-        //유닛의 앞쪽 셀을 가져옴
-        Cell forwardCell = GetForwardCell(turnContext.Board);
+        ResetActionCoolDown();
+    }
 
-        //forwardCell에 이미 유닛이 있거나, forwardCell이 존재하지 않는다면 false
-        if (forwardCell == null || forwardCell.Unit != null)
-            return false;
-
-        return true;
+    #region Move
+    public virtual bool IsMovable(TurnContext turnContext) {
+        return GetMovePath(turnContext.Board) != null;
     }
 
     public virtual void Move(TurnContext turnContext)
     {
-        Cell forwardCell = GetForwardCell(turnContext.Board);
+        List<Cell> movePath = GetMovePath(turnContext.Board);
+
+        Debug.Log($"{_config.name} Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
 
         //유닛 이동
         CurrentCell.UnitOut();
-        forwardCell.UnitIn(this);
-        CurrentCell = forwardCell;
+        movePath[1].UnitIn(this);
+        CurrentCell = movePath[1];
+
     }
 
-    protected Cell GetForwardCell(Board board)
-    {
-        Cell currentCell = CurrentCell;
+    protected List<Cell> GetMovePath(Board board) {
+        IUnit closestOpponent = board.GetClosestUnit(CurrentCell, Owner.Opponent(), 100);
+        if (closestOpponent == null) {
+            return null;
+        }
 
-        // 전방으로 한 칸의 위치 계산
-        int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
-        int targetColumn = currentCell.position.col + forwardOffset;
+        //closestOpponent를 공격할 수 있는 모든 셀 중 가장 가까운 경로를 만드는 셀을 구함
+        List<Cell> attackableCells = board.GetCellsInRange(closestOpponent.CurrentCell, 1, Range);
 
-        //유닛의 앞쪽 셀을 가져옴
-        Cell forwardCell = board.GetCell(targetColumn, currentCell.position.row);
+        List<Cell> shortestMovePath = null;
+        int shortestDistance = int.MaxValue;
 
-        return forwardCell;
+        foreach (Cell cell in attackableCells) {
+            List<Cell> movePath = board.PathFinding(CurrentCell, cell);
+
+            if (2 <= movePath.Count && movePath.Count < shortestDistance) {
+                shortestMovePath = movePath;
+                shortestDistance = movePath.Count;
+            }
+        }
+
+        /* Debug.Logs
+        if (shortestMovePath == null) {
+            Debug.Log($"No path to attackable Cells. Unit Name: {_config.name}, attackableCells.Count: {attackableCells.Count}, closestOpponent: {(closestOpponent as BaseUnit)._config.name}");
+        }
+        else if (shortestMovePath.Count <= 1) {
+            Debug.Log($"shortestMovePath.Count = {shortestMovePath.Count}. Owner : {Owner}, Unit Name: {_config.name}, attackableCells.Count: {attackableCells.Count}, closestOpponent: {(closestOpponent as BaseUnit)._config.name}");
+        }
+        */
+
+        //만약 공격 가능한 위치로 이동할 수 없다면, 그냥 가장 가까운 적을 향해 한 칸 이동할 수 있는지 계산
+        if (shortestMovePath == null || shortestMovePath.Count <= 1) {
+            int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
+            Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
+
+            if (forwardCell != null && forwardCell.Unit == null) {
+                shortestMovePath = new List<Cell> { CurrentCell, forwardCell };
+            }
+        }
+
+        return shortestMovePath;
     }
     #endregion
 
@@ -197,23 +237,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     protected IUnit GetAttackTarget(Board board)
     {
         int range = Range;
-        int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
         Cell currentCell = CurrentCell;
-        int originCol = currentCell.position.col;
-        int originRow = currentCell.position.row;
 
-        //가까운 유닛을 우선으로 공격
-        for (int i = 1; i <= range; i++)
-        {
-            Cell targetCell = board.GetCell(originCol + forwardOffset * i, originRow);
+        IUnit attackTarget = board.GetClosestUnit(currentCell, Owner.Opponent(), Range);
 
-            if (targetCell != null && targetCell.Unit != null && targetCell.Unit.Owner != Owner)
-            {
-                return targetCell.Unit;
-            }
-        }
-
-        return null;
+        return attackTarget;
     }
     #endregion
 
@@ -249,5 +277,13 @@ public class BaseUnit : MonoBehaviour, IUnit
 
 
     #endregion
+
+    public void ActionCoolDown(float time) {
+        _actionCoolDown += time;
+    }
+
+    public void ResetActionCoolDown() {
+        _actionCoolDown = 0;
+    }
 
 }
