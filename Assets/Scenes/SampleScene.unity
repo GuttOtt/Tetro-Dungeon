@@ -1497,7 +1497,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3ff01dd677bd374685f8877ec82847e, type: 2}
   unitListDisplay: {fileID: 378587713}
   unitGap: {x: 1.5, y: 0}
-  unitAmount: 9
+  unitAmount: 3
 --- !u!1 &1309255132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   _enemyMaxLife: 500
   _playerLifeText: {fileID: 358434368}
   _enemyLifeText: {fileID: 522040892}
-  _battleSpeed: 0.2
+  _battleSpeed: 0.5
 --- !u!1 &1418810072
 GameObject:
   m_ObjectHideFlags: 0

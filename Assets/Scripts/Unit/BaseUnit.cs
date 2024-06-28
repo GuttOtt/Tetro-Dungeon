@@ -194,15 +194,24 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
 
+        /* Debug.Logs
         if (shortestMovePath == null) {
             Debug.Log($"No path to attackable Cells. Unit Name: {_config.name}, attackableCells.Count: {attackableCells.Count}, closestOpponent: {(closestOpponent as BaseUnit)._config.name}");
         }
         else if (shortestMovePath.Count <= 1) {
             Debug.Log($"shortestMovePath.Count = {shortestMovePath.Count}. Owner : {Owner}, Unit Name: {_config.name}, attackableCells.Count: {attackableCells.Count}, closestOpponent: {(closestOpponent as BaseUnit)._config.name}");
         }
+        */
 
-        if (shortestMovePath == null || shortestMovePath.Count <= 1)
-            return null;
+        //만약 공격 가능한 위치로 이동할 수 없다면, 그냥 가장 가까운 적을 향해 한 칸 이동할 수 있는지 계산
+        if (shortestMovePath == null || shortestMovePath.Count <= 1) {
+            int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
+            Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
+
+            if (forwardCell != null && forwardCell.Unit == null) {
+                shortestMovePath = new List<Cell> { CurrentCell, forwardCell };
+            }
+        }
 
         return shortestMovePath;
     }
