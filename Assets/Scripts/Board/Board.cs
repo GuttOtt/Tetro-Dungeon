@@ -2,6 +2,7 @@ using EnumTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -207,5 +208,27 @@ public class Board : MonoBehaviour
         }
 
         return nearbyBlocks;
+    }
+
+    public IUnit GetClosestUnit(Cell center, CharacterTypes characterType, int maxDistance) {
+        List<IUnit> units = GetUnits(characterType);
+
+        float temp = maxDistance;
+        IUnit closest = null;
+
+        foreach (IUnit unit in units) {
+            float distance = GetDistance(center, unit.CurrentCell);
+
+            if (distance < temp) {
+                temp = distance;
+                closest = unit;
+            }
+        }
+
+        return closest;
+    }
+
+    private float GetDistance(Cell cell1, Cell cell2) {
+        return Mathf.Sqrt((cell1.position.col - cell2.position.col)^2 + (cell1.position.row - cell2.position.row)^2); 
     }
 }

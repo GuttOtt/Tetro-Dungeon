@@ -17,12 +17,6 @@ public class BattleSystem : MonoBehaviour
     private Board _board;
     private SynergySystem _synergySystem;
     
-    //배틀 진행 시의 딜레이
-    [SerializeField]
-    private float delayPerUnit = 0.5f;
-    [SerializeField]
-    private float delayPerTick = 1f;
-
     //배틀이 진행중인가?
     private bool _isProcessing = false;
 
@@ -67,48 +61,42 @@ public class BattleSystem : MonoBehaviour
         UpdateLifeText(CharacterTypes.Enemy);
     }
 
-    public async UniTask StartBattle(CharacterTypes attackTurn) {
+    public async UniTask StartBattle() {
         if (_isProcessing)
             return;
 
         OnStartBattle.Invoke();
 
-        _attackTurn = attackTurn;
-
         Debug.Log("Battle Started");
         _isProcessing = true;
+        CharacterTypes winner = CharacterTypes.None;
 
         //배틀 시작 시 발생하는 Synergy 효과들 발동
         await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
         //Attack Turn의 유닛이 전부 사라질 때까지 전투
         while (true) {
-            if (_board.GetUnits(attackTurn).Count == 0) break;
+            if (_board.GetUnits(CharacterTypes.Enemy).Count == 0) {
+                winner = CharacterTypes.Player;
+                break;
+            }
+            else if (_board.GetUnits(CharacterTypes.Player).Count == 0) {
+                winner = CharacterTypes.Enemy;
+                break;
+            }
 
             //틱 진행
-            await ComputeTick(attackTurn);
+            TimePass();
 
-            //에너미 체력이 0 이하라면 플레이어 승리 판정
-            if (_lifeDic[CharacterTypes.Enemy] <= 0) {
-                _gameManager.PlayerWin();
-                _isProcessing = false;
-                return;
-            }
+            await UniTask.NextFrame();
         }
 
-        //남은 방어 유닛들의 공격력만큼 공격턴 캐릭터에게 데미지
-        List<IUnit> defenceUnits = _board.GetUnits(attackTurn.Opponent());
-        foreach (IUnit unit in defenceUnits) {
-            LifeDamage(attackTurn, unit.Attack);
+        //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
+        List<IUnit> winnerUnits = _board.GetUnits(winner);
+        foreach (IUnit unit in winnerUnits) {
+            LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).Die();
             await UniTask.WaitForSeconds(0.5f);
-        }
-
-        //플레이어 체력이 0 이하라면 플레이어 패배 판정
-        if (_lifeDic[CharacterTypes.Player] <= 0) {
-            _gameManager.PlayerLose();
-            _isProcessing = false;
-            return;
         }
 
         //배틀 종료
@@ -117,135 +105,40 @@ public class BattleSystem : MonoBehaviour
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
-    public async UniTask ComputeTick(CharacterTypes attackTurn) {
+    public void TimePass() {
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
-        List<IUnit> enemyUnits = _board.EnemyUnits.ToList();
 
         //낮은 row 순으로, 같은 row에서는 앞쪽(상대방 쪽) 유닛 순으로 정렬
         playerUnits = playerUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenByDescending(unit => unit.CurrentCell.position.col).ToList();
+
+        foreach (IUnit unit in playerUnits) {
+            if (unit is null || unit as BaseUnit is null) continue;
+
+            BaseUnit baseUnit = unit as BaseUnit;
+            baseUnit.ActionCoolDown(Time.deltaTime);
+            
+            if (!baseUnit.IsActionCoolDown) {
+                baseUnit.Act(_gameManager.CreateTurnContext());
+            }
+        }
+
+        List<IUnit> enemyUnits = _board.EnemyUnits.ToList();
+
+        //낮은 row 순으로, 같은 row에서는 앞쪽(상대방 쪽) 유닛 순으로 정렬
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
-        TurnContext turnContext = _gameManager.CreateTurnContext();
-
-        //틱 시작 시 발동하는 시너지 효과들 발동
-        await _synergySystem.OnTickBegin(turnContext);
-
-        /*
-        //액션 결정
-        Dictionary<IUnit, UnitActionTypes> actionDic = new Dictionary<IUnit, UnitActionTypes>();
-        List<IUnit> allUnit = new List<IUnit>();
-        allUnit.AddRange(playerUnits);
-        allUnit.AddRange(enemyUnits);
-
-        
-        foreach (IUnit unit in allUnit) {
-            BaseUnit baseUnit = unit as BaseUnit;
-
-            if (baseUnit.IsMovable(turnContext)) {
-                actionDic.Add(unit, UnitActionTypes.Move);
-            }
-            else if (baseUnit.IsAttackable(turnContext)) {
-                actionDic.Add(unit, UnitActionTypes.Attack);
-            }
-            else {
-                actionDic.Add(unit, UnitActionTypes.None);
-            }
-        }
-        */
-
-        /*
-        //액션 진행
-        foreach (IUnit unit in actionDic.Keys) {
-            UnitActionTypes action = actionDic[unit];
+        foreach (IUnit unit in enemyUnits) {
+            if (unit is null || unit as BaseUnit is null) continue;
 
             BaseUnit baseUnit = unit as BaseUnit;
+            baseUnit.ActionCoolDown(Time.deltaTime);
 
-            //하이라이트하고 딜레이
-            baseUnit.Highlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-
-            switch (action) {
-                case UnitActionTypes.Move:
-                    baseUnit.Move(turnContext);
-                    break;
-                case UnitActionTypes.Attack:
-                    baseUnit.AttackAction(turnContext);
-                    break;
-                case UnitActionTypes.None:
-                    break;
-            }
-
-            baseUnit.Unhighlight();
-        }
-        */
-
-        List<IUnit> attackTurnUnits = attackTurn == CharacterTypes.Player ? playerUnits : enemyUnits;
-        List<IUnit> defenceTurnUnits = attackTurn == CharacterTypes.Player ? enemyUnits : playerUnits;
-
-        //방어 턴 유닛 액션
-        foreach (IUnit unit in defenceTurnUnits) {
-            if (unit.CurrentHP <= 0) continue;
-            BaseUnit baseUnit = unit as BaseUnit;
-
-            //하이라이트하고 딜레이
-            baseUnit.Highlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-
-            //이동할 수 있다면, 이동시키고 다음 유닛으로
-            if (baseUnit.IsMovable(turnContext)) {
-                baseUnit.Move(turnContext);
-            }
-            //이동할 수 없다면, 공격을 시도
-            else if (baseUnit.IsAttackable(turnContext)) {
-                baseUnit.AttackAction(turnContext);
-            }
-
-            //하이라이트 끄기
-            (unit as BaseUnit).Unhighlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-        }
-
-        ProcessDeath(ref playerUnits, ref enemyUnits);
-
-        //공격 턴 유닛 액션
-        foreach (IUnit unit in attackTurnUnits) {
-            if (unit.CurrentHP <= 0) continue;
-            BaseUnit baseUnit = unit as BaseUnit;
-
-            //하이라이트하고 딜레이
-            baseUnit.Highlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-
-            //이동할 수 있다면, 이동시키고 다음 유닛으로
-            if (baseUnit.IsMovable(turnContext)) {
-                baseUnit.Move(turnContext);
-            }
-            //이동할 수 없다면, 공격을 시도
-            else if (baseUnit.IsAttackable(turnContext)) {
-                baseUnit.AttackAction(turnContext);
-            }
-
-            //하이라이트 끄기
-            (unit as BaseUnit).Unhighlight();
-            await UniTask.Delay(TimeSpan.FromSeconds(delayPerUnit));
-        }
-
-        ProcessDeath(ref playerUnits, ref enemyUnits);
-
-        //끝 열에 도달한 유닛이 있다면 삭제하고 라이프 데미지
-        foreach (var unit in attackTurnUnits) {
-            int endCol = attackTurn == CharacterTypes.Player ? _board.Column - 1 : 0;
-            if (unit.CurrentCell.position.col == endCol) {
-                LifeDamage(attackTurn.Opponent(), unit.Attack);
-                (unit as BaseUnit).Die();
+            if (!baseUnit.IsActionCoolDown) {
+                baseUnit.Act(_gameManager.CreateTurnContext());
             }
         }
-
-        ProcessDeath(ref playerUnits, ref enemyUnits);
-
-        await UniTask.Delay(TimeSpan.FromSeconds(delayPerTick));
     }
 
     private void StopBattle() {
@@ -272,61 +165,6 @@ public class BattleSystem : MonoBehaviour
         return true;
     }
 
-    private bool CheckAttackable(IUnit unit) {
-        IUnit targetUnit = GetAttackTarget(unit);
-        if (targetUnit != null)
-            return true;
-        else
-            return false;
-    }
-    //private void UnitAttack(IUnit unit) {
-    //    IUnit targetUnit = GetAttackTarget(unit);
-    //    targetUnit.TakeDamage(turnContext, unit.Attack);
-    //}
-
-    //사정거리 내에 공격할 수 있는 유닛이 있으면 그 유닛을 반환, 없으면 null
-    private IUnit GetAttackTarget(IUnit unit) {
-        int range = unit.Range;
-        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
-        Cell currentCell = unit.CurrentCell;
-        int originCol = currentCell.position.col;
-        int originRow = currentCell.position.row;
-
-        //가까운 유닛을 우선으로 공격
-        for (int i = 1; i <= range; i++) {
-            Cell targetCell = _board.GetCell(originCol + forwardOffset * i, originRow);
-            IUnit targetUnit = targetCell.Unit;
-
-            if (targetUnit != null && unit.Owner != targetUnit.Owner) {
-                return targetUnit;
-            }
-        }
-
-        return null;
-    }
-
-    private void MoveUnit(IUnit unit) {
-        Cell currentCell = unit.CurrentCell;
-
-        // 전방으로 한 칸의 위치 계산
-        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
-        int targetColumn = currentCell.position.col + forwardOffset;
-
-        //유닛의 앞쪽 셀을 가져옴
-        Cell forwardCell = _board.GetCell(targetColumn, currentCell.position.row);
-
-        //유닛 이동
-        currentCell.UnitOut();
-        forwardCell.UnitIn(unit);
-        unit.CurrentCell = forwardCell;
-
-        //끝 열에 도달했다면 유닛을 죽이고 라이프 데미지
-        int endCol = unit.Owner == CharacterTypes.Player ? _board.Column - 1 : 0;
-        if (forwardCell.position.col == endCol) {
-            LifeDamage(unit.Owner.Opponent(), unit.Attack);
-            (unit as BaseUnit).Die();
-        }
-    }
 
     private void ProcessDeath(ref List<IUnit> playerUnits, ref List<IUnit> enemyUnits) {
         playerUnits = _board.PlayerUnits.ToList();

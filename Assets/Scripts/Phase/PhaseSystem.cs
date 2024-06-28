@@ -121,7 +121,7 @@ public class BattlePhase : IPhase {
         phaseSystem.EnemySystem.PlaceUnit();
 
         //Start Battle
-        phaseSystem.BattleSystem.StartBattle(phaseSystem.AttackTurn).Forget();
+        phaseSystem.BattleSystem.StartBattle().Forget();
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {
