@@ -6,6 +6,9 @@ using UnityEngine;
 public class UnitConfig : ScriptableObject
 {
     [SerializeField]
+    private string _name, _effectDescription;
+
+    [SerializeField]
     private Sprite _sprite;
 
     [SerializeField]
@@ -29,4 +32,6 @@ public class UnitConfig : ScriptableObject
     public string UnitTypeString { get => _unitTypeString; }
     public int UnitTypeValue { get => _unitTypeValue; }
     public List<SynergyTypes> Synergies { get => _synergies; }
+    public string Name { get => _name; }
+    public string EffectDescription { get => _effectDescription; }
 }

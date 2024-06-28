@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uC800\uACA9\uC218"
   m_EditorClassIdentifier: 
-  _name: 
+  _name: "\uC800\uACA9\uC218"
+  _effectDescription: "\uAC00\uC7A5 \uB4A4\uC5D0 \uC788\uB294 \uC801 \uC720\uB2DB\uC744
+    \uACF5\uACA9"
   _sprite: {fileID: 21300000, guid: 215d3e5e12c851b4abd27648ecc6af93, type: 3}
   _maxHp: 20
   _maxMP: 0
@@ -21,6 +23,4 @@ MonoBehaviour:
   _unitTypeValue: 0
   _speed: 1.2
   _unitTypeString: Sniper
-  _effectDescription: "\uAC00\uC7A5 \uB4A4\uC5D0 \uC788\uB294 \uC801 \uC720\uB2DB\uC744
-    \uACF5\uACA9"
   _synergies: 01000000
