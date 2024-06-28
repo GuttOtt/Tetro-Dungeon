@@ -18,5 +18,6 @@ MonoBehaviour:
   _attack: 20
   _range: 1
   _unitTypeValue: 5
+  _speed: 0.9
   _unitTypeString: Patience
   _synergies: 00000000

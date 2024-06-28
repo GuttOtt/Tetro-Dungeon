@@ -16,7 +16,7 @@ public class BattleSystem : MonoBehaviour
     private IGameManager _gameManager;
     private Board _board;
     private SynergySystem _synergySystem;
-    
+
     //배틀이 진행중인가?
     private bool _isProcessing = false;
 
@@ -32,6 +32,9 @@ public class BattleSystem : MonoBehaviour
 
     //배틀 UniTask를 중단하기 위한 CancellationToken
     private CancellationTokenSource battleCancel = new CancellationTokenSource();
+
+    [SerializeField]
+    private float _battleSpeed = 1; //1이 기준
     #endregion
 
     #region Events
@@ -116,8 +119,8 @@ public class BattleSystem : MonoBehaviour
             if (unit is null || unit as BaseUnit is null) continue;
 
             BaseUnit baseUnit = unit as BaseUnit;
-            baseUnit.ActionCoolDown(Time.deltaTime);
-            
+            baseUnit.ActionCoolDown(Time.deltaTime * _battleSpeed);
+                        
             if (!baseUnit.IsActionCoolDown) {
                 baseUnit.Act(_gameManager.CreateTurnContext());
             }
@@ -133,7 +136,7 @@ public class BattleSystem : MonoBehaviour
             if (unit is null || unit as BaseUnit is null) continue;
 
             BaseUnit baseUnit = unit as BaseUnit;
-            baseUnit.ActionCoolDown(Time.deltaTime);
+            baseUnit.ActionCoolDown(Time.deltaTime * _battleSpeed);
 
             if (!baseUnit.IsActionCoolDown) {
                 baseUnit.Act(_gameManager.CreateTurnContext());

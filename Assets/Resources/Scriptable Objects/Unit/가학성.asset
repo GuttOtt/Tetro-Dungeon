@@ -17,6 +17,7 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 10
   _range: 1
+  _speed: 1
   _unitTypeValue: 5
   _unitTypeString: Sadism
   _synergies: 00000000

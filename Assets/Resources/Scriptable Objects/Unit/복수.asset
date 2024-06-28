@@ -17,6 +17,7 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 20
   _range: 1
+  _speed: 1
   _unitTypeValue: 20
   _unitTypeString: Revenge
   _synergies: 01000000

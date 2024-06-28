@@ -17,6 +17,7 @@ MonoBehaviour:
   _maxMP: 0
   _attack: 15
   _range: 1
+  _speed: 1
   _unitTypeValue: 0
   _unitTypeString: FrontHealer
   _synergies: 02000000

@@ -18,5 +18,6 @@ MonoBehaviour:
   _attack: 15
   _range: 2
   _unitTypeValue: 0
+  _speed: 1.2
   _unitTypeString: PenetrateArcher
   _synergies: 01000000

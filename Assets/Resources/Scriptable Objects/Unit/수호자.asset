@@ -18,5 +18,6 @@ MonoBehaviour:
   _attack: 10
   _range: 1
   _unitTypeValue: 20
+  _speed: 0.8
   _unitTypeString: Guardian
   _synergies: 02000000

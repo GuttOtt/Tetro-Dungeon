@@ -12,6 +12,9 @@ public class UnitConfig : ScriptableObject
     private int _maxHp, _maxMP, _attack, _range, _unitTypeValue;
 
     [SerializeField]
+    private float _speed;
+
+    [SerializeField]
     private string _unitTypeString;
 
     [SerializeField]
@@ -22,6 +25,7 @@ public class UnitConfig : ScriptableObject
     public int MaxMP { get => _maxMP; }
     public int Attack { get => _attack; }
     public int Range { get => _range; }
+    public float Speed { get => _speed; }
     public string UnitTypeString { get => _unitTypeString; }
     public int UnitTypeValue { get => _unitTypeValue; }
     public List<SynergyTypes> Synergies { get => _synergies; }

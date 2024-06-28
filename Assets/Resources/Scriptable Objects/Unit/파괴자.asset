@@ -18,5 +18,6 @@ MonoBehaviour:
   _attack: 20
   _range: 1
   _unitTypeValue: 5
+  _speed: 1.1
   _unitTypeString: Destroyer
   _synergies: 00000000
