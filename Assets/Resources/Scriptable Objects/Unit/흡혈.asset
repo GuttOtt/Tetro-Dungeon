@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uD761\uD608"
   m_EditorClassIdentifier: 
+  _name: 
   _sprite: {fileID: 21300000, guid: 7ea602323b8e4404eb057aee688ba718, type: 3}
   _maxHp: 50
   _maxMP: 0
@@ -19,4 +20,6 @@ MonoBehaviour:
   _range: 1
   _unitTypeValue: 25
   _unitTypeString: Leech
+  _effectDescription: "\uC900 \uB370\uBBF8\uC9C0\uC758 25%\uB9CC\uD07C \uCCB4\uB825
+    \uD68C\uBCF5"
   _synergies: 02000000

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uAD00\uD1B5 \uAD81\uC218"
   m_EditorClassIdentifier: 
+  _name: 
   _sprite: {fileID: 21300000, guid: cbcc0f4fed1086c488123105ddf5a996, type: 3}
   _maxHp: 25
   _maxMP: 0
@@ -19,4 +20,6 @@ MonoBehaviour:
   _range: 2
   _unitTypeValue: 0
   _unitTypeString: PenetrateArcher
+  _effectDescription: "\uC0AC\uAC70\uB9AC \uB0B4\uC758 \uBAA8\uB4E0 \uC801\uC744
+    \uACF5\uACA9"
   _synergies: 01000000

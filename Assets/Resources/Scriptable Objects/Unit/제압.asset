@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4923f311f5089e46b7007a4d52d4ebe, type: 3}
   m_Name: "\uC81C\uC555"
   m_EditorClassIdentifier: 
+  _name: 
   _sprite: {fileID: 21300000, guid: 7e26cc68e86148243b749acae9f77029, type: 3}
   _maxHp: 30
   _maxMP: 0
@@ -19,4 +20,5 @@ MonoBehaviour:
   _range: 2
   _unitTypeValue: 10
   _unitTypeString: Domination
+  _effectDescription: "\uC801 \uCCB4\uB825\uC774 n \uC774\uD558\uBA74 \uD30C\uAD34"
   _synergies: 01000000

@@ -31,6 +31,6 @@ public class UnitConfig : ScriptableObject
     public int Range { get => _range; }
     public int UnitTypeValue { get => _unitTypeValue; }
     public string UnitTypeString => _unitTypeString;
-    public string EffectDescription => _effectDescription;
+    public string EffectDescription { get => _effectDescription; }
     public List<SynergyTypes> Synergies { get => _synergies; }
 }
