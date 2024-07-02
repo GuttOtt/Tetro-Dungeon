@@ -94,7 +94,9 @@ public class BattleSystem : MonoBehaviour
             await UniTask.NextFrame();
         }
 
+        //승리 판정
         //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
+        await UniTask.WaitForSeconds(2f);
         List<IUnit> winnerUnits = _board.GetUnits(winner);
         foreach (IUnit unit in winnerUnits) {
             LifeDamage(winner.Opponent(), unit.Attack);

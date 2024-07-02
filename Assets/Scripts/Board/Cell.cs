@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class Cell : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class Cell : MonoBehaviour
     }
 
     public bool UnitIn(IUnit unit) {
-        if (this._unit != null) {//이미 유닛이 있다면, false를 반환하고 종료
+        if (_unit != null || unit == null) {//이미 유닛이 있다면, false를 반환하고 종료
             return false;
         }
         else {
@@ -39,7 +40,7 @@ public class Cell : MonoBehaviour
             //Transform 이동
             Transform unitTransform = (unit as BaseUnit).transform;
             unitTransform.parent = this.transform;
-            unitTransform.localPosition = Vector3.zero;
+            unitTransform.DOMove(transform.position, unit.Speed * 0.8f).SetEase(Ease.OutBack, 2f);
 
             return true;
         }

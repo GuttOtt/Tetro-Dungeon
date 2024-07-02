@@ -2,6 +2,7 @@ using EnumTypes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -143,6 +144,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void Act(TurnContext turnContext) {
         if (IsAttackable(turnContext)) {
             AttackAction(turnContext);
+            transform.DOShakeRotation(Speed * 0.8f, new Vector3(0, 0, 20f), 10, 90);
             Debug.Log($"{_config.name} Attack");
         }
         else if (IsMovable(turnContext)) {
