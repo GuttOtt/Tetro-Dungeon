@@ -245,6 +245,10 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         return attackTarget;
     }
+
+    public virtual void CreateAttackEffect(IUnit attackTarget) {
+
+    }
     #endregion
 
     #region Stat
@@ -264,6 +268,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public virtual void TakeDamage(TurnContext turnContext, int damage)
     {
+        _unitDrawer.DisplayDamageText(damage);
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {

@@ -13,6 +13,9 @@ public class UnitDrawer : MonoBehaviour
     [SerializeField]
     public GameObject _tooltip;
 
+    [SerializeField]
+    private UnitHealthText _healthText;
+
     public UnitHealthBar _healthBar;
 
     private TextMeshProUGUI _tooltip_name;
@@ -64,9 +67,19 @@ public class UnitDrawer : MonoBehaviour
         _healthBar.SetHealth(hp);
         _hpText.color = color;
     }
+
+
     public void UpdateAttack(int attack, Color color) {
         _attackText?.SetText(attack.ToString());
         _attackText.color = color;
+    }
+
+    public void DisplayDamageText(int number) {
+        _healthText?.DisplayText(-number, Color.red);
+    }
+
+    public void DisplayHealText(int number) {
+        _healthText.DisplayText(number, Color.white);
     }
 
     public void Highlight() {
