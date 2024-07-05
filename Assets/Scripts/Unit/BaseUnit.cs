@@ -238,7 +238,6 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     protected IUnit GetAttackTarget(Board board)
     {
-        int range = Range;
         Cell currentCell = CurrentCell;
 
         IUnit attackTarget = board.GetClosestUnit(currentCell, Owner.Opponent(), Range);
@@ -249,11 +248,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     //애니메이션이나 transform 움직임은 별도의 클래스로 이동하는 게 좋을 수 있음
     protected void AttackAnimation(TurnContext turnContext) {
         IUnit target = GetAttackTarget(turnContext.Board);
-        Vector3 targetPos = (target as BaseUnit).transform.position;
+        Vector3 targetPos = (target as BaseUnit).transform.position; 
 
-        Vector3 moveVector = transform.position + (targetPos - transform.position).normalized * 0.5f;
+        Vector3 moveVector = transform.position + (targetPos - transform.position).normalized * 0.3f;
 
-        transform.DOMove(moveVector, 0.2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
+        transform.DOMove(moveVector, 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
     }
     #endregion
 
