@@ -1497,7 +1497,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3ff01dd677bd374685f8877ec82847e, type: 2}
   unitListDisplay: {fileID: 378587713}
   unitGap: {x: 1.5, y: 0}
-  unitAmount: 3
+  unitAmount: 6
 --- !u!1 &1309255132
 GameObject:
   m_ObjectHideFlags: 0
