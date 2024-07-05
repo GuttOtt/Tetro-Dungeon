@@ -111,6 +111,9 @@ public class BattleSystem : MonoBehaviour
     }
 
     public void TimePass() {
+        //시너지의 쿨타임 회복
+        _synergySystem.OnTimePass((_gameManager as GameManager).CreateTurnContext());
+
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
 
         //낮은 row 순으로, 같은 row에서는 앞쪽(상대방 쪽) 유닛 순으로 정렬

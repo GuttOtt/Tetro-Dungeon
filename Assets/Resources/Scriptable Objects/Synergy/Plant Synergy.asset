@@ -15,3 +15,4 @@ MonoBehaviour:
   _synergyType: 2
   _minSynergyCount: 2
   _synergyValue: 3
+  _coolTime: 3

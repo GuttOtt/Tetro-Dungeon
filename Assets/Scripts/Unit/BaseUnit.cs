@@ -223,7 +223,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public virtual bool IsAttackable(TurnContext turnContext)
     {
         IUnit targetUnit = GetAttackTarget(turnContext.Board);
-        if (targetUnit != null)
+        if (targetUnit != null && targetUnit as BaseUnit != null)
             return true;
         else
             return false;
@@ -248,8 +248,12 @@ public class BaseUnit : MonoBehaviour, IUnit
     //애니메이션이나 transform 움직임은 별도의 클래스로 이동하는 게 좋을 수 있음
     protected void AttackAnimation(TurnContext turnContext) {
         IUnit target = GetAttackTarget(turnContext.Board);
-        Vector3 targetPos = (target as BaseUnit).transform.position; 
 
+        if (target == null || target as BaseUnit == null) {
+            return;
+        }
+
+        Vector3 targetPos = (target as BaseUnit).transform.position; 
         Vector3 moveVector = transform.position + (targetPos - transform.position).normalized * 0.3f;
 
         transform.DOMove(moveVector, 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 [CreateAssetMenu]
 public class PlantSynergy : BaseSynergy {
-    public override void OnTickBegin(TurnContext turnContext, int synergyCount) {
+    public override void CoolTimeEffect(TurnContext turnContext, int synergyCount) {
         Debug.Log("식물 시너지 효과 발동");
 
         Board board = turnContext.Board;
@@ -13,7 +13,7 @@ public class PlantSynergy : BaseSynergy {
         List<IUnit> playerUnits = board.GetUnits(CharacterTypes.Player);
 
         foreach (IUnit unit in playerUnits) {
-            (unit as BaseUnit).ChangeCurrentHP(synergyCount * (int) _synergyValue);
+            (unit as BaseUnit).TakeHeal(turnContext, synergyCount * (int) _synergyValue);
 
         }
 

@@ -55,6 +55,7 @@ public class SynergySystem : MonoBehaviour {
         DisplaySynergies();
     }
 
+
     private void DisplaySynergies() {
         _synergyText.text = "Synergies: ";
         _synergyText.text += System.Environment.NewLine;
@@ -75,13 +76,16 @@ public class SynergySystem : MonoBehaviour {
         }
     }
 
-    public async UniTask OnTickBegin(TurnContext turnContext) {
+    public void OnTimePass(TurnContext turnContext) {
         List<BaseSynergy> synergies = FindActivatedSynergies(_synergyDic.Keys.ToList());
 
         foreach (BaseSynergy synergy in synergies) {
-            await UniTask.WaitForSeconds(_delayPerSynergy);
+            synergy.CoolDownCount += Time.deltaTime;
 
-            synergy.OnTickBegin(turnContext, _synergyDic[synergy.SynergyType]);
+            if (synergy.CoolTime <= synergy.CoolDownCount) {
+                synergy.CoolTimeEffect(turnContext, _synergyDic[synergy.SynergyType]);
+                synergy.CoolDownCount = 0;
+            }
         }
     }
 
