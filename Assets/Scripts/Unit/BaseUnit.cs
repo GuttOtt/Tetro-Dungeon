@@ -143,8 +143,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Unit Action Pattern
     public void Act(TurnContext turnContext) {
         if (IsAttackable(turnContext)) {
+            AttackAnimation(turnContext);
             AttackAction(turnContext);
-            transform.DOShakeRotation(Speed * 0.8f, new Vector3(0, 0, 20f), 10, 90);
             Debug.Log($"{_config.name} Attack");
         }
         else if (IsMovable(turnContext)) {
@@ -246,8 +246,14 @@ public class BaseUnit : MonoBehaviour, IUnit
         return attackTarget;
     }
 
-    public virtual void CreateAttackEffect(IUnit attackTarget) {
+    //애니메이션이나 transform 움직임은 별도의 클래스로 이동하는 게 좋을 수 있음
+    protected void AttackAnimation(TurnContext turnContext) {
+        IUnit target = GetAttackTarget(turnContext.Board);
+        Vector3 targetPos = (target as BaseUnit).transform.position;
 
+        Vector3 moveVector = transform.position + (targetPos - transform.position).normalized * 0.5f;
+
+        transform.DOMove(moveVector, 0.2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
     }
     #endregion
 
