@@ -17,6 +17,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
+    [SerializeField] protected Projectile _projectilePrefab;
     #endregion
 
     #region Properties
@@ -75,7 +76,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner)
+    public virtual void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner)
     {
         //System
         _unitSystem = unitSystem;

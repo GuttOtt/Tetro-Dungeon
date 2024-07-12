@@ -19,7 +19,7 @@ MonoBehaviour:
   _maxHp: 20
   _maxMP: 0
   _attack: 25
-  _range: 3
+  _range: 5
   _unitTypeValue: 0
   _speed: 1.2
   _unitTypeString: Sniper
