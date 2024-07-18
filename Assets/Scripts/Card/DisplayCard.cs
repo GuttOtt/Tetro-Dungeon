@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Card
 {
-    public class BaseCard : MonoBehaviour, ICard
+    public class DisplayCard : MonoBehaviour, ICard, IPointerClickHandler
     {
         #region private members
         [SerializeField]
@@ -16,6 +17,7 @@ namespace Card
         [SerializeField]
         private UnitConfig _unitConfig;
         private TroopCard _troopCard;
+        private UnityEngine.Events.UnityAction _clickAction;
         #endregion
 
         #region properties
@@ -31,15 +33,8 @@ namespace Card
             DrawUnit();
             DrawTroopDescription();
         }
-        public void Init(CardData _card) {
-            UnitConfig = _card.UnitConfig;
-            _troopCard = _card.TroopCard;
-            DrawPolyomino();
-            DrawUnit();
-            DrawTroopDescription();
-        }
 
-        public void SetCardData(ICard card)
+        public void Init(CardData card)
         {
             UnitConfig = card.UnitConfig;
             _troopCard = card.TroopCard;
@@ -51,9 +46,12 @@ namespace Card
         // 카드 클릭 이벤트 핸들러 설정
         public void SetOnClickListener(UnityEngine.Events.UnityAction action)
         {
-            GetComponent<Button>().onClick.AddListener(action);
+            _clickAction = action;
         }
-
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            _clickAction?.Invoke();
+        }
 
         #region Presentation
         private void DrawPolyomino() {
@@ -73,13 +71,14 @@ namespace Card
 
         public ICard DeepCopy()
         {
-            BaseCard newCard = new GameObject().AddComponent<BaseCard>();
+            DisplayCard newCard = new GameObject().AddComponent<DisplayCard>();
             newCard._polyominoDrawer = _polyominoDrawer;
             newCard._unitInCardDrawer = _unitInCardDrawer;
             newCard._troopDescription = _troopDescription;
             newCard.Init(this.UnitConfig, this.TroopCard);
             return newCard;
         }
+
         #endregion
 
     }
