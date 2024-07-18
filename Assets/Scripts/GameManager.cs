@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using EnumTypes;
 using TMPro;
 using TMPro.EditorUtilities;
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private UnitSystem _unitSystem;
+
+    private Player _player;
 
     [SerializeField]
     private Board _board;
@@ -39,16 +42,32 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private TMP_Text _victoryText;
+
     #endregion
 
     private void Start() {
+        _player = Player.instance;
+        if (_player == null)
+        {
+            Debug.LogError("Player instance is null!");
+            return;
+        }
         StartBattleScene();
     }
 
     private void StartBattleScene() {
-        _cardSystem.SetDeck(15);
+        _cardSystem.SetDeck(_player.Deck);
         _board.Init();
         _phaseSystem.ToStandbyPhase();
+    }
+
+    public void RestartBattleScene() {
+        _phaseSystem.ToStandbyPhase();
+    }
+
+    public void InitializeUIElements()
+    {
+        _phaseSystem.InitializeUIElements();
     }
 
     public T GetSystem<T>() where T : class {

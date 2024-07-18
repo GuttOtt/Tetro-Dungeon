@@ -49,8 +49,6 @@ public class UnitDrawer : MonoBehaviour
         _tooltip_name?.SetText(unitConfig.Name);
         _tooltip_effect?.SetText(unitConfig.EffectDescription);
 
-        Debug.Log(unitConfig.EffectDescription);
-
         if (0 < attackBuff) {
             _attackText.color = new Color(0, 0.7f, 0);
         }

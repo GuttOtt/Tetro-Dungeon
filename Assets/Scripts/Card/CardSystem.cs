@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CardSystem : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class CardSystem : MonoBehaviour
     private Deck _deck;
     private Hand _hand;
     private Discards _discards;
-    
+
     private ICard _selectedCard;
 
 
@@ -35,6 +36,9 @@ public class CardSystem : MonoBehaviour
     //현재 배치중인 블럭의 polyomino
     private Polyomino _selectedPolyomino;
     #endregion
+
+    public Deck Deck { get { return _deck; } }
+
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
@@ -66,6 +70,11 @@ public class CardSystem : MonoBehaviour
         card.Init(unitConfig, troopCard);
         return card;
     }
+    public BaseCard CreateCard(CardData _card) {
+        BaseCard card = Instantiate(_cardPrefab);
+        card.Init(_card);
+        return card;
+    }
 
     #region Deck And Hand Methods
     public void SetDeck(int deckAmount) {
@@ -78,6 +87,41 @@ public class CardSystem : MonoBehaviour
 
         _deck.Shuffle();
     }
+    public void SetDeck(List<CardData> deck) {
+        _deck.Empty();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            BaseCard card = CreateCard(deck[i]);
+            _deck.AddCard(card);
+        }
+        _deck.Shuffle();
+    }
+
+    public Deck GetRandomDeck(int deckAmount)
+    {
+        var ret = new Deck();
+        for (int i = 0; i < deckAmount; i++)
+        {
+            UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
+            TroopCard troopCard = _troopCardSystem.CreateRandomTroopCard();
+            BaseCard card = CreateCard(config, troopCard);
+            ret.AddCard(card);
+        }
+
+        ret.Shuffle();
+        return ret;
+    }
+
+    public List<TroopCard> GetRandomTroopCard(int n)
+    {
+        var ret = new List<TroopCard>();
+        for (int i = 0; i<n; i++)
+        {
+            ret.Add(_troopCardSystem.CreateRandomTroopCard());
+        }
+        return ret;
+    }
+
     public void DrawCard(int amount) {
         for (int i = 0; i < amount; i++) {
             DrawCard();

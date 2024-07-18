@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using EnumTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -42,6 +43,13 @@ public class PhaseSystem : MonoBehaviour {
         _mainPhase = new MainPhase();
         _battlePhase = new BattlePhase();
         _endPhase = new EndPhase();
+
+        InitializeUIElements();
+    }
+
+    public void InitializeUIElements()
+    {
+        //_phaseText = GameObject.Find("Phase Text").GetComponent<TMP_Text>();
     }
 
     public async void ToStandbyPhase() {
@@ -67,6 +75,8 @@ public class PhaseSystem : MonoBehaviour {
         _phaseText.text = "End Phase";
         _phaseContext.Transit(_endPhase);
     }
+
+
 }
 
 public class PhaseContext {
