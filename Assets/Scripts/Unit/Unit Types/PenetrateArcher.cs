@@ -1,4 +1,5 @@
 using EnumTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +7,21 @@ using UnityEngine;
 public class PenetrateArcher : BaseUnit
 {
     public override void AttackAction(TurnContext turnContext) {
-        Debug.Log("Panetrate");
-        List<IUnit> targets = new List<IUnit>();
-        Board board = turnContext.Board;
-        int range = Range;
+        BaseUnit target = turnContext.Board.GetClosestUnit(CurrentCell, Owner.Opponent(), Range) as BaseUnit;
 
-        int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
-        Cell currentCell = CurrentCell;
-        int originCol = currentCell.position.col;
-        int originRow = currentCell.position.row;
+        if (target == null) return;
 
-        //사정거리 내의 모든 적 유닛을 공격
-        for (int i = 1; i <= range; i++) {
-            Cell targetCell = board.GetCell(originCol + forwardOffset * i, originRow);
+        Vector2 direction = target.transform.position - transform.position;
+        direction = direction.normalized;
 
-            if (targetCell == null) continue;
+        Action<BaseUnit> onHit = (hitUnit) => {
+            if (hitUnit.Owner == Owner) return;
 
-            IUnit targetUnit = targetCell.Unit;
+            hitUnit.TakeDamage(turnContext, Attack);
+        };
 
-            if (targetUnit != null && Owner != targetUnit.Owner) {
-                targetUnit.TakeDamage(turnContext, Attack);
-            }
-        }
+        Debug.Log("Fire");
+
+        FireProjectile(direction, onHit, Range, 7, 100);
     }
 }

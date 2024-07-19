@@ -26,15 +26,18 @@ public class Projectile : MonoBehaviour {
     }
 
     public void Init(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
+        _target = null;
         _direction = direction;
         _speed = speed;
         _onHit = onHit;
         _penetrateCount = penetrateCount;
+        _maxDistance = maxDistance;
 
+        SetRotation(direction);
     }
 
     private void Update() {
-        if (_target == null || _target.gameObject == null)
+        if (_target != null && _target.gameObject == null)
             Destroy(gameObject);
 
         FlyToTarget();
@@ -42,6 +45,7 @@ public class Projectile : MonoBehaviour {
         CheckHit();
 
         if (_maxDistance <= _flyDistance) {
+            Debug.Log("maxDistance");
             Destroy(gameObject);
         }
     }
@@ -56,6 +60,8 @@ public class Projectile : MonoBehaviour {
         Vector3 moveVector = direction.normalized * _speed * Time.deltaTime;
 
         transform.position += moveVector;
+
+        SetRotation(direction);
     }
 
     //Target 없이 정해진 방향을 따라 일직선으로 날아가는 방식
@@ -76,7 +82,6 @@ public class Projectile : MonoBehaviour {
 
         //타겟이 있는 경우
         if (_target != null) {
-            Debug.Log("Col to the target");
 
             //일치할 경우, OnHit 실행 후 삭제
             if (hitUnit == _target) {
@@ -90,8 +95,6 @@ public class Projectile : MonoBehaviour {
         }
         //타겟 없는 경우 (지정한 방향대로 날아가는 경우)
         else {
-            if (hitUnit == null) return;
-
             //이미 충돌했던 유닛이라면 리턴
             if (_hitUnits.Contains(hitUnit)) {
                 return;
@@ -102,7 +105,19 @@ public class Projectile : MonoBehaviour {
 
             //관통 횟수를 차감한 후, 음수가 되었다면 파괴
             _penetrateCount--;
-            if (_penetrateCount < 0) Destroy(gameObject);
+            if (_penetrateCount < 0) {
+                Debug.Log("Penetration ends. destroy projectile.");
+                Destroy(gameObject);
+            }
         }
+    }
+
+    private void SetRotation(Vector2 direction) {
+        Vector2 from = transform.position;
+        Vector2 to = from + direction;
+
+        float angle = Quaternion.FromToRotation(from, to).eulerAngles.z;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 }

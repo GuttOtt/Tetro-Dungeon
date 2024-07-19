@@ -19,8 +19,9 @@ MonoBehaviour:
   _maxHp: 25
   _maxMP: 0
   _attack: 15
-  _range: 2
+  _range: 5
   _unitTypeValue: 0
   _speed: 1.2
   _unitTypeString: PenetrateArcher
   _synergies: 01000000
+  _projectile: {fileID: 5313279764350354351, guid: bf90797d767cf884a884b31bfc75f768, type: 3}
