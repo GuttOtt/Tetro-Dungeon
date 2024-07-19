@@ -257,6 +257,24 @@ public class Board : MonoBehaviour
 
         return closest;
     }
+
+    public IUnit GetFarthestUnit(Cell center, CharacterTypes characterType, int maxDistance) {
+        List<IUnit> units = GetUnits(characterType);
+
+        float temp = 0;
+        IUnit farthest = null;
+
+        foreach (IUnit unit in units) {
+            float distance = GetDistance(center, unit.CurrentCell);
+
+            if (distance <= maxDistance && temp <= distance) {
+                temp = distance;
+                farthest = unit;
+            }
+        }
+
+        return farthest;
+    }
     #endregion
 
     private float GetDistance(Cell cell1, Cell cell2) {

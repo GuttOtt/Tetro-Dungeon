@@ -1,31 +1,26 @@
 using EnumTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Sniper : BaseUnit
 {
+    public override void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner) {
+        base.Init(unitSystem, config, owner);
+
+        _projectilePrefab = Resources.Load<Projectile>("Prefabs/Unit/Basic Projectile");
+    }
+
     public override void AttackAction(TurnContext turnContext) {
-        int range = Range;
-        int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
-        Cell currentCell = CurrentCell;
-        int originCol = currentCell.position.col;
-        int originRow = currentCell.position.row;
+        IUnit farthest = turnContext.Board.GetFarthestUnit(CurrentCell, Owner.Opponent(), Range);
 
-        //같은 라인에서 가장 뒤에 있는 적 유닛을 공격
-        for (int i = range; 0 < i; i--) {
-            Cell targetCell = turnContext.Board.GetCell(originCol + forwardOffset * i, originRow);
+        if (farthest == null || farthest as BaseUnit == null)
+            return;
 
-            if (targetCell == null) {
-                continue;
-            }
-
-            IUnit targetUnit = targetCell.Unit;
-
-            if (targetUnit != null && Owner != targetUnit.Owner) {
-                targetUnit.TakeDamage(turnContext, Attack);
-                return;
-            }
-        }
+        Projectile projectile = Instantiate(_projectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.Init(farthest as BaseUnit, () => farthest.TakeDamage(turnContext, Attack));
     }
 }
