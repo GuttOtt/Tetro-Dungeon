@@ -14,10 +14,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     private float _speed;
     private float _actionCoolDown;
     private List<SynergyTypes> _synergies;
-    
+
+    protected Projectile _projectilePrefab;
+
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
-    [SerializeField] protected Projectile _projectilePrefab;
     #endregion
 
     #region Properties
@@ -106,7 +107,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Synergies
         _synergies = config.Synergies;
 
-
+        //Projectile
+        if (config.Projectile != null) {
+            _projectilePrefab = config.Projectile;
+        }
     }
 
     public void Die()

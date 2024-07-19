@@ -7,11 +7,6 @@ using UnityEngine;
 
 public class Sniper : BaseUnit
 {
-    public override void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner) {
-        base.Init(unitSystem, config, owner);
-
-        _projectilePrefab = Resources.Load<Projectile>("Prefabs/Unit/Basic Projectile");
-    }
 
     public override void AttackAction(TurnContext turnContext) {
         IUnit farthest = turnContext.Board.GetFarthestUnit(CurrentCell, Owner.Opponent(), Range);

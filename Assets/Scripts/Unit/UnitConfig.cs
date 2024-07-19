@@ -23,6 +23,9 @@ public class UnitConfig : ScriptableObject
     [SerializeField]
     private List<SynergyTypes> _synergies = new List<SynergyTypes>();
 
+    [SerializeField]
+    private Projectile _projectile;
+
     public Sprite Sprite { get => _sprite; }
     public int MaxHP { get => _maxHp; }
     public int MaxMP { get => _maxMP; }
@@ -34,4 +37,5 @@ public class UnitConfig : ScriptableObject
     public List<SynergyTypes> Synergies { get => _synergies; }
     public string Name { get => _name; }
     public string EffectDescription { get => _effectDescription; }
+    public Projectile Projectile { get => _projectile; }
 }

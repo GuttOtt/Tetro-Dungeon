@@ -14,7 +14,7 @@ public class Hand : MonoBehaviour, ICardPile {
     public void AddCard(ICard card) {
         _hands.Add(card);
         BaseCard baseCard = card as BaseCard;
-        baseCard.transform.parent = _handParent;
+        baseCard.transform.SetParent(_handParent);
 
         Arrange();
     }
