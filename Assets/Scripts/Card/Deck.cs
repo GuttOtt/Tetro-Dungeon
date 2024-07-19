@@ -14,7 +14,7 @@ public class Deck : MonoBehaviour, ICardPile
     public void AddCard(ICard card) {
         _decks.Add(card);
         BaseCard baseCard = card as BaseCard;
-        baseCard.transform.parent = _deckParent;
+        baseCard.transform.SetParent(_deckParent);
         baseCard.transform.localPosition = Vector3.zero;
     }
 

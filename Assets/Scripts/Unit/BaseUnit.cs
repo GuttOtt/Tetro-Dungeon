@@ -263,6 +263,26 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         transform.DOMove(moveVector, 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
     }
+
+    protected void FireProjectile(BaseUnit target, Action<BaseUnit> onHit, float speed = 7) {
+        if (_projectilePrefab == null) {
+            Debug.LogError($"There is no _projectilePrefab in {_config.name}. Please check the UnitConfig or Init method.");
+        }
+
+        Projectile projectile = Instantiate(_projectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.Init(target, onHit, speed);
+    }
+
+    protected void FireProjectile(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
+        if (_projectilePrefab == null) {
+            Debug.LogError($"There is no _projectilePrefab in {_config.name}. Please check the UnitConfig or Init method.");
+        }
+
+        Projectile projectile = Instantiate(_projectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.Init(direction, onHit, maxDistance, speed, penetrateCount);
+    }
     #endregion
 
     #region Stat

@@ -14,8 +14,10 @@ public class Sniper : BaseUnit
         if (farthest == null || farthest as BaseUnit == null)
             return;
 
-        Projectile projectile = Instantiate(_projectilePrefab);
-        projectile.transform.position = transform.position;
-        projectile.Init(farthest as BaseUnit, () => farthest.TakeDamage(turnContext, Attack));
+        Action<BaseUnit> onHit = (target) => {
+            target.TakeDamage(turnContext, Attack);
+        };
+
+        base.FireProjectile(farthest as BaseUnit, onHit);
     }
 }
