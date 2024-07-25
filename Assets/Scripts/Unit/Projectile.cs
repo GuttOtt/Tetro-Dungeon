@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour {
         _penetrateCount = penetrateCount;
         _maxDistance = maxDistance;
 
-        SetRotation(direction);
+        //SetRotation(direction);
     }
 
     private void Update() {
@@ -118,6 +118,6 @@ public class Projectile : MonoBehaviour {
 
         float angle = Quaternion.FromToRotation(from, to).eulerAngles.z;
 
-        transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+        transform.rotation = Quaternion.Euler(0, 0, angle + 90);
     }
 }

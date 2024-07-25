@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class BaseSynergy:ScriptableObject {
     [SerializeField]
     protected SynergyTypes _synergyType;

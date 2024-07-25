@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Dragon Synergy", menuName = "Synergy/Dragon Synergy")]
 public class DragonSynergy : BaseSynergy {
 
     public override void OnBattleBegin(TurnContext turnContext, int synergyCount) {
@@ -19,6 +19,6 @@ public class DragonSynergy : BaseSynergy {
             unit.TakeDamage(turnContext, amount);
         }
 
-        Debug.Log($"적 전체에게 {amount} 만큼 데미지!");
+        Debug.Log($"용족 시너지 효과로 적 전체에게 {amount} 만큼 데미지!");
     }
 }

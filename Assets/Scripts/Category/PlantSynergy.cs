@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "Dragon Synergy", menuName = "Synergy/Plant Synergy")]
 public class PlantSynergy : BaseSynergy {
     public override void CoolTimeEffect(TurnContext turnContext, int synergyCount) {
         Debug.Log("식물 시너지 효과 발동");

@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+
+[CreateAssetMenu(fileName = "Dragon Synergy", menuName = "Synergy/Gunner Synergy")]
 public class GunnerSynergy : BaseSynergy {
     public override void OnBattleBegin(TurnContext turnContext, int synergyCount) {
         Debug.Log("총잡이 시너지 효과 발동");

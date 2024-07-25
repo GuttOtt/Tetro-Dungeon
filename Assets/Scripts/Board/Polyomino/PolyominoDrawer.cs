@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PolyominoDrawer : MonoBehaviour
 {
     [SerializeField]
     private GameObject blockPrefab;
+
     private List<GameObject> drawnBlocks = new List<GameObject>();
     private int[,] _shape;
     private Vector2 _blockSize;
@@ -13,7 +15,14 @@ public class PolyominoDrawer : MonoBehaviour
     public int[,] GetShape { get => _shape; }
     public Vector2 GetBlockSize {
         get {
-            if (_blockSize == Vector2.zero) _blockSize = blockPrefab.GetComponent<SpriteRenderer>().bounds.size;
+            if (_blockSize == Vector2.zero) {
+                if (blockPrefab.GetComponent<SpriteRenderer>() != null)
+                    _blockSize = blockPrefab.GetComponent<SpriteRenderer>().bounds.size;
+                else if (blockPrefab.GetComponent<Image>() != null) {
+                    Image image = blockPrefab.GetComponent<Image>();
+                    _blockSize = image.rectTransform.sizeDelta;
+                }
+            }
             return _blockSize;
         }
     }
