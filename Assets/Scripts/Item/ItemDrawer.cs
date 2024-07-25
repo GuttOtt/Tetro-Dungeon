@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ItemDrawer : MonoBehaviour {
+public class ItemDrawer : MonoBehaviour, IPointerClickHandler {
     [SerializeField]
     private TMP_Text _nameText, _descriptionText;
 
@@ -24,5 +25,9 @@ public class ItemDrawer : MonoBehaviour {
         _descriptionText.SetText(item.Description);
 
         _polyominoDrawer.Draw(item.ShapeInt);
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        OnClick.Invoke();
     }
 }

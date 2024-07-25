@@ -55,6 +55,16 @@ public class ItemEditSceneManager : MonoBehaviour {
     }
 
     private void AddToUse(Item item) {
-        Debug.Log("AddToUse");
+        ItemDrawer drawer = Instantiate(_itemDrawerPrefab, _usePanel.transform);
+        drawer.Draw(item);
+        drawer.OnClick += () => DeleteFromUse(item);
+
+        _drawerUse.Add(drawer);
+
+        Arrange(_drawerUse);
+    }
+
+    private void DeleteFromUse(Item item) {
+        Debug.Log("Delete From Use");
     }
 }
