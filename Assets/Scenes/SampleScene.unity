@@ -1959,6 +1959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1521026326}
   - component: {fileID: 1521026325}
+  - component: {fileID: 1521026330}
   - component: {fileID: 1521026327}
   - component: {fileID: 1521026328}
   - component: {fileID: 1521026329}
@@ -1985,6 +1986,7 @@ MonoBehaviour:
   _unitPool: []
   _cardPrefab: {fileID: 3582584935911450818, guid: 77aa2e7ee0bbbf644a06ffc5c1d3958d, type: 3}
   deckNumber: 10
+  _cardSelector: {fileID: 1521026330}
 --- !u!4 &1521026326
 Transform:
   m_ObjectHideFlags: 0
@@ -2043,6 +2045,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _discardsParent: {fileID: 1418810073}
+--- !u!114 &1521026330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521026324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083675a23ef616d4eb45b58b4cbcd1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitBlockMarker: {fileID: 1641007580}
 --- !u!1 &1524232223
 GameObject:
   m_ObjectHideFlags: 0

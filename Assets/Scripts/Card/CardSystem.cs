@@ -11,14 +11,13 @@ public class CardSystem : MonoBehaviour
     private IGameManager _gameManager;
     private TroopCardSystem _troopCardSystem;
 
-    [SerializeField]
-    private UnitBlockDrawer _unitBlockMarker;
+    private UnitBlockDrawer _unitBlockMarker { get => _cardSelector.UnitblockMarker; }
 
     private Deck _deck;
     private Hand _hand;
     private Discards _discards;
 
-    private ICard _selectedCard;
+    private ICard _selectedCard { get => _cardSelector.SelectedCard; }
 
 
     [SerializeField]
@@ -33,6 +32,10 @@ public class CardSystem : MonoBehaviour
 
     //현재 배치중인 블럭의 polyomino
     private Polyomino _selectedPolyomino;
+
+    //카드 셀렉터
+    [SerializeField]
+    private CardSelector _cardSelector;
     #endregion
 
     public Deck Deck { get { return _deck; } }
@@ -52,7 +55,6 @@ public class CardSystem : MonoBehaviour
     private void Update() {
         SelectCard();
         PlayCard();
-        MoveUnitBlockMarker();
 
         if (Input.GetKeyDown(KeyCode.Q)) {
             SpinUnitBlockMarker(false);
@@ -179,18 +181,12 @@ public class CardSystem : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0)) {
-            _selectedCard = Utils.Pick<BaseCard>();
+            _cardSelector.Select();
 
-            if (!_hand.IsContain(_selectedCard))
+            if (_selectedCard == null || !_hand.IsContain(_selectedCard))
                 return;
 
-            //카드를 선택했다면 카드에 맞는 유닛 블럭 마커를 생성
-            if (_selectedCard != null) {
-                Debug.Log("Selected");
-                _unitBlockMarker.gameObject.SetActive(true);
-                _unitBlockMarker.Draw(_selectedCard.Polyomino, _selectedCard.UnitConfig);
-                _selectedPolyomino = _selectedCard.Polyomino;
-            }
+            _selectedPolyomino = _selectedCard.Polyomino;
         }
     }
 
@@ -214,11 +210,7 @@ public class CardSystem : MonoBehaviour
                 _discards.AddCard(_selectedCard);
             }
 
-            //Unit Block Marker를 Clear하고 비활성화
-            _unitBlockMarker.Clear();
-            _unitBlockMarker.gameObject.SetActive(false);
-
-            _selectedCard = null;
+            _cardSelector.Unselect();
         }
     }
 
@@ -242,13 +234,5 @@ public class CardSystem : MonoBehaviour
         _selectedPolyomino = rotatedPolyomino;
     }
 
-    private void MoveUnitBlockMarker() {
-        //UnitBlockMarker가 활성화 되어 있다면, 마우스를 따라 움직이도록 함
-        if (_unitBlockMarker.gameObject.activeSelf) {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = _unitBlockMarker.transform.position.z;
-            _unitBlockMarker.transform.position = mousePosition;
-        }
-    }
     #endregion
 }
