@@ -10,8 +10,6 @@ namespace Assets.Scripts
     {
         public static Player instance;
         private List<UnitConfig> _configs;
-        private IGameManager _gameManager;
-        private TroopCardSystem _troopCardSystem;
         private List<CardData> _deck;
         private List<CardData> _extraDeck;
 
@@ -41,7 +39,6 @@ namespace Assets.Scripts
             {
                 Destroy(gameObject);
             }
-
 
             _configs = new List<UnitConfig>();
             _deck = new List<CardData>();

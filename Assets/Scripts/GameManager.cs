@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     private void StartBattleScene() {
+        _cardSystem.NewDeck();
         _cardSystem.SetDeck(_player.Deck);
         _board.Init();
         _phaseSystem.ToStandbyPhase();

@@ -14,8 +14,6 @@ public class CardSystem : MonoBehaviour
     [SerializeField]
     private UnitBlockDrawer _unitBlockMarker;
 
-    private List<ICard> _cards;
-
     private Deck _deck;
     private Hand _hand;
     private Discards _discards;
@@ -64,7 +62,6 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-
     public BaseCard CreateCard(UnitConfig unitConfig, TroopCard troopCard) {
         BaseCard card = Instantiate(_cardPrefab);
         card.Init(unitConfig, troopCard);
@@ -88,10 +85,9 @@ public class CardSystem : MonoBehaviour
         _deck.Shuffle();
     }
     public void SetDeck(List<CardData> deck) {
-        _deck.Empty();
-        for (int i = 0; i < deck.Count; i++)
+        foreach (CardData cardData in deck)
         {
-            BaseCard card = CreateCard(deck[i]);
+            BaseCard card = CreateCard(cardData);
             _deck.AddCard(card);
         }
         _deck.Shuffle();
@@ -112,6 +108,15 @@ public class CardSystem : MonoBehaviour
         return ret;
     }
 
+    public void ClearDeck()
+    {
+        _deck.Empty();
+    }
+    public void NewDeck()
+    {
+        _deck.NewDeck();
+    }
+
     public List<TroopCard> GetRandomTroopCard(int n)
     {
         var ret = new List<TroopCard>();
@@ -129,8 +134,15 @@ public class CardSystem : MonoBehaviour
     }
 
     public void DrawCard() {
-        ICard card = _deck.Draw();
-        _hand.AddCard(card);
+        try
+        {
+            ICard card = _deck.Draw();
+            _hand.AddCard(card);
+        }
+        catch(System.Exception ex)
+        {
+            Debug.LogWarning(ex);
+        }
     }
 
     public void ShuffleDeck() {
