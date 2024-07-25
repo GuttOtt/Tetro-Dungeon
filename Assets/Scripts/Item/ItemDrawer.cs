@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,14 +14,15 @@ public class ItemDrawer : MonoBehaviour {
     [SerializeField]
     private Item ForTest;
 
+    public Action OnClick;
+
     private void Start () {
-        Draw(ForTest);
     }
 
     public void Draw(Item item) {
         _nameText?.SetText(item.Name);
         _descriptionText.SetText(item.Description);
 
-        //_polyominoDrawer.Draw(item.Shape);
+        _polyominoDrawer.Draw(item.ShapeInt);
     }
 }

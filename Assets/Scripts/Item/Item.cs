@@ -15,6 +15,22 @@ public class Item : ScriptableObject {
     private string _description;
 
     public bool[,] Shape { get => _shape.GetArray<bool>(); }
+    public int[,] ShapeInt {
+        get {
+            int[,] shapeInt = new int[Shape.GetLength(0), Shape.GetLength(1)];
+
+            for (int i = 0; i < Shape.GetLength(0); i++) {
+                for (int j = 0; j < Shape.GetLength(1); j++) {
+                    if (Shape[i, j] == true)
+                        shapeInt[i, j] = 1;
+                    else
+                        shapeInt[i, j] = 0;
+                }
+            }
+
+            return shapeInt;
+        }
+    }
     public string Name { get => _name; }
     public string Description { get => _description; }
 
