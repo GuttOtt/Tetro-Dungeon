@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Item : ScriptableObject {
     [SerializeField]
-    private string _name;
+    protected string _name;
 
     [SerializeField]
     protected TArray<bool> _shape = new TArray<bool>(5, 5);

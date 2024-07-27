@@ -18,7 +18,7 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: cbcc0f4fed1086c488123105ddf5a996, type: 3}
   _maxHp: 25
   _maxMP: 0
-  _attack: 15
+  _attack: 10
   _range: 5
   _unitTypeValue: 0
   _speed: 1.2

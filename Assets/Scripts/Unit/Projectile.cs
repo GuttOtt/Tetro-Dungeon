@@ -5,11 +5,10 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class Projectile : MonoBehaviour {
-    [SerializeField]
-    private float hitDistance;
 
     private Action<BaseUnit> _onHit;
-    private BaseUnit _target;
+    [SerializeField] private BaseUnit _target;
+    [SerializeField] private bool _isTargetBased;
     private Vector2 _direction;
     private float _speed = 7;
     private int _penetrateCount = 0;
@@ -23,6 +22,7 @@ public class Projectile : MonoBehaviour {
         _target = target;
         _speed = speed;
         _onHit = onHit;
+        _isTargetBased = true;
     }
 
     public void Init(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
@@ -33,11 +33,12 @@ public class Projectile : MonoBehaviour {
         _penetrateCount = penetrateCount;
         _maxDistance = maxDistance;
 
+        _isTargetBased = false;
         //SetRotation(direction);
     }
 
     private void Update() {
-        if (_target != null && _target.gameObject == null)
+        if (_isTargetBased && _target == null)
             Destroy(gameObject);
 
         FlyToTarget();

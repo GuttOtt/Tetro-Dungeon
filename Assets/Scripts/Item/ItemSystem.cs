@@ -74,12 +74,15 @@ public class ItemSystem : MonoBehaviour {
     private void ArrangeItemDisplay() {
         Vector2 panelSize = _itemPanel.rectTransform.sizeDelta;
         Vector2 drawerSize = _itemDrawerPrefab.GetComponent<Image>().rectTransform.sizeDelta;
-        Vector2 topMiddle = new Vector2(0, panelSize.y / 2f - drawerSize.y / 2f);
+        Vector2 topMiddle = new Vector2(-panelSize.x /2f + drawerSize.x /2f, panelSize.y / 2f - drawerSize.y / 2f);
 
         for (int i = 0; i < _itemContainers.Count; i++) {
             ItemDrawer drawer = _itemContainers[i].Drawer;
+            int x = i % 2;
+            int y = i / 2;
 
-            drawer.transform.localPosition = topMiddle + - new Vector2(0, drawerSize.y * i) + _displaySpacing * i;
+            drawer.transform.localPosition = topMiddle + new Vector2(drawerSize.x * x, -drawerSize.y * y)
+                + new Vector2(_displaySpacing.x * (x +1), _displaySpacing.y * (y+1));
         }
     }
 

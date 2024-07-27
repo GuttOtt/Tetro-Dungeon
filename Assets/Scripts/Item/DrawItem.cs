@@ -9,5 +9,6 @@ public class DrawItem : Item {
 
     public override void OnSatisfiedEffect(TurnContext turnContext) {
         turnContext.CardSystem.DrawCard(_drawAmount);
+        Debug.Log($"{_name}의 효과로 {_drawAmount}만큼 드로우!");
     }
 }

@@ -1322,7 +1322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPanel: {fileID: 2087840048}
   _itemDrawerPrefab: {fileID: 2085206020409596370, guid: 4da3d3df165659c4c8de681155f7c76a, type: 3}
-  _displaySpacing: {x: 0, y: -10}
+  _displaySpacing: {x: 10, y: -10}
 --- !u!1 &587640736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,7 +2515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2087840047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2532,8 +2532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 709.63, y: 22.2}
-  m_SizeDelta: {x: 500, y: 873.4}
+  m_AnchoredPosition: {x: 510, y: 130}
+  m_SizeDelta: {x: 900, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2087840048
 MonoBehaviour:

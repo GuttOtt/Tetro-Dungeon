@@ -292,8 +292,10 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeAttack(int value) => Attack += value;
     public void ChangeCurrentHP(int value) => CurrentHP += value;
 
-    public void ChangeMaxHP(int value) => _maxHP += value;
-
+    public void ChangeMaxHP(int value) {
+        _maxHP += value;
+        CurrentHP += value;
+    }
     public void ChangeSpeed(float value) => _speed += value;
     #endregion
 
