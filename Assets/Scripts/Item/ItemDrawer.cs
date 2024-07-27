@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemDrawer : MonoBehaviour, IPointerClickHandler {
     [SerializeField]
@@ -26,6 +27,12 @@ public class ItemDrawer : MonoBehaviour, IPointerClickHandler {
 
         _polyominoDrawer.Draw(item.ShapeInt);
     }
+
+    public void SetColor(Color color) {
+        GetComponent<Image>().color = color;
+    }
+
+
 
     public void OnPointerClick(PointerEventData eventData) {
         OnClick.Invoke();

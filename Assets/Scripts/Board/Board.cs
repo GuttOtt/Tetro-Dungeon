@@ -228,6 +228,18 @@ public class Board : MonoBehaviour
 
         return cellsInRange;
     }
+
+    public Cell[,] GetPlayerCells() {
+        Cell[,] playerCells = new Cell[column / 2, row];
+
+        for (int i = 0; i < column/ 2; i++) {
+            for (int j = 0; j < row; j++) {
+                playerCells[i, j] = cells[i, j];
+            }
+        }
+
+        return playerCells;
+    }
     #endregion
 
     #region Getting Unit

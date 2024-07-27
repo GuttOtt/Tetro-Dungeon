@@ -50,4 +50,46 @@ public static class Utils {
             list[n] = value;
         }
     }
+
+    public static int[,] ConvertBoolArrayToIntArray(bool[,] boolArray) {
+        int cols = boolArray.GetLength(0);
+        int rows = boolArray.GetLength(1);
+        int[,] intArray = new int[rows, cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                intArray[i, j] = boolArray[i, j] ? 1 : 0;
+            }
+        }
+
+        return intArray;
+    }
+
+    public static bool[,] ConvertIntArrayToBoolArray(int[,] intArray) {
+        int cols = intArray.GetLength(0);
+        int rows = intArray.GetLength(1);
+        bool[,] boolArray = new bool[rows, cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                boolArray[i, j] = intArray[i, j] == 1 ? true : false;
+            }
+        }
+
+        return boolArray;
+    }
+
+    public static bool[,] ConvertCellArrayToBoolArray(Cell[,] cellArray) {
+        int cols = cellArray.GetLength(0);
+        int rows = cellArray.GetLength(1);
+        bool[,] boolArray = new bool[rows, cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                boolArray[i, j] = cellArray[i, j].Unit != null ? true : false;
+            }
+        }
+
+        return boolArray;
+    }
 }

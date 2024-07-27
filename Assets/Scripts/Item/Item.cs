@@ -51,6 +51,12 @@ public class Item : ScriptableObject {
         return true;
     }
 
+    public bool IsSatisfiedBy(int[,] array) {
+        bool[,] boolArray = Utils.ConvertIntArrayToBoolArray(array);
+
+        return IsSatisfiedBy(boolArray);
+    }
+
     public virtual void OnBattleStartEffect(TurnContext turnContext) {
         //자식 클래스에서 세부 구현
     }

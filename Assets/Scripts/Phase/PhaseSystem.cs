@@ -26,6 +26,10 @@ public class PhaseSystem : MonoBehaviour {
     private CharacterTypes _attackTurn = CharacterTypes.Player;
     #endregion
 
+    #region Events
+    public event Action OnStandbyPhase;
+    #endregion
+
     public CardSystem CardSystem { get => _cardSystem; }
     public BattleSystem BattleSystem { get => _battleSystem; }
     public EnemySystem EnemySystem { get => _enemySystem; }
@@ -55,6 +59,7 @@ public class PhaseSystem : MonoBehaviour {
     public async void ToStandbyPhase() {
         _phaseText.text = "Standby Phase";
         _phaseContext.Transit(_standbyPhase);
+        OnStandbyPhase.Invoke();
 
         await UniTask.WaitForSeconds(2);
 

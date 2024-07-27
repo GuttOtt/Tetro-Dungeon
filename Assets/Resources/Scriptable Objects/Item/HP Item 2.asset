@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cb16dcf96538f419d872d7e78315c8, type: 3}
+  m_Name: HP Item 2
+  m_EditorClassIdentifier: 
+  _name: HP Item 2
+  _shape:
+    size: {x: 5, y: 5}
+    data: 00000001010000000101000000010100000001010000000101
+  _description: "\uC774 \uC544\uC774\uD15C \uC704\uC5D0 \uC788\uB294 \uBAA8\uB4E0
+    \uC720\uB2DB\uC5D0\uAC8C +15 \uCD5C\uB300 \uCCB4\uB825 \uBD80\uC5EC"
+  _isForAllAlly: 1
+  _attack: 0
+  _maxHP: 15
+  _speed: 0
