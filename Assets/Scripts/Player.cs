@@ -23,10 +23,16 @@ namespace Assets.Scripts
         private List<TroopEffect> _allTroopEffect;
         private List<StatDecorator> _allStatDecorator;
 
+        [SerializeField]
+        private List<Item> _itemInUse = new List<Item>();
+        private List<Item> _itemInInv = new List<Item>();
+
         public List<CardData> Deck { get { return _deck; } }
         public List<CardData> ExtraDeck { get { return _extraDeck; } }
 
         public List<UnitConfig> Configs {  get { return _configs; } }
+        public List<Item> ItemInUse { get => _itemInUse; }
+        public List<Item> ItemInInv { get => _itemInInv; }
 
         void Awake()
         {
@@ -104,6 +110,11 @@ namespace Assets.Scripts
             }
 
             _extraDeck.Shuffle();
+        }
+
+
+        public void SaveItemInUse(List<Item> items) {
+            _itemInUse = items.ToList();
         }
     }
 }

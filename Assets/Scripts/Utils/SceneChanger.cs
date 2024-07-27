@@ -19,4 +19,8 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene("DeckEdit");
     }
+
+    public void LoadItemEditScene() {
+        SceneManager.LoadScene("ItemEdit");
+    }
 }

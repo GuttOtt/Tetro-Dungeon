@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class ItemEditSceneManager : MonoBehaviour {
     [SerializeField]
     private List<Item> _inventory;
+
+    private List<Item> _itemInUse = new List<Item>();
 
     [SerializeField]
     private ItemDrawer _itemDrawerPrefab;
@@ -16,6 +21,12 @@ public class ItemEditSceneManager : MonoBehaviour {
 
     [SerializeField]
     private Vector2 _gap, _origin;
+
+    [SerializeField]
+    private int _maxItemUse = 5;
+
+    [SerializeField]
+    private SceneChanger _sceneChanger;
 
     private List<ItemDrawer> _drawerInventory = new List<ItemDrawer>();
     private List<ItemDrawer> _drawerUse = new List<ItemDrawer>();
@@ -55,16 +66,36 @@ public class ItemEditSceneManager : MonoBehaviour {
     }
 
     private void AddToUse(Item item) {
+        if (_maxItemUse <= _drawerUse.Count) {
+            Debug.Log($"아이템은 최대 {_maxItemUse} 까지만 사용할 수 있습니다.");
+            return;
+        }
+
         ItemDrawer drawer = Instantiate(_itemDrawerPrefab, _usePanel.transform);
         drawer.Draw(item);
-        drawer.OnClick += () => DeleteFromUse(item);
+        drawer.OnClick += () => DeleteFromUse(drawer, item);
 
         _drawerUse.Add(drawer);
+        _itemInUse.Add(item);
 
         Arrange(_drawerUse);
     }
 
-    private void DeleteFromUse(Item item) {
-        Debug.Log("Delete From Use");
+    private void DeleteFromUse(ItemDrawer drawer, Item item) {
+        _drawerUse.Remove(drawer);
+        _itemInUse.Remove(item);
+
+        Destroy(drawer.gameObject);
+
+        Arrange(_drawerUse);
+    }
+
+    private void SaveItemInUse() {
+        Assets.Scripts.Player.instance.SaveItemInUse(_itemInUse);
+    }
+
+    public void ToBattleScene() {
+        SaveItemInUse();
+        _sceneChanger.LoadBattleScene();
     }
 }
