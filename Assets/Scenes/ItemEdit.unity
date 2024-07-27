@@ -814,6 +814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2113678818}
   - component: {fileID: 2113678817}
+  - component: {fileID: 2113678819}
   m_Layer: 0
   m_Name: ItemEditSceneManager
   m_TagString: Untagged
@@ -840,7 +841,7 @@ MonoBehaviour:
   _gap: {x: 25, y: 25}
   _origin: {x: -212.5, y: 300}
   _maxItemUse: 5
-  _sceneChanger: {fileID: 0}
+  _sceneChanger: {fileID: 2113678819}
 --- !u!4 &2113678818
 Transform:
   m_ObjectHideFlags: 0
@@ -856,6 +857,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2113678819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113678816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a85ae9173f1504c858c50270b88de1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -46,6 +46,11 @@ public class Hand : MonoBehaviour, ICardPile {
 
         for (int i = 0; i < _hands.Count; i++) {
             BaseCard card = _hands[i] as BaseCard;
+
+            if (card == null || card.transform == null) {
+                Debug.LogError($"파괴된 BaseCard에 접근하고 있습니다: {card.UnitConfig.name}, index: {i}");
+            }
+
             card.transform.localPosition = new Vector2(xOrigin + i * _cardSize.x, 0);
         }
     }

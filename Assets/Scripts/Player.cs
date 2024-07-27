@@ -6,9 +6,8 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.Scripts
 {
-    public class Player : MonoBehaviour
+    public class Player : Singleton<Player>
     {
-        public static Player instance;
         private List<UnitConfig> _configs;
         private List<CardData> _deck;
         private List<CardData> _extraDeck;
@@ -34,17 +33,9 @@ namespace Assets.Scripts
         public List<Item> ItemInUse { get => _itemInUse; }
         public List<Item> ItemInInv { get => _itemInInv; }
 
-        void Awake()
+        protected override void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            base.Awake();
 
             _configs = new List<UnitConfig>();
             _deck = new List<CardData>();

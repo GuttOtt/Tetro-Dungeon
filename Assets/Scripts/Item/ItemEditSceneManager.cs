@@ -91,7 +91,7 @@ public class ItemEditSceneManager : MonoBehaviour {
     }
 
     private void SaveItemInUse() {
-        Assets.Scripts.Player.instance.SaveItemInUse(_itemInUse);
+        Assets.Scripts.Player.Instance.SaveItemInUse(_itemInUse);
     }
 
     public void ToBattleScene() {

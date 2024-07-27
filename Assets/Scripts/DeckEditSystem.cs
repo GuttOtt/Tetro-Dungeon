@@ -17,7 +17,7 @@ public class DeckEditSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = Player.instance;
+        _player = Player.Instance;
         _deck = _player.Deck;
         if (_deck == null)
         {

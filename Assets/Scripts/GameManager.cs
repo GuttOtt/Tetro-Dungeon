@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     private void Start() {
-        _player = Player.instance;
+        _player = Player.Instance;
         if (_player == null)
         {
             Debug.LogError("Player instance is null!");
