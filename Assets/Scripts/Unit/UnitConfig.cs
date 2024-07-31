@@ -1,5 +1,6 @@
 using EnumTypes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 [SerializeField]
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/UnitConfig", order = 0)]
@@ -38,4 +39,19 @@ public class UnitConfig : ScriptableObject
     public string Name { get => _name; }
     public string EffectDescription { get => _effectDescription; }
     public Projectile Projectile { get => _projectile; }
+
+    public void Init(UnitConfig unit)
+    {
+        _name = unit.name;
+        _effectDescription = unit.EffectDescription;
+        _sprite = unit.Sprite;
+        _maxHp = unit.MaxHP;
+        _maxMP = unit.MaxMP;
+        _attack = unit.Attack;
+        _range = unit.Range;
+        _speed = unit.Speed;
+        _unitTypeString = unit.UnitTypeString;
+        _unitTypeValue = unit.UnitTypeValue;
+        _synergies = new List<SynergyTypes>(unit.Synergies);
+    }
 }

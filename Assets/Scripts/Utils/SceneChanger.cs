@@ -7,10 +7,6 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
 
-    void Start()
-    {
-    }
-
     public void LoadBattleScene()
     {
         SceneManager.LoadScene("SampleScene");
@@ -20,7 +16,12 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene("DeckEdit");
     }
 
-    public void LoadItemEditScene() {
+    public void LoadItemEditScene()
+    {
         SceneManager.LoadScene("ItemEdit");
+    }
+    public void LoadCombinationScene()
+    {
+        SceneManager.LoadScene("Combination");
     }
 }

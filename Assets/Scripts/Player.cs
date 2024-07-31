@@ -8,7 +8,10 @@ namespace Assets.Scripts
 {
     public class Player : Singleton<Player>
     {
-        private List<UnitConfig> _configs;
+        public static Player instance;
+        private List<UnitConfig> _configs = new List<UnitConfig>();
+        private List<TroopCard> _troopCards = new List<TroopCard>();
+
         private List<CardData> _deck;
         private List<CardData> _extraDeck;
 
@@ -30,8 +33,11 @@ namespace Assets.Scripts
         public List<CardData> ExtraDeck { get { return _extraDeck; } }
 
         public List<UnitConfig> Configs {  get { return _configs; } }
+
         public List<Item> ItemInUse { get => _itemInUse; }
         public List<Item> ItemInInv { get => _itemInInv; }
+
+        public List<TroopCard> TroopCards {  get { return _troopCards; } }
 
         protected override void Awake()
         {
@@ -69,6 +75,7 @@ namespace Assets.Scripts
             {
                 UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
                 TroopCard troopCard = CreateRandomTroopCard();
+
                 CardData card = new(config, troopCard);
                 _deck.Add(card);
             }
@@ -86,6 +93,7 @@ namespace Assets.Scripts
                 }
             }
         }
+
         public void SetDeck(List<CardData> cardData)
         {
             _deck = cardData;
@@ -97,6 +105,10 @@ namespace Assets.Scripts
                 UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
                 TroopCard troopCard = CreateRandomTroopCard();
                 CardData card = new(config, troopCard);
+
+                _configs.Add(config);
+                _troopCards.Add(troopCard);
+
                 _extraDeck.Add(card);
             }
 
