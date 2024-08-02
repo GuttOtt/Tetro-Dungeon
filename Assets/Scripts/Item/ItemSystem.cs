@@ -62,13 +62,23 @@ public class ItemSystem : MonoBehaviour {
         List<Item> items = Player.Instance.ItemInUse;
 
         foreach (Item item in items) {
-            ItemDrawer drawer = Instantiate(_itemDrawerPrefab, _itemPanel.transform);
-            drawer.Draw(item);
+            ItemDrawer drawer = DrawItem(item);
             ItemContainer container = new ItemContainer(item, drawer);
             _itemContainers.Add(container);
         }
 
         ArrangeItemDisplay();
+    }
+
+    private ItemDrawer DrawItem(Item item) {
+        ItemDrawer drawer = Instantiate(_itemDrawerPrefab, _itemPanel.transform);
+        drawer.Draw(item);
+
+        int[,] intShape = item.ShapeInt;
+        drawer.OnHoverEnter += () => _board.HighlightCell(intShape);
+        drawer.OnHoverExit += () => _board.UnHighlightCell();
+
+        return drawer;
     }
 
     private void ArrangeItemDisplay() {
@@ -94,6 +104,8 @@ public class ItemSystem : MonoBehaviour {
     public void CloseItemDisplay() {
         _itemPanel.gameObject.SetActive(false);
         _isDisplayOn = false;
+
+        _board.UnHighlightCell();
     }
 
     //아이템들의 조건이 만족되었는지 체크함

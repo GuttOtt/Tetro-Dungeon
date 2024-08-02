@@ -22,6 +22,12 @@ public class Board : MonoBehaviour
 
     //PathFinding
     private PathFinder _pathFinder;
+
+    //Highlighting Cells
+    [SerializeField]
+    private PolyominoDrawer _cellHighlighter;
+
+
     #endregion
 
     #region properties
@@ -71,7 +77,7 @@ public class Board : MonoBehaviour
         _pathFinder = new PathFinder(column, row, false, true);
     }
 
-
+    #region UnitPlacing
     //polyomino를 cell에 놓을 수 있는지 확인
     //위치 기준은 Top Left
     public bool IsPlacable(Polyomino polyomino, Cell cell, CharacterTypes characterType = CharacterTypes.Player) {
@@ -152,6 +158,7 @@ public class Board : MonoBehaviour
 
         return true;
     }
+    #endregion
 
     #region Getting Cell
     public Cell GetCell(int col, int row) {
@@ -295,6 +302,32 @@ public class Board : MonoBehaviour
 
         return Mathf.Sqrt(Mathf.Pow(x, 2f) + Mathf.Pow(y, 2f));
     }
+
+    #region Highlighting Cells
+    public void HighlightCell(int[,] array, int top = 0, int left = 0) {
+        int col = array.GetLength(0);
+        int row = array.GetLength(1);
+
+        if (Column < col + top || Row < row + left) {
+            return;
+        }
+
+        int[,] shape = new int[Column, Row];
+
+        for (int i = top; i < top + col; i++) {
+            for (int j = left; j < left + row; j++) {
+                shape[i, j] = array[i, j];
+            }
+        }
+
+        _cellHighlighter.Draw(shape);
+        _cellHighlighter.SetColor(new Color(1, 1, 1, 0.5f));
+    }
+
+    public void UnHighlightCell() {
+        _cellHighlighter.ClearBlocks();
+    }
+    #endregion
 
     #region Pathfinding
     public List<Cell> PathFinding(Cell startCell, Cell targetCell) {
