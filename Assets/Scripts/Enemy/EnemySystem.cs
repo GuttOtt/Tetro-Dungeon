@@ -32,6 +32,7 @@ public class EnemySystem : MonoBehaviour {
     //Buff Token
     [SerializeField]
     private List<BuffToken> _buffTokensPerRound = new List<BuffToken>();
+
     #endregion
 
     private void Awake() {
@@ -39,6 +40,8 @@ public class EnemySystem : MonoBehaviour {
         _unitSystem = _gameManager.GetSystem<UnitSystem>();
 
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
+
+        SetDifficulty(1);
     }
 
     public void DecideUnitList() {
@@ -61,6 +64,8 @@ public class EnemySystem : MonoBehaviour {
             unit.transform.parent = unitListDisplay.transform;
             unit.transform.localPosition = unitGap * i;
         }
+
+        ApplyBuffTokens();
     }
 
     public void PlaceUnit() {
@@ -90,7 +95,37 @@ public class EnemySystem : MonoBehaviour {
 
         //만약 유닛이 있다면, 초기화 하고 난이도에 맞게 다시 소환
         if (unitList != null && 0 < unitList.Count) {
-            
+            DecideUnitList();
+        }
+    }
+
+    private void ApplyBuffTokens() {
+        Dictionary<BaseUnit, List<BuffToken>> unitBuffDic = new Dictionary<BaseUnit, List<BuffToken>>();
+
+        foreach (BaseUnit unit in unitList) {
+            unitBuffDic.Add(unit, new List<BuffToken>());
+        }
+
+        foreach (BuffToken token in _buffTokensPerRound) {
+            BaseUnit unit = unitList[Random.Range(0, unitList.Count)];
+
+            unitBuffDic[unit].Add(token);
+        }
+
+        foreach (BaseUnit unit in unitBuffDic.Keys) {
+            float attackBuff = 1;
+            float maxHPBuff = 1;
+
+            foreach (BuffToken token in unitBuffDic[unit]) {
+                attackBuff += token.Attack;
+                maxHPBuff += token.MaxHP;
+            }
+
+            int newAttack = (int) (unit.Attack * attackBuff);
+            int newMaxHP = (int)(unit.MaxHP * maxHPBuff);
+
+            unit.SetAttack(newAttack);
+            unit.SetMaxHP(newMaxHP);
         }
     }
 
@@ -100,7 +135,7 @@ public class EnemySystem : MonoBehaviour {
 
             foreach (BaseUnit unit in temp) {
                 if (unit != null && unit.gameObject != null) {
-                    unit.Die(); // Die로 해도 괜찮을까? 아예 제거되는 별도의 메소드가 필요하지 않을까?
+                    unit.DestroySelf();
                 }
             }
         }

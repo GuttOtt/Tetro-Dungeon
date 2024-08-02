@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
+  m_Name: Test Enemy
+  m_EditorClassIdentifier: 
+  Name: Test Enemy
+  MaxLife: 500
+  BuffTokenPerDifficulty:
+  - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
+  - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
+  - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
+  - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}

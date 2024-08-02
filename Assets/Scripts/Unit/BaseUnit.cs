@@ -49,8 +49,8 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public int UnitTypeValue { get => _unitTypeValue; }
     
-    public Action OnDie { get; set; } //전투 중 유닛이 공격이나 효과에 의해 사망할 때 발동되는 이벤트.
-    public Action OnDestroy { get; set; } //전투 중 사망하는 것을 포함해, '유닛의 GameObject가 제거될 때' 발동되는 이벤트.
+    public Action OnDie { get; set; } //전투 중 유닛이 공격이나 효과에 의해 사망할 때 회출되는 이벤트.
+    public Action OnDestroy { get; set; } //전투 중 사망하는 것을 포함해, '유닛의 GameObject가 제거될 때' 호출되는 이벤트. 전투 승리 시 남은 유닛의 처리 등에 의해서도 호출됨.
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
     public int CurrentHP
@@ -63,7 +63,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             {
                 _unitDrawer.UpdateHP(_currentHP, Color.red);
             }
-            else if (_maxHP < _currentHP)
+            else if (_maxHP < _currentHP || _config.MaxHP < _maxHP)
             {
                 _unitDrawer.UpdateHP(_currentHP, new Color(0, 0.8f, 0));
             }
@@ -294,13 +294,22 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Stat
     public void SetAttack(int value) => Attack = value;
     public void SetCurrentHP(int value) => CurrentHP = value;
+    public void SetMaxHP(int value) {
+        float ratio = CurrentHP / MaxHP;
+
+        _maxHP = value;
+        CurrentHP = (int) (value * ratio);
+    }
 
     public void ChangeAttack(int value) => Attack += value;
     public void ChangeCurrentHP(int value) => CurrentHP += value;
 
     public void ChangeMaxHP(int value) {
+        float ratio = CurrentHP / MaxHP;
         _maxHP += value;
-        CurrentHP += value;
+
+        _maxHP = value;
+        CurrentHP = (int)(value * ratio);
     }
     public void ChangeSpeed(float value) => _speed += value;
     #endregion

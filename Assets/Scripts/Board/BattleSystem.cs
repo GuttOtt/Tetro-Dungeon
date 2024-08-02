@@ -100,7 +100,7 @@ public class BattleSystem : MonoBehaviour
         List<IUnit> winnerUnits = _board.GetUnits(winner);
         foreach (IUnit unit in winnerUnits) {
             LifeDamage(winner.Opponent(), unit.Attack);
-            (unit as BaseUnit).Die();
+            (unit as BaseUnit).DestroySelf();
             await UniTask.WaitForSeconds(0.2f);
         }
 
