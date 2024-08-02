@@ -101,7 +101,7 @@ public class BattleSystem : MonoBehaviour
         foreach (IUnit unit in winnerUnits) {
             LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).Die();
-            await UniTask.WaitForSeconds(0.5f);
+            await UniTask.WaitForSeconds(0.2f);
         }
 
         //배틀 종료
@@ -153,31 +153,6 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    private bool CheckMovable(IUnit unit, CharacterTypes attackTurn) {
-        if (unit.Owner != attackTurn) {
-            return false;
-        }
-        Cell currentCell = unit.CurrentCell;
-
-        // 전방으로 한 칸의 위치 계산
-        int forwardOffset = unit.Owner == CharacterTypes.Player ? 1 : -1;
-        int targetColumn = currentCell.position.col + forwardOffset;
-
-        //유닛의 앞쪽 셀을 가져옴
-        Cell forwardCell = _board.GetCell(targetColumn, currentCell.position.row);
-
-        //forwardCell에 이미 유닛이 있거나, forwardCell이 존재하지 않는다면 false
-        if (forwardCell == null || forwardCell.Unit != null)
-            return false;
-
-        return true;
-    }
-
-
-    private void ProcessDeath(ref List<IUnit> playerUnits, ref List<IUnit> enemyUnits) {
-        playerUnits = _board.PlayerUnits.ToList();
-        enemyUnits = _board.EnemyUnits.ToList();
-    }
 
     #region Life Damage
     private void LifeDamage(CharacterTypes characterType, int damage) {

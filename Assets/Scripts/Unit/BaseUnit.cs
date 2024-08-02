@@ -48,7 +48,9 @@ public class BaseUnit : MonoBehaviour, IUnit
     public float Speed { get => _speed; }
 
     public int UnitTypeValue { get => _unitTypeValue; }
-    public Action OnDie { get; set; }
+    
+    public Action OnDie { get; set; } //전투 중 유닛이 공격이나 효과에 의해 사망할 때 발동되는 이벤트.
+    public Action OnDestroy { get; set; } //전투 중 사망하는 것을 포함해, '유닛의 GameObject가 제거될 때' 발동되는 이벤트.
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
     public int CurrentHP
@@ -115,8 +117,12 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void Die()
     {
-        OnDie();
-        _unitSystem.DestroyUnit(this);
+        OnDie.Invoke();
+        OnDestroy.Invoke();
+    }
+
+    public void DestroySelf() {
+        OnDestroy.Invoke();
     }
 
     public virtual void Die(TurnContext turnContext)

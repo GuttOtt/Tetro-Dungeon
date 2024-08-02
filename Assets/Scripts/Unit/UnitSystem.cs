@@ -38,6 +38,8 @@ public class UnitSystem : MonoBehaviour
         unit.Init(this, unitConfig, owner);
         _units.Add(unit);
 
+        unit.OnDestroy += () => DestroyUnit(unit);
+
         return unit;
     }
     

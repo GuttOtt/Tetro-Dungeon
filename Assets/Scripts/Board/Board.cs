@@ -147,7 +147,7 @@ public class Board : MonoBehaviour
         unit.transform.localPosition = Vector3.zero;
         unitDic[unit.Owner].Add(unit);
 
-        unit.OnDie += () => unitDic[unit.Owner].Remove(unit);
+        unit.OnDestroy += () => unitDic[unit.Owner].Remove(unit);
 
 
         return true;
