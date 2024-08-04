@@ -8,7 +8,6 @@ namespace Assets.Scripts
 {
     public class Player : Singleton<Player>
     {
-        public static Player instance;
         private List<UnitConfig> _configs = new List<UnitConfig>();
         private List<TroopCard> _troopCards = new List<TroopCard>();
 

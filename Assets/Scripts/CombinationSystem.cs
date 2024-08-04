@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class CombinationSystem : MonoBehaviour
 {
     [SerializeField] private Transform troopCardPanel;
     [SerializeField] private Transform unitConfigPanel;
-    [SerializeField] private Transform combinationPanel;
+    [SerializeField] private GameObject combinationPanel;
 
     [SerializeField] private GameObject troopCardPrefab;
     [SerializeField] private GameObject unitConfigPrefab;
@@ -17,10 +18,15 @@ public class CombinationSystem : MonoBehaviour
 
     [SerializeField] private Button okButton;
     [SerializeField] private Button backButton;
+    [SerializeField] private CardSelector cardSelector;
 
     private TroopCard selectedTroopCard;
     private UnitConfig selectedUnitConfig;
     private GameObject displayCardInstance;
+
+    private Vector2 _blockSize;
+
+    private UnitBlockDrawer _unitBlockMarker { get => cardSelector.UnitblockMarker; }
 
     private void Start()
     {
@@ -28,25 +34,47 @@ public class CombinationSystem : MonoBehaviour
         okButton.onClick.AddListener(OnOkButtonClicked);
         backButton.onClick.AddListener(OnBackButtonClicked);
 
+        _blockSize = troopCardPrefab.GetComponent<SpriteRenderer>().size;
         DisplayPanels();
     }
 
     private void DisplayPanels()
     {
-        // TroopCard와 UnitConfig를 패널에 추가하는 코드를 작성합니다.
-        // 예시:
-        foreach (var troop in GetTroopCards())
-        {
-            var item = Instantiate(troopCardPrefab, troopCardPanel);
-            item.GetComponent<TroopCard>().Init(troop);
-            //item.GetComponent<Draggable>().OnDraggedToCombinationPanel += OnPolyominoDragged;
-        }
+        int rows = 5;
+        int cols = 3;
+        float spacingX = 0.3f;  // X축 간격을 고정된 값으로 설정 (예: 100 픽셀)
+        float spacingY = 0.25f;  // Y축 간격을 고정된 값으로 설정 (예: 100 픽셀)
 
-        foreach (var unitConfig in GetUnitConfigs())
+        var blocks = GetTroopCards();
+        int blockCount = Mathf.Min(rows * cols, blocks.Count);  // 배치할 블럭의 수를 제한
+        for (int i = 0; i < rows; i++)
         {
-            var item = Instantiate(unitConfigPrefab, unitConfigPanel);
-            item.GetComponent<UnitConfig>().Init(unitConfig);
-            //item.GetComponent<Draggable>().OnDraggedToCombinationPanel += OnUnitConfigDragged;
+            for (int j = 0; j < cols; j++)
+            {
+                int index = i * cols + j;
+                if (index >= blockCount)
+                    break;
+
+                GameObject block = new GameObject("Block");
+                block.AddComponent<Draggable>();
+                block.GetComponent<Draggable>().SetDestination(combinationPanel);
+                block.AddComponent<BoxCollider>();
+
+                block.transform.SetParent(troopCardPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
+                block.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+
+                var cells = _unitBlockMarker.DrawBlock(blocks[index].Polyomino, troopCardPanel);
+
+                foreach (var cell in cells)
+                {
+                    cell.transform.SetParent(block.transform, false);  // block의 자식으로 설정하고 로컬 포지션 유지
+                }
+
+                float startX = -(cols - 1) * spacingX / 2;
+                float startY = (rows - 1) * spacingY / 2;
+                Vector2 localPosition = new Vector2(startX + j * spacingX, startY - i * spacingY);
+                block.transform.localPosition = localPosition;
+            }
         }
     }
 
@@ -73,7 +101,7 @@ public class CombinationSystem : MonoBehaviour
             }
 
             // 새로 조합된 DisplayCard를 생성합니다.
-            displayCardInstance = Instantiate(displayCardPrefab, combinationPanel);
+            displayCardInstance = Instantiate(displayCardPrefab, combinationPanel.transform);
             var cardData = new CardData(selectedUnitConfig, selectedTroopCard);
             displayCardInstance.GetComponent<DisplayCard>().Init(cardData);
         }
@@ -84,7 +112,7 @@ public class CombinationSystem : MonoBehaviour
         if (selectedTroopCard != null && selectedUnitConfig != null)
         {
             var cardData = new CardData(selectedUnitConfig, selectedTroopCard);
-            Player.instance.ExtraDeck.Add(cardData);
+            Player.Instance.ExtraDeck.Add(cardData);
             Debug.Log("Card added to ExtraDeck");
             // 선택 초기화
             selectedTroopCard = null;
@@ -101,14 +129,13 @@ public class CombinationSystem : MonoBehaviour
         SceneManager.LoadScene("DeckEditScene");
     }
 
-    // 예시로 사용할 더미 데이터 생성기
     private List<TroopCard> GetTroopCards()
     {
-        return Player.instance.TroopCards;
+        return Player.Instance.TroopCards;
     }
 
     private List<UnitConfig> GetUnitConfigs()
     {
-        return Player.instance.Configs;
+        return Player.Instance.Configs;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class UnitBlockDrawer : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class UnitBlockDrawer : MonoBehaviour
             unitDrawer.Draw(unitConfig);
             _unitDrawers.Add(unitDrawer);
         }
+    }
+
+    public List<GameObject> DrawBlock(Polyomino polyomino, Transform tr)
+    {
+        return _polyominoDrawer?.Draw(polyomino.Shape, tr);
     }
 
     public void Clear() {

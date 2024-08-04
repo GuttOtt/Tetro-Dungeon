@@ -86,6 +86,7 @@ public class CardSystem : MonoBehaviour
 
         _deck.Shuffle();
     }
+
     public void SetDeck(List<CardData> deck) {
         foreach (CardData cardData in deck)
         {
