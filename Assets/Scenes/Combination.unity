@@ -1219,11 +1219,15 @@ MonoBehaviour:
   unitConfigPanel: {fileID: 1839317039}
   combinationPanel: {fileID: 700379396}
   troopCardPrefab: {fileID: 3338438397942864280, guid: e5d1354440792a84ba5809fa1bbd3d0b, type: 3}
-  unitConfigPrefab: {fileID: 4226810683068166313, guid: 73c84a5069e60204796efbe05e18fe7f, type: 3}
+  unitConfigPrefab: {fileID: 4226810683068166313, guid: 7586e1b113c2c984aad1fe982a04866c, type: 3}
   displayCardPrefab: {fileID: 1395693033945017248, guid: 368e787f302ffaa4f904ec7e47ac36eb, type: 3}
   okButton: {fileID: 1919637020}
   backButton: {fileID: 1086327670}
   cardSelector: {fileID: 728583614}
+  rows: 5
+  cols: 3
+  spacingX: 0.3
+  spacingY: 0.25
 --- !u!114 &728583614
 MonoBehaviour:
   m_ObjectHideFlags: 0

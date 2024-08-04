@@ -20,6 +20,11 @@ public class CombinationSystem : MonoBehaviour
     [SerializeField] private Button backButton;
     [SerializeField] private CardSelector cardSelector;
 
+    [SerializeField] int rows = 5;
+    [SerializeField] int cols = 3;
+    [SerializeField] float spacingX = 0.3f;  // X축 간격을 고정된 값으로 설정 (예: 100 픽셀)
+    [SerializeField] float spacingY = 0.25f;  // Y축 간격을 고정된 값으로 설정 (예: 100 픽셀)
+
     private TroopCard selectedTroopCard;
     private UnitConfig selectedUnitConfig;
     private GameObject displayCardInstance;
@@ -40,11 +45,12 @@ public class CombinationSystem : MonoBehaviour
 
     private void DisplayPanels()
     {
-        int rows = 5;
-        int cols = 3;
-        float spacingX = 0.3f;  // X축 간격을 고정된 값으로 설정 (예: 100 픽셀)
-        float spacingY = 0.25f;  // Y축 간격을 고정된 값으로 설정 (예: 100 픽셀)
+        DisplayBlockCards(rows, cols, spacingX, spacingY);
+        DisplayUnitCards(rows, cols, spacingX, spacingY);
+    }
 
+    private void DisplayBlockCards(int rows, int cols, float spacingX, float spacingY)
+    {
         var blocks = GetTroopCards();
         int blockCount = Mathf.Min(rows * cols, blocks.Count);  // 배치할 블럭의 수를 제한
         for (int i = 0; i < rows; i++)
@@ -74,6 +80,35 @@ public class CombinationSystem : MonoBehaviour
                 float startY = (rows - 1) * spacingY / 2;
                 Vector2 localPosition = new Vector2(startX + j * spacingX, startY - i * spacingY);
                 block.transform.localPosition = localPosition;
+            }
+        }
+    }
+    private void DisplayUnitCards(int rows, int cols, float spacingX, float spacingY)
+    {
+        var Units = GetUnitConfigs();
+        int unitCount = Mathf.Min(rows * cols, Units.Count);  // 배치할 블럭의 수를 제한
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int index = i * cols + j;
+                if (index >= unitCount)
+                    break;
+
+                GameObject unit = Instantiate(unitConfigPrefab, unitConfigPanel);
+                unit.AddComponent<UnitDrawer>();
+                unit.GetComponent<UnitDrawer>().Draw(Units[index]);
+                unit.AddComponent<Draggable>();
+                unit.GetComponent<Draggable>().SetDestination(combinationPanel);
+
+                unit.transform.SetParent(unitConfigPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
+                unit.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+
+                float startX = -(cols - 1) * spacingX / 2;
+                float startY = (rows - 1) * spacingY / 2;
+                Vector2 localPosition = new Vector2(startX + j * spacingX, startY - i * spacingY);
+                unit.transform.localPosition = localPosition;
             }
         }
     }
