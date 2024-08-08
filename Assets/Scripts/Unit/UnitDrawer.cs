@@ -17,10 +17,12 @@ public class UnitDrawer : MonoBehaviour
     private UnitHealthText _healthText;
 
     public UnitHealthBar _healthBar;
+    private UnitConfig _unitConfig;
 
     private TextMeshProUGUI _tooltip_name;
     private TextMeshProUGUI _tooltip_effect;
 
+    public UnitConfig UnitConfig { get => _unitConfig; } 
     public void Awake()
     {
         // Ã¼·Â ¹Ù
@@ -39,6 +41,7 @@ public class UnitDrawer : MonoBehaviour
             _unitSprite.sprite = unitConfig.Sprite;
         }
 
+        _unitConfig = unitConfig;
         int attack = unitConfig.Attack + attackBuff;
         int hp = unitConfig.MaxHP + hpBuff;
 

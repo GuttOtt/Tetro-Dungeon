@@ -2,7 +2,7 @@ using System;
 
 public interface ICard
 {
-    public TroopCard TroopCard { get; }
+    public BlockCard BlockCard { get; }
     public Polyomino Polyomino { get; }
     public UnitConfig UnitConfig { get; }
 

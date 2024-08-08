@@ -64,7 +64,7 @@ public class CardSystem : MonoBehaviour
         }
     }
 
-    public BaseCard CreateCard(UnitConfig unitConfig, TroopCard troopCard) {
+    public BaseCard CreateCard(UnitConfig unitConfig, BlockCard troopCard) {
         BaseCard card = Instantiate(_cardPrefab);
         card.Init(unitConfig, troopCard);
         return card;
@@ -79,7 +79,7 @@ public class CardSystem : MonoBehaviour
     public void SetDeck(int deckAmount) {
         for (int i = 0; i < deckAmount; i++) {
             UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-            TroopCard troopCard = _troopCardSystem.CreateRandomTroopCard();
+            BlockCard troopCard = _troopCardSystem.CreateRandomTroopCard();
             BaseCard card = CreateCard(config, troopCard);
             _deck.AddCard(card);
         }
@@ -102,7 +102,7 @@ public class CardSystem : MonoBehaviour
         for (int i = 0; i < deckAmount; i++)
         {
             UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-            TroopCard troopCard = _troopCardSystem.CreateRandomTroopCard();
+            BlockCard troopCard = _troopCardSystem.CreateRandomTroopCard();
             BaseCard card = CreateCard(config, troopCard);
             ret.AddCard(card);
         }
@@ -120,9 +120,9 @@ public class CardSystem : MonoBehaviour
         _deck.NewDeck();
     }
 
-    public List<TroopCard> GetRandomTroopCard(int n)
+    public List<BlockCard> GetRandomTroopCard(int n)
     {
-        var ret = new List<TroopCard>();
+        var ret = new List<BlockCard>();
         for (int i = 0; i<n; i++)
         {
             ret.Add(_troopCardSystem.CreateRandomTroopCard());
@@ -204,7 +204,7 @@ public class CardSystem : MonoBehaviour
 
                 //Troop의 OnPlace 효과 발동
                 TurnContext turnContext = _gameManager.CreateTurnContext();
-                _selectedCard.TroopCard.TroopEffect.OnPlace(turnContext, unitBlock);
+                _selectedCard.BlockCard.TroopEffect.OnPlace(turnContext, unitBlock);
 
                 //카드를 Discard로 보냄
                 _hand.RemoveCard(_selectedCard);

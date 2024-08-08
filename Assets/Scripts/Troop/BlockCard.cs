@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TroopCard : MonoBehaviour {
+public class BlockCard : MonoBehaviour {
     #region private members
     private Polyomino _polyomino;
     private StatDecorator _statDecorator;
@@ -15,13 +15,13 @@ public class TroopCard : MonoBehaviour {
     public TroopEffect TroopEffect { get => _troopEffect; }
     #endregion
 
-    public TroopCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator) {
+    public BlockCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator) {
         _polyomino= polyomino;
         _statDecorator= statDecorator;
         _troopEffect= troopEffect;
     }
 
-    public void Init(TroopCard troop)
+    public void Init(BlockCard troop)
     {
         _polyomino = troop.Polyomino;
         _statDecorator = troop.StatDecorator;

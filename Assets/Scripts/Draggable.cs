@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector3 originalPosition;
+    private Transform originalParent;
     private Vector3 offset;
     private Camera mainCamera;
     public GameObject destination;  // 패널을 참조할 변수
+
+    public Action<Draggable> EndDragAction;  // Draggable 객체를 전달하는 Action
     [SerializeField] private float colliderScaleFactor = 0.5f;  // Collider 축소 비율
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -27,49 +32,29 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         // 오브젝트의 원래 위치를 저장합니다.
         originalPosition = transform.position;
+        originalParent = transform.parent;
+        Debug.Log("Draggable Start method called");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag Started");
         offset = transform.position - GetMouseWorldPosition();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
         transform.position = GetMouseWorldPosition() + offset;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag Ended");
+        EndDragAction?.Invoke(this);
+    }
 
-        if (destination != null)
-        {
-            // Destination 패널의 RectTransform을 가져옵니다.
-            RectTransform panelRectTransform = destination.GetComponent<RectTransform>();
-
-            if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition, mainCamera))
-            {
-                // 드롭된 위치가 Destination 패널 내에 있을 때
-                Debug.Log("Dropped on Destination Panel");
-
-                // 패널의 중심에 오브젝트를 배치합니다.
-                transform.position = panelRectTransform.position;
-            }
-            else
-            {
-                // 드롭된 위치가 패널 외부일 때, 원래 위치로 되돌립니다.
-                transform.position = originalPosition;
-            }
-        }
-        else
-        {
-            // Destination이 설정되지 않았을 경우에도 원래 위치로 되돌립니다.
-            transform.position = originalPosition;
-            Debug.LogWarning("Destination panel is not set.");
-        }
+    public void ResetPosition()
+    {
+        transform.SetParent(originalParent);
+        transform.position = originalPosition;
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -82,6 +67,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void SetDestination(GameObject o)
     {
         destination = o;
+    }
+
+    public void SetEndDragAction(Action<Draggable> action)
+    {
+        EndDragAction = action;
+        Debug.Log("EndDragAction is set.");
     }
 
     private void AdjustColliderToFitRenderer(BoxCollider collider)

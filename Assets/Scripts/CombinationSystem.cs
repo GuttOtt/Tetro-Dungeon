@@ -1,10 +1,14 @@
 using Assets.Scripts;
 using Card;
+using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
+using static Unity.Collections.AllocatorManager;
+using Unity.VisualScripting;
 
 public class CombinationSystem : MonoBehaviour
 {
@@ -17,6 +21,7 @@ public class CombinationSystem : MonoBehaviour
     [SerializeField] private GameObject displayCardPrefab;
 
     [SerializeField] private Button okButton;
+    [SerializeField] private Button cancelButton;
     [SerializeField] private Button backButton;
     [SerializeField] private CardSelector cardSelector;
 
@@ -25,9 +30,11 @@ public class CombinationSystem : MonoBehaviour
     [SerializeField] float spacingX = 0.3f;  // X축 간격을 고정된 값으로 설정 (예: 100 픽셀)
     [SerializeField] float spacingY = 0.25f;  // Y축 간격을 고정된 값으로 설정 (예: 100 픽셀)
 
-    private TroopCard selectedTroopCard;
-    private UnitConfig selectedUnitConfig;
+    private BlockCard selectedBlockCard;
+    private UnitDrawer selectedUnitDrawer;
     private GameObject displayCardInstance;
+
+    private List<Draggable> droppedCards = new List<Draggable>();
 
     private Vector2 _blockSize;
 
@@ -35,9 +42,8 @@ public class CombinationSystem : MonoBehaviour
 
     private void Start()
     {
-        // OK 버튼과 Back 버튼에 리스너를 추가합니다.
         okButton.onClick.AddListener(OnOkButtonClicked);
-        backButton.onClick.AddListener(OnBackButtonClicked);
+        cancelButton.onClick.AddListener(OnCancelButtonClicked);
 
         _blockSize = troopCardPrefab.GetComponent<SpriteRenderer>().size;
         DisplayPanels();
@@ -51,7 +57,7 @@ public class CombinationSystem : MonoBehaviour
 
     private void DisplayBlockCards(int rows, int cols, float spacingX, float spacingY)
     {
-        var blocks = GetTroopCards();
+        var blocks = GetBlockCards();
         int blockCount = Mathf.Min(rows * cols, blocks.Count);  // 배치할 블럭의 수를 제한
         for (int i = 0; i < rows; i++)
         {
@@ -62,8 +68,17 @@ public class CombinationSystem : MonoBehaviour
                     break;
 
                 GameObject block = new GameObject("Block");
-                block.AddComponent<Draggable>();
-                block.GetComponent<Draggable>().SetDestination(combinationPanel);
+                block.tag = "Draggable";
+
+                block.AddComponent<BlockCard>();
+                
+                var blocksetting = block.GetComponent<BlockCard>();
+                blocksetting.Init(blocks[index]);
+
+                var draggble = block.AddComponent<Draggable>();
+                draggble.SetDestination(combinationPanel);
+                draggble.SetEndDragAction(DropOnCombinationPanel);
+
                 block.AddComponent<BoxCollider>();
 
                 block.transform.SetParent(troopCardPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
@@ -97,13 +112,17 @@ public class CombinationSystem : MonoBehaviour
                     break;
 
                 GameObject unit = Instantiate(unitConfigPrefab, unitConfigPanel);
-                unit.AddComponent<UnitDrawer>();
+                unit.tag = "Draggable";
+
                 unit.GetComponent<UnitDrawer>().Draw(Units[index]);
-                unit.AddComponent<Draggable>();
-                unit.GetComponent<Draggable>().SetDestination(combinationPanel);
+
+                var draggble = unit.AddComponent<Draggable>();
+
+                draggble.SetDestination(combinationPanel);
+                draggble.SetEndDragAction(DropOnCombinationPanel);
 
                 unit.transform.SetParent(unitConfigPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
-                unit.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+                unit.transform.localScale = new Vector3(0.4f, 0.4f, 1f);
 
                 float startX = -(cols - 1) * spacingX / 2;
                 float startY = (rows - 1) * spacingY / 2;
@@ -113,21 +132,45 @@ public class CombinationSystem : MonoBehaviour
         }
     }
 
-    private void OnPolyominoDragged(TroopCard troop)
-    {
-        selectedTroopCard = troop;
-        TryCombine();
-    }
-
-    private void OnUnitConfigDragged(UnitConfig unitConfig)
-    {
-        selectedUnitConfig = unitConfig;
-        TryCombine();
-    }
-
     private void TryCombine()
     {
-        if (selectedTroopCard != null && selectedUnitConfig != null)
+        BlockCard blockCard;
+        UnitDrawer unitDrawer = null;
+
+        // 드롭된 카드 리스트에서 BlockCard와 UnitConfig를 찾음
+        foreach (var card in droppedCards)
+        {
+            try
+            {
+                blockCard = card.GetComponentInParent<BlockCard>();
+            }
+            catch
+            {
+                blockCard = null;
+            }
+
+            try
+            {
+                unitDrawer = card.GetComponentInParent<UnitDrawer>();
+            }
+            catch
+            {
+                unitDrawer = null;
+            }
+
+            if (blockCard != null)
+            {
+                Debug.Log("select blockcard");
+                selectedBlockCard = blockCard;
+            }
+            else if (unitDrawer != null)
+            {
+                Debug.Log("select unitcard");
+                selectedUnitDrawer = unitDrawer;
+            }
+        }
+
+        if (selectedBlockCard != null && selectedUnitDrawer != null)
         {
             // 기존의 DisplayCard 인스턴스를 제거합니다.
             if (displayCardInstance != null)
@@ -135,38 +178,94 @@ public class CombinationSystem : MonoBehaviour
                 Destroy(displayCardInstance);
             }
 
+            selectedBlockCard.gameObject.SetActive(false);
+            selectedUnitDrawer.gameObject.SetActive(false);
+
             // 새로 조합된 DisplayCard를 생성합니다.
             displayCardInstance = Instantiate(displayCardPrefab, combinationPanel.transform);
-            var cardData = new CardData(selectedUnitConfig, selectedTroopCard);
+            var cardData = new CardData(selectedUnitDrawer.UnitConfig, selectedBlockCard);
             displayCardInstance.GetComponent<DisplayCard>().Init(cardData);
+
+            // 디스플레이 카드의 크기를 조정합니다.
+            displayCardInstance.transform.localScale = new Vector3(0.3f, 0.3f, 1f); // 필요한 크기로 조정
         }
     }
 
     private void OnOkButtonClicked()
     {
-        if (selectedTroopCard != null && selectedUnitConfig != null)
+        if (selectedBlockCard != null && selectedUnitDrawer != null)
         {
-            var cardData = new CardData(selectedUnitConfig, selectedTroopCard);
+            var cardData = new CardData(selectedUnitDrawer.UnitConfig, selectedBlockCard);
             Player.Instance.ExtraDeck.Add(cardData);
             Debug.Log("Card added to ExtraDeck");
             // 선택 초기화
-            selectedTroopCard = null;
-            selectedUnitConfig = null;
+            selectedBlockCard = null;
+            selectedUnitDrawer = null;
+            droppedCards.Clear();
+
             if (displayCardInstance != null)
             {
                 Destroy(displayCardInstance);
             }
         }
     }
-
-    private void OnBackButtonClicked()
+    private void OnCancelButtonClicked()
     {
-        SceneManager.LoadScene("DeckEditScene");
+        if (displayCardInstance != null)
+        {
+            Destroy(displayCardInstance);
+            displayCardInstance = null;
+        }
+
+        if (selectedBlockCard != null)
+        {
+            selectedBlockCard.gameObject.SetActive(true);
+        }
+
+        if (selectedUnitDrawer != null)
+        {
+            selectedUnitDrawer.gameObject.SetActive(true);
+        }
+
+        selectedBlockCard.GetComponent<Draggable>().ResetPosition();
+        selectedUnitDrawer.GetComponent<Draggable>().ResetPosition();
+
+        // 선택 초기화
+        selectedBlockCard = null;
+        selectedUnitDrawer = null;
+        droppedCards.Clear();
     }
 
-    private List<TroopCard> GetTroopCards()
+    private void DropOnCombinationPanel(Draggable draggable)
     {
-        return Player.Instance.TroopCards;
+        if (draggable.destination != null)
+        {
+            RectTransform panelRectTransform = draggable.destination.GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(panelRectTransform, Input.mousePosition, Camera.main))
+            {
+                Debug.Log("Dropped on Combination Panel");
+                draggable.transform.SetParent(panelRectTransform, true);
+                draggable.transform.localPosition = Vector3.zero;
+
+                droppedCards.Add(draggable);
+                TryCombine();
+            }
+            else
+            {
+                Debug.Log("Dropped outside Combination Panel");
+                draggable.ResetPosition();
+            }
+        }
+        else
+        {
+            draggable.ResetPosition();
+            Debug.LogWarning("Destination panel is not set.");
+        }
+    }
+
+    private List<BlockCard> GetBlockCards()
+    {
+        return Player.Instance.BlockCards;
     }
 
     private List<UnitConfig> GetUnitConfigs()
