@@ -14,8 +14,8 @@ public class EnemyData : ScriptableObject {
     [SerializeField]
     public List<BuffToken> BuffTokenPerDifficulty;
 
-    /*
+    
     [SerializeField]
     public EnemyEffect EnemyEffect;
-    */
+    
 }

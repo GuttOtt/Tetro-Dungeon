@@ -247,6 +247,27 @@ public class Board : MonoBehaviour
 
         return playerCells;
     }
+
+    public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes chracterType = CharacterTypes.None) {
+        int col = array.GetLength(0);
+        int row = array.GetLength(1);
+
+        List<Cell> cellsInArea = new List<Cell>();
+
+        if (Column < col + top || Row < row + left) {
+            return null;
+        }
+
+        for (int i = 0; i < col; i++) {
+            for (int j = 0; j < row; j++) {
+                if (array[i, j]) {
+                    cellsInArea.Add(cells[i + top, j + left]);
+                }
+            }
+        }
+
+        return cellsInArea;
+    }
     #endregion
 
     #region Getting Unit
@@ -293,6 +314,19 @@ public class Board : MonoBehaviour
         }
 
         return farthest;
+    }
+
+    public List<IUnit> GetUnitsInArea(bool[,] array, CharacterTypes characterType = CharacterTypes.None,int top = 0, int left = 0) {
+        List<Cell> cellsInArea = GetCellsInArea(array, top, left, characterType);
+        List<IUnit> unitsInArea = new List<IUnit>();
+
+        foreach (Cell cell in cellsInArea) {
+            if (cell != null && cell.Unit != null && cell.Unit.Owner == characterType) {
+                unitsInArea.Add(cell.Unit);
+            }
+        }
+
+        return unitsInArea;
     }
     #endregion
 

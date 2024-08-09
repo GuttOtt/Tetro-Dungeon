@@ -33,13 +33,20 @@ public class EnemySystem : MonoBehaviour {
     [SerializeField]
     private List<BuffToken> _buffTokensPerRound = new List<BuffToken>();
 
+    [SerializeField]
+    private EnemyEffect _enemyEffect;
     #endregion
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<IGameManager>();
         _unitSystem = _gameManager.GetSystem<UnitSystem>();
 
+        _gameManager.GetSystem<BattleSystem>().OnBattleBegin += ActivateBattleBeginEffect;
+        _gameManager.GetSystem<BattleSystem>().OnTimePass += EffectCoolDown;
+
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
+
+        _enemyEffect = _enemyData.EnemyEffect;
 
         SetDifficulty(1);
     }
@@ -66,6 +73,7 @@ public class EnemySystem : MonoBehaviour {
         }
 
         ApplyBuffTokens();
+        PlaceUnit();
     }
 
     public void PlaceUnit() {
@@ -142,4 +150,26 @@ public class EnemySystem : MonoBehaviour {
 
         unitList.Clear();
     }
+
+    #region Enemy Effect
+    private void EffectCoolDown() {
+        if (_enemyEffect == null || !_enemyEffect.IsCoolDownEffect)
+            return;
+
+        _enemyEffect.CoolDownCount += Time.deltaTime;
+        
+        if (_enemyEffect.CoolTime <= _enemyEffect.CoolDownCount) {
+            _enemyEffect.CoolTimeEffect(_gameManager.CreateTurnContext());
+            _enemyEffect.CoolDownCount = 0;
+        }
+    }
+
+    private void ActivateBattleBeginEffect() {
+
+        if (_enemyEffect == null || !_enemyEffect.IsOnBattleBegin)
+            return;
+
+        _enemyEffect.OnBattleBeginEffect(_gameManager.CreateTurnContext());
+    }
+    #endregion
 }

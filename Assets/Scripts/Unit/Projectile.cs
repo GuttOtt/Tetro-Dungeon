@@ -46,7 +46,6 @@ public class Projectile : MonoBehaviour {
         CheckHit();
 
         if (_maxDistance <= _flyDistance) {
-            Debug.Log("maxDistance");
             Destroy(gameObject);
         }
     }

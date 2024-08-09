@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseSynergy:ScriptableObject {
+public class BaseSynergy: ScriptableObject {
     [SerializeField]
     protected SynergyTypes _synergyType;
     [SerializeField]
@@ -27,11 +27,6 @@ public class BaseSynergy:ScriptableObject {
     public virtual void OnBattleBegin(TurnContext turnContext, int synergyValue) {
 
     }
-
-    public virtual void OnTickBegin(TurnContext turnContext, int synergyValue) {
-
-    }
-
 
     public virtual void CoolTimeEffect(TurnContext turnContext, int synergyValue) {
         

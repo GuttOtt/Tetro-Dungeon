@@ -117,8 +117,8 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void Die()
     {
-        OnDie.Invoke();
-        OnDestroy.Invoke();
+        OnDie?.Invoke();
+        OnDestroy?.Invoke();
     }
 
     public void DestroySelf() {

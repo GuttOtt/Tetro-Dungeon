@@ -38,7 +38,8 @@ public class BattleSystem : MonoBehaviour
     #endregion
 
     #region Events
-    public event Action OnStartBattle;
+    public event Action OnBattleBegin;
+    public event Action OnTimePass;
     #endregion
 
     #region
@@ -68,9 +69,10 @@ public class BattleSystem : MonoBehaviour
         if (_isProcessing)
             return;
 
-        OnStartBattle.Invoke();
-
         Debug.Log("Battle Started");
+
+        OnBattleBegin?.Invoke();
+
         _isProcessing = true;
         CharacterTypes winner = CharacterTypes.None;
 
@@ -111,8 +113,10 @@ public class BattleSystem : MonoBehaviour
     }
 
     public void TimePass() {
+        OnTimePass?.Invoke();
+
         //시너지의 쿨타임 회복
-        _synergySystem.OnTimePass((_gameManager as GameManager).CreateTurnContext());
+        _synergySystem.OnTimePass(_gameManager.CreateTurnContext());
 
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
 

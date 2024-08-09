@@ -133,7 +133,7 @@ public class MainPhase : IPhase {
 public class BattlePhase : IPhase {
     public void EnterPhase(PhaseSystem phaseSystem) {
         //Place Enemy Units
-        phaseSystem.EnemySystem.PlaceUnit();
+        //phaseSystem.EnemySystem.PlaceUnit();
 
         //Start Battle
         phaseSystem.BattleSystem.StartBattle().Forget();
