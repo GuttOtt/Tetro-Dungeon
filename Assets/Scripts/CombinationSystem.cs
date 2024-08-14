@@ -1,14 +1,8 @@
 using Assets.Scripts;
 using Card;
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
-using static Unity.Collections.AllocatorManager;
-using Unity.VisualScripting;
 
 public class CombinationSystem : MonoBehaviour
 {
@@ -71,7 +65,7 @@ public class CombinationSystem : MonoBehaviour
                 block.tag = "Draggable";
 
                 block.AddComponent<BlockCard>();
-                
+
                 var blocksetting = block.GetComponent<BlockCard>();
                 blocksetting.Init(blocks[index]);
 

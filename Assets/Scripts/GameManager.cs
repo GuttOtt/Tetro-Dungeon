@@ -4,6 +4,7 @@ using System;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //전반적인 게임 플로우 제어 및
 //System 들의 컴포지트 루트 담당
@@ -41,6 +42,10 @@ public class GameManager : MonoBehaviour, IGameManager
     private TroopCardSystem _troopCardSystem;
     #endregion
 
+    [SerializeField] 
+    private bool isWin = false; // Inspector에 노출될 변수
+    [SerializeField] 
+    private Transform _rewardPanel; // 승리 패널 UI
     [SerializeField]
     private TMP_Text _victoryText;
 
@@ -54,6 +59,19 @@ public class GameManager : MonoBehaviour, IGameManager
             return;
         }
         StartBattleScene();
+    }
+
+    private void Update()
+    {
+        // isWin이 true로 설정되면 승리 패널을 보이도록 설정
+        if (isWin && _rewardPanel != null)
+        {
+            _rewardPanel.gameObject.SetActive(true);
+        }
+        else if (!isWin && _rewardPanel != null)
+        {
+            _rewardPanel.gameObject.SetActive(false);
+        }
     }
 
     private void StartBattleScene() {
