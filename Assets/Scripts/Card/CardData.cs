@@ -5,16 +5,16 @@ using UnityEngine;
 public class CardData
 {
     private UnitConfig _unitConfig;
-    private TroopCard _troopCard;
+    private BlockCard _blockCard;
 
-    public CardData(UnitConfig unitConfig, TroopCard troopCard)
+    public CardData(UnitConfig unitConfig, BlockCard troopCard)
     {
         _unitConfig = unitConfig;
-        _troopCard = troopCard;
+        _blockCard = troopCard;
     }
 
-    public TroopCard TroopCard { get => _troopCard; }
-    public Polyomino Polyomino { get => _troopCard.Polyomino; }
+    public BlockCard BlockCard { get => _blockCard; }
+    public Polyomino Polyomino { get => _blockCard.Polyomino; }
     public UnitConfig UnitConfig { get => _unitConfig; }
 
     public ICard DeepCopy()

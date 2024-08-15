@@ -8,9 +8,8 @@ namespace Assets.Scripts
 {
     public class Player : Singleton<Player>
     {
-        public static Player instance;
         private List<UnitConfig> _configs = new List<UnitConfig>();
-        private List<TroopCard> _troopCards = new List<TroopCard>();
+        private List<BlockCard> _blockCards = new List<BlockCard>();
 
         private List<CardData> _deck;
         private List<CardData> _extraDeck;
@@ -37,7 +36,7 @@ namespace Assets.Scripts
         public List<Item> ItemInUse { get => _itemInUse; }
         public List<Item> ItemInInv { get => _itemInInv; }
 
-        public List<TroopCard> TroopCards {  get { return _troopCards; } }
+        public List<BlockCard> BlockCards {  get { return _blockCards; } }
 
         protected override void Awake()
         {
@@ -55,18 +54,18 @@ namespace Assets.Scripts
             SetExtraDeck(15);
         }
 
-        public TroopCard CreateTroopCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator)
+        public BlockCard CreateTroopCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator)
         {
-            return new TroopCard(polyomino, troopEffect, statDecorator);
+            return new BlockCard(polyomino, troopEffect, statDecorator);
         }
 
-        public TroopCard CreateRandomTroopCard()
+        public BlockCard CreateRandomTroopCard()
         {
             Polyomino polyomino = Polyomino.GetRandomPolyomino();
             TroopEffect troopEffect = _allTroopEffect[Random.Range(0, _allTroopEffect.Count)];
             StatDecorator statDecorator = _allStatDecorator[Random.Range(0, _allStatDecorator.Count)];
 
-            return new TroopCard(polyomino, troopEffect, statDecorator);
+            return new BlockCard(polyomino, troopEffect, statDecorator);
         }
 
         public void SetDeck(int deckAmount)
@@ -74,7 +73,7 @@ namespace Assets.Scripts
             for (int i = 0; i < deckAmount; i++)
             {
                 UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-                TroopCard troopCard = CreateRandomTroopCard();
+                BlockCard troopCard = CreateRandomTroopCard();
 
                 CardData card = new(config, troopCard);
                 _deck.Add(card);
@@ -103,13 +102,13 @@ namespace Assets.Scripts
             for (int i = 0; i < deckAmount; i++)
             {
                 UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-                TroopCard troopCard = CreateRandomTroopCard();
+                BlockCard troopCard = CreateRandomTroopCard();
                 CardData card = new(config, troopCard);
 
                 _configs.Add(config);
-                _troopCards.Add(troopCard);
+                _blockCards.Add(troopCard);
 
-                _extraDeck.Add(card);
+                //_extraDeck.Add(card);
             }
 
             _extraDeck.Shuffle();

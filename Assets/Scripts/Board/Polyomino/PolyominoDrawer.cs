@@ -68,6 +68,44 @@ public class PolyominoDrawer : MonoBehaviour
         //Shape 저장
         _shape = shape;
     }
+    
+    public List<GameObject> Draw(int[,] shape, Transform transform) {
+        //Top Left 계산
+        Vector2 blockSize = GetBlockSize;
+        int col = shape.GetLength(0);
+        int row = shape.GetLength(1);
+        Vector2 topLeft = new Vector2();
+        var blocks = new List<GameObject>();
+
+        //Top Left x
+        if (col % 2 == 0) {
+            topLeft.x = -blockSize.x * (col / 2 - 0.5f);
+        }
+        else {
+            topLeft.x = -blockSize.x * (col / 2);
+        }
+        //Top Left y
+        if (row % 2 == 0) {
+            topLeft.y = blockSize.y * (row / 2 - 0.5f);
+        }
+        else {
+            topLeft.y = blockSize.y * (row / 2);
+        }
+
+        //Draw
+        for (int x = 0; x < col; x++) {
+            for (int y = 0; y < row; y++) {
+                if (shape[x, y] == 1) {
+                    GameObject block = Instantiate(blockPrefab, transform);
+                    block.transform.localPosition =
+                        topLeft + new Vector2(blockSize.x * x, -blockSize.y * y);
+                    blocks.Add(block);
+                }
+            }
+        }
+
+        return blocks;
+    }
 
     public void ClearBlocks() {
         foreach (GameObject block in drawnBlocks) {

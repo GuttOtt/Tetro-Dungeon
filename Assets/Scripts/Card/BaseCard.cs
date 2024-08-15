@@ -15,25 +15,25 @@ namespace Card
         private TMP_Text _troopDescription;
         [SerializeField]
         private UnitConfig _unitConfig;
-        private TroopCard _troopCard;
+        private BlockCard _blockCard;
         #endregion
 
         #region properties
-        public TroopCard TroopCard { get => _troopCard; }
-        public Polyomino Polyomino { get => _troopCard.Polyomino; }
+        public BlockCard BlockCard { get => _blockCard; }
+        public Polyomino Polyomino { get => _blockCard.Polyomino; }
         public UnitConfig UnitConfig { get; private set; }
         #endregion
 
-        public void Init(UnitConfig unitConfig, TroopCard troopCard) {
+        public void Init(UnitConfig unitConfig, BlockCard troopCard) {
             UnitConfig = unitConfig;
-            _troopCard = troopCard;
+            _blockCard = troopCard;
             DrawPolyomino();
             DrawUnit();
             DrawTroopDescription();
         }
         public void Init(CardData _card) {
             UnitConfig = _card.UnitConfig;
-            _troopCard = _card.TroopCard;
+            _blockCard = _card.BlockCard;
             DrawPolyomino();
             DrawUnit();
             DrawTroopDescription();
@@ -42,7 +42,7 @@ namespace Card
         public void SetCardData(ICard card)
         {
             UnitConfig = card.UnitConfig;
-            _troopCard = card.TroopCard;
+            _blockCard = card.BlockCard;
             DrawPolyomino();
             DrawUnit();
             DrawTroopDescription();
@@ -63,12 +63,12 @@ namespace Card
         }
 
         private void DrawUnit() {
-            _unitInCardDrawer.Draw(UnitConfig, TroopCard.StatDecorator.Attack, TroopCard.StatDecorator.HP);
+            _unitInCardDrawer.Draw(UnitConfig, BlockCard.StatDecorator.Attack, BlockCard.StatDecorator.HP);
         }
 
         private void DrawTroopDescription() {
             _troopDescription.text = "";
-            _troopDescription.text += TroopCard.TroopEffect.Description;
+            _troopDescription.text += BlockCard.TroopEffect.Description;
         }
 
         public ICard DeepCopy()
@@ -77,7 +77,7 @@ namespace Card
             newCard._polyominoDrawer = _polyominoDrawer;
             newCard._unitInCardDrawer = _unitInCardDrawer;
             newCard._troopDescription = _troopDescription;
-            newCard.Init(this.UnitConfig, this.TroopCard);
+            newCard.Init(this.UnitConfig, this.BlockCard);
             return newCard;
         }
         #endregion
