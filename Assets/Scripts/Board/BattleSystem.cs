@@ -96,7 +96,7 @@ public class BattleSystem : MonoBehaviour
             await UniTask.NextFrame();
         }
 
-        //승리 판정
+        //라운드 승리 판정
         //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
         await UniTask.WaitForSeconds(2f);
         List<IUnit> winnerUnits = _board.GetUnits(winner);
@@ -104,6 +104,16 @@ public class BattleSystem : MonoBehaviour
             LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).DestroySelf();
             await UniTask.WaitForSeconds(0.2f);
+        }
+
+        //한 쪽의 Life가 0이 됐다면 게임 승리 판정
+        if (_lifeDic[CharacterTypes.Enemy] <= 0) {
+            Debug.Log("플레이어 승리");
+            return;
+        }
+        else if (_lifeDic[CharacterTypes.Player] <= 0) {
+            Debug.Log("플레이어 패배");
+            return;
         }
 
         //배틀 종료
