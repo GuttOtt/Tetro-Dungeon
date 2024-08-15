@@ -140,8 +140,6 @@ public class BattlePhase : IPhase {
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {
-        //End Battle
-        //Damage to life
     }
 }
 
