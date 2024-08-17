@@ -1866,6 +1866,8 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_GameObject: {fileID: 781596524}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1911,6 +1913,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+=======
+=======
+>>>>>>> reward
   m_GameObject: {fileID: 705555944}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2002,6 +2007,10 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705555944}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
+>>>>>>> reward
+=======
+>>>>>>> reward
 --- !u!1 &823572298
 GameObject:
   m_ObjectHideFlags: 0
@@ -4041,8 +4050,15 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_GameObject: {fileID: 1577529270}
+=======
   m_GameObject: {fileID: 1608380336}
+>>>>>>> reward
+=======
+  m_GameObject: {fileID: 1608380336}
+>>>>>>> reward
   m_CullTransparentMesh: 1
 --- !u!1001 &1641007579
 PrefabInstance:
