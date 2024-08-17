@@ -3,11 +3,8 @@ using EnumTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class BattleSystem : MonoBehaviour
@@ -47,13 +44,14 @@ public class BattleSystem : MonoBehaviour
     #endregion
 
 
-    private void Awake() {
+    private void Awake()
+    {
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
         _synergySystem = _gameManager.GetSystem<SynergySystem>();
 
         //Set Life
-        _lifeDic = new Dictionary<CharacterTypes, int>() { 
+        _lifeDic = new Dictionary<CharacterTypes, int>() {
             { CharacterTypes.Player, _playerMaxLife },
             { CharacterTypes.Enemy, _enemyMaxLife }
         };
@@ -64,7 +62,8 @@ public class BattleSystem : MonoBehaviour
         UpdateLifeText(CharacterTypes.Enemy);
     }
 
-    public async UniTask StartBattle() {
+    public async UniTask StartBattle()
+    {
         if (_isProcessing)
             return;
 
@@ -78,12 +77,15 @@ public class BattleSystem : MonoBehaviour
         await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
         //한 쪽의 유닛이 전부 사라질 때까지 전투
-        while (true) {
-            if (_board.GetUnits(CharacterTypes.Enemy).Count == 0) {
+        while (true)
+        {
+            if (_board.GetUnits(CharacterTypes.Enemy).Count == 0)
+            {
                 winner = CharacterTypes.Player;
                 break;
             }
-            else if (_board.GetUnits(CharacterTypes.Player).Count == 0) {
+            else if (_board.GetUnits(CharacterTypes.Player).Count == 0)
+            {
                 winner = CharacterTypes.Enemy;
                 break;
             }
@@ -98,19 +100,21 @@ public class BattleSystem : MonoBehaviour
         //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
         await UniTask.WaitForSeconds(2f);
         List<IUnit> winnerUnits = _board.GetUnits(winner);
-        foreach (IUnit unit in winnerUnits) {
+        foreach (IUnit unit in winnerUnits)
+        {
             LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).Die();
             await UniTask.WaitForSeconds(0.5f);
         }
 
         //배틀 종료
-        _isProcessing= false;
+        _isProcessing = false;
         _attackTurn = CharacterTypes.None;
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
-    public void TimePass() {
+    public void TimePass()
+    {
         //시너지의 쿨타임 회복
         _synergySystem.OnTimePass((_gameManager as GameManager).CreateTurnContext());
 
@@ -120,13 +124,15 @@ public class BattleSystem : MonoBehaviour
         playerUnits = playerUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenByDescending(unit => unit.CurrentCell.position.col).ToList();
 
-        foreach (IUnit unit in playerUnits) {
+        foreach (IUnit unit in playerUnits)
+        {
             if (unit is null || unit as BaseUnit is null) continue;
 
             BaseUnit baseUnit = unit as BaseUnit;
             baseUnit.ActionCoolDown(Time.deltaTime * _battleSpeed);
-                        
-            if (!baseUnit.IsActionCoolDown) {
+
+            if (!baseUnit.IsActionCoolDown)
+            {
                 baseUnit.Act(_gameManager.CreateTurnContext());
             }
         }
@@ -137,24 +143,29 @@ public class BattleSystem : MonoBehaviour
         enemyUnits = enemyUnits.OrderBy(unit => unit.CurrentCell.position.row)
             .ThenBy(unit => unit.CurrentCell.position.col).ToList();
 
-        foreach (IUnit unit in enemyUnits) {
+        foreach (IUnit unit in enemyUnits)
+        {
             if (unit is null || unit as BaseUnit is null) continue;
 
             BaseUnit baseUnit = unit as BaseUnit;
             baseUnit.ActionCoolDown(Time.deltaTime * _battleSpeed);
 
-            if (!baseUnit.IsActionCoolDown) {
+            if (!baseUnit.IsActionCoolDown)
+            {
                 baseUnit.Act(_gameManager.CreateTurnContext());
             }
         }
     }
 
-    private void StopBattle() {
+    private void StopBattle()
+    {
 
     }
 
-    private bool CheckMovable(IUnit unit, CharacterTypes attackTurn) {
-        if (unit.Owner != attackTurn) {
+    private bool CheckMovable(IUnit unit, CharacterTypes attackTurn)
+    {
+        if (unit.Owner != attackTurn)
+        {
             return false;
         }
         Cell currentCell = unit.CurrentCell;
@@ -174,18 +185,21 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    private void ProcessDeath(ref List<IUnit> playerUnits, ref List<IUnit> enemyUnits) {
+    private void ProcessDeath(ref List<IUnit> playerUnits, ref List<IUnit> enemyUnits)
+    {
         playerUnits = _board.PlayerUnits.ToList();
         enemyUnits = _board.EnemyUnits.ToList();
     }
 
     #region Life Damage
-    private void LifeDamage(CharacterTypes characterType, int damage) {
+    private void LifeDamage(CharacterTypes characterType, int damage)
+    {
         _lifeDic[characterType] -= damage;
         UpdateLifeText(characterType);
     }
 
-    private void UpdateLifeText(CharacterTypes charactertype) {
+    private void UpdateLifeText(CharacterTypes charactertype)
+    {
         _lifeTextDic[charactertype].text = "Life: " + _lifeDic[charactertype].ToString();
     }
     #endregion

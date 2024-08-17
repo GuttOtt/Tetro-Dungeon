@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class CombinationSystem : MonoBehaviour
 {
-    [SerializeField] private Transform troopCardPanel;
+    [SerializeField] private Transform blockCardPanel;
     [SerializeField] private Transform unitConfigPanel;
     [SerializeField] private GameObject combinationPanel;
 
-    [SerializeField] private GameObject troopCardPrefab;
+    [SerializeField] private GameObject blockCardPrefab;
     [SerializeField] private GameObject unitConfigPrefab;
     [SerializeField] private GameObject displayCardPrefab;
 
@@ -39,7 +39,7 @@ public class CombinationSystem : MonoBehaviour
         okButton.onClick.AddListener(OnOkButtonClicked);
         cancelButton.onClick.AddListener(OnCancelButtonClicked);
 
-        _blockSize = troopCardPrefab.GetComponent<SpriteRenderer>().size;
+        _blockSize = blockCardPrefab.GetComponent<SpriteRenderer>().size;
         DisplayPanels();
     }
 
@@ -75,10 +75,10 @@ public class CombinationSystem : MonoBehaviour
 
                 block.AddComponent<BoxCollider>();
 
-                block.transform.SetParent(troopCardPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
+                block.transform.SetParent(blockCardPanel.transform, false);  // 부모를 설정하고 로컬 포지션 유지
                 block.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
 
-                var cells = _unitBlockMarker.DrawBlock(blocks[index].Polyomino, troopCardPanel);
+                var cells = _unitBlockMarker.DrawBlock(blocks[index].Polyomino, blockCardPanel);
 
                 foreach (var cell in cells)
                 {

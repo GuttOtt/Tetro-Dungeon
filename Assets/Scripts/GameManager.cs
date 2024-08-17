@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Reward;
 using EnumTypes;
 using System;
 using TMPro;
@@ -40,16 +41,16 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private TroopCardSystem _troopCardSystem;
-    #endregion
-
-    [SerializeField] 
-    private bool isWin = false; // Inspector에 노출될 변수
-    [SerializeField] 
-    private Transform _rewardPanel; // 승리 패널 UI
+    
     [SerializeField]
-    private TMP_Text _victoryText;
+    private RewardSystem _rewardSystem;
+    #endregion
+
+    [SerializeField]
+    private bool isWin = false; // Inspector에 노출될 변수
 
     #endregion
+
 
     private void Start() {
         _player = Player.Instance;
@@ -59,19 +60,6 @@ public class GameManager : MonoBehaviour, IGameManager
             return;
         }
         StartBattleScene();
-    }
-
-    private void Update()
-    {
-        // isWin이 true로 설정되면 승리 패널을 보이도록 설정
-        if (isWin && _rewardPanel != null)
-        {
-            _rewardPanel.gameObject.SetActive(true);
-        }
-        else if (!isWin && _rewardPanel != null)
-        {
-            _rewardPanel.gameObject.SetActive(false);
-        }
     }
 
     private void StartBattleScene() {
@@ -125,13 +113,13 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     public void PlayerWin() {
-        _victoryText.gameObject.SetActive(true);
-        _victoryText.text = "Player Wins!";
+        _cardSystem.SetInputOff();
+        _rewardSystem.DisplayReward(true);
     }
 
     public void PlayerLose() {
-        _victoryText.gameObject.SetActive(true);
-        _victoryText.text = "Player Loses...";
+        _cardSystem.SetInputOn();
+        _rewardSystem.DisplayReward(false);
     }
 
     public TurnContext CreateTurnContext() {

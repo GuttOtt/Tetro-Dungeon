@@ -183,16 +183,6 @@ public class CardSystem : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(0)) {
-            // Check if the mouse was clicked over a UI element
-            if (Utils.IsPointerOverUIObject())
-            {
-                Debug.Log("Clicked on the UI");
-            }
-            else
-            {
-                Debug.Log("noclick");
-
-            }
             _cardSelector.Select();
           
             if (_selectedCard == null || !_hand.IsContain(_selectedCard))
