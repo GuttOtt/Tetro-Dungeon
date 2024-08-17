@@ -35,8 +35,7 @@ public class BattleSystem : MonoBehaviour
     #endregion
 
     #region Events
-    public event Action OnBattleBegin;
-    public event Action OnTimePass;
+    public event Action OnStartBattle;
     #endregion
 
     #region
@@ -68,10 +67,9 @@ public class BattleSystem : MonoBehaviour
         if (_isProcessing)
             return;
 
+        OnStartBattle.Invoke();
+
         Debug.Log("Battle Started");
-
-        OnBattleBegin?.Invoke();
-
         _isProcessing = true;
         CharacterTypes winner = CharacterTypes.None;
 
@@ -98,7 +96,7 @@ public class BattleSystem : MonoBehaviour
             await UniTask.NextFrame();
         }
 
-        //라운드 승리 판정
+        //승리 판정
         //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
         await UniTask.WaitForSeconds(2f);
         List<IUnit> winnerUnits = _board.GetUnits(winner);
@@ -129,7 +127,7 @@ public class BattleSystem : MonoBehaviour
         OnTimePass?.Invoke();
 
         //시너지의 쿨타임 회복
-        _synergySystem.OnTimePass(_gameManager.CreateTurnContext());
+        _synergySystem.OnTimePass((_gameManager as GameManager).CreateTurnContext());
 
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
 
@@ -174,6 +172,7 @@ public class BattleSystem : MonoBehaviour
     {
 
     }
+
     private bool CheckMovable(IUnit unit, CharacterTypes attackTurn)
     {
         if (unit.Owner != attackTurn)

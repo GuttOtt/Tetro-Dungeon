@@ -1,9 +1,11 @@
 using Assets.Scripts;
+using Assets.Scripts.Reward;
 using EnumTypes;
 using System;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 //전반적인 게임 플로우 제어 및
 //System 들의 컴포지트 루트 담당
@@ -39,12 +41,16 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private TroopCardSystem _troopCardSystem;
+    
+    [SerializeField]
+    private RewardSystem _rewardSystem;
     #endregion
 
     [SerializeField]
-    private TMP_Text _victoryText;
+    private bool isWin = false; // Inspector에 노출될 변수
 
     #endregion
+
 
     private void Start() {
         _player = Player.Instance;
@@ -107,13 +113,13 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     public void PlayerWin() {
-        _victoryText.gameObject.SetActive(true);
-        _victoryText.text = "Player Wins!";
+        _cardSystem.SetInputOff();
+        _rewardSystem.DisplayReward(true);
     }
 
     public void PlayerLose() {
-        _victoryText.gameObject.SetActive(true);
-        _victoryText.text = "Player Loses...";
+        _cardSystem.SetInputOn();
+        _rewardSystem.DisplayReward(false);
     }
 
     public TurnContext CreateTurnContext() {

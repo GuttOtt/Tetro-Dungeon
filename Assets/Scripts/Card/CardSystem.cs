@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class CardSystem : MonoBehaviour
@@ -183,7 +184,7 @@ public class CardSystem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) {
             _cardSelector.Select();
-
+          
             if (_selectedCard == null || !_hand.IsContain(_selectedCard))
                 return;
 

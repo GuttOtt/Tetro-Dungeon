@@ -22,10 +22,10 @@ public class UnitBlockDrawer : MonoBehaviour
             _unitDrawers.Add(unitDrawer);
         }
     }
-
+    
     public List<GameObject> DrawBlock(Polyomino polyomino, Transform tr)
     {
-        return _polyominoDrawer?.Draw(polyomino.Shape, tr);
+        return  _polyominoDrawer?.Draw(polyomino.Shape, tr);
     }
 
     public void Clear() {

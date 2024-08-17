@@ -125,9 +125,14 @@ public class BattleSystem : MonoBehaviour
         _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
+<<<<<<< HEAD
     public void TimePass() {
         OnTimePass?.Invoke();
 
+=======
+    public void TimePass()
+    {
+>>>>>>> reward
         //시너지의 쿨타임 회복
         _synergySystem.OnTimePass(_gameManager.CreateTurnContext());
 
@@ -174,6 +179,9 @@ public class BattleSystem : MonoBehaviour
     {
 
     }
+
+<<<<<<< HEAD
+=======
     private bool CheckMovable(IUnit unit, CharacterTypes attackTurn)
     {
         if (unit.Owner != attackTurn)
@@ -202,6 +210,7 @@ public class BattleSystem : MonoBehaviour
         playerUnits = _board.PlayerUnits.ToList();
         enemyUnits = _board.EnemyUnits.ToList();
     }
+>>>>>>> reward
 
     #region Life Damage
     private void LifeDamage(CharacterTypes characterType, int damage)
