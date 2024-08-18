@@ -46,7 +46,7 @@ public class EnemySystem : MonoBehaviour {
 
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
 
-        _enemyEffect = _enemyData.EnemyEffect;
+        _enemyEffect = _enemyData?.EnemyEffect;
 
         SetDifficulty(1);
     }

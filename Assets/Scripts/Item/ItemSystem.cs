@@ -75,8 +75,8 @@ public class ItemSystem : MonoBehaviour {
         drawer.Draw(item);
 
         int[,] intShape = item.ShapeInt;
-        drawer.OnHoverEnter += () => _board.HighlightCell(intShape);
-        drawer.OnHoverExit += () => _board.UnHighlightCell();
+        //drawer.OnHoverEnter += () => _board.HighlightCell(intShape);
+        //drawer.OnHoverExit += () => _board.UnHighlightCell();
 
         return drawer;
     }
@@ -105,7 +105,7 @@ public class ItemSystem : MonoBehaviour {
         _itemPanel.gameObject.SetActive(false);
         _isDisplayOn = false;
 
-        _board.UnHighlightCell();
+        //_board.UnHighlightCell();
     }
 
     //아이템들의 조건이 만족되었는지 체크함

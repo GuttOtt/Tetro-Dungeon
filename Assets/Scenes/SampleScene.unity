@@ -289,6 +289,7 @@ MonoBehaviour:
   row: 5
   column: 10
   cellPrefab: {fileID: 1373246608024058941, guid: 0c02e8c9e78819c449f78e7b7e9ca560, type: 3}
+  _cellHighlighter: {fileID: 0}
 --- !u!4 &130838225
 Transform:
   m_ObjectHideFlags: 0
@@ -1054,7 +1055,7 @@ Canvas:
   m_GameObject: {fileID: 444323972}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 514453551}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1114,7 +1115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &514453551
 Camera:
   m_ObjectHideFlags: 0
@@ -2972,10 +2973,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8229aa292c3eedf4da7895312cb7bcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 03888239b53679744aefbcf91e78a382, type: 2}
   unitPool: []
   unitListDisplay: {fileID: 378587713}
   unitGap: {x: 1, y: 0}
   unitAmount: 10
+  _buffTokensPerRound: []
+  _enemyEffect: {fileID: 11400000, guid: 1a692e53cd57c6a48928c14f42be768a, type: 2}
 --- !u!1 &1309255132
 GameObject:
   m_ObjectHideFlags: 0

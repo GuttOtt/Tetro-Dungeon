@@ -338,6 +338,7 @@ public class Board : MonoBehaviour
     }
 
     #region Highlighting Cells
+    /*
     public void HighlightCell(int[,] array, int top = 0, int left = 0) {
         int col = array.GetLength(0);
         int row = array.GetLength(1);
@@ -359,8 +360,9 @@ public class Board : MonoBehaviour
     }
 
     public void UnHighlightCell() {
-        _cellHighlighter.ClearBlocks();
+        //_cellHighlighter.ClearBlocks();
     }
+    */
     #endregion
 
     #region Pathfinding
