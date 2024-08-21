@@ -9,11 +9,16 @@ public class EnemyData : ScriptableObject {
     public string Name;
 
     [SerializeField]
+    public Sprite Sprite;
+
+    [SerializeField]
+    public string Description;
+
+    [SerializeField]
     public int MaxLife;
 
     [SerializeField]
     public List<BuffToken> BuffTokenPerDifficulty;
-
     
     [SerializeField]
     public EnemyEffect EnemyEffect;
