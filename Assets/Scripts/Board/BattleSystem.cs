@@ -111,11 +111,12 @@ public class BattleSystem : MonoBehaviour
 
         //한 쪽의 Life가 0이 됐다면 게임 승리 판정
         if (_lifeDic[CharacterTypes.Enemy] <= 0) {
-            Debug.Log("플레이어 승리");
+            _gameManager.PlayerWin();
             return;
         }
         else if (_lifeDic[CharacterTypes.Player] <= 0) {
-            Debug.Log("플레이어 패배");
+            Debug.Log("bi");
+            _gameManager.PlayerLose();
             return;
         }
 

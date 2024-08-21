@@ -992,6 +992,10 @@ PrefabInstance:
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 591955067933942524, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -467240959
+      objectReference: {fileID: 0}
+    - target: {fileID: 591955067933942524, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
