@@ -23,4 +23,8 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene("Combination");
     }
+
+    public void LoadStageScene() {
+        SceneManager.LoadScene("Stage");
+    }
 }

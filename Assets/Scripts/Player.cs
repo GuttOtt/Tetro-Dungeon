@@ -50,6 +50,8 @@ namespace Assets.Scripts
             _allTroopEffect = Resources.LoadAll<TroopEffect>("Scriptable Objects/Troop Effect").ToList();
             _allStatDecorator = Resources.LoadAll<StatDecorator>("Scriptable Objects/Stat Decorator").ToList();
 
+            _itemInInv = Resources.LoadAll<Item>("Scriptable Objects/Item").ToList();
+
             SetDeck(15);
             //SetExtraDeck(15);
         }

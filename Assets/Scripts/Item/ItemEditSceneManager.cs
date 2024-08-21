@@ -5,12 +5,14 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.Scripts;
 
 
 public class ItemEditSceneManager : MonoBehaviour {
     [SerializeField]
     private List<Item> _inventory;
 
+    [SerializeField]
     private List<Item> _itemInUse = new List<Item>();
 
     [SerializeField]
@@ -30,11 +32,21 @@ public class ItemEditSceneManager : MonoBehaviour {
 
     private List<ItemDrawer> _drawerInventory = new List<ItemDrawer>();
     private List<ItemDrawer> _drawerUse = new List<ItemDrawer>();
+    private Player _player;
 
     private void Awake() {
-        _inventory = Resources.LoadAll<Item>("Scriptable Objects/Item").ToList();
+        _player = Player.Instance;
+    }
 
+    private void Start() {
+        _inventory = _player.ItemInInv.ToList();
         DisplayInventory();
+
+        List<Item> itemInUse = _player.ItemInUse.ToList();
+
+        foreach (Item item in itemInUse) {
+            AddToUse(item);
+        }
     }
 
     private void DisplayInventory() {
@@ -91,11 +103,16 @@ public class ItemEditSceneManager : MonoBehaviour {
     }
 
     private void SaveItemInUse() {
-        Assets.Scripts.Player.Instance.SaveItemInUse(_itemInUse);
+        _player.SaveItemInUse(_itemInUse);
     }
 
     public void ToBattleScene() {
         SaveItemInUse();
         _sceneChanger.LoadBattleScene();
+    }
+
+    public void ToStageScene() {
+        SaveItemInUse();
+        _sceneChanger.LoadStageScene();
     }
 }

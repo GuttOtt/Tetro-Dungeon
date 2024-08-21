@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +18,8 @@ namespace Assets.Scripts.Reward
         [SerializeField] private RewardPanel[] rewardSlots; // Reward 1, 2, 3 위치 (RewardDisplay의 자식들)
         [SerializeField] private Button selectButton;
         [SerializeField] private CardSelector cardSelector;
+
+        [SerializeField] private SceneChanger _sceneChanger;
 
         private List<GameObject> generatedRewards = new List<GameObject>();
         private GameObject selectedReward = null;
@@ -119,11 +123,15 @@ namespace Assets.Scripts.Reward
             }
         }
 
-        private void LoadNextStage()
+        private async void LoadNextStage()
         {
             DisplayReward(false);
             // 다음 스테이지 로드 로직을 구현합니다.
             Debug.Log("Next stage loading...");
+
+            await UniTask.Delay(TimeSpan.FromSeconds(3f));
+
+            _sceneChanger.LoadStageScene();
         }
     }
 }

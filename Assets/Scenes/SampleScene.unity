@@ -840,6 +840,7 @@ MonoBehaviour:
   - {fileID: 1211013859}
   selectButton: {fileID: 879511873}
   cardSelector: {fileID: 419684446}
+  _sceneChanger: {fileID: 533459406}
 --- !u!114 &419684446
 MonoBehaviour:
   m_ObjectHideFlags: 0

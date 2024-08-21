@@ -284,7 +284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To Battle
+  m_text: To Stage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 927659583}
   - component: {fileID: 927659582}
   m_Layer: 5
-  m_Name: To Battle Button
+  m_Name: To Stage Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2113678817}
         m_TargetAssemblyTypeName: ItemEditSceneManager, Assembly-CSharp
-        m_MethodName: ToBattleScene
+        m_MethodName: ToStageScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -835,6 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: []
+  _itemInUse: []
   _itemDrawerPrefab: {fileID: 2085206020409596370, guid: 4da3d3df165659c4c8de681155f7c76a, type: 3}
   _inventoryPanel: {fileID: 1691715949}
   _usePanel: {fileID: 1847490864}
