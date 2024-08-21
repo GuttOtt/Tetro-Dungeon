@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,13 +6,22 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager> {
     private List<EnemyData> _allEnemyData = new List<EnemyData>();
-    [SerializeField] private List<StageData> _stages = new List<StageData>();
+    [SerializeField] public List<StageData> _stages = new List<StageData>();
     private int _currentStageIndex;
     private int _stageAmount = 5;
 
     public StageData CurrentStage { get => _stages[_currentStageIndex]; }
     public List<StageData> Stages { get => _stages; }
     public int CurrentStageIndex {  get => _currentStageIndex; }
+    public EnemyData CurrentEnemyData {
+        get {
+            if (CurrentStage is not EnemyStageData) 
+                return null;
+            
+            else 
+                return (CurrentStage as EnemyStageData).enemyData;
+        }
+    }
 
     protected override void Awake() {
         base.Awake();
@@ -26,7 +36,7 @@ public class StageManager : Singleton<StageManager> {
         _stages[0].stageIndex = 0;
 
         for (int i = 1; i <= _stageAmount; i++) {
-            EnemyData enemyData = _allEnemyData[Random.Range(0, _allEnemyData.Count)];
+            EnemyData enemyData = _allEnemyData[UnityEngine.Random.Range(0, _allEnemyData.Count)];
             EnemyStageData enemyStage = new EnemyStageData(enemyData);
             enemyStage.stageIndex = i;
 
@@ -41,10 +51,12 @@ public class StageManager : Singleton<StageManager> {
     }
 }
 
+[Serializable]
 public class StageData {
     public int stageIndex;
 }
 
+[Serializable]
 public class EnemyStageData : StageData {
     public EnemyData enemyData;
 

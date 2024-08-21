@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -24,28 +27,31 @@ public class StageNodeSystem : MonoBehaviour {
     [SerializeField]
     private Button _moveButton;
 
+    [SerializeField]
+    private GameObject _playerMarker;
+
 
     private StageManager _stageManager;
 
     private void Start() {
         _stageManager = StageManager.Instance;
         InitNodes();
+        MovePlayerMarker(false);
     }
 
     private void InitNodes() {
         List<StageData> stages = _stageManager.Stages;
 
         for (int i = 0; i < stages.Count; i++) {
-            _nodes[i].Init(stages[i]);
+            StageData data = stages[i];
+            _nodes[i].Init(data);
 
-            _nodes[i].onPointerEnter += () => DrawStageInfoUI(stages[i]);
-            _nodes[i].onPointerExit += () => CloseStageInfoUI();
+            _nodes[i].onPointerClick += () => DrawStageInfoUI(data);
         }
     }
 
     private void DrawStageInfoUI(StageData stageData) {
         _stageInfoUIPanel.gameObject.SetActive(true);
-        Debug.Log("EnemyStageData");
 
         if (stageData == null) {
             Debug.LogError("stageData가 없습니다.");
@@ -73,8 +79,32 @@ public class StageNodeSystem : MonoBehaviour {
         _stageInfoUIPanel?.gameObject.SetActive(false);
     }
 
-    public void ToBattleScene() {
-        _sceneChanger.LoadBattleScene();
+    public async void ToNextStage() {
+        _stageManager.MoveForward();
+
+        StageData nextStage = _stageManager.CurrentStage;
+
+        CloseStageInfoUI();
+
+        MovePlayerMarker(true);
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+
+        if (nextStage is EnemyStageData) {
+            _sceneChanger.LoadBattleScene();
+        }
     }
 
+    private void MovePlayerMarker(bool isDoTween) {
+        StageNode currentStageNode = _nodes[_stageManager.CurrentStageIndex];
+
+        Transform markerTransform = _playerMarker.transform;
+        Vector3 moveVector = new Vector3(currentStageNode.transform.position.x, markerTransform.position.y, -1);
+
+        if (isDoTween) {
+            markerTransform.DOMove(moveVector, 1f).SetEase(Ease.OutBack, 2f);
+        }
+        else {
+            markerTransform.position = moveVector;
+        }
+    }
 }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class StageNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class StageNode : MonoBehaviour, IPointerClickHandler {
     private EnemyData _enemyData;
 
-    public Action onPointerEnter, onPointerExit;
+    public Action onPointerClick;
 
     public EnemyData EnemyData { get => _enemyData; }
 
@@ -17,12 +17,7 @@ public class StageNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData) {
-        onPointerEnter.Invoke();
-        Debug.Log("onHover");
-    }
-
-    public void OnPointerExit(PointerEventData eventData) {
-        onPointerExit?.Invoke();
+    public void OnPointerClick(PointerEventData eventData) {
+        onPointerClick?.Invoke();
     }
 }

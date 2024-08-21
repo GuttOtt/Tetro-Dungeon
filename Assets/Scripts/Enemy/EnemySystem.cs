@@ -46,9 +46,7 @@ public class EnemySystem : MonoBehaviour {
 
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
 
-        _enemyEffect = _enemyData.EnemyEffect;
-
-        SetDifficulty(1);
+        InitByStageData();
     }
 
     public void DecideUnitList() {
@@ -149,6 +147,25 @@ public class EnemySystem : MonoBehaviour {
         }
 
         unitList.Clear();
+    }
+
+    private void InitByStageData() {
+        StageManager stageManager = StageManager.Instance;
+
+        if (stageManager.CurrentEnemyData != null) {
+            _enemyData = stageManager.CurrentEnemyData;
+        }
+
+        if (_enemyData == null) {
+            Debug.LogError("EnemySystem에 EnemyData가 할당되어 있지 않습니다. StageManager를 통해 EnemyData를 불러 들이거나, 혹은 인스펙터창을 통해 할당 되어 있어야 합니다.");
+        }
+
+        _enemyEffect = _enemyData.EnemyEffect;
+
+        SetDifficulty(stageManager.CurrentStageIndex);
+
+        Debug.Log($"Enemy Name: {_enemyData.Name}");
+        Debug.Log($"Difficulty: {stageManager.CurrentStageIndex}");
     }
 
     #region Enemy Effect
