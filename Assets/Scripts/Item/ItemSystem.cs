@@ -39,7 +39,7 @@ public class ItemSystem : MonoBehaviour {
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
 
-        CloseItemDisplay();
+        OpenItemDisplay();
 
         SetItems();
 
@@ -48,14 +48,6 @@ public class ItemSystem : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.I)) {
-            if (_isDisplayOn) {
-                CloseItemDisplay();
-            }
-            else {
-                OpenItemDisplay();
-            }
-        }
     }
 
     private void SetItems() {
@@ -88,8 +80,8 @@ public class ItemSystem : MonoBehaviour {
 
         for (int i = 0; i < _itemContainers.Count; i++) {
             ItemDrawer drawer = _itemContainers[i].Drawer;
-            int x = i % 2;
-            int y = i / 2;
+            int x = i;
+            int y = 0;
 
             drawer.transform.localPosition = topMiddle + new Vector2(drawerSize.x * x, -drawerSize.y * y)
                 + new Vector2(_displaySpacing.x * (x +1), _displaySpacing.y * (y+1));

@@ -25,7 +25,7 @@ public class ItemEditSceneManager : MonoBehaviour {
     private Vector2 _gap, _origin;
 
     [SerializeField]
-    private int _maxItemUse = 5;
+    private int _maxItemUse = 3;
 
     [SerializeField]
     private SceneChanger _sceneChanger;

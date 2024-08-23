@@ -48,6 +48,9 @@ public class StageNodeSystem : MonoBehaviour {
 
             _nodes[i].onPointerClick += () => DrawStageInfoUI(data);
         }
+
+        int currentStageIndex = _stageManager.CurrentStageIndex;
+        _nodes[currentStageIndex + 1].GetComponent<SpriteRenderer>().color = Color.yellow;
     }
 
     private void DrawStageInfoUI(StageData stageData) {
