@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
-  m_Name: Test Enemy 1
+  m_Name: Test Enemy 2
   m_EditorClassIdentifier: 
   Name: Test Enemy
   Sprite: {fileID: 0}
