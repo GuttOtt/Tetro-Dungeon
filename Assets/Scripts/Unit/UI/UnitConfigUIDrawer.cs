@@ -1,6 +1,7 @@
 using Assets.Scripts.Unit.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UnitConfigUIDrawer : MonoBehaviour
@@ -89,5 +90,10 @@ public class UnitConfigUIDrawer : MonoBehaviour
         {
             Debug.LogWarning("SpriteRenderer is missing or destroyed.");
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("hello2");
     }
 }
