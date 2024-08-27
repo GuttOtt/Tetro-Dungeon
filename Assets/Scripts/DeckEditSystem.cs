@@ -10,7 +10,7 @@ public class DeckEditSystem : MonoBehaviour
     private List<CardData> _deck;
     private List<CardData> _extraDeck;
     private Vector2 _cardSize;
-    [SerializeField] private Transform troopCardDisplayParent;
+    [SerializeField] private Transform extraCardDisplayParent;
     [SerializeField] private Transform deckDisplayParent;
     [SerializeField] private GameObject displayCardPrefab; // 카드 프리팹을 추가
 
@@ -27,13 +27,13 @@ public class DeckEditSystem : MonoBehaviour
         _extraDeck = _player.ExtraDeck;
         _cardSize = displayCardPrefab.GetComponent<RectTransform>().rect.size; // RectTransform 사용
 
-        DisplayTroopCards();
+        DisplayExtraCards();
         DisplayDeckCards();
     }
 
-    private void DisplayTroopCards()
+    private void DisplayExtraCards()
     {
-        DisplayDeck(troopCardDisplayParent, _extraDeck, AddCardToDeck);
+        DisplayDeck(extraCardDisplayParent, _extraDeck, AddCardToDeck);
     }
 
     private void DisplayDeckCards()
@@ -41,7 +41,7 @@ public class DeckEditSystem : MonoBehaviour
         DisplayDeck(deckDisplayParent, _deck, RemoveCardFromDeck);
     }
 
-    private void DisplayDeck(Transform display, List<CardData> _deck, UnityEngine.Events.UnityAction<CardData> clickAction)
+    private void DisplayDeck(Transform display, List<CardData> deck, UnityEngine.Events.UnityAction<CardData> clickAction)
     {
         foreach (Transform child in display)
         {
@@ -51,8 +51,8 @@ public class DeckEditSystem : MonoBehaviour
             }
         }
 
-        int rows = 3; 
-        int cols = 5; 
+        int rows = 3;
+        int cols = 5;
         float spacingX = _cardSize.x * 0.7f; // 카드 사이의 간격을 줄임
         float spacingY = _cardSize.y * 0.7f;
 
@@ -61,10 +61,10 @@ public class DeckEditSystem : MonoBehaviour
             for (int j = 0; j < cols; j++)
             {
                 int cardIndex = i * cols + j;
-                if (cardIndex >= _deck.Count) // 카드 수가 15개 미만일 경우 방지
+                if (cardIndex >= deck.Count) // 카드 수가 15개 미만일 경우 방지
                     return;
 
-                CardData card = _deck[cardIndex]; // 덱에서 카드 가져오기
+                CardData card = deck[cardIndex]; // 덱에서 카드 가져오기
 
                 // Instantiate UI card using prefab
                 GameObject cardInstance = Instantiate(displayCardPrefab, display);
@@ -82,10 +82,10 @@ public class DeckEditSystem : MonoBehaviour
                 // Set position within the grid
                 Vector2 position = new Vector2(j * spacingX, -i * spacingY);
                 cardRectTransform.anchoredPosition = position;
-
             }
         }
     }
+
     private void AddCardToDeck(CardData card)
     {
         if (_deck.Count < 15) // 덱에 최대 15장까지 추가 가능
@@ -108,7 +108,9 @@ public class DeckEditSystem : MonoBehaviour
         {
             Debug.Log("remove card");
             _deck.Remove(card);
+            _extraDeck.Add(card); // 엑스트라 덱에 카드 추가
             DisplayDeckCards();
+            DisplayExtraCards(); // 엑스트라 덱 갱신
         }
         else
         {
@@ -116,5 +118,6 @@ public class DeckEditSystem : MonoBehaviour
         }
 
         _player.SetDeck(_deck);
+        _player.SetExtraDeck(_extraDeck); // 플레이어 엑스트라 덱 업데이트
     }
 }
