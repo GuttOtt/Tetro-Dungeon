@@ -841,6 +841,7 @@ MonoBehaviour:
   selectButton: {fileID: 879511873}
   cardSelector: {fileID: 419684446}
   _sceneChanger: {fileID: 533459406}
+  _tooltip: {fileID: 8572499953799984844, guid: afb034791bfd7ba489be7ae60d030a2b, type: 3}
 --- !u!114 &419684446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,7 +3323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1534119387
 RectTransform:
   m_ObjectHideFlags: 0

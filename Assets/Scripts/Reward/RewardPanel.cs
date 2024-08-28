@@ -57,10 +57,10 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         BlockCard blockCard = GetComponentInChildren<BlockCard>();
         UnitConfigUIDrawer unit = GetComponentInChildren<UnitConfigUIDrawer>();
 
-        //if (blockCard != null)
-        //{
-        //    ShowTooltip(blockCard.GetTooltipInfo());
-        //}
+        if (blockCard != null)
+        {
+            blockCard.TooltipPrefab.SetActive(true);
+        }
         if (unit != null)
         {
             unit._tooltip.SetActive(true);
@@ -72,10 +72,10 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         BlockCard blockCard = GetComponentInChildren<BlockCard>();
         UnitConfigUIDrawer unit = GetComponentInChildren<UnitConfigUIDrawer>();
 
-        //if (blockCard != null)
-        //{
-        //    ShowTooltip(blockCard.GetTooltipInfo());
-        //}
+        if (blockCard != null)
+        {
+            blockCard.TooltipPrefab.SetActive(false);
+        }
         if (unit != null)
         {
             unit._tooltip.SetActive(false);

@@ -131,7 +131,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1707690370822537065
@@ -245,7 +245,6 @@ RectTransform:
   m_Children:
   - {fileID: 7836300374130108967}
   - {fileID: 7982745797217806051}
-  - {fileID: 4607324814021602646}
   - {fileID: 559302653911934937}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -372,17 +371,17 @@ RectTransform:
   m_GameObject: {fileID: 3907369125804390675}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1279814765436295003}
   - {fileID: 6044177122940767015}
-  m_Father: {fileID: 3535505991717576974}
+  m_Father: {fileID: 559302653911934937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.013549805, y: 2.911377}
-  m_SizeDelta: {x: 116.216705, y: 145.9466}
+  m_AnchoredPosition: {x: 0.0013427734, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &19267990962240408
 CanvasRenderer:
@@ -440,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &559302653911934937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -450,14 +449,15 @@ RectTransform:
   m_GameObject: {fileID: 5860901442803131083}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4607324814021602646}
   m_Father: {fileID: 3535505991717576974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.013549805, y: 2.911377}
+  m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 216.2167, y: 245.9466}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &665222674857930537
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9117983449922663740
 MonoBehaviour:
   m_ObjectHideFlags: 0
