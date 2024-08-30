@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
-  EnemyEffect: {fileID: 11400000, guid: 1a692e53cd57c6a48928c14f42be768a, type: 2}
+  EnemyEffect: {fileID: 0}
   UnitConfigs:
   - {fileID: 11400000, guid: 8fdeb20edd476814bbb60e9ed47cb15f, type: 2}
   - {fileID: 11400000, guid: ef89f008ac6745a4ab1193dae3aad9be, type: 2}

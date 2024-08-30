@@ -19,6 +19,7 @@ namespace Assets.Scripts.Reward
         [SerializeField] private RewardPanel[] rewardSlots; // Reward 1, 2, 3 위치 (RewardDisplay의 자식들)
         [SerializeField] private Button selectButton;
         [SerializeField] private CardSelector cardSelector;
+        [SerializeField] private TMP_Text rewardRemainText; //남은 보상을 표시해주는 텍스트
 
         [SerializeField] private SceneChanger _sceneChanger;
         [SerializeField] private GameObject _tooltip;
@@ -28,12 +29,17 @@ namespace Assets.Scripts.Reward
 
         private UnitBlockDrawer _unitBlockMarker { get => cardSelector.UnitblockMarker; }
 
+        [SerializeField] private int rewardAmount = 3;
+        [SerializeField] private int rewardCount = 0;
+
         public void DisplayReward(bool flag)
         {
             _rewardPanel.gameObject.SetActive(flag);
             _victoryText.gameObject.SetActive(flag);
 
             _victoryText.text = flag ? "Player Wins!" : "Player Loses...";
+
+            rewardRemainText.text = "남은 보상: " + (rewardAmount - rewardCount).ToString();
 
             if (flag)
             {
@@ -129,7 +135,15 @@ namespace Assets.Scripts.Reward
                     Player.Instance.AddUnitConfig(selectedReward.GetComponent<UnitConfigUIDrawer>().UnitConfig);
                 }
 
-                LoadNextStage();
+                //Check Reward Count
+                rewardCount++;
+                
+                if (rewardCount == rewardAmount) {
+                    LoadNextStage();
+                }
+                else {
+                    DisplayReward(true);
+                }
             }
         }
 
