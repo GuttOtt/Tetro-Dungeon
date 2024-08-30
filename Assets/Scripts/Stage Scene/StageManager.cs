@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager> {
     private List<EnemyData> _allEnemyData = new List<EnemyData>();
+    [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
     private int _currentStageIndex;
     private int _stageAmount = 5;
@@ -32,18 +34,46 @@ public class StageManager : Singleton<StageManager> {
     }
 
     private void InitStages() {
-        _stages.Add(new StageData());
-        _stages[0].stageIndex = 0;
+        for (int i = 0; i < _stageEnums.Count; i++) {
+            switch (_stageEnums[i]) {
+                case StageEnum.Starting:
+                    AddStartingStage();
+                    break;
+                case StageEnum.Enemy:
+                    AddEnemyStage();
+                    break;
 
-        for (int i = 1; i <= _stageAmount; i++) {
-            EnemyData enemyData = _allEnemyData[UnityEngine.Random.Range(0, _allEnemyData.Count)];
-            EnemyStageData enemyStage = new EnemyStageData(enemyData);
-            enemyStage.stageIndex = i;
-
-            _stages.Add(enemyStage);
-
-            _currentStageIndex = 0;
+                case StageEnum.Boss:
+                    AddBossStage();
+                    break;
+            }
         }
+    }
+
+    private void AddStartingStage() {
+        if (_stages.Count > 0) {
+            Debug.LogError("스타팅 스테이지는 항상 처음에 배치되어야 합니다.");
+            return;
+        }
+
+        _stages.Add(new StartingStageData());
+        _stages[0].stageIndex = 0;
+    }
+    
+    private void AddEnemyStage() {
+        EnemyData enemyData = _allEnemyData[UnityEngine.Random.Range(0, _allEnemyData.Count)];
+        EnemyStageData enemyStage = new EnemyStageData(enemyData);
+        enemyStage.stageIndex = _stages.Count;
+
+        _stages.Add(enemyStage);
+    }
+
+    private void AddBossStage() {
+        EnemyData enemyData = _allEnemyData[UnityEngine.Random.Range(0, _allEnemyData.Count)];
+        EnemyStageData bossStage = new BossStageData(enemyData);
+        bossStage.stageIndex = _stages.Count;
+
+        _stages.Add(bossStage);
     }
 
     public void MoveForward() {
@@ -57,10 +87,27 @@ public class StageData {
 }
 
 [Serializable]
+public class StartingStageData : StageData {
+
+}
+
+[Serializable]
 public class EnemyStageData : StageData {
     public EnemyData enemyData;
 
     public EnemyStageData(EnemyData enemyData) {
         this.enemyData = enemyData;
     }
+}
+
+[Serializable]
+public class BossStageData : EnemyStageData {
+    public BossStageData(EnemyData enemyData) : base(enemyData) {
+        this.enemyData = enemyData;
+    }
+}
+
+public enum StageEnum
+{
+    Starting = 0, Enemy = 1, Boss = 2,
 }

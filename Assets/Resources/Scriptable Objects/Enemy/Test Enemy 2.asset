@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Test Enemy 2
   Sprite: {fileID: 0}
-  Description: "Test Enemy 2\uC5D0 \uB300\uD55C \uC124\uBA85\uC785\uB2C8\uB2E4."
+  Description: "Test Enemy 2 \uC5D0 \uB300\uD55C \uC124\uBA85\uC785\uB2C8\uB2E4."
   MaxLife: 500
   BuffTokenPerDifficulty:
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}

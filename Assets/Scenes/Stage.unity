@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeaefb0e30c77c447a57fc0c41dc06f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stageEnums: 00000000010000000100000001000000010000000100000002000000
   _stages: []
 --- !u!4 &69057891
 Transform:
