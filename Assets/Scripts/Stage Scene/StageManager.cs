@@ -10,10 +10,17 @@ public class StageManager : Singleton<StageManager> {
     private List<BossData> _allBossData = new List<BossData>();
     [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
-    private int _currentStageIndex;
+    private int _currentStageIndex = 0;
     private int _stageAmount = 5;
 
-    public StageData CurrentStage { get => _stages[_currentStageIndex]; }
+    public StageData CurrentStage { 
+        get {
+            if (_stages.Count == 0) {
+                return null;
+            }
+            return _stages[_currentStageIndex];
+        }
+    }
     public List<StageData> Stages { get => _stages; }
     public int CurrentStageIndex {  get => _currentStageIndex; }
     public EnemyData CurrentEnemyData {

@@ -54,7 +54,7 @@ public class BattleSystem : MonoBehaviour
 
         //Set Life
         int playerLife = Player.Instance.CurrentLife;
-        int enemyLife = StageManager.Instance.CurrentEnemyData.MaxLife;
+        int enemyLife = StageManager.Instance.CurrentEnemyData != null ? StageManager.Instance.CurrentEnemyData.MaxLife : _enemyMaxLife;
 
         _lifeDic = new Dictionary<CharacterTypes, int>() {
             { CharacterTypes.Player, playerLife},
