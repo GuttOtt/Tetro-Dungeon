@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a954d6f92b93ea843979fd269eda0eff, type: 3}
   m_Name: Test Boss 1
   m_EditorClassIdentifier: 
-  Name: Test Boss
+  Name: "\uD0F1\uCEE4 \uC8FD\uC5B4\uB9E8"
   Sprite: {fileID: 0}
-  Description: "\uD14C\uC2A4\uD2B8\uC6A9 \uBCF4\uC2A4\uC785\uB2C8\uB2E4."
+  Description: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uD50C\uB808\uC774\uC5B4\uC758 \uC804\uBC29
+    2\uC5F4\uC5D0 \uB193\uC778 \uC720\uB2DB\uB4E4\uC5D0\uAC8C 10\uC758 \uB370\uBBF8\uC9C0\uB97C
+    \uC90D\uB2C8\uB2E4."
   MaxLife: 500
   BuffTokenPerDifficulty:
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
+  - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
+  - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   EnemyEffect: {fileID: 11400000, guid: 1a692e53cd57c6a48928c14f42be768a, type: 2}
+  UnitConfigs:
+  - {fileID: 11400000, guid: 7a2c742ae7a02b34e9c6becbe1afce9f, type: 2}
+  - {fileID: 11400000, guid: 9725c9e9b5366c1458749446f260f426, type: 2}
+  - {fileID: 11400000, guid: 99af8570936e96b4b91a14b792a2025a, type: 2}
