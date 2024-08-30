@@ -1083,6 +1083,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2087840047}
   - {fileID: 263331498}
   - {fileID: 1534119387}
   - {fileID: 846935580}
@@ -1092,7 +1093,6 @@ RectTransform:
   - {fileID: 823572299}
   - {fileID: 1243252308}
   - {fileID: 533459405}
-  - {fileID: 2087840047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1509,6 +1509,7 @@ MonoBehaviour:
   deckNumber: 10
   _allTroopEffect: []
   _itemInUse: []
+  _currentLife: 500
 --- !u!4 &535102582
 Transform:
   m_ObjectHideFlags: 0
