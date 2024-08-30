@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
   m_Name: Test Enemy 3
   m_EditorClassIdentifier: 
-  Name: "\uC6D0\uC6A9\uC7AC3"
+  Name: Test Enemy 3
   Sprite: {fileID: 0}
-  Description: "\uC6D0\uC6A9\uC7AC3"
-  MaxLife: 500
+  Description: "\uC774\uB3D9\uD558\uAC70\uB098 \uC801 \uC720\uB2DB\uC744 \uD30C\uAD34
+    \uD560\uC218\uB85D \uAC15\uD574\uC9C0\uB294 \uC720\uB2DB\uB4E4\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+  MaxLife: 300
   BuffTokenPerDifficulty:
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   EnemyEffect: {fileID: 11400000, guid: 1a692e53cd57c6a48928c14f42be768a, type: 2}
+  UnitConfigs:
+  - {fileID: 11400000, guid: cfe48014ccec59047a24827df2356c8c, type: 2}
+  - {fileID: 11400000, guid: 26b66a20189280443a57efbf970a5282, type: 2}

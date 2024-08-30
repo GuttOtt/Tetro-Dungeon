@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Cysharp.Threading.Tasks;
 using EnumTypes;
 using System;
@@ -52,9 +53,12 @@ public class BattleSystem : MonoBehaviour
         _synergySystem = _gameManager.GetSystem<SynergySystem>();
 
         //Set Life
+        int playerLife = Player.Instance.CurrentLife;
+        int enemyLife = StageManager.Instance.CurrentEnemyData.MaxLife;
+
         _lifeDic = new Dictionary<CharacterTypes, int>() {
-            { CharacterTypes.Player, _playerMaxLife },
-            { CharacterTypes.Enemy, _enemyMaxLife }
+            { CharacterTypes.Player, playerLife},
+            { CharacterTypes.Enemy, enemyLife }
         };
 
         _lifeTextDic.Add(CharacterTypes.Player, _playerLifeText);
@@ -111,6 +115,7 @@ public class BattleSystem : MonoBehaviour
 
         //한 쪽의 Life가 0이 됐다면 게임 승리 판정
         if (_lifeDic[CharacterTypes.Enemy] <= 0) {
+            Player.Instance.CurrentLife = _lifeDic[CharacterTypes.Player];
             _gameManager.PlayerWin();
             return;
         }

@@ -28,6 +28,8 @@ namespace Assets.Scripts
         private List<Item> _itemInUse = new List<Item>();
         private List<Item> _itemInInv = new List<Item>();
 
+        [SerializeField] private int _currentLife = 500;
+
         public List<CardData> Deck { get { return _deck; } }
         public List<CardData> ExtraDeck { get { return _extraDeck; } }
 
@@ -37,6 +39,8 @@ namespace Assets.Scripts
         public List<Item> ItemInInv { get => _itemInInv; }
 
         public List<BlockCard> BlockCards {  get { return _blockCards; } }
+
+        public int CurrentLife { get => _currentLife; set => _currentLife = value; }
 
         protected override void Awake()
         {

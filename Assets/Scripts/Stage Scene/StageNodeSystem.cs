@@ -9,26 +9,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StageNodeSystem : MonoBehaviour {
-    [SerializeField]
-    private List<StageNode> _nodes = new List<StageNode>();
+    [SerializeField] private List<StageNode> _nodes = new List<StageNode>();
 
-    [SerializeField]
-    private TMP_Text _nodeNameText, _nodeDescriptionText;
+    [SerializeField] private GameObject _stageInfoUIPanel;
+    [SerializeField] private TMP_Text _nodeNameText, _nodeDescriptionText;
+    [SerializeField] private Image _nodeImage;
+    [SerializeField] private Button _moveButton;
+    [SerializeField] private List<Image> _unitSlots = new List<Image>();
 
-    [SerializeField]
-    private Image _nodeImage;
+    [SerializeField] private SceneChanger _sceneChanger;
 
-    [SerializeField]
-    private SceneChanger _sceneChanger;
-
-    [SerializeField]
-    private GameObject _stageInfoUIPanel;
-
-    [SerializeField]
-    private Button _moveButton;
-
-    [SerializeField]
-    private GameObject _playerMarker;
+    [SerializeField] private GameObject _playerMarker;
 
 
     private StageManager _stageManager;
@@ -65,15 +56,32 @@ public class StageNodeSystem : MonoBehaviour {
             return;
         }
 
+        //Draw Enemy Stage Data
         if (stageData as EnemyStageData != null) {
             EnemyStageData enemyStageData = (EnemyStageData)stageData;
             EnemyData enemyData = enemyStageData.enemyData;
 
+            //Texts
             _nodeNameText.text = enemyData.Name;
             _nodeDescriptionText.text = enemyData.Description;
             _nodeImage.sprite = enemyData.Sprite;
+
+            //Units
+            List<UnitConfig> unitConfigs = enemyData.UnitConfigs;
+            int unitCount = unitConfigs.Count;
+
+            for (int i = 0; i < _unitSlots.Count; i++) {
+                if (i < unitCount) {
+                    _unitSlots[i].gameObject.SetActive(true);
+                    _unitSlots[i].sprite = unitConfigs[i].Sprite;
+                }
+                else {
+                    _unitSlots[i].gameObject.SetActive(false);
+                }
+            }
         }
 
+        //Move Button
         if (_stageManager.CurrentStageIndex == stageData.stageIndex - 1) {
             _moveButton.gameObject.SetActive(true);
         }

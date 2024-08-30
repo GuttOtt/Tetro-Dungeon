@@ -22,5 +22,7 @@ public class EnemyData : ScriptableObject {
     
     [SerializeField]
     public EnemyEffect EnemyEffect;
-    
+
+    [SerializeField]
+    public List<UnitConfig> UnitConfigs = new List<UnitConfig>();
 }

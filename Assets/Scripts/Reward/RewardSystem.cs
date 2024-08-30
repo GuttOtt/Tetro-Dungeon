@@ -118,7 +118,6 @@ namespace Assets.Scripts.Reward
                     Player.Instance.AddUnitConfig(selectedReward.GetComponent<UnitConfigUIDrawer>().UnitConfig);
                 }
 
-                // 다음 스테이지로 이동 (구현 필요)
                 LoadNextStage();
             }
         }

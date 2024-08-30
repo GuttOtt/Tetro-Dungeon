@@ -162,6 +162,8 @@ public class EnemySystem : MonoBehaviour {
 
         _enemyEffect = _enemyData.EnemyEffect;
 
+        unitPool = _enemyData.UnitConfigs;
+
         SetDifficulty(stageManager.CurrentStageIndex);
 
         Debug.Log($"Enemy Name: {_enemyData.Name}");

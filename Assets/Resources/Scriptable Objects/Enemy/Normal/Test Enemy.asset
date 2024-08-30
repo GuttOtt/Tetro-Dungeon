@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Test Enemy 1
   Sprite: {fileID: 0}
-  Description: "Test Enemy 1 \uC5D0 \uB300\uD55C \uC124\uBA85\uC785\uB2C8\uB2E4."
-  MaxLife: 500
+  Description: "\uAC15\uB825\uD55C \uADFC\uC811 \uC720\uB2DB\uB4E4\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
+  MaxLife: 300
   BuffTokenPerDifficulty:
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: 3be00a85f806be344a544e4ce094af9b, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   - {fileID: 11400000, guid: c07f7b59404cdc94da92823d68c291a2, type: 2}
   EnemyEffect: {fileID: 11400000, guid: 1a692e53cd57c6a48928c14f42be768a, type: 2}
+  UnitConfigs:
+  - {fileID: 11400000, guid: e87f195819c86d74080c80a8d7748379, type: 2}
+  - {fileID: 11400000, guid: 7a2c742ae7a02b34e9c6becbe1afce9f, type: 2}
+  - {fileID: 11400000, guid: 49420029625c9e64785bfec2e6d7ff16, type: 2}
