@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 529035afde92d08459ce1ffb7516103d, type: 3}
-  m_Name: Test Enemy Effect
+  m_Name: Damage_BattleBegin_FrontLine_10
   m_EditorClassIdentifier: 
   _isOnBattleBegin: 1
   _isCoolDownEffect: 0
