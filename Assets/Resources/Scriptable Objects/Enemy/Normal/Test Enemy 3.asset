@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
   m_Name: Test Enemy 3
   m_EditorClassIdentifier: 
-  Name: Test Enemy 3
+  Name: "\uC655\uADC0\uB9E8"
   Sprite: {fileID: 0}
   Description: "\uC774\uB3D9\uD558\uAC70\uB098 \uC801 \uC720\uB2DB\uC744 \uD30C\uAD34
     \uD560\uC218\uB85D \uAC15\uD574\uC9C0\uB294 \uC720\uB2DB\uB4E4\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."

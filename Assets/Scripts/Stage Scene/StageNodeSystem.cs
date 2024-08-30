@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
@@ -19,6 +20,8 @@ public class StageNodeSystem : MonoBehaviour {
 
     [SerializeField] private SceneChanger _sceneChanger;
 
+    [SerializeField] private TMP_Text _stageText, _lifeText;
+
     [SerializeField] private GameObject _playerMarker;
 
 
@@ -28,6 +31,10 @@ public class StageNodeSystem : MonoBehaviour {
         _stageManager = StageManager.Instance;
         InitNodes();
         MovePlayerMarker(false);
+
+        //Life And Stage Text
+        _stageText.text = "Stage: " + _stageManager.CurrentStageIndex.ToString();
+        _lifeText.text = "Life: " + Player.Instance.CurrentLife.ToString();
     }
 
     private void InitNodes() {

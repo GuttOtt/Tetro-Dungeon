@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
   m_Name: Test Enemy
   m_EditorClassIdentifier: 
-  Name: Test Enemy 1
+  Name: "\uADFC\uC811\uB9E8"
   Sprite: {fileID: 0}
   Description: "\uAC15\uB825\uD55C \uADFC\uC811 \uC720\uB2DB\uB4E4\uC744 \uC0AC\uC6A9\uD569\uB2C8\uB2E4."
   MaxLife: 300

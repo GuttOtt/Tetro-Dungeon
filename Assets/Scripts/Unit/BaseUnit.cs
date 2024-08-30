@@ -307,9 +307,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeMaxHP(int value) {
         float ratio = CurrentHP / MaxHP;
         _maxHP += value;
-
-        _maxHP = value;
-        CurrentHP = (int)(value * ratio);
+        CurrentHP = (int)(_maxHP * ratio);
     }
     public void ChangeSpeed(float value) => _speed += value;
     #endregion
