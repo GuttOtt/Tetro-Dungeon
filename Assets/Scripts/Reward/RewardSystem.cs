@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.Collections.AllocatorManager;
 
 namespace Assets.Scripts.Reward
 {
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Reward
         [SerializeField] private CardSelector cardSelector;
 
         [SerializeField] private SceneChanger _sceneChanger;
+        [SerializeField] private GameObject _tooltip;
 
         private List<GameObject> generatedRewards = new List<GameObject>();
         private GameObject selectedReward = null;
@@ -59,6 +61,15 @@ namespace Assets.Scripts.Reward
                     rewardObject.AddComponent<BlockCard>();
                     BlockCard blockCard = rewardObject.GetComponent<BlockCard>();
                     blockCard.Init(GetRandomBlockCard());
+
+                    // BlockCard에 툴팁 프리팹 설정
+                    GameObject tooltipInstance = Instantiate(_tooltip, blockCard.transform); // 툴팁 프리팹 생성
+                    tooltipInstance.transform.SetParent(blockCard.transform, false);  // 부모를 설정하고 로컬 포지션 유지
+                    tooltipInstance.transform.localPosition = new Vector3(0f, 200f, 1f);
+
+                    tooltipInstance.SetActive(false); // 기본적으로 비활성화
+                    blockCard.TooltipPrefab = tooltipInstance; // BlockCard에 툴팁 할당
+
 
                     var cells = _unitBlockMarker.DrawBlock(blockCard.Polyomino, rewardSlots[i].transform);
 

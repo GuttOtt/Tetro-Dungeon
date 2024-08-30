@@ -1,6 +1,7 @@
 using Assets.Scripts.Unit.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UnitConfigUIDrawer : MonoBehaviour
@@ -19,8 +20,17 @@ public class UnitConfigUIDrawer : MonoBehaviour
     private TextMeshProUGUI _tooltip_name;
     private TextMeshProUGUI _tooltip_effect;
 
-    public UnitConfig UnitConfig { get => _unitConfig; } 
-
+    public UnitConfig UnitConfig { get => _unitConfig; }
+    public void Awake()
+    {
+        _tooltip.SetActive(false);
+        // Tooltip 내의 Name TextMeshPro 컴포넌트 찾기
+        if (_tooltip != null)
+        {
+            _tooltip_name = _tooltip.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
+            _tooltip_effect = _tooltip.transform.Find("Effect")?.GetComponent<TextMeshProUGUI>();
+        }
+    }
     public void Draw(UnitConfig unitConfig, int attackBuff = 0, int hpBuff = 0) {
         //스프라이트
         if (_unitSprite != null) {
@@ -89,5 +99,10 @@ public class UnitConfigUIDrawer : MonoBehaviour
         {
             Debug.LogWarning("SpriteRenderer is missing or destroyed.");
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("hello2");
     }
 }

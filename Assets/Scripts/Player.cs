@@ -104,10 +104,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void SetDeck(List<CardData> cardData)
-        {
-            _deck = cardData;
-        }
+        public void SetDeck(List<CardData> cardData) => _deck = cardData;
 
         public void SetExtraDeck(int deckAmount)
         {
@@ -124,7 +121,7 @@ namespace Assets.Scripts
 
             _extraDeck.Shuffle();
         }
-
+        public void SetExtraDeck(List<CardData> cardData) => _extraDeck = cardData;
         public void AddBlockCard(BlockCard block) => _blockCards.Add(block);
         public void AddUnitConfig(UnitConfig config) => _configs.Add(config);
 

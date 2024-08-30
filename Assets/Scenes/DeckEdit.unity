@@ -339,7 +339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &263331498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -968,7 +968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardSystem: {fileID: 0}
-  troopCardDisplayParent: {fileID: 234203289}
+  extraCardDisplayParent: {fileID: 234203289}
   deckDisplayParent: {fileID: 210424384}
   displayCardPrefab: {fileID: 1395693033945017248, guid: 368e787f302ffaa4f904ec7e47ac36eb, type: 3}
 --- !u!224 &728583612
@@ -1543,7 +1543,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 620, y: -490.6}
+  m_AnchoredPosition: {x: 802, y: -490.6}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1720408351
