@@ -6,7 +6,8 @@ using System.Linq;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager> {
-    private List<EnemyData> _allEnemyData = new List<EnemyData>();
+    [SerializeField] private List<EnemyData> _allEnemyData = new List<EnemyData>();
+    private List<BossData> _allBossData = new List<BossData>();
     [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
     private int _currentStageIndex;
@@ -28,7 +29,8 @@ public class StageManager : Singleton<StageManager> {
     protected override void Awake() {
         base.Awake();
 
-        _allEnemyData = Resources.LoadAll<EnemyData>("Scriptable Objects/Enemy").ToList();
+        _allEnemyData = Resources.LoadAll<EnemyData>("Scriptable Objects/Enemy/Normal").ToList();
+        _allBossData = Resources.LoadAll<BossData>("Scriptable Objects/Enemy/Boss").ToList();
 
         InitStages();
     }
@@ -69,7 +71,7 @@ public class StageManager : Singleton<StageManager> {
     }
 
     private void AddBossStage() {
-        EnemyData enemyData = _allEnemyData[UnityEngine.Random.Range(0, _allEnemyData.Count)];
+        EnemyData enemyData = _allBossData[UnityEngine.Random.Range(0, _allBossData.Count)];
         EnemyStageData bossStage = new BossStageData(enemyData);
         bossStage.stageIndex = _stages.Count;
 

@@ -47,6 +47,10 @@ public class StageNodeSystem : MonoBehaviour {
             _nodes[i].Init(data);
 
             _nodes[i].onPointerClick += () => DrawStageInfoUI(data);
+
+            if (data is BossStageData) {
+                _nodes[i].transform.localScale = new Vector2(1.2f, 1.2f);
+            }
         }
 
         int currentStageIndex = _stageManager.CurrentStageIndex;
