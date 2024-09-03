@@ -22,6 +22,12 @@ namespace Card
         public BlockCard BlockCard { get => _blockCard; }
         public Polyomino Polyomino { get => _blockCard.Polyomino; }
         public UnitConfig UnitConfig { get; private set; }
+
+        public int Cost {
+            get {
+                return Polyomino.Size;
+            }
+        }
         #endregion
 
         public void Init(UnitConfig unitConfig, BlockCard troopCard) {

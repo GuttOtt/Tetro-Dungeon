@@ -1,6 +1,7 @@
 using Card;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,6 +38,11 @@ public class CardSystem : MonoBehaviour
     //카드 셀렉터
     [SerializeField]
     private CardSelector _cardSelector;
+
+    //코스트 관련
+    private int _remainingCost;
+    [SerializeField] private TMP_Text _costText;
+    [SerializeField] private int _costForTurn;
     #endregion
 
     public Deck Deck { get { return _deck; } }
@@ -51,6 +57,8 @@ public class CardSystem : MonoBehaviour
         _deck = GetComponent<Deck>();
         _hand = GetComponent<Hand>();
         _discards = GetComponent<Discards>();
+
+        _gameManager.GetSystem<PhaseSystem>().OnStandbyPhase += GainCostForTurn;
     }
 
     private void Update() {
@@ -195,6 +203,13 @@ public class CardSystem : MonoBehaviour
     private void PlayCard() {
         if (_selectedCard != null && Input.GetMouseButtonUp(0)) {
 
+            //코스트가 충분한 지 검사
+            if (_remainingCost < _selectedCard.Cost) {
+                Debug.Log("코스트가 충분하지 않습니다.");
+                _cardSelector.Unselect();
+                return;
+            }
+
             Vector3 topLeftPos = _unitBlockMarker.GetTopLeftPosition();
             Cell topLeftCell = Utils.Pick<Cell>(topLeftPos);
 
@@ -210,6 +225,10 @@ public class CardSystem : MonoBehaviour
                 //카드를 Discard로 보냄
                 _hand.RemoveCard(_selectedCard);
                 _discards.AddCard(_selectedCard);
+
+                //코스트 차감
+                _remainingCost -= _selectedCard.Cost;
+                UpdateCostText();
             }
 
             _cardSelector.Unselect();
@@ -236,5 +255,13 @@ public class CardSystem : MonoBehaviour
         _selectedPolyomino = rotatedPolyomino;
     }
 
+    private void UpdateCostText() {
+        _costText.text = "Cost: " + _remainingCost.ToString();
+    }
+
+    private void GainCostForTurn() {
+        _remainingCost = _costForTurn;
+        UpdateCostText();
+    }
     #endregion
 }

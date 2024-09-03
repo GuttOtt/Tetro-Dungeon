@@ -78,6 +78,15 @@ public class Polyomino
     #endregion
 
     public int[,] Shape { get; private set; }
+    public int Size {
+        get {
+            int size = 0;
+            foreach (int i in Shape) {
+                if (i == 1) size++;
+            }
+            return size;
+        }
+    }
 
     public Polyomino(int[,] shape) {
         Shape = shape;

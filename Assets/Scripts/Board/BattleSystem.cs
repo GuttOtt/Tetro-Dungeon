@@ -21,6 +21,9 @@ public class BattleSystem : MonoBehaviour
     //현재 공격 턴
     private CharacterTypes _attackTurn;
 
+    //적 이름
+    [SerializeField] private TMP_Text _enemyNameText;
+
     //라이프 (이후 다른 클래스로 옮겨야 할 수도 있음)
     [SerializeField] private int _playerMaxLife, _enemyMaxLife;
     private Dictionary<CharacterTypes, int> _lifeDic;
@@ -32,7 +35,7 @@ public class BattleSystem : MonoBehaviour
     private CancellationTokenSource battleCancel = new CancellationTokenSource();
 
     [SerializeField]
-    private float _battleSpeed = 1; //1이 기준
+    private float _battleSpeed = 1; //1이 디폴트
     #endregion
 
     #region Events
@@ -51,6 +54,7 @@ public class BattleSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
         _synergySystem = _gameManager.GetSystem<SynergySystem>();
+
 
         //Set Life
         int playerLife = Player.Instance.CurrentLife;
