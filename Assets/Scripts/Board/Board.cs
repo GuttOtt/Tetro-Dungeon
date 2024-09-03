@@ -236,6 +236,19 @@ public class Board : MonoBehaviour
         return cellsInRange;
     }
 
+    public List<Cell> GetEmptyCellsInRange(Cell center, int minRange, int maxRange) {
+        List<Cell> cellsInRange = GetCellsInRange(center, minRange, maxRange);
+        List<Cell> emptyCells = new List<Cell>();
+
+        foreach (Cell cell in cellsInRange) {
+            if (cell.Unit == null) {
+                emptyCells.Add(cell);
+            }
+        }
+
+        return emptyCells;
+    }
+
     public Cell[,] GetPlayerCells() {
         Cell[,] playerCells = new Cell[column / 2, row];
 
@@ -479,16 +492,6 @@ public class PathFinder {
                     return;
                 }
             }
-
-            /*
-            // 코너를 가로질러 가지 않을시, 이동 중에 수직수평 장애물이 있으면 안됨
-            if (_dontCrossCorner) {
-                if (NodeArray[_curNode.x, checkY].isWall || NodeArray[checkX, _curNode.y].isWall) {
-                    Debug.Log("Crossing Corner");
-                    return;
-                }
-            }
-            */
 
             // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
             Node NeighborNode = NodeArray[checkX, checkY];

@@ -180,6 +180,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         Debug.Log($"{_config.name} Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
 
         //유닛 이동
+        if (movePath[1].Unit != null) {
+            Debug.LogError("이동하려는 칸에 이미 유닛이 있습니다!");
+        }
+
         CurrentCell.UnitOut();
         movePath[1].UnitIn(this);
         CurrentCell = movePath[1];
@@ -193,7 +197,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //closestOpponent를 공격할 수 있는 모든 셀 중 가장 가까운 경로를 만드는 셀을 구함
-        List<Cell> attackableCells = board.GetCellsInRange(closestOpponent.CurrentCell, 1, Range);
+        List<Cell> attackableCells = board.GetEmptyCellsInRange(closestOpponent.CurrentCell, 1, Range);
 
         List<Cell> shortestMovePath = null;
         int shortestDistance = int.MaxValue;
