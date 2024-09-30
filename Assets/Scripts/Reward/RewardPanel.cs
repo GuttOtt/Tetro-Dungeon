@@ -110,6 +110,8 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void ResetClick() => clicked = false;
 
     internal void ResetSelectedItem() => selectedItem = null;
+    private void ResetItemInSlot() {
+    }
 
     public GameObject GetSelectedItem() => selectedItem;
 

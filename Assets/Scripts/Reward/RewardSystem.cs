@@ -101,6 +101,7 @@ namespace Assets.Scripts.Reward
         private void GenerateUnitConfigs() {
             for (int i = 0; i < unitConfigSlots.Length; i++) {
                 GameObject rewardObject = Instantiate(unitConfigPrefab, unitConfigSlots[i].transform);
+                rewardObject.name = "reward";
 
                 // UnitConfig 생성 및 초기화
                 UnitConfig unitConfig = GetRandomUnitConfig();
@@ -131,29 +132,38 @@ namespace Assets.Scripts.Reward
 
         public void OnSelectButtonClicked()
         {
+            //완성된 카드를 Player 클래스에 추가
+            var cardData = new CardData(_selectedUnitConfig, _selectedBlockCard);
+            Player.Instance.ExtraDeck.Add(cardData);
+            Debug.Log("Card added to ExtraDeck");
 
-            if (selectedReward != null)
-            {
-                // 선택된 보상을 플레이어의 ExtraDeck에 추가
-                if (selectedReward.GetComponent<BlockCard>() != null)
-                {
-                    Player.Instance.AddBlockCard(selectedReward.GetComponent<BlockCard>());
-                }
-                else if (selectedReward.GetComponent<UnitConfigUIDrawer>() != null)
-                {
-                    Player.Instance.AddUnitConfig(selectedReward.GetComponent<UnitConfigUIDrawer>().UnitConfig);
-                }
-
-                //Check Reward Count
-                rewardCount++;
+            //Check Reward Count
+            rewardCount++;
                 
-                if (rewardCount == rewardAmount) {
-                    LoadNextStage();
-                }
-                else {
-                    DisplayReward(true);
-                }
+            if (rewardCount == rewardAmount) {
+                LoadNextStage();
             }
+            else {
+                ResetSlots();
+                DisplayReward(true);
+            }
+          
+        }
+
+        private void ResetSlots() {
+            foreach (var slot in blockCardSlots) {
+                slot.Reset();
+                GameObject item = slot.transform.Find("reward").gameObject;
+                Destroy(item);
+            }
+            foreach (var slot in unitConfigSlots) {
+                slot.Reset();
+                GameObject item = slot.transform.Find("reward").gameObject;
+                Destroy(item);
+            }
+            //item의 Init과 삭제 방식 수정해야함
+            //Slot 자체에 Init 메소드를 넣을 것.
+            //필요하다면 RewardPanel 클래스를 상속을 통해 두 종류로 구분할 것.
         }
 
         private async void LoadNextStage()
