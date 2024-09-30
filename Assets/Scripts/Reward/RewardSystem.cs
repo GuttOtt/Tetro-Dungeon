@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Card;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -16,7 +17,6 @@ namespace Assets.Scripts.Reward
         [SerializeField] private GameObject unitConfigPrefab;
         [SerializeField] private GameObject blockCardPrefab;
 
-        [SerializeField] private RewardPanel[] rewardSlots; // Reward 1, 2, 3 위치 (RewardDisplay의 자식들)
         [SerializeField] private Button selectButton;
         [SerializeField] private CardSelector cardSelector;
         [SerializeField] private TMP_Text rewardRemainText; //남은 보상을 표시해주는 텍스트
@@ -27,13 +27,19 @@ namespace Assets.Scripts.Reward
         [SerializeField] private RewardPanel[] blockCardSlots;
         [SerializeField] private RewardPanel[] unitConfigSlots;
 
+        [SerializeField] private DisplayCard_UI createdCard;
+
+        [SerializeField] private int rewardAmount = 3;
+        [SerializeField] private int rewardCount = 0;
+
+        private BlockCard _selectedBlockCard;
+        private UnitConfig _selectedUnitConfig;
+
         private List<GameObject> generatedRewards = new List<GameObject>();
         private GameObject selectedReward = null;
 
         private UnitBlockDrawer _unitBlockMarker { get => cardSelector.UnitblockMarker; }
 
-        [SerializeField] private int rewardAmount = 3;
-        [SerializeField] private int rewardCount = 0;
 
         public void DisplayReward(bool flag)
         {
@@ -49,7 +55,10 @@ namespace Assets.Scripts.Reward
                 GenerateBlockCards();
                 GenerateUnitConfigs();
 
-                //GenerateRewards();
+                _selectedBlockCard = blockCardSlots[0].BlockCard;
+                _selectedUnitConfig = unitConfigSlots[0].UnitConfig;
+
+                createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
             }
         }
 
@@ -79,6 +88,12 @@ namespace Assets.Scripts.Reward
 
                 rewardObject.transform.SetParent(blockCardSlots[i].transform, false);  // 부모를 설정하고 로컬 포지션 유지
                 rewardObject.layer = 5; // UI
+
+                //클릭 시 선택되도록
+                blockCardSlots[i].onClick += () => SelectBlockCard(blockCard);
+
+                //슬롯에 정보 저장
+                blockCardSlots[i].BlockCard = blockCard;
             }
 
         }
@@ -88,36 +103,35 @@ namespace Assets.Scripts.Reward
                 GameObject rewardObject = Instantiate(unitConfigPrefab, unitConfigSlots[i].transform);
 
                 // UnitConfig 생성 및 초기화
+                UnitConfig unitConfig = GetRandomUnitConfig();
                 UnitConfigUIDrawer unitDrawer = rewardObject.GetComponent<UnitConfigUIDrawer>();
-                unitDrawer.Draw(GetRandomUnitConfig());
+                unitDrawer.Draw(unitConfig);
+
+                //클릭 시 선택되도록
+                unitConfigSlots[i].onClick += () => SelectUnitConfig(unitConfig);
+
+                //슬롯에 정보 저장
+                unitConfigSlots[i].UnitConfig = unitConfig;
             }
         }
 
+        private void SelectBlockCard(BlockCard blockCard) {
+            _selectedBlockCard = blockCard;
+            createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
+        }
 
+        private void SelectUnitConfig(UnitConfig unitConfig) {
+            _selectedUnitConfig = unitConfig;
+            createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
+        }
 
         private BlockCard GetRandomBlockCard() => Player.Instance.CreateRandomBlockCard();
 
         private UnitConfig GetRandomUnitConfig() => Player.Instance.GetRandomUnitConfig();
 
-        public GameObject GetSelectedRewardItem()
-        {
-            foreach (RewardPanel panel in rewardSlots)
-            {
-                GameObject selectedItem = panel.GetSelectedItem();
-                if (selectedItem != null)
-                {
-                    var res = selectedItem;
-                    panel.Reset();
-                    return res;
-                }
-            }
-
-            Debug.LogWarning("No item is selected in any panel.");
-            return null;
-        }
         public void OnSelectButtonClicked()
         {
-            selectedReward = GetSelectedRewardItem();
+
             if (selectedReward != null)
             {
                 // 선택된 보상을 플레이어의 ExtraDeck에 추가

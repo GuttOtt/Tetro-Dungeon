@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public BlockCard BlockCard;
+    public UnitConfig UnitConfig;
+    public Action onClick;
+
     [SerializeField] private Image panelImage; // rewardPanel의 배경 이미지
     private Color originalColor; // 원래 색상 저장
     private GameObject selectedItem; // 선택된 아이템 (BlockCard나 UnitConfig)
@@ -25,6 +29,8 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        onClick?.Invoke();
+
         if (!clicked)
         {
             clicked = true;
