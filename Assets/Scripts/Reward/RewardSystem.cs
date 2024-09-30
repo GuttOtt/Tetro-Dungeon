@@ -24,6 +24,9 @@ namespace Assets.Scripts.Reward
         [SerializeField] private SceneChanger _sceneChanger;
         [SerializeField] private GameObject _tooltip;
 
+        [SerializeField] private RewardPanel[] blockCardSlots;
+        [SerializeField] private RewardPanel[] unitConfigSlots;
+
         private List<GameObject> generatedRewards = new List<GameObject>();
         private GameObject selectedReward = null;
 
@@ -43,62 +46,54 @@ namespace Assets.Scripts.Reward
 
             if (flag)
             {
-                GenerateRewards();
+                GenerateBlockCards();
+                GenerateUnitConfigs();
+
+                //GenerateRewards();
             }
         }
 
-        private void GenerateRewards()
-        {
-            // 기존 보상 제거
-            foreach (var reward in generatedRewards)
-            {
-                Destroy(reward);
-            }
-            generatedRewards.Clear();
-
-            // 3개의 무작위 보상 생성
-            for (int i = 0; i < rewardSlots.Length; i++)
-            {
+        private void GenerateBlockCards() {
+            for (int i = 0; i < blockCardSlots.Length; i++) {
                 GameObject rewardObject = new GameObject("reward");
 
-                // 무작위로 BlockCard 혹은 UnitConfig 할당
-                if (UnityEngine.Random.value > 0.5f)
-                {
-                    rewardObject.AddComponent<BlockCard>();
-                    BlockCard blockCard = rewardObject.GetComponent<BlockCard>();
-                    blockCard.Init(GetRandomBlockCard());
+                rewardObject.AddComponent<BlockCard>();
+                BlockCard blockCard = rewardObject.GetComponent<BlockCard>();
+                blockCard.Init(GetRandomBlockCard());
 
-                    // BlockCard에 툴팁 프리팹 설정
-                    GameObject tooltipInstance = Instantiate(_tooltip, blockCard.transform); // 툴팁 프리팹 생성
-                    tooltipInstance.transform.SetParent(blockCard.transform, false);  // 부모를 설정하고 로컬 포지션 유지
-                    tooltipInstance.transform.localPosition = new Vector3(0f, 200f, 1f);
+                // BlockCard에 툴팁 프리팹 설정
+                GameObject tooltipInstance = Instantiate(_tooltip, blockCard.transform); // 툴팁 프리팹 생성
+                tooltipInstance.transform.SetParent(blockCard.transform, false);  // 부모를 설정하고 로컬 포지션 유지
+                tooltipInstance.transform.localPosition = new Vector3(0f, 200f, 1f);
 
-                    tooltipInstance.SetActive(false); // 기본적으로 비활성화
-                    blockCard.TooltipPrefab = tooltipInstance; // BlockCard에 툴팁 할당
+                tooltipInstance.SetActive(false); // 기본적으로 비활성화
+                blockCard.TooltipPrefab = tooltipInstance; // BlockCard에 툴팁 할당
 
 
-                    var cells = _unitBlockMarker.DrawBlock(blockCard.Polyomino, rewardSlots[i].transform);
+                var cells = _unitBlockMarker.DrawBlock(blockCard.Polyomino, blockCardSlots[i].transform);
 
-                    foreach (var cell in cells)
-                    {
-                        cell.transform.SetParent(blockCard.transform, false);  // block의 자식으로 설정하고 로컬 포지션 유지
-                    }
+                foreach (var cell in cells) {
+                    cell.transform.SetParent(blockCard.transform, false);  // block의 자식으로 설정하고 로컬 포지션 유지
                 }
-                else
-                {
-                    rewardObject = Instantiate(unitConfigPrefab, rewardSlots[i].transform);
 
-                    // UnitConfig 생성 및 초기화
-                    UnitConfigUIDrawer unitDrawer = rewardObject.GetComponent<UnitConfigUIDrawer>();
-                    unitDrawer.Draw(GetRandomUnitConfig());
-                }
-                rewardObject.transform.SetParent(rewardSlots[i].transform, false);  // 부모를 설정하고 로컬 포지션 유지
+
+                rewardObject.transform.SetParent(blockCardSlots[i].transform, false);  // 부모를 설정하고 로컬 포지션 유지
                 rewardObject.layer = 5; // UI
+            }
 
-                // 리워드를 리스트에 추가
-                generatedRewards.Add(rewardObject);
+        }
+
+        private void GenerateUnitConfigs() {
+            for (int i = 0; i < unitConfigSlots.Length; i++) {
+                GameObject rewardObject = Instantiate(unitConfigPrefab, unitConfigSlots[i].transform);
+
+                // UnitConfig 생성 및 초기화
+                UnitConfigUIDrawer unitDrawer = rewardObject.GetComponent<UnitConfigUIDrawer>();
+                unitDrawer.Draw(GetRandomUnitConfig());
             }
         }
+
+
 
         private BlockCard GetRandomBlockCard() => Player.Instance.CreateRandomBlockCard();
 
