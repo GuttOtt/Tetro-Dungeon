@@ -32,11 +32,11 @@ namespace Assets.Scripts.Reward
         [SerializeField] private int rewardAmount = 3;
         [SerializeField] private int rewardCount = 0;
 
-        private BlockCard _selectedBlockCard;
-        private UnitConfig _selectedUnitConfig;
+        private RewardPanel _selectedBlockCardSlot;
+        private RewardPanel _selectedUnitConfigSlot;
 
-        private List<GameObject> generatedRewards = new List<GameObject>();
-        private GameObject selectedReward = null;
+        private BlockCard _selectedBlockCard { get => _selectedBlockCardSlot?.BlockCard; }
+        private UnitConfig _selectedUnitConfig { get => _selectedUnitConfigSlot?.UnitConfig; }
 
         private UnitBlockDrawer _unitBlockMarker { get => cardSelector.UnitblockMarker; }
 
@@ -55,10 +55,8 @@ namespace Assets.Scripts.Reward
                 GenerateBlockCards();
                 GenerateUnitConfigs();
 
-                _selectedBlockCard = blockCardSlots[0].BlockCard;
-                _selectedUnitConfig = unitConfigSlots[0].UnitConfig;
-
-                createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
+                SelectBlockCard(blockCardSlots[0]);
+                SelectUnitConfig(unitConfigSlots[0]);
             }
         }
 
@@ -89,8 +87,9 @@ namespace Assets.Scripts.Reward
                 rewardObject.transform.SetParent(blockCardSlots[i].transform, false);  // 부모를 설정하고 로컬 포지션 유지
                 rewardObject.layer = 5; // UI
 
-                //클릭 시 선택되도록
-                blockCardSlots[i].onClick += () => SelectBlockCard(blockCard);
+                //클릭 액션 등록
+                RewardPanel blockCardSlot = blockCardSlots[i];
+                blockCardSlot.onClick += () => SelectBlockCard(blockCardSlot);
 
                 //슬롯에 정보 저장
                 blockCardSlots[i].BlockCard = blockCard;
@@ -108,21 +107,56 @@ namespace Assets.Scripts.Reward
                 UnitConfigUIDrawer unitDrawer = rewardObject.GetComponent<UnitConfigUIDrawer>();
                 unitDrawer.Draw(unitConfig);
 
-                //클릭 시 선택되도록
-                unitConfigSlots[i].onClick += () => SelectUnitConfig(unitConfig);
+                //클릭 액션 등록
+                RewardPanel unitConfigSlot = unitConfigSlots[i];
+                unitConfigSlot.onClick += () => SelectUnitConfig(unitConfigSlot);
 
                 //슬롯에 정보 저장
                 unitConfigSlots[i].UnitConfig = unitConfig;
             }
         }
 
-        private void SelectBlockCard(BlockCard blockCard) {
-            _selectedBlockCard = blockCard;
-            createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
+        public void RerollBlockCards() {
+            //리롤할 돈이 되는지 검사
+
+            ResetBlockCardSlots();
+            GenerateBlockCards();
+            SelectBlockCard(blockCardSlots[0]);
         }
 
-        private void SelectUnitConfig(UnitConfig unitConfig) {
-            _selectedUnitConfig = unitConfig;
+        public void RerollUnitConfigs() {
+            ResetUnitConfigSlots();
+            GenerateUnitConfigs();
+            SelectUnitConfig(unitConfigSlots[0]);
+        }
+
+
+        private void SelectBlockCard(RewardPanel blockCardSlot) {
+            //색상 변경
+            if (_selectedBlockCardSlot != null) {
+                _selectedBlockCardSlot.ChangeColor(Color.white);
+            }
+            _selectedBlockCardSlot = blockCardSlot;
+            _selectedBlockCardSlot.ChangeColor(new Color(0.5f, 1f, 0.5f, 0.5f));
+
+            UpdateCreatedCard();
+        }
+
+        private void SelectUnitConfig(RewardPanel unitConfigSlot) {
+            //색상 변경
+            if (_selectedUnitConfigSlot != null) {
+                _selectedUnitConfigSlot.ChangeColor(Color.white);
+            }
+            _selectedUnitConfigSlot = unitConfigSlot;
+            _selectedUnitConfigSlot.ChangeColor(new Color(0.5f, 1f, 0.5f, 0.5f));
+
+            UpdateCreatedCard();
+        }
+
+        private void UpdateCreatedCard() {
+            if (_selectedBlockCard == null || _selectedUnitConfig == null)
+                return;
+
             createdCard.Init(_selectedUnitConfig, _selectedBlockCard);
         }
 
@@ -150,21 +184,31 @@ namespace Assets.Scripts.Reward
           
         }
 
+        #region Reset Slots
         private void ResetSlots() {
+            ResetBlockCardSlots();
+            ResetUnitConfigSlots();
+            //item의 Init과 삭제 방식 수정해야함
+            //Slot 자체에 Init 메소드를 넣을 것.
+            //필요하다면 RewardPanel 클래스를 상속을 통해 두 종류로 구분할 것.
+        }
+
+        private void ResetBlockCardSlots() {
             foreach (var slot in blockCardSlots) {
                 slot.Reset();
                 GameObject item = slot.transform.Find("reward").gameObject;
                 Destroy(item);
             }
+        }
+
+        private void ResetUnitConfigSlots() {
             foreach (var slot in unitConfigSlots) {
                 slot.Reset();
                 GameObject item = slot.transform.Find("reward").gameObject;
                 Destroy(item);
             }
-            //item의 Init과 삭제 방식 수정해야함
-            //Slot 자체에 Init 메소드를 넣을 것.
-            //필요하다면 RewardPanel 클래스를 상속을 통해 두 종류로 구분할 것.
         }
+        #endregion
 
         private async void LoadNextStage()
         {

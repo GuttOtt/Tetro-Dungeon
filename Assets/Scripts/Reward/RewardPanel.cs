@@ -31,30 +31,6 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         onClick?.Invoke();
 
-        if (!clicked)
-        {
-            clicked = true;
-            // 선택된 아이템을 패널에 포함된 BlockCard나 UnitConfig로 설정
-            BlockCard blockCard = GetComponentInChildren<BlockCard>();
-            UnitConfigUIDrawer unit = GetComponentInChildren<UnitConfigUIDrawer>();
-            DeselectAllPanels();
-
-            panelImage.color = new Color(0.5f, 1f, 0.5f, 0.5f); // 연한 녹색
-
-            if (blockCard != null)
-            {
-                selectedItem = blockCard.gameObject;
-            }
-            else if (unit != null)
-            {
-                selectedItem = unit.gameObject;
-            }
-
-        }
-        else
-        {
-            Reset();
-        }
        
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -88,14 +64,9 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         }
     }
 
-    // 모든 패널들의 색상을 원래 색상으로 돌리는 함수
-    private void DeselectAllPanels()
-    {
-        RewardPanel[] allPanels = FindObjectsOfType<RewardPanel>();
-        foreach (RewardPanel panel in allPanels)
-        {
-            panel.Reset();
-        }
+
+    public void ChangeColor(Color color) {
+        panelImage.color = color;
     }
 
     public void Reset()
@@ -110,10 +81,6 @@ public class RewardPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void ResetClick() => clicked = false;
 
     internal void ResetSelectedItem() => selectedItem = null;
-    private void ResetItemInSlot() {
-    }
-
-    public GameObject GetSelectedItem() => selectedItem;
 
 
 }
