@@ -32,6 +32,15 @@ namespace Assets.Scripts.Reward
         [SerializeField] private int rewardAmount = 3;
         [SerializeField] private int rewardCount = 0;
 
+        #region Reroll And Money
+        [SerializeField] private int _baseRerollCost = 20;
+        [SerializeField] private int _rerollCostIncrement = 0;
+        private int _currentRerollCost = 20;
+
+        [SerializeField] private TMP_Text _playerMoneyText;
+        [SerializeField] private TMP_Text _rerollCostText;
+        #endregion
+
         private RewardPanel _selectedBlockCardSlot;
         private RewardPanel _selectedUnitConfigSlot;
 
@@ -57,6 +66,8 @@ namespace Assets.Scripts.Reward
 
                 SelectBlockCard(blockCardSlots[0]);
                 SelectUnitConfig(unitConfigSlots[0]);
+
+                UpdateMoneyUIs();
             }
         }
 
@@ -116,8 +127,13 @@ namespace Assets.Scripts.Reward
             }
         }
 
+        #region Reroll
         public void RerollBlockCards() {
             //리롤할 돈이 되는지 검사
+            if (!PayRerollCost()) {
+                Debug.Log($"리롤에 필요한 돈이 부족합니다.");
+                return;
+            }
 
             ResetBlockCardSlots();
             GenerateBlockCards();
@@ -125,11 +141,34 @@ namespace Assets.Scripts.Reward
         }
 
         public void RerollUnitConfigs() {
+            //리롤할 돈이 되는지 검사
+            if (!PayRerollCost()) {
+                Debug.Log($"리롤에 필요한 돈이 부족합니다.");
+                return;
+            }
+
             ResetUnitConfigSlots();
             GenerateUnitConfigs();
             SelectUnitConfig(unitConfigSlots[0]);
         }
 
+        private bool PayRerollCost() {
+            if (_currentRerollCost <= Player.Instance.CurrentMoney) {
+                Player.Instance.CurrentMoney -= _currentRerollCost;
+                _currentRerollCost += _rerollCostIncrement;
+                UpdateMoneyUIs();
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private void UpdateMoneyUIs() {
+            _playerMoneyText.text = "Player Money: " + Player.Instance.CurrentMoney.ToString();
+            _rerollCostText.text = "Reroll Cost: " + _currentRerollCost.ToString();
+        }
+        #endregion
 
         private void SelectBlockCard(RewardPanel blockCardSlot) {
             //색상 변경

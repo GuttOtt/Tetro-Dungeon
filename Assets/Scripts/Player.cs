@@ -24,6 +24,9 @@ namespace Assets.Scripts
         private List<TroopEffect> _allTroopEffect;
         private List<StatDecorator> _allStatDecorator;
 
+        [SerializeField] private int initialMoney = 100;
+        private int _currentMoney;
+
         [SerializeField]
         private List<Item> _itemInUse = new List<Item>();
         private List<Item> _itemInInv = new List<Item>();
@@ -42,6 +45,8 @@ namespace Assets.Scripts
 
         public int CurrentLife { get => _currentLife; set => _currentLife = value; }
 
+        public int CurrentMoney { get => _currentMoney; set => _currentMoney = value; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -58,6 +63,8 @@ namespace Assets.Scripts
 
             SetDeck(15);
             //SetExtraDeck(15);
+
+            _currentMoney = initialMoney;
         }
 
         public BlockCard CreateBlockCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator)
