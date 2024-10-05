@@ -10,7 +10,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private UnitSystem _unitSystem;
     private Cell _currentCell;
     private UnitConfig _config;
-    private int _maxHP, _maxMP, _currentHP, _currentMP, _attack, _currentAttack, _range, _unitTypeValue;
+    private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
     private float _speed;
     private float _actionCoolDown;
     private List<SynergyTypes> _synergies;
@@ -23,7 +23,6 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     #region Properties
     public int MaxHP { get => _maxHP; }
-    public int MaxMP { get => _maxMP; }
     public int Attack
     {
         get => _currentAttack;
@@ -44,8 +43,13 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
     }
+    public int SpellPower { get => SpellPower; }
     public int Range { get => _range; }
     public float Speed { get => _speed; }
+    public int Defence { get => _defence; }
+    public int SpellDefence { get => _spellDefence; }
+    public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
+    public float SpellDamageReductionRate { get => 1f / (1 + Defence / 10f); }
 
     public int UnitTypeValue { get => _unitTypeValue; }
     
@@ -94,8 +98,6 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Stats
         _maxHP = config.MaxHP;
         _currentHP = config.MaxHP;
-        _maxMP = config.MaxMP;
-        _currentMP = config.MaxMP;
         _attack = config.Attack;
         _currentAttack = config.Attack;
         _range = config.Range;
@@ -329,6 +331,24 @@ public class BaseUnit : MonoBehaviour, IUnit
         {
             Die(turnContext);
         }
+    }
+
+    public virtual void TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType) {
+        int reducedDamage = damage;
+
+        switch (damageType) {
+            case DamageTypes.Attack:
+                reducedDamage -= (int) (damage * AttackDamageReductionRate);
+                break;
+            case DamageTypes.Spell:
+                reducedDamage = (int) (damage * SpellDamageReductionRate);
+                break;
+            case DamageTypes.True:
+                reducedDamage -= 0;
+                break;
+        }
+
+        TakeDamage(turnContext, reducedDamage);
     }
 
     public virtual void TakeHeal(TurnContext turnContext, int amount)

@@ -27,4 +27,8 @@ namespace EnumTypes
     public enum SynergyTypes {
         Dragon, Gunner, Plant
     }
+
+    public enum DamageTypes {
+        Attack, Spell, True
+    }
 }

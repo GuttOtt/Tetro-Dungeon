@@ -4,10 +4,13 @@ using System.Collections.Generic;
 public interface IUnit
 {
     public int MaxHP { get; }
-    public int MaxMP { get; }
+    public int CurrentHP { get; }
     public int Attack { get; }
+    public int SpellPower { get; }
     public int Range { get; }
-    public int CurrentHP { get; }    
+
+    public int Defence { get; }
+    public int SpellDefence { get; }
 
     public float Speed { get; }
     
