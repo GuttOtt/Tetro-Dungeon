@@ -22,6 +22,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
     #region Properties
+    #region Stats
     public int MaxHP { get => _maxHP; }
     public int Attack
     {
@@ -50,6 +51,11 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int SpellDefence { get => _spellDefence; }
     public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
     public float SpellDamageReductionRate { get => 1f / (1 + Defence / 10f); }
+    #endregion
+    #region Skills
+    private ActiveSkill _defaultAttack;
+    private List<ActiveSkill> _activeSkills;
+    #endregion
 
     public int UnitTypeValue { get => _unitTypeValue; }
     
@@ -323,32 +329,28 @@ public class BaseUnit : MonoBehaviour, IUnit
         TakeDamage(turnContext, damage);
     }
 
-    public virtual void TakeDamage(TurnContext turnContext, int damage)
+    public virtual void TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType = DamageTypes.True)
     {
-        _unitDrawer.DisplayDamageText(damage);
-        CurrentHP -= damage;
-        if (CurrentHP <= 0)
-        {
-            Die(turnContext);
-        }
-    }
-
-    public virtual void TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType) {
         int reducedDamage = damage;
 
         switch (damageType) {
             case DamageTypes.Attack:
-                reducedDamage -= (int) (damage * AttackDamageReductionRate);
+                reducedDamage -= (int)(damage * AttackDamageReductionRate);
                 break;
             case DamageTypes.Spell:
-                reducedDamage = (int) (damage * SpellDamageReductionRate);
+                reducedDamage = (int)(damage * SpellDamageReductionRate);
                 break;
             case DamageTypes.True:
                 reducedDamage -= 0;
                 break;
         }
 
-        TakeDamage(turnContext, reducedDamage);
+        _unitDrawer.DisplayDamageText(damage);
+        CurrentHP -= damage;
+        if (CurrentHP <= 0)
+        {
+            Die(turnContext);
+        }
     }
 
     public virtual void TakeHeal(TurnContext turnContext, int amount)
