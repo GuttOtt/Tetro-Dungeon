@@ -23,3 +23,6 @@ MonoBehaviour:
   _speed: 1
   _unitTypeString: Sadism
   _synergies: 00000000
+  _projectile: {fileID: 0}
+  DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
+  ActiveSkills: []

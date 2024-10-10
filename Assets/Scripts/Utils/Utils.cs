@@ -110,4 +110,64 @@ public static class Utils {
 
         return false;
     }
+
+    public static T[,] HorizontalFlip<T>(T[,] original) {
+        int x = original.GetLength(0);
+        int y = original.GetLength(1);
+
+        T[,] fliped = new T[x, y];
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                fliped[i, j] = original[x - i - 1, j];
+            }
+        }
+
+        return fliped;
+    }
+
+    public static T[,] VertialFlip<T>(T[,] original) {
+        int x = original.GetLength(0);
+        int y = original.GetLength(1);
+
+        T[,] fliped = new T[x, y];
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                fliped[i, j] = original[i, y - j - 1];
+            }
+        }
+
+        return fliped;
+    }
+
+    public static T[,] RotateRight<T>(T[,] original) {
+        int lengthX = original.GetLength(0);
+        int lengthY = original.GetLength(1);
+
+        T[,] rotated = new T[lengthY, lengthX];
+
+        for (int x = 0; x < lengthX; x++) {
+            for (int y = 0; y < lengthY; y++) {
+                rotated[x, y] = original[y, lengthY - x - 1];
+            }
+        }
+
+        return rotated;
+    }
+
+    public static T[,] RotateLeft<T>(T[,] original) {
+        int lengthX = original.GetLength(0);
+        int lengthY = original.GetLength(1);
+
+        T[,] rotated = new T[lengthY, lengthX];
+
+        for (int x = 0; x < lengthX; x++) {
+            for (int y = 0; y < lengthY; y++) {
+                rotated[x, y] = original[lengthX - 1 - y, x];
+            }
+        }
+
+        return rotated;
+    }
 }

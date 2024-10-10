@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -44,17 +45,18 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
     }
-    public int SpellPower { get => SpellPower; }
+    public int SpellPower { get => _spellPower; }
     public int Range { get => _range; }
     public float Speed { get => _speed; }
     public int Defence { get => _defence; }
     public int SpellDefence { get => _spellDefence; }
     public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
-    public float SpellDamageReductionRate { get => 1f / (1 + Defence / 10f); }
+    public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 10f); }
     #endregion
     #region Skills
-    private ActiveSkill _defaultAttack;
+    private ActiveSkill _defaultSkill;
     private List<ActiveSkill> _activeSkills;
+    private float _skillChanceMultiplier;
     #endregion
 
     public int UnitTypeValue { get => _unitTypeValue; }
@@ -108,6 +110,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         _currentAttack = config.Attack;
         _range = config.Range;
         _speed = config.Speed;
+
+        //Skills
+        _defaultSkill = config.DefaultSkill;
+        _activeSkills = config.ActiveSkills.ToList();
 
         _unitTypeValue = config.UnitTypeValue;
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
@@ -254,9 +260,20 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public virtual void AttackAction(TurnContext turnContext)
     {
-        IUnit attackTarget = GetAttackTarget(turnContext.Board);
+        //이번 공격에 사용할 Active Skill을 선택
+        ActiveSkill skill = _defaultSkill;
+        for (int i = 0; i < _activeSkills.Count; i++) {
+            if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
+                skill = _activeSkills[i];
+                break;
+            }
+        }
 
-        attackTarget.TakeDamage(turnContext, Attack);
+        //메인 타겟 설정
+        BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
+
+        //선택한 스킬을 발동
+        skill.Activate(turnContext, this, mainTarget);
     }
 
     protected IUnit GetAttackTarget(Board board)
@@ -338,7 +355,7 @@ public class BaseUnit : MonoBehaviour, IUnit
                 reducedDamage -= (int)(damage * AttackDamageReductionRate);
                 break;
             case DamageTypes.Spell:
-                reducedDamage = (int)(damage * SpellDamageReductionRate);
+                reducedDamage -= (int)(damage * SpellDamageReductionRate);
                 break;
             case DamageTypes.True:
                 reducedDamage -= 0;

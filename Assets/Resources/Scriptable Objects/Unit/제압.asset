@@ -18,8 +18,11 @@ MonoBehaviour:
   _maxHp: 30
   _maxMP: 0
   _attack: 10
-  _range: 2
+  _range: 1
   _unitTypeValue: 10
   _speed: 1
   _unitTypeString: Domination
   _synergies: 01000000
+  _projectile: {fileID: 0}
+  DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
+  ActiveSkills: []

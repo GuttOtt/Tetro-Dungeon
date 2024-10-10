@@ -27,6 +27,11 @@ public class UnitConfig : ScriptableObject
     [SerializeField]
     private Projectile _projectile;
 
+    [SerializeField]
+    public ActiveSkill DefaultSkill;
+    [SerializeField]
+    public List<ActiveSkill> ActiveSkills = new List<ActiveSkill>();
+
     public Sprite Sprite { get => _sprite; }
     public int MaxHP { get => _maxHp; }
     public int MaxMP { get => _maxMP; }

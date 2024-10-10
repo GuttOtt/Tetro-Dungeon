@@ -262,19 +262,24 @@ public class Board : MonoBehaviour
     }
 
     public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes chracterType = CharacterTypes.None) {
-        int col = array.GetLength(0);
-        int row = array.GetLength(1);
+        int xSize = array.GetLength(0);
+        int ySize = array.GetLength(1);
+        
+
+        Debug.Log($"xSize: {xSize}, ySize: {ySize}");
+        Debug.Log($"Top: {top}, Left: {left}");
 
         List<Cell> cellsInArea = new List<Cell>();
 
-        if (Column < col + top || Row < row + left) {
+        if (Column < xSize + left - 1 || Row < ySize + top - 1) {
+            Debug.Log("return null");
             return null;
         }
 
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < ySize; j++) {
                 if (array[i, j]) {
-                    cellsInArea.Add(cells[i + top, j + left]);
+                    cellsInArea.Add(cells[left + i, top + j]);
                 }
             }
         }
