@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be99fdbc1a3b2184486ee98f1892d4a3, type: 3}
   m_Name: Gunner Synergy
   m_EditorClassIdentifier: 
-  _synergyType: 1
+  _synergyType: 2
   _minSynergyCount: 2
   _synergyValue: 5
+  _coolTime: 0

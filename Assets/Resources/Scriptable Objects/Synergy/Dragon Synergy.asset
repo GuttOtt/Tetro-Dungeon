@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92bdb05813186b47ad6d73beaafe337, type: 3}
   m_Name: Dragon Synergy
   m_EditorClassIdentifier: 
-  _synergyType: 0
+  _synergyType: 1
   _minSynergyCount: 2
   _synergyValue: 3
+  _coolTime: 0
