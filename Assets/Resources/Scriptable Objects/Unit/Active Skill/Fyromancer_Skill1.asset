@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbe2fe091e43ac40b90357435534a36, type: 3}
   m_Name: Fyromancer_Skill1
   m_EditorClassIdentifier: 
-  chance: 0.2
+  chance: 1
   damageType: 1
   baseDamage: 10
   attackRatio: 0
@@ -20,3 +20,4 @@ MonoBehaviour:
   aoe:
     size: {x: 3, y: 3}
     data: 010101010101010101
+  effectSprite: {fileID: 0}
