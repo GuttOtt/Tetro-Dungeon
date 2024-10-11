@@ -18,5 +18,5 @@ MonoBehaviour:
   attackRatio: 1
   spellPowerRatio: 0
   aoe:
-    size: {x: 3, y: 3}
-    data: 000101000101000101
+    size: {x: 1, y: 1}
+    data: 01

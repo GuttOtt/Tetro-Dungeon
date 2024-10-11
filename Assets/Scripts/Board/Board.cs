@@ -268,9 +268,6 @@ public class Board : MonoBehaviour
         int right = left + xSize - 1;
         int bottom = top + ySize - 1;
 
-        Debug.Log($"xSize: {xSize}, ySize: {ySize}");
-        Debug.Log($"Top: {top}, Left: {left}");
-
         List<Cell> cellsInArea = new List<Cell>();
 
         if (Row <= top || Column <= left) {
@@ -280,8 +277,6 @@ public class Board : MonoBehaviour
 
         int arrayTop = 0;
         int arrayLeft = 0;
-        int arrayRight = array.GetLength(0) - 1;
-        int arrayBottom = array.GetLength(1) - 1;
 
         //Cut
         if (top < 0) {
@@ -294,11 +289,9 @@ public class Board : MonoBehaviour
         }
 
         if (Column - 1 < right) {
-            arrayRight = right - (Column - 1);
             right = Column - 1;
         }
         if (Row - 1 < bottom) {
-            arrayBottom -= bottom - (Row - 1);
             bottom = Row - 1;
         }
         
