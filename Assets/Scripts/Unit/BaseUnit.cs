@@ -268,6 +268,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         for (int i = 0; i < _activeSkills.Count; i++) {
             if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
                 skill = _activeSkills[i];
+                Debug.Log($"{_config.name}의 스킬 발동!");
                 break;
             }
         }
@@ -365,7 +366,7 @@ public class BaseUnit : MonoBehaviour, IUnit
                 break;
         }
 
-        _unitDrawer.DisplayDamageText(damage);
+        _unitDrawer.DisplayDamageText(damage, damageType);
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {

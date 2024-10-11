@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using EnumTypes;
 using Extensions;
 using System.Collections;
@@ -13,6 +14,9 @@ public class DamageSkill : ActiveSkill
     [SerializeField] protected float attackRatio;
     [SerializeField] protected float spellPowerRatio;
     [SerializeField] protected TArray<bool> aoe = new TArray<bool>();
+    [SerializeField] protected Sprite effectSprite;
+
+    private List<GameObject> effectSprites;
 
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit mainTarget) {
         Board board = turnContext.Board;
@@ -22,13 +26,12 @@ public class DamageSkill : ActiveSkill
         int damage = (int)(baseDamage + activator.Attack * attackRatio + activator.SpellPower * spellPowerRatio);
         
         foreach (IUnit target in targets) {
-            target.TakeDamage(turnContext, damage, damageType);
+            target?.TakeDamage(turnContext, damage, damageType);
         }
         
     }
 
     private List<IUnit> GetUnitsInAoE(Board board, BaseUnit activator, BaseUnit target, CharacterTypes opponentType) {
-        //위치에 따른 회전을 적용해야 함
         Cell targetCell = target.CurrentCell;
         int targetCol = targetCell.position.col;
         int targetRow = targetCell.position.row;
@@ -38,10 +41,22 @@ public class DamageSkill : ActiveSkill
         int top = targetRow - adjustedAoE.GetLength(1) / 2;
         int left = targetCol - adjustedAoE.GetLength(0) / 2;
 
-
-        List<IUnit> unitsInAoE = board.GetUnitsInArea(adjustedAoE, opponentType, top, left);
+        List<IUnit> unitsInAoE = board.GetUnitsInArea(adjustedAoE, target.Owner, top, left);
 
         return unitsInAoE;
+    }
+
+    private async UniTaskVoid CreateEffectSprite(List<Cell> cells) {
+        foreach (Cell cell in cells) {
+            GameObject effectObject = new GameObject();
+            effectObject.transform.parent = cell.transform;
+            effectObject.transform.localPosition = Vector3.back;
+            effectObject.AddComponent<SpriteRenderer>().sprite = effectSprite;
+
+            effectSprites.Add(effectObject);
+        }
+
+        await UniTask.WaitForSeconds(0.6f);
     }
 
     private bool[,] AdjustAoE(BaseUnit activator, BaseUnit mainTarget) {

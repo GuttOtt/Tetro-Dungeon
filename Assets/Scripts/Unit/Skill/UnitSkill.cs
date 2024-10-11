@@ -12,7 +12,9 @@ public class ActiveSkill : UnitSkill {
     [SerializeField] protected float chance;
 
     public bool CheckChance(float chanceMultiplier) {
-        return Random.Range(0, 1) <= chance * chanceMultiplier;
+        float multipliedChance = chance * (1 + chanceMultiplier);
+        Debug.Log($"Skill Chance : {multipliedChance}");
+        return Random.Range(0, 1) <= multipliedChance;
     }
 
     public virtual void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target) {
