@@ -147,8 +147,8 @@ public static class Utils {
 
         T[,] rotated = new T[lengthY, lengthX];
 
-        for (int x = 0; x < lengthX; x++) {
-            for (int y = 0; y < lengthY; y++) {
+        for (int x = 0; x < rotated.GetLength(0); x++) {
+            for (int y = 0; y < rotated.GetLength(1); y++) {
                 rotated[x, y] = original[y, lengthY - x - 1];
             }
         }
@@ -162,8 +162,8 @@ public static class Utils {
 
         T[,] rotated = new T[lengthY, lengthX];
 
-        for (int x = 0; x < lengthX; x++) {
-            for (int y = 0; y < lengthY; y++) {
+        for (int x = 0; x < rotated.GetLength(0); x++) {
+            for (int y = 0; y < rotated.GetLength(1); y++) {
                 rotated[x, y] = original[lengthX - 1 - y, x];
             }
         }
