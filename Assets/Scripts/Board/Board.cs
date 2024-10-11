@@ -264,22 +264,49 @@ public class Board : MonoBehaviour
     public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes chracterType = CharacterTypes.None) {
         int xSize = array.GetLength(0);
         int ySize = array.GetLength(1);
-        
+
+        int right = left + xSize - 1;
+        int bottom = top + ySize - 1;
 
         Debug.Log($"xSize: {xSize}, ySize: {ySize}");
         Debug.Log($"Top: {top}, Left: {left}");
 
         List<Cell> cellsInArea = new List<Cell>();
 
-        if (Column < xSize + left - 1 || Row < ySize + top - 1) {
-            Debug.Log("return null");
+        if (Row <= top || Column <= left) {
+            Debug.LogError("Index out of range");
             return null;
         }
 
-        for (int i = 0; i < xSize; i++) {
-            for (int j = 0; j < ySize; j++) {
-                if (array[i, j]) {
-                    cellsInArea.Add(cells[left + i, top + j]);
+        int arrayTop = 0;
+        int arrayLeft = 0;
+        int arrayRight = array.GetLength(0) - 1;
+        int arrayBottom = array.GetLength(1) - 1;
+
+        //Cut
+        if (top < 0) {
+            arrayTop = -top;
+            top = 0;
+        }
+        if (left < 0) {
+            arrayLeft = -left;
+            left = 0;
+        }
+
+        if (Column - 1 < right) {
+            arrayRight = right - (Column - 1);
+            right = Column - 1;
+        }
+        if (Row - 1 < bottom) {
+            arrayBottom -= bottom - (Row - 1);
+            bottom = Row - 1;
+        }
+        
+
+        for (int x = 0; x <= right - left; x++) {
+            for (int y = 0; y <= bottom - top; y++) {
+                if (array[arrayLeft + x, arrayTop + y]) {
+                    cellsInArea.Add(cells[left + x, top + y]);
                 }
             }
         }

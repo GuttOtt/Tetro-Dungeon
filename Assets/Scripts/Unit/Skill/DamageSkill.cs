@@ -17,7 +17,7 @@ public class DamageSkill : ActiveSkill
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit mainTarget) {
         Board board = turnContext.Board;
 
-        List<IUnit> targets = GetUnitsInAoE(board, mainTarget, mainTarget.Owner);
+        List<IUnit> targets = GetUnitsInAoE(board, activator, mainTarget, mainTarget.Owner);
 
         int damage = (int)(baseDamage + activator.Attack * attackRatio + activator.SpellPower * spellPowerRatio);
         
@@ -27,26 +27,28 @@ public class DamageSkill : ActiveSkill
         
     }
 
-    private List<IUnit> GetUnitsInAoE(Board board, BaseUnit target, CharacterTypes opponentType) {
+    private List<IUnit> GetUnitsInAoE(Board board, BaseUnit activator, BaseUnit target, CharacterTypes opponentType) {
         //위치에 따른 회전을 적용해야 함
         Cell targetCell = target.CurrentCell;
         int targetCol = targetCell.position.col;
         int targetRow = targetCell.position.row;
 
-        int top = targetRow - aoe.Size.y / 2;
-        int left = targetCol - aoe.Size.x / 2;
+        bool[,] adjustedAoE = AdjustAoE(activator, target);
+
+        int top = targetRow - adjustedAoE.GetLength(1) / 2;
+        int left = targetCol - adjustedAoE.GetLength(0) / 2;
 
 
-        List<IUnit> unitsInAoE = board.GetUnitsInArea(aoe, opponentType, top, left);
+        List<IUnit> unitsInAoE = board.GetUnitsInArea(adjustedAoE, opponentType, top, left);
 
         return unitsInAoE;
     }
 
-    private bool[,] AdjustAoE(BaseUnit Activator, BaseUnit mainTarget) {
+    private bool[,] AdjustAoE(BaseUnit activator, BaseUnit mainTarget) {
         //스킬 시전 유닛과 타겟 유닛의 상대적 위치에 따라 AoE를 조정함
 
-        int xActivator = Activator.CurrentCell.position.col;
-        int yActivator = Activator.CurrentCell.position.row;
+        int xActivator = activator.CurrentCell.position.col;
+        int yActivator = activator.CurrentCell.position.row;
         int xTarget = mainTarget.CurrentCell.position.col;
         int yTarget = mainTarget.CurrentCell.position.row;
 
@@ -66,7 +68,13 @@ public class DamageSkill : ActiveSkill
         }
         //적이 아래에 있는 경우
         else if (yOffset < 0) {
-            adjusted = 
+            adjusted = Utils.RotateRight<bool>(aoe);
         }
+        //적이 위에 있는 경우
+        else {
+            adjusted = Utils.RotateLeft<bool>(aoe);
+        }
+
+        return adjusted;
     }
 }
