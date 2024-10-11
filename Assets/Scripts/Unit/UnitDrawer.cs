@@ -1,4 +1,5 @@
 using Assets.Scripts.Unit.UI;
+using EnumTypes;
 using TMPro;
 using UnityEngine;
 
@@ -75,12 +76,23 @@ public class UnitDrawer : MonoBehaviour
         _attackText.color = color;
     }
 
-    public void DisplayDamageText(int number) {
-        _healthText?.DisplayText(-number, Color.red);
+    public void DisplayDamageText(int number, DamageTypes damageType) {
+        Color color = Color.white;
+
+        switch (damageType) {
+            case DamageTypes.Attack:
+                color = Color.red;
+                break;
+            case DamageTypes.Spell:
+                color = Color.blue;
+                break;
+        }
+
+        _healthText?.DisplayText(-number, color);
     }
 
     public void DisplayHealText(int number) {
-        _healthText.DisplayText(number, Color.white);
+        _healthText.DisplayText(number, Color.magenta);
     }
 
     public void Highlight() {

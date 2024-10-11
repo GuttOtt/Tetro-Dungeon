@@ -365,7 +365,7 @@ public class BaseUnit : MonoBehaviour, IUnit
                 break;
         }
 
-        _unitDrawer.DisplayDamageText(damage);
+        _unitDrawer.DisplayDamageText(damage, damageType);
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {

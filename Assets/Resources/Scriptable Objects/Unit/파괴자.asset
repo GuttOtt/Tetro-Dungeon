@@ -26,7 +26,7 @@ MonoBehaviour:
   _unitTypeValue: 5
   _speed: 1.1
   _unitTypeString: Destroyer
-  _synergies: 00000000
+  _synergies: 01000000
   _projectile: {fileID: 0}
   DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
   ActiveSkills: []

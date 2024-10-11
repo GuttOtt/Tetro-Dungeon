@@ -22,6 +22,11 @@ namespace Assets.Scripts.Unit.UI {
 
         public void DisplayText(int number, Color color) {
             TMP_Text newText = Instantiate(_textPrefab, _canvas.transform);
+
+            if (0 < number) {
+                newText.text = "+";
+            }
+
             newText.text = number.ToString();
             newText.color = color;
 
