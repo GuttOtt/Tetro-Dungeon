@@ -108,6 +108,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         _currentHP = config.MaxHP;
         _attack = config.Attack;
         _currentAttack = config.Attack;
+        _spellPower = config.SpellPower;
+        _defence = config.Defence;
+        _spellDefence = config.SpellDefence;
         _range = config.Range;
         _speed = config.Speed;
 

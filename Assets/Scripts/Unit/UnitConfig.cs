@@ -13,7 +13,7 @@ public class UnitConfig : ScriptableObject
     private Sprite _sprite;
 
     [SerializeField]
-    private int _maxHp, _maxMP, _attack, _range, _unitTypeValue;
+    private int _maxHp, _maxMP, _attack, _spellPower, _defence, _spellDefence, _range, _unitTypeValue;
 
     [SerializeField]
     private float _speed;
@@ -36,8 +36,13 @@ public class UnitConfig : ScriptableObject
     public int MaxHP { get => _maxHp; }
     public int MaxMP { get => _maxMP; }
     public int Attack { get => _attack; }
+    public int SpellPower { get => _spellPower; }
     public int Range { get => _range; }
     public float Speed { get => _speed; }
+
+    public int Defence { get => _defence; }
+    public int SpellDefence { get => _spellDefence; }
+
     public string UnitTypeString { get => _unitTypeString; }
     public int UnitTypeValue { get => _unitTypeValue; }
     public List<SynergyTypes> Synergies { get => _synergies; }

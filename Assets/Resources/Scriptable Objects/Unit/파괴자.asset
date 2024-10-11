@@ -19,6 +19,9 @@ MonoBehaviour:
   _maxHp: 50
   _maxMP: 0
   _attack: 20
+  _spellPower: 0
+  _defence: 2
+  _spellDefence: 0
   _range: 1
   _unitTypeValue: 5
   _speed: 1.1
