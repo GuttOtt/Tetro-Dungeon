@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbe2fe091e43ac40b90357435534a36, type: 3}
   m_Name: Default Melee Attack
   m_EditorClassIdentifier: 
-  chance: 1
+  chance: 0.2
   damageType: 0
   baseDamage: 0
   attackRatio: 1
@@ -20,3 +20,5 @@ MonoBehaviour:
   aoe:
     size: {x: 1, y: 1}
     data: 01
+  effectSprite: {fileID: 0}
+  _isEffectOnCells: 0

@@ -44,7 +44,7 @@ public class SynergySystem : MonoBehaviour {
                 if (synergyDic.ContainsKey(synergyType)) {
                     synergyDic[synergyType]++;
                 }
-                else {
+                else if (synergyType != SynergyTypes.None) {
                     synergyDic.Add(synergyType, 1);
                 }
             }

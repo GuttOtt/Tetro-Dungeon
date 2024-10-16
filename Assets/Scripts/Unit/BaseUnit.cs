@@ -9,8 +9,9 @@ public class BaseUnit : MonoBehaviour, IUnit
 {
     #region private members
     private UnitSystem _unitSystem;
+    [SerializeField]
     private Cell _currentCell;
-    private UnitConfig _config;
+    public UnitConfig _config;
     private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
     private float _speed;
     private float _actionCoolDown;
@@ -268,7 +269,6 @@ public class BaseUnit : MonoBehaviour, IUnit
         for (int i = 0; i < _activeSkills.Count; i++) {
             if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
                 skill = _activeSkills[i];
-                Debug.Log($"{_config.name}의 스킬 발동!");
                 break;
             }
         }
@@ -277,6 +277,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
         //선택한 스킬을 발동
+        Debug.Log($"{_config.name}의 스킬 발동: {skill.name}을 {mainTarget._config.name}에게 사용.");
         skill.Activate(turnContext, this, mainTarget);
     }
 

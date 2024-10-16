@@ -12,6 +12,7 @@ public class Cell : MonoBehaviour
         public int col;
     }
 
+    [SerializeField]
     private IUnit _unit;
     [SerializeField]
     private Position _position;
@@ -50,7 +51,7 @@ public class Cell : MonoBehaviour
         if (_unit == null) return null;
 
         (_unit as BaseUnit).OnDestroy -= () => UnitOut();
-        var temp = _unit;
+        IUnit temp = _unit;
         _unit = null;
         return temp;
     }

@@ -237,7 +237,7 @@ public class CardSystem : MonoBehaviour
 
     private void SpinUnitBlockMarker(bool clockwise) {
         //유닛 블럭 마커가 없다면 리턴
-        if (!_unitBlockMarker.gameObject.activeSelf) {
+        if (!_unitBlockMarker.gameObject.activeSelf || _selectedPolyomino == null) {
             return;
         }
 
