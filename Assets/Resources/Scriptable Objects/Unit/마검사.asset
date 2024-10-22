@@ -15,6 +15,7 @@ MonoBehaviour:
   _name: "\uB9C8\uAC80\uC0AC"
   _effectDescription: "\uACF5\uACA9 \uC2DC (\uACF5\uACA9\uB825 * 1 + \uC8FC\uBB38\uB825
     * 1) \uB9CC\uD07C\uC758 \uB9C8\uBC95 \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4"
+  _spumPrefabs: {fileID: 0}
   _sprite: {fileID: 21300000, guid: b3df4d18c7b162d41a05b7262677d47e, type: 3}
   _maxHp: 30
   _maxMP: 0

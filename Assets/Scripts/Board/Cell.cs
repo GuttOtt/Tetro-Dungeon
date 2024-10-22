@@ -13,6 +13,8 @@ public class Cell : MonoBehaviour
     }
 
     [SerializeField]
+    private BaseUnit _baseUnit;
+
     private IUnit _unit;
     [SerializeField]
     private Position _position;
@@ -35,13 +37,10 @@ public class Cell : MonoBehaviour
         }
         else {
             unit.CurrentCell?.UnitOut();
-            this._unit = unit;
+            _unit = unit;
+            _baseUnit = unit as BaseUnit;
             (unit as BaseUnit).OnDestroy += () => UnitOut();
-
-            //Transform ÀÌµ¿
-            Transform unitTransform = (unit as BaseUnit).transform;
-            unitTransform.parent = this.transform;
-            unitTransform.DOMove(transform.position, unit.Speed * 0.8f).SetEase(Ease.OutBack, 2f);
+            (unit as BaseUnit).transform.parent = transform;
 
             return true;
         }
@@ -53,6 +52,7 @@ public class Cell : MonoBehaviour
         (_unit as BaseUnit).OnDestroy -= () => UnitOut();
         IUnit temp = _unit;
         _unit = null;
+        _baseUnit = null;
         return temp;
     }
 }

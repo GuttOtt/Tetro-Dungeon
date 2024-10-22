@@ -38,7 +38,7 @@ public class SPUM_Prefabs : MonoBehaviour
     {
         Animator animator = _anim;
         OverrideController = new AnimatorOverrideController();
-        OverrideController.runtimeAnimatorController= animator.runtimeAnimatorController;
+        OverrideController.runtimeAnimatorController= animator.runtimeAnimatorController; 
 
         // 모든 애니메이션 클립을 가져옵니다
         AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
@@ -182,7 +182,7 @@ public class SPUM_Prefabs : MonoBehaviour
                 {
                     bool isTrigger = parameter.name.ToUpper().Contains(StateStr.ToUpper());
                     if(isTrigger){
-                         Debug.Log($"Parameter: {parameter.name}, Type: {parameter.type}");
+                        //Debug.Log($"Parameter: {parameter.name}, Type: {parameter.type}");
                         animator.SetTrigger(parameter.name);
                     }
                 }

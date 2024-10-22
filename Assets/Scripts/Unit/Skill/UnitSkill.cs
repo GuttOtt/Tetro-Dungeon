@@ -13,8 +13,9 @@ public class ActiveSkill : UnitSkill {
 
     public bool CheckChance(float chanceMultiplier) {
         float multipliedChance = chance * (1 + chanceMultiplier);
-        Debug.Log($"Skill Chance : {multipliedChance}");
-        return Random.Range(0, 1) <= multipliedChance;
+        float r = Random.Range(0, 1f);
+        Debug.Log($"Skill Chance : {multipliedChance}, r : {r}");
+        return r <= multipliedChance;
     }
 
     public virtual void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target) {

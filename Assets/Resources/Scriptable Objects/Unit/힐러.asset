@@ -17,6 +17,7 @@ MonoBehaviour:
     \uCCB4\uB825\uC744 \uACF5\uACA9\uB825\uB9CC\uD07C \uD68C\uBCF5  \uC55E\uC5D0
     \uC544\uAD70 \uC720\uB2DB\uC774 \uC544\uB2C8\uB77C \uC801 \uC720\uB2DB\uC774
     \uC788\uB2E4\uBA74, \uC77C\uBC18 \uC720\uB2DB\uCC98\uB7FC \uACF5\uACA9\""
+  _spumPrefabs: {fileID: 0}
   _sprite: {fileID: 21300000, guid: c3005d0c391c60649b76083fb11706d8, type: 3}
   _maxHp: 35
   _maxMP: 0

@@ -10,6 +10,9 @@ public class UnitConfig : ScriptableObject
     private string _name, _effectDescription;
 
     [SerializeField]
+    private SPUM_Prefabs _spumPrefabs;
+
+    [SerializeField]
     private Sprite _sprite;
 
     [SerializeField]
@@ -29,6 +32,7 @@ public class UnitConfig : ScriptableObject
 
     [SerializeField]
     public ActiveSkill DefaultSkill;
+
     [SerializeField]
     public List<ActiveSkill> ActiveSkills = new List<ActiveSkill>();
 
@@ -49,6 +53,7 @@ public class UnitConfig : ScriptableObject
     public string Name { get => _name; }
     public string EffectDescription { get => _effectDescription; }
     public Projectile Projectile { get => _projectile; }
+    public SPUM_Prefabs SPU_Prefabs { get => _spumPrefabs; }
 
     public void Init(UnitConfig unit)
     {

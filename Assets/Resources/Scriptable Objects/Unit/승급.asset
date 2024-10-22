@@ -15,6 +15,7 @@ MonoBehaviour:
   _name: "\uC2B9\uAE09"
   _effectDescription: "\uC774\uB3D9 \uC2DC \uACF5\uACA9\uB825\uACFC \uCCB4\uB825
     n \uC0C1\uC2B9"
+  _spumPrefabs: {fileID: 0}
   _sprite: {fileID: 21300000, guid: f589895e7f5c1ea48a90fc8f06ceb929, type: 3}
   _maxHp: 40
   _maxMP: 0

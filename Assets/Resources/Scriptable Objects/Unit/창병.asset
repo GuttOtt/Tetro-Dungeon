@@ -15,10 +15,14 @@ MonoBehaviour:
   _name: "\uCC3D\uBCD1"
   _effectDescription: "\uC77C\uB82C\uB85C \uC11C \uC788\uB294 \uB450 \uBA85\uC758
     \uC801\uC744 \uB3D9\uC2DC\uC5D0 \uACF5\uACA9\uD569\uB2C8\uB2E4."
+  _spumPrefabs: {fileID: 0}
   _sprite: {fileID: 21300000, guid: 2a20c0d15d2765446badf9b38817df9d, type: 3}
   _maxHp: 50
   _maxMP: 0
   _attack: 10
+  _spellPower: 0
+  _defence: 0
+  _spellDefence: 0
   _range: 1
   _unitTypeValue: 0
   _speed: 1

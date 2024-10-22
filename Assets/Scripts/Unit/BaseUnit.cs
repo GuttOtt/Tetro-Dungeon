@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
+using System.Runtime.InteropServices;
+using Cysharp.Threading.Tasks;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -12,6 +14,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     [SerializeField]
     private Cell _currentCell;
     public UnitConfig _config;
+    private UnitSPUMControl _spumControl;
     private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
     private float _speed;
     private float _actionCoolDown;
@@ -104,6 +107,24 @@ public class BaseUnit : MonoBehaviour, IUnit
         _unitDrawer = GetComponent<UnitDrawer>();
         _unitDrawer.Draw(config);
 
+        //Spum
+        if (_config.SPU_Prefabs != null) {
+            if (_spumControl == null) {
+                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
+            }
+            SPUM_Prefabs spum = Instantiate(_config.SPU_Prefabs, gameObject.transform);
+            _spumControl.SetSPUM(spum);
+
+            //위치와 방향 설정
+            spum.transform.localPosition = new Vector3(0, -0.2f, -1);
+            if (owner == CharacterTypes.Player) {
+                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            }
+
+            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+
         //Stats
         _maxHP = config.MaxHP;
         _currentHP = config.MaxHP;
@@ -172,7 +193,6 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Unit Action Pattern
     public void Act(TurnContext turnContext) {
         if (IsAttackable(turnContext)) {
-            AttackAnimation(turnContext);
             AttackAction(turnContext);
             Debug.Log($"{_config.name} Attack");
         }
@@ -197,15 +217,25 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         Debug.Log($"{_config.name} Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
 
+        Cell moveCell = movePath[1];
+
         //유닛 이동
-        if (movePath[1].Unit != null) {
+        if (moveCell.Unit != null) {
             Debug.LogError("이동하려는 칸에 이미 유닛이 있습니다!");
         }
 
         CurrentCell.UnitOut();
-        movePath[1].UnitIn(this);
+        moveCell.UnitIn(this);
         CurrentCell = movePath[1];
 
+        //Transform 이동
+        var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, 2f);
+        tween.OnStart(() =>
+            _spumControl?.ChangeState(PlayerState.MOVE)
+        );
+        tween.OnComplete(() =>
+            _spumControl?.ChangeState(PlayerState.IDLE)
+        );
     }
 
     protected List<Cell> GetMovePath(Board board) {
@@ -262,7 +292,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             return false;
     }
 
-    public virtual void AttackAction(TurnContext turnContext)
+    public async virtual void AttackAction(TurnContext turnContext)
     {
         //이번 공격에 사용할 Active Skill을 선택
         ActiveSkill skill = _defaultSkill;
@@ -275,6 +305,10 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //메인 타겟 설정
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
+
+        //공격 애니메이션 출력
+        _spumControl.PlayAttackAnimation(mainTarget);
+        await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
 
         //선택한 스킬을 발동
         Debug.Log($"{_config.name}의 스킬 발동: {skill.name}을 {mainTarget._config.name}에게 사용.");
@@ -290,19 +324,6 @@ public class BaseUnit : MonoBehaviour, IUnit
         return attackTarget;
     }
 
-    //애니메이션이나 transform 움직임은 별도의 클래스로 이동하는 게 좋을 수 있음
-    protected void AttackAnimation(TurnContext turnContext) {
-        IUnit target = GetAttackTarget(turnContext.Board);
-
-        if (target == null || target as BaseUnit == null) {
-            return;
-        }
-
-        Vector3 targetPos = (target as BaseUnit).transform.position; 
-        Vector3 moveVector = transform.position + (targetPos - transform.position).normalized * 0.3f;
-
-        transform.DOMove(moveVector, 0.15f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.Linear);
-    }
 
     protected void FireProjectile(BaseUnit target, Action<BaseUnit> onHit, float speed = 7) {
         if (_projectilePrefab == null) {
