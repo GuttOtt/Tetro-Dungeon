@@ -307,8 +307,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
         //공격 애니메이션 출력
-        _spumControl.PlayAttackAnimation(mainTarget);
-        await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
+        if (_spumControl != null) {
+            _spumControl.PlayAttackAnimation(mainTarget);
+            await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
+        }
 
         //선택한 스킬을 발동
         Debug.Log($"{_config.name}의 스킬 발동: {skill.name}을 {mainTarget._config.name}에게 사용.");
