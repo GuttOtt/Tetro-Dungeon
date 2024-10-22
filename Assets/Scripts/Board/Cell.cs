@@ -33,13 +33,12 @@ public class Cell : MonoBehaviour
 
     public bool UnitIn(IUnit unit) {
         if (_unit != null || unit == null) {//이미 유닛이 있다면, false를 반환하고 종료
+            Debug.LogError("비어 있지 않은 Cell에 유닛을 넣으려고 시도함.");
             return false;
         }
         else {
-            unit.CurrentCell?.UnitOut();
             _unit = unit;
             _baseUnit = unit as BaseUnit;
-            (unit as BaseUnit).OnDestroy += () => UnitOut();
             (unit as BaseUnit).transform.parent = transform;
 
             return true;
@@ -49,7 +48,6 @@ public class Cell : MonoBehaviour
     public IUnit UnitOut() {
         if (_unit == null) return null;
 
-        (_unit as BaseUnit).OnDestroy -= () => UnitOut();
         IUnit temp = _unit;
         _unit = null;
         _baseUnit = null;

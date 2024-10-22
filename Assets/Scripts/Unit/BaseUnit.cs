@@ -11,8 +11,8 @@ public class BaseUnit : MonoBehaviour, IUnit
 {
     #region private members
     private UnitSystem _unitSystem;
-    [SerializeField]
-    private Cell _currentCell;
+    [SerializeField] private Cell _currentCell;
+    [SerializeField] private int _id;
     public UnitConfig _config;
     private UnitSPUMControl _spumControl;
     private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
@@ -63,6 +63,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private float _skillChanceMultiplier;
     #endregion
 
+    public int ID { get => _id; }
     public int UnitTypeValue { get => _unitTypeValue; }
     
     public Action OnDie { get; set; } //전투 중 유닛이 공격이나 효과에 의해 사망할 때 회출되는 이벤트.
@@ -95,10 +96,10 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public virtual void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner)
-    {
+    public virtual void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner, int id) { 
         //System
         _unitSystem = unitSystem;
+        _id = id;
 
         //Config
         _config = config;
@@ -158,10 +159,12 @@ public class BaseUnit : MonoBehaviour, IUnit
     {
         OnDie?.Invoke();
         OnDestroy?.Invoke();
+        CurrentCell.UnitOut();
     }
 
     public void DestroySelf() {
-        OnDestroy.Invoke();
+        OnDestroy?.Invoke();
+        CurrentCell.UnitOut();
     }
 
     public virtual void Die(TurnContext turnContext)
@@ -215,7 +218,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     {
         List<Cell> movePath = GetMovePath(turnContext.Board);
 
-        Debug.Log($"{_config.name} Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
+        Debug.Log($"[{_config.name}, id: {_id}] Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
 
         Cell moveCell = movePath[1];
 
@@ -268,8 +271,12 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
         */
 
+        if (shortestMovePath != null && shortestMovePath.Count <= 1) {
+            Debug.LogError("shortestMovePath가 1임. 이런 경우는 존재해서는 안 됨. Board 클래스의 PathFinding 알고리즘을 확인해볼 것.");
+        }
+
         //만약 공격 가능한 위치로 이동할 수 없다면, 그냥 가장 가까운 적을 향해 한 칸 이동할 수 있는지 계산
-        if (shortestMovePath == null || shortestMovePath.Count <= 1) {
+        if (shortestMovePath == null) {
             int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
             Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
 
@@ -313,7 +320,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //선택한 스킬을 발동
-        Debug.Log($"{_config.name}의 스킬 발동: {skill.name}을 {mainTarget._config.name}에게 사용.");
+        Debug.Log($"[{_config.name}, id: {_id}]의 스킬 발동: {skill.name}을 [{mainTarget._config.name}, id: {mainTarget.ID}]에게 사용.");
         skill.Activate(turnContext, this, mainTarget);
     }
 

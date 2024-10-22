@@ -35,7 +35,10 @@ public class UnitSystem : MonoBehaviour
 
         BaseUnit unit = unitGO.AddComponent(unitType) as BaseUnit;
 
-        unit.Init(this, unitConfig, owner);
+        //유닛 인스턴스 식별에 사용되는 고유 id
+        int id = _units.Count;
+
+        unit.Init(this, unitConfig, owner, id);
         _units.Add(unit);
 
         unit.OnDestroy += () => DestroyUnit(unit);
