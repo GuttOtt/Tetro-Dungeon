@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-10-14 22:09:44",
+    "CreationDate": "2024-10-23 17:42:10",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -551,6 +551,14 @@
             "SubType": "Hair_9",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_9"
+        },
+        {
+            "Name": "Hair_vampire",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_vampire",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_vampire"
         },
         {
             "Name": "Devil_1",
@@ -1487,6 +1495,30 @@
             "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_12"
+        },
+        {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
         },
         {
             "Name": "F_SR_Cloth",
