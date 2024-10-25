@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-10-23 17:42:10",
+    "CreationDate": "2024-10-25 19:17:18",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -1951,6 +1951,14 @@
             "SubType": "Ward_1",
             "PartSubType": "Wand",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/5_Wand/Ward_1"
+        },
+        {
+            "Name": "Book_1",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Book_1",
+            "PartSubType": "Hammer",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/6_Hammer/Book_1"
         },
         {
             "Name": "F_SR_Hammer",
