@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-10-14 22:09:44",
+    "CreationDate": "2024-10-25 19:17:18",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -551,6 +551,14 @@
             "SubType": "Hair_9",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_9"
+        },
+        {
+            "Name": "Hair_vampire",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_vampire",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_vampire"
         },
         {
             "Name": "Devil_1",
@@ -1489,6 +1497,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_12"
         },
         {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
+            "Name": "Cloth_vampire 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
             "Name": "F_SR_Cloth",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -1919,6 +1951,14 @@
             "SubType": "Ward_1",
             "PartSubType": "Wand",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/5_Wand/Ward_1"
+        },
+        {
+            "Name": "Book_1",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Book_1",
+            "PartSubType": "Hammer",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/6_Hammer/Book_1"
         },
         {
             "Name": "F_SR_Hammer",
