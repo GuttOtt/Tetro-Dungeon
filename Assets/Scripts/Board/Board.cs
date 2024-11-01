@@ -2,11 +2,7 @@ using EnumTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.XR;
 
 public class Board : MonoBehaviour
 {
