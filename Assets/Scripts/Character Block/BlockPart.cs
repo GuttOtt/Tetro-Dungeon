@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockPart : MonoBehaviour {
     [SerializeField] private SpriteMask _spriteMask;
     private CharacterBlock _characterBlock;
+    public Cell Cell;
 
     public Vector2 Size { get => _spriteMask.bounds.size; }
     public CharacterBlock CharacterBlock { get => _characterBlock; }
@@ -14,7 +15,7 @@ public class BlockPart : MonoBehaviour {
         SetSortingOrder(frontSortingOrder);
     }
 
-    public Cell GetCellUnder() {
+    public Cell PickCell() {
         return Utils.Pick<Cell>(transform.position);
     }
 

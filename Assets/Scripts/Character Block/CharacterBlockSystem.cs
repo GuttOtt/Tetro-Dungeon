@@ -10,6 +10,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
     [SerializeField] private CharacterBlock _characterBlockPrefab;
     private CharacterBlock _selectedBlock;
+    private Vector3 _selectedBlockOriginalPos;
 
     //For Debug
     [SerializeField] private CharacterBlockConfig _testConfig;
@@ -56,11 +57,13 @@ public class CharacterBlockSystem : MonoBehaviour {
         CharacterBlock selectedBlock = selectedBlockPart.CharacterBlock;
         if (selectedBlock == null) return;
 
+        _selectedBlock = selectedBlock;
+        _selectedBlockOriginalPos = _selectedBlock.transform.position;
+
         //가장 위로 가게 하기 위해 SortingLayer 설정
         int draggingLayerID = SortingLayer.NameToID("Dragging");
         selectedBlock.ChangeSortingLayer(draggingLayerID);
 
-        _selectedBlock = selectedBlock;
     }
 
     private void MoveSelectedBlock() {
@@ -77,6 +80,12 @@ public class CharacterBlockSystem : MonoBehaviour {
         //SortingLayer 원래대로 되돌리기
         int illustLyaerID = SortingLayer.NameToID("Illust");
         _selectedBlock.ChangeSortingLayer(illustLyaerID);
+
+        //Placing
+        bool isPlaced = TryPlace();
+        if (!isPlaced) {
+            //_selectedBlock.transform.position = _selectedBlockOriginalPos;
+        }
 
         _selectedBlock = null;
     }
@@ -96,7 +105,15 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
     #endregion
 
-    private void TryPlace() {
+    private bool TryPlace() {
+        if (_selectedBlock == null) return false;
 
+        if (_selectedBlock.IsPlacable()) {
+            _selectedBlock.Place();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

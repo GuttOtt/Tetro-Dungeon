@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour, IGameManager
             Debug.LogError("Player instance is null!");
             return;
         }
-        StartBattleScene();
+        //StartBattleScene();
     }
 
     private void StartBattleScene() {

@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
     private IGameManager _gameManager;
     private UnitBlockSystem _unitBlockSystem;
 
+    [SerializeField] private bool _isAllPlayerCell;
     [SerializeField] private int row, column;
     [SerializeField] private Cell cellPrefab;
     private Cell[,] cells;
@@ -39,7 +40,13 @@ public class Board : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
-        _unitBlockSystem = _gameManager.GetSystem<UnitBlockSystem>();
+        //_unitBlockSystem = _gameManager.GetSystem<UnitBlockSystem>();
+    }
+
+    private void Start() {
+        if (cells == null || cells.Length == 0) {
+            Init();
+        }
     }
 
     public void Init() {
@@ -54,13 +61,13 @@ public class Board : MonoBehaviour
                 cells[x, y] = cell;
                 cells[x, y].transform.localPosition = new Vector2(cellSize.x * x, -cellSize.y * y);
 
-                if (x < column / 2) {
-                    cell.Init(x, y, CharacterTypes.Player);
-                    cell.GetComponent<SpriteRenderer>().color = Color.blue;
-                }
-                else {
+                if (column / 2 <= x && !_isAllPlayerCell) {
                     cell.Init(x, y, CharacterTypes.Enemy);
                     cell.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                else {
+                    cell.Init(x, y, CharacterTypes.Player);
+                    cell.GetComponent<SpriteRenderer>().color = Color.blue;
                 }
             }
         }

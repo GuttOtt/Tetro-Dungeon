@@ -69,7 +69,27 @@ public class CharacterBlock : MonoBehaviour {
     }
 
     public void Place() {
+        foreach (BlockPart blockPart in _blockParts) {
+            Cell cellUnder = blockPart.PickCell();
+            blockPart.Cell = cellUnder;
+        }
 
+        //임의의 셀 하나를 택해 Cell과의 상대적 position 차이 구하기
+        Vector3 blockPartPos = _blockParts[0].transform.position;
+        Vector3 cellPos = _blockParts[0].Cell.transform.position;
+        Vector3 vectorDifference = blockPartPos - cellPos;
+
+        transform.position -= vectorDifference;
+    }
+
+    public bool IsPlacable() {
+        foreach (BlockPart blockPart in _blockParts) {
+            Cell cellUnder = blockPart.PickCell();
+            if (cellUnder == null)
+                return false;
+        }
+
+        return true;
     }
 
     public void ChangeSortingLayer(int sortingLayerID) {
