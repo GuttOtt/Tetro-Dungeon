@@ -49,6 +49,7 @@ MonoBehaviour:
   _config: {fileID: 0}
   _illustRenderer: {fileID: 7590953373657677237}
   _blockPartPrefab: {fileID: -4384848827524713034, guid: 7f0f5544b5c076443ad1fd57c5c8bb65, type: 3}
+  _blockPartsRoot: {fileID: 6754726404305032055}
 --- !u!1 &6580668573004334783
 GameObject:
   m_ObjectHideFlags: 0

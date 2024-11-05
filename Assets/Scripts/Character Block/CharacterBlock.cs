@@ -7,12 +7,12 @@ public class CharacterBlock : MonoBehaviour {
     private string _name;
     private Sprite _illust;
     private Array2DBool _shape;
-    [SerializeField] private CharacterBlockConfig _config;
-    private UnitConfig _unitConfig;
+    private CharacterBlockConfig _config;
 
     [SerializeField] private SpriteRenderer _illustRenderer;
 
     [SerializeField] private BlockPart _blockPartPrefab;
+    [SerializeField] private Transform _blockPartsRoot;
     private List<BlockPart> _blockParts = new List<BlockPart>();
 
     private void Start() {
@@ -21,7 +21,6 @@ public class CharacterBlock : MonoBehaviour {
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
         _config = config;
         _name = config.name;
-        _unitConfig = config.UnitConfig;
         _illust = config.Illust;
 
         _illustRenderer.sprite = _illust;
@@ -53,17 +52,31 @@ public class CharacterBlock : MonoBehaviour {
 
     private BlockPart CreateBlock(Vector2 localPosition, int frontSortingOrder) {
         BlockPart blockPart = Instantiate(_blockPartPrefab, transform);
+        blockPart.Init(this, frontSortingOrder);
         blockPart.transform.localPosition = localPosition;
-        blockPart.SetSortingOrder(frontSortingOrder);
+        blockPart.transform.parent = _blockPartsRoot;
 
         return blockPart;
     }
 
     public void Spin(bool isClockwise) {
-
+        if (!isClockwise) {
+            transform.Rotate(0, 0, 90);
+        }
+        else {
+            transform.Rotate(0, 0, -90);
+        }
     }
 
     public void Place() {
 
+    }
+
+    public void ChangeSortingLayer(int sortingLayerID) {
+        _illustRenderer.sortingLayerID = sortingLayerID;
+        
+        foreach (BlockPart blockPart in _blockParts) {
+            blockPart.SetSortingLayer(sortingLayerID);
+        }
     }
 }
