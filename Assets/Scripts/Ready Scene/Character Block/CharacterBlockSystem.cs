@@ -10,8 +10,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     private CharacterBlock _selectedBlock;
     private Vector3 _selectedBlockOriginalPos;
 
-    //For Debug
-    [SerializeField] private CharacterBlockConfig _testConfig;
+    [SerializeField] private InventorySystem _inventorySystem;
 
     private bool _isInputOn = true;
 
@@ -28,11 +27,6 @@ public class CharacterBlockSystem : MonoBehaviour {
         MoveSelectedBlock();
         UnSelectBlock();
         SpinBlock();
-    }
-
-    public void DebugOnly() {
-        CreateCharacterBlock(_testConfig, 1);
-        CreateCharacterBlock(_testConfig, 1);
     }
 
     public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel) {
@@ -88,8 +82,22 @@ public class CharacterBlockSystem : MonoBehaviour {
         //Placing
         bool isPlaced = TryPlace();
         if (!isPlaced) {
-            _selectedBlock.Unplace();
-            //_selectedBlock.transform.position = _selectedBlockOriginalPos;
+            //Inventory에 있었던 블럭일 경우
+            if (_inventorySystem.ContainsItem(_selectedBlock)) {
+                if (!_inventorySystem.IsInsideArea(_selectedBlock)) {
+                    _selectedBlock.transform.position = _selectedBlockOriginalPos;
+                }
+            }
+            //Place 되어 있던 상태일 때
+            else {
+                if (_inventorySystem.IsInsideArea(_selectedBlock)) {
+                    _selectedBlock.Unplace();
+                    _inventorySystem.Add(_selectedBlock);
+                }
+                else {
+                    _selectedBlock.transform.position = _selectedBlockOriginalPos;
+                }
+            }
         }
 
         _selectedBlock = null;
@@ -115,6 +123,7 @@ public class CharacterBlockSystem : MonoBehaviour {
 
         if (_selectedBlock.IsPlacable()) {
             _selectedBlock.Place();
+            _inventorySystem.Remove(_selectedBlock);
             return true;
         }
         else {

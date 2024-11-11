@@ -17,7 +17,11 @@ public class InventorySystem : MonoBehaviour {
 
     public bool IsInsideArea(CharacterBlock characterBlock) {
         Vector3 blockPos = characterBlock.transform.position;
+        blockPos.z = 0;
         Bounds areaBounds = _area.bounds;
+
+        Debug.Log(areaBounds.size);
+        Debug.Log(areaBounds.Contains(blockPos));
 
         return areaBounds.Contains(blockPos);
     }

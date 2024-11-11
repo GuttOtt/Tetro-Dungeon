@@ -51,7 +51,6 @@ MonoBehaviour:
     row: 0
     col: 0
   characterType: 0
-  _blockPart: {fileID: 0}
 --- !u!212 &4491394016377042411
 SpriteRenderer:
   m_ObjectHideFlags: 0
