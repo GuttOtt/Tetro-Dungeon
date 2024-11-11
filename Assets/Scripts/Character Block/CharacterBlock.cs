@@ -85,11 +85,22 @@ public class CharacterBlock : MonoBehaviour {
     public bool IsPlacable() {
         foreach (BlockPart blockPart in _blockParts) {
             Cell cellUnder = blockPart.PickCell();
-            if (cellUnder == null)
+            BlockPart blockUnder = blockPart.PickBlockPart();
+            if (cellUnder == null || blockUnder != null) {
                 return false;
+            }
         }
 
         return true;
+    }
+
+    public void Unplace() {
+        foreach (BlockPart blockPart in _blockParts) {
+            Cell cell = blockPart.Cell;
+            if (cell != null) {
+                blockPart.Cell = null;
+            }
+        }
     }
 
     public void ChangeSortingLayer(int sortingLayerID) {

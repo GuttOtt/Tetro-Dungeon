@@ -64,6 +64,8 @@ public class CharacterBlockSystem : MonoBehaviour {
         int draggingLayerID = SortingLayer.NameToID("Dragging");
         selectedBlock.ChangeSortingLayer(draggingLayerID);
 
+        //Unplace
+        selectedBlock.Unplace();
     }
 
     private void MoveSelectedBlock() {
@@ -84,6 +86,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         //Placing
         bool isPlaced = TryPlace();
         if (!isPlaced) {
+            _selectedBlock.Unplace();
             //_selectedBlock.transform.position = _selectedBlockOriginalPos;
         }
 

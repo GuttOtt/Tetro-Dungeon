@@ -23,16 +23,17 @@ public static class Utils {
         return default(T);
     }
 
-    public static T Pick<T>(Vector3 origin) {
+    public static T Pick<T>(Vector3 origin, T exception = default(T)) {
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector3.forward, 1);
 
         List<GameObject> targetList = new List<GameObject>();
 
         foreach (RaycastHit2D hit in hits) {
             GameObject hitObject = hit.collider.gameObject;
+            T component = hitObject.GetComponent<T>();
 
-            if (hitObject.GetComponent<T>() != null) {
-                return hitObject.GetComponent<T>();
+            if (component != null && !EqualityComparer<T>.Default.Equals(component, exception)) {
+                return component;
             }
         }
 

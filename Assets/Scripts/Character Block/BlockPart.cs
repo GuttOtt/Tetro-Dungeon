@@ -19,6 +19,10 @@ public class BlockPart : MonoBehaviour {
         return Utils.Pick<Cell>(transform.position);
     }
 
+    public BlockPart PickBlockPart() {
+        return Utils.Pick(transform.position, this);
+    }
+
     public void SetSortingOrder(int frontSortingOrder) {
         _spriteMask.frontSortingOrder = frontSortingOrder;
     }
