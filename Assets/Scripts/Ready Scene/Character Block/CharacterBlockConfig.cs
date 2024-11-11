@@ -13,6 +13,8 @@ public class CharacterBlockConfig : ScriptableObject
     public Sprite Illust;
     public UnitConfig UnitConfig;
     public LevelShapePair[] Shapes;
+    public int MaxLevel { get => Shapes.Length; }
+
     public Array2DBool GetShape(int lvl) {
         return Shapes[lvl].Shape;
     }

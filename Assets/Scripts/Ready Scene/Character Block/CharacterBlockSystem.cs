@@ -5,8 +5,6 @@ using UnityEditor;
 using UnityEngine;
 
 public class CharacterBlockSystem : MonoBehaviour {
-    private IGameManager _gameManager;
-
     private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
     [SerializeField] private CharacterBlock _characterBlockPrefab;
     private CharacterBlock _selectedBlock;
@@ -22,7 +20,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     private void Start() {
-        DebugOnly();
+        //DebugOnly();
     }
 
     void Update() {
@@ -43,6 +41,10 @@ public class CharacterBlockSystem : MonoBehaviour {
         _characterBlocks.Add(newBlock);
 
         return newBlock;
+    }
+
+    public CharacterBlock CreateCharacterBlock(CharacterBlockData data) {
+        return CreateCharacterBlock(data.Config, data.Level);
     }
 
     #region Selection and Dragging Control

@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterBlock : MonoBehaviour {
     private string _name;
     private Sprite _illust;
+    private int _level;
     private Array2DBool _shape;
     private CharacterBlockConfig _config;
 
@@ -15,21 +16,20 @@ public class CharacterBlock : MonoBehaviour {
     [SerializeField] private Transform _blockPartsRoot;
     private List<BlockPart> _blockParts = new List<BlockPart>();
 
-    private void Start() {
-    }
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
         _config = config;
         _name = config.name;
         _illust = config.Illust;
+        _level = currentLvl;
 
         _illustRenderer.sprite = _illust;
 
-        CreateBlocks(config.GetShape(currentLvl), id + 1);
+        CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;
     }
 
-    private void CreateBlocks(Array2DBool shape, int sortingOrderFront) {
+    private void CreateBlockParts(Array2DBool shape, int sortingOrderFront) {
         _shape = shape;
 
         int x = shape.GridSize.x;

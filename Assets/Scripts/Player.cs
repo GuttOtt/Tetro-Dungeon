@@ -8,6 +8,8 @@ namespace Assets.Scripts
 {
     public class Player : Singleton<Player>
     {
+
+        #region old codes
         private List<UnitConfig> _configs = new List<UnitConfig>();
         private List<BlockCard> _blockCards = new List<BlockCard>();
 
@@ -24,14 +26,11 @@ namespace Assets.Scripts
         private List<TroopEffect> _allTroopEffect;
         private List<StatDecorator> _allStatDecorator;
 
-        [SerializeField] private int initialMoney = 100;
-        private int _currentMoney;
 
         [SerializeField]
         private List<Item> _itemInUse = new List<Item>();
         private List<Item> _itemInInv = new List<Item>();
 
-        [SerializeField] private int _currentLife = 500;
 
         public List<CardData> Deck { get { return _deck; } }
         public List<CardData> ExtraDeck { get { return _extraDeck; } }
@@ -42,10 +41,33 @@ namespace Assets.Scripts
         public List<Item> ItemInInv { get => _itemInInv; }
 
         public List<BlockCard> BlockCards {  get { return _blockCards; } }
+        #endregion
+
+        //Money and Life
+        [SerializeField] private int initialMoney = 100;
+        private int _currentMoney;
+        [SerializeField] private int _currentLife = 500;
 
         public int CurrentLife { get => _currentLife; set => _currentLife = value; }
 
         public int CurrentMoney { get => _currentMoney; set => _currentMoney = value; }
+
+        private List<CharacterBlockConfig> _characterBlockConfigs = new List<CharacterBlockConfig>();
+
+        #region Inventory
+        private List<CharacterBlockData> _characterBlocksInventory = new List<CharacterBlockData>();
+        public List<CharacterBlockData> CharacterBlocksInventory { get => _characterBlocksInventory; }
+
+        private void SetInitialInventory() {
+            //랜덤으로 캐릭터 블럭 2개 생성
+            for (int i = 0; i < 2; i++) {
+                CharacterBlockConfig config = _characterBlockConfigs[Random.Range(0, _characterBlockConfigs.Count)];
+                int level = 1;
+
+                CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
+            }
+        }
+        #endregion
 
         protected override void Awake()
         {
@@ -62,7 +84,9 @@ namespace Assets.Scripts
             _itemInInv = Resources.LoadAll<Item>("Scriptable Objects/Item").ToList();
 
             SetDeck(15);
-            //SetExtraDeck(15);
+
+            _characterBlockConfigs = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
+            SetInitialInventory();
 
             _currentMoney = initialMoney;
         }
