@@ -24,7 +24,6 @@ public class UnitBlock : MonoBehaviour {
     #endregion
 
     #region Properties
-    public List<SynergyTypes> Synergies { get => _units[0].Synergies; }
     public List<Cell> Cells { get => _cells; }
     public List<IUnit> Units { get => _units; }
     #endregion

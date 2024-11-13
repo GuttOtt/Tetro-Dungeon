@@ -1,10 +1,13 @@
 using Assets.Scripts;
 using Assets.Scripts.Reward;
+using Cysharp.Threading.Tasks;
 using EnumTypes;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 //전반적인 게임 플로우 제어 및
@@ -44,6 +47,9 @@ public class GameManager : MonoBehaviour, IGameManager
     
     [SerializeField]
     private RewardSystem _rewardSystem;
+
+    [SerializeField]
+    private CharacterBlockSystem _characterBlockSystem;
     #endregion
 
     [SerializeField]
@@ -59,14 +65,40 @@ public class GameManager : MonoBehaviour, IGameManager
             Debug.LogError("Player instance is null!");
             return;
         }
-        //StartBattleScene();
+
+        Debug.Log($"Current Scene: {SceneManager.GetActiveScene().name}");
+
+        if (SceneManager.GetActiveScene().name == "BattleScene")
+            StartBattleScene();
     }
 
     private void StartBattleScene() {
-        _cardSystem.NewDeck();
-        _cardSystem.SetDeck(_player.Deck);
-        _board.Init();
-        _phaseSystem.ToStandbyPhase();
+        PlacePlayerUnits();
+
+        //배틀 시작
+    }
+
+    private async void PlacePlayerUnits() {
+        List<CharacterBlock> blocks = new List<CharacterBlock>();
+
+        foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
+            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
+            blocks.Add(block);
+        }
+
+        await UniTask.WaitForSeconds(2f);
+
+        foreach (CharacterBlock block in blocks) {
+            BaseUnit unit = _unitSystem.CreateUnit(block.Config, CharacterTypes.Player);
+            
+            //Place unit in the center of the characterBlock
+            Vector2Int centerCellPos = block.CenterCellPos;
+            Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);
+            centerCell.UnitIn(unit);
+            unit.transform.localPosition = Vector3.zero;
+
+            Destroy(block.gameObject);
+        }
     }
 
     public void RestartBattleScene() {

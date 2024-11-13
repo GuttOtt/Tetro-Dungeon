@@ -8,7 +8,7 @@ public class SceneChanger : MonoBehaviour
 {
     public void LoadBattleScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("BattleScene");
     }
     public void LoadDeckEditScene()
     {

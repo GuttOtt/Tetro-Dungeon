@@ -25,11 +25,12 @@ public class CharacterBlock : MonoBehaviour {
     public bool IsPlaced { get => _isPlaced; }
     public Vector2Int CenterCellPos {
         get {
-            Cell centerCell = _centerBlockPart.Cell;
+            Cell centerCell = _centerBlockPart.PickCell();
             return new Vector2Int(centerCell.position.col, centerCell.position.row);
         }
     }
     public BlockPart CenterBlockPart { get => _centerBlockPart; }
+    public CharacterBlockConfig Config { get => _config; }
 
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {

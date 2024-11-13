@@ -40,10 +40,7 @@ public class Board : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
-        //_unitBlockSystem = _gameManager.GetSystem<UnitBlockSystem>();
-    }
 
-    private void Start() {
         if (cells == null || cells.Length == 0) {
             Init();
         }

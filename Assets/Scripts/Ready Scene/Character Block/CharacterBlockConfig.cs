@@ -1,5 +1,6 @@
 using Array2DEditor;
 using AYellowpaper.SerializedCollections;
+using EnumTypes;
 using Extensions;
 using System;
 using System.Collections;
@@ -11,9 +12,28 @@ public class CharacterBlockConfig : ScriptableObject
 {
     public string Name;
     public Sprite Illust;
-    public UnitConfig UnitConfig;
+    public string UnitTypeString;
     public LevelShapePair[] Shapes;
     public int MaxLevel { get => Shapes.Length; }
+
+    public SPUM_Prefabs SPUM_Prefabs;
+
+    #region Stats
+    public int MaxHP;
+    public int Attack;
+    public int SpellPower;
+    public int Defence;
+    public int SpellDefence;
+    public int Range;
+    public int Speed;
+    #endregion
+
+    #region Skills
+    public ActiveSkill DefaultSkill;
+    public List<ActiveSkill> ActiveSkills;
+    #endregion
+
+    public List<SynergyValuePair> Synergies;
 
     public Array2DBool GetShape(int lvl) {
         return Shapes[lvl].Shape;
@@ -35,4 +55,10 @@ public class LevelShapePair
         Level = 0;
         Shape = new Array2DBool();
     }
+}
+
+[Serializable]
+public class SynergyValuePair {
+    public SynergyTypes SynergyType;
+    public int Value;
 }

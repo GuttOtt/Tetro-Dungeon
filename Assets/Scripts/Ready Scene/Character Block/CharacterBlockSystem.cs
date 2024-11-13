@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,14 +15,6 @@ public class CharacterBlockSystem : MonoBehaviour {
     [SerializeField] private Board _board;
 
     private bool _isInputOn = true;
-
-    void Awake() {
-       
-    }
-
-    private void Start() {
-        //DebugOnly();
-    }
 
     void Update() {
         SelectBlock();
@@ -44,7 +37,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         //Spin
         newBlock.Spin(data.SpinDegree);
         
-        //Move
+        //Move and Place
         Vector2Int centerCellIndex = data.CenterCellIndex;
         Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
         Vector3 centerCellPos = centerCell.transform.position;

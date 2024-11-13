@@ -14,11 +14,13 @@ public class BaseUnit : MonoBehaviour, IUnit
     [SerializeField] private Cell _currentCell;
     [SerializeField] private int _id;
     public UnitConfig _config;
+    public CharacterBlockConfig _characterBlockConfig;
     private UnitSPUMControl _spumControl;
     private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
     private float _speed;
     private float _actionCoolDown;
-    private List<SynergyTypes> _synergies;
+
+    private List<SynergyValuePair> _synergies;
 
     protected Projectile _projectilePrefab;
 
@@ -91,7 +93,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
 
-    public List<SynergyTypes> Synergies { get => _synergies; }
+    public List<SynergyValuePair> Synergies { get => _synergies; }
     public bool IsActionCoolDown { get => _actionCoolDown <= (1/Speed); }
     #endregion
 
@@ -146,13 +148,70 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         _owner = owner;
 
-        //Synergies
-        _synergies = config.Synergies;
-
         //Projectile
         if (config.Projectile != null) {
             _projectilePrefab = config.Projectile;
         }
+    }
+
+    public virtual void Init(UnitSystem unitSystem, CharacterBlockConfig config, CharacterTypes owner, int id) {
+        //System
+        _unitSystem = unitSystem;
+        _id = id;
+
+        //Config
+        _characterBlockConfig = config;
+
+        //Draw
+        _unitDrawer = GetComponent<UnitDrawer>();
+        _unitDrawer.Draw(config);
+
+        //Spum
+        if (config.SPUM_Prefabs != null) {
+            if (_spumControl == null) {
+                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
+            }
+            SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
+            _spumControl.SetSPUM(spum);
+
+            //위치와 방향 설정
+            spum.transform.localPosition = new Vector3(0, -0.2f, -1);
+            if (owner == CharacterTypes.Player) {
+                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            }
+
+            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+        //Stats
+        _maxHP = config.MaxHP;
+        _currentHP = config.MaxHP;
+        _attack = config.Attack;
+        _currentAttack = config.Attack;
+        _spellPower = config.SpellPower;
+        _defence = config.Defence;
+        _spellDefence = config.SpellDefence;
+        _range = config.Range;
+        _speed = config.Speed;
+
+        //Skills
+        _defaultSkill = config.DefaultSkill;
+        _activeSkills = config.ActiveSkills.ToList();
+
+        _unitDrawer._healthBar.SetMaxHealth(MaxHP);
+
+        _owner = owner;
+
+        //Synergies
+        //_synergies = config.Synergies;
+
+        //Projectile
+        /*
+        if (config.Projectile != null) {
+            _projectilePrefab = config.Projectile;
+        }
+        */
     }
 
     public void Die()

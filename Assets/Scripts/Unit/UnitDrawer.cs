@@ -19,6 +19,7 @@ public class UnitDrawer : MonoBehaviour
 
     public UnitHealthBar _healthBar;
     private UnitConfig _unitConfig;
+    private CharacterBlockConfig _characterBlockConfig;
 
     private TextMeshProUGUI _tooltip_name;
     private TextMeshProUGUI _tooltip_effect;
@@ -55,6 +56,29 @@ public class UnitDrawer : MonoBehaviour
 
         _tooltip_name?.SetText(unitConfig.Name);
         _tooltip_effect?.SetText(unitConfig.EffectDescription);
+
+        if (0 < attackBuff) {
+            _attackText.color = new Color(0, 0.7f, 0);
+        }
+        if (0 < hpBuff) {
+            _hpText.color = new Color(0, 0.7f, 0);
+        }
+    }
+
+    public void Draw(CharacterBlockConfig config, int attackBuff = 0, int hpBuff = 0) {
+        _characterBlockConfig = config;
+        int attack = config.Attack + attackBuff;
+        int hp = config.MaxHP + hpBuff;
+
+        //ÅØ½ºÆ®
+        _hpText?.SetText(hp.ToString());
+        _mpText?.SetText(attack.ToString());
+        _attackText?.SetText(config.Attack.ToString());
+        _rangeText?.SetText(config.Range.ToString());
+        _synergyText?.SetText(config.Synergies[0].ToString());
+
+        //_tooltip_name?.SetText(config.Name);
+        //_tooltip_effect?.SetText(config.EffectDescription);
 
         if (0 < attackBuff) {
             _attackText.color = new Color(0, 0.7f, 0);

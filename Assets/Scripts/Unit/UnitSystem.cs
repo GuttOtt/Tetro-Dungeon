@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public class UnitSystem : MonoBehaviour
 {
@@ -39,6 +40,35 @@ public class UnitSystem : MonoBehaviour
         int id = _units.Count;
 
         unit.Init(this, unitConfig, owner, id);
+        _units.Add(unit);
+
+        unit.OnDestroy += () => DestroyUnit(unit);
+
+        return unit;
+    }
+
+    public BaseUnit CreateUnit(CharacterBlockConfig config, CharacterTypes owner) {
+        GameObject unitGO = Instantiate(_unitPrefab);
+
+        //유닛 패턴 생성
+        string unitTypeString = config.UnitTypeString;
+        if (unitTypeString == string.Empty || unitTypeString == null) {
+            unitTypeString = "BaseUnit";
+        }
+
+        Type unitType = Type.GetType(unitTypeString);
+
+        if (unitType == null) {
+            Debug.Log(unitType);
+            Debug.LogError("해당하는 unit type이 없습니다");
+        }
+
+        BaseUnit unit = unitGO.AddComponent(unitType) as BaseUnit;
+
+        //유닛 인스턴스 식별에 사용되는 고유 id
+        int id = _units.Count;
+
+        unit.Init(this, config, owner, id);
         _units.Add(unit);
 
         unit.OnDestroy += () => DestroyUnit(unit);

@@ -30,7 +30,8 @@ public class ReadySceneManager : MonoBehaviour {
     }
 
     public void ToBattleScene() {
-
+        SaveBoardData();
+        _sceneChanger.LoadBattleScene();
     }
 
     private void SaveBoardData() {

@@ -34,6 +34,7 @@ public class SynergySystem : MonoBehaviour {
     }
 
     public void UpdateSynergy() {
+        /*
         Dictionary<SynergyTypes, int> synergyDic = new Dictionary<SynergyTypes, int>();
 
         List<UnitBlock> unitBlocks = new List<UnitBlock>();
@@ -53,6 +54,7 @@ public class SynergySystem : MonoBehaviour {
         _synergyDic = synergyDic;
 
         DisplaySynergies();
+        */
     }
 
 
