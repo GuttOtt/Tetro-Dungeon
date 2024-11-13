@@ -6,23 +6,37 @@ using Assets.Scripts;
 public class ReadySceneManager : MonoBehaviour {
     [SerializeField] InventorySystem _inventorySystem;
     [SerializeField] CharacterBlockSystem _characterBlockSystem;
+    [SerializeField] SceneChanger _sceneChanger;
     private Player _player;
     private Board _board;
 
     private void Start() {
-        _player = Player.Instance;
+        if (_player == null) 
+            _player = Player.Instance;
 
         foreach (CharacterBlockData data in _player.CharacterBlocksInventory) {
             CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
             _inventorySystem.Add(block);
         }
+
+        foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
+            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
+        }
     }
 
-    private void ToBattleScene() {
+    public void ReloadReadyScene() {
+        SaveBoardData();
+        _sceneChanger.LoadReadyScene();
+    }
+
+    public void ToBattleScene() {
 
     }
 
     private void SaveBoardData() {
+        List<CharacterBlockData> characterBlockDatas = 
+            _characterBlockSystem.GetCharacterBlockDatasOnBoard();
 
+        _player.SaveCharacterBlockDatasOnBoard(characterBlockDatas);
     }
 }

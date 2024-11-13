@@ -11,6 +11,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     private Vector3 _selectedBlockOriginalPos;
 
     [SerializeField] private InventorySystem _inventorySystem;
+    [SerializeField] private Board _board;
 
     private bool _isInputOn = true;
 
@@ -38,7 +39,25 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     public CharacterBlock CreateCharacterBlock(CharacterBlockData data) {
-        return CreateCharacterBlock(data.Config, data.Level);
+        CharacterBlock newBlock = CreateCharacterBlock(data.Config, data.Level);
+
+        //Spin
+        newBlock.Spin(data.SpinDegree);
+        
+        //Move
+        Vector2Int centerCellIndex = data.CenterCellIndex;
+        Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
+        Vector3 centerCellPos = centerCell.transform.position;
+
+        BlockPart centerBlockPart = newBlock.CenterBlockPart;
+        Vector3 centerBlockPartPos = centerBlockPart.transform.position;
+
+        Vector3 vectorDifference = centerBlockPartPos - centerCellPos;
+        newBlock.transform.position -= vectorDifference;
+
+        TryPlace(newBlock);
+
+        return newBlock;
     }
 
     #region Selection and Dragging Control
@@ -119,15 +138,32 @@ public class CharacterBlockSystem : MonoBehaviour {
     #endregion
 
     private bool TryPlace() {
-        if (_selectedBlock == null) return false;
+        if (_selectedBlock == null)
+            return false;
 
-        if (_selectedBlock.IsPlacable()) {
-            _selectedBlock.Place();
-            _inventorySystem.Remove(_selectedBlock);
+        return TryPlace(_selectedBlock);
+    }
+
+    private bool TryPlace(CharacterBlock block) {
+        if (block.IsPlacable()) {
+            block.Place();
+            _inventorySystem.Remove(block);
             return true;
         }
         else {
             return false;
         }
+    }
+
+    public List<CharacterBlockData> GetCharacterBlockDatasOnBoard() {
+        List<CharacterBlockData> datas = new List<CharacterBlockData>();
+
+        foreach (CharacterBlock block in _characterBlocks) {
+            if (block.IsPlaced) {
+                datas.Add(block.Datalize());
+            }
+        }
+
+        return datas;
     }
 }

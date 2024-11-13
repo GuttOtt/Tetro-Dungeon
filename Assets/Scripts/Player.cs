@@ -69,6 +69,16 @@ namespace Assets.Scripts
         }
         #endregion
 
+        #region Board
+        List<CharacterBlockData> _characterBlockDatasOnBoard = new List<CharacterBlockData>();
+
+        public List<CharacterBlockData> CharacterBlocksOnBoard { get => _characterBlockDatasOnBoard; }
+
+        public void SaveCharacterBlockDatasOnBoard(List<CharacterBlockData> characterBlocks) {
+            _characterBlockDatasOnBoard = characterBlocks.ToList();
+        }
+        #endregion
+
         protected override void Awake()
         {
             base.Awake();

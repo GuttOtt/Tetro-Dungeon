@@ -1,7 +1,9 @@
 using Array2DEditor;
+using Cysharp.Threading.Tasks.Triggers;
 using Extensions;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CharacterBlock : MonoBehaviour {
     private string _name;
@@ -21,6 +23,13 @@ public class CharacterBlock : MonoBehaviour {
     private BlockPart _centerBlockPart;
 
     public bool IsPlaced { get => _isPlaced; }
+    public Vector2Int CenterCellPos {
+        get {
+            Cell centerCell = _centerBlockPart.Cell;
+            return new Vector2Int(centerCell.position.col, centerCell.position.row);
+        }
+    }
+    public BlockPart CenterBlockPart { get => _centerBlockPart; }
 
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
@@ -63,6 +72,11 @@ public class CharacterBlock : MonoBehaviour {
                 }
             }
         }
+
+        if (_centerBlockPart == null) {
+            Debug.LogError("CharacterBlock의 Center가 지정되어 있지 않습니다. CharacterBlockConfig를 확인해주세요." +
+                $"CharacterBlock : {_config.name}");
+        }
     }
 
     private BlockPart CreateBlock(Vector2 localPosition, int frontSortingOrder) {
@@ -77,9 +91,24 @@ public class CharacterBlock : MonoBehaviour {
     public void Spin(bool isClockwise) {
         if (!isClockwise) {
             transform.Rotate(0, 0, 90);
+            _spinDegree += 90;
         }
         else {
             transform.Rotate(0, 0, -90);
+            _spinDegree -= 90;
+        }
+    }
+
+    public void Spin(int spinDegree) {
+        if (spinDegree < 0) {
+            for (int i = 0; i < -spinDegree / 90; i++) {
+                Spin(true);
+            }
+        }
+        else {
+            for (int i = 0; i < spinDegree / 90; i++) {
+                Spin(false);
+            }
         }
     }
 
@@ -128,5 +157,9 @@ public class CharacterBlock : MonoBehaviour {
         foreach (BlockPart blockPart in _blockParts) {
             blockPart.SetSortingLayer(sortingLayerID);
         }
+    }
+
+    public CharacterBlockData Datalize() {
+        return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree);
     }
 }
