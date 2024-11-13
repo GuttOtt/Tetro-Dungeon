@@ -7,6 +7,7 @@ public class ReadySceneManager : MonoBehaviour {
     [SerializeField] InventorySystem _inventorySystem;
     [SerializeField] CharacterBlockSystem _characterBlockSystem;
     private Player _player;
+    private Board _board;
 
     private void Start() {
         _player = Player.Instance;
@@ -15,5 +16,13 @@ public class ReadySceneManager : MonoBehaviour {
             CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
             _inventorySystem.Add(block);
         }
+    }
+
+    private void ToBattleScene() {
+
+    }
+
+    private void SaveBoardData() {
+
     }
 }

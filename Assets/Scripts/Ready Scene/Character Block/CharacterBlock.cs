@@ -16,6 +16,12 @@ public class CharacterBlock : MonoBehaviour {
     [SerializeField] private Transform _blockPartsRoot;
     private List<BlockPart> _blockParts = new List<BlockPart>();
 
+    private bool _isPlaced = false;
+    private int _spinDegree = 0;
+    private BlockPart _centerBlockPart;
+
+    public bool IsPlaced { get => _isPlaced; }
+
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
         _config = config;
@@ -39,12 +45,21 @@ public class CharacterBlock : MonoBehaviour {
 
         float xOrigin = x / 2 == 0 ? -(x / 2 - 0.5f) * blockSize.x : -(x / 2) * blockSize.x;
         float yOrigin = y / 2 == 0 ? (y / 2 - 0.5f) * blockSize.y : (y / 2) * blockSize.y;
-        
+
+        Vector2Int centerIndex = _config.GetCenterIndex(_level);
+        int xCenter = centerIndex.x;
+        int yCenter = centerIndex.y;
+
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
                 if (shape.GetCell(i, j) == true) {
                     Vector2 localPosition = new Vector2(xOrigin + i * blockSize.x, yOrigin - j * blockSize.y);
-                    _blockParts.Add(CreateBlock(localPosition, sortingOrderFront));
+                    BlockPart newBlockPart = CreateBlock(localPosition, sortingOrderFront);
+                    _blockParts.Add(newBlockPart);
+
+                    if (xCenter == i && yCenter == j) {
+                        _centerBlockPart = newBlockPart;
+                    }
                 }
             }
         }
@@ -80,6 +95,8 @@ public class CharacterBlock : MonoBehaviour {
         Vector3 vectorDifference = blockPartPos - cellPos;
 
         transform.position -= vectorDifference;
+
+        _isPlaced = true;
     }
 
     public bool IsPlacable() {
@@ -101,6 +118,8 @@ public class CharacterBlock : MonoBehaviour {
                 blockPart.Cell = null;
             }
         }
+
+        _isPlaced = false;
     }
 
     public void ChangeSortingLayer(int sortingLayerID) {

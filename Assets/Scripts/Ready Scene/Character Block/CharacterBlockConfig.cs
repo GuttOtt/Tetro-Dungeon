@@ -18,6 +18,10 @@ public class CharacterBlockConfig : ScriptableObject
     public Array2DBool GetShape(int lvl) {
         return Shapes[lvl].Shape;
     }
+
+    public Vector2Int GetCenterIndex(int lvl) {
+        return Shapes[lvl].CenterIndex;
+    }
 }
 
 [Serializable]
@@ -25,6 +29,7 @@ public class LevelShapePair
 {
     public int Level;
     public Array2DBool Shape;
+    public Vector2Int CenterIndex;
 
     public LevelShapePair() {
         Level = 0;
