@@ -59,10 +59,10 @@ namespace Assets.Scripts
         public List<CharacterBlockData> CharacterBlocksInventory { get => _characterBlocksInventory; }
 
         private void SetInitialInventory() {
-            //랜덤으로 캐릭터 블럭 2개 생성
-            for (int i = 0; i < 2; i++) {
+            //랜덤으로 캐릭터 블럭 3개 생성
+            for (int i = 0; i < 3; i++) {
                 CharacterBlockConfig config = _characterBlockConfigs[Random.Range(0, _characterBlockConfigs.Count)];
-                int level = 1;
+                int level = 0;
 
                 CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
             }

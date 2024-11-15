@@ -11,6 +11,7 @@ public class CharacterBlock : MonoBehaviour {
     private int _level;
     private Array2DBool _shape;
     private CharacterBlockConfig _config;
+    private List<Equipment> _equipments = new List<Equipment>();
 
     [SerializeField] private SpriteRenderer _illustRenderer;
 
@@ -67,7 +68,8 @@ public class CharacterBlock : MonoBehaviour {
             for (int j = 0; j < y; j++) {
                 if (shape.GetCell(i, j) == true) {
                     Vector2 localPosition = new Vector2(xOrigin + i * blockSize.x, yOrigin - j * blockSize.y);
-                    BlockPart newBlockPart = CreateBlock(localPosition, sortingOrderFront);
+                    Vector2Int location = new Vector2Int(i, j);
+                    BlockPart newBlockPart = CreateBlock(localPosition, sortingOrderFront, location);
                     _blockParts.Add(newBlockPart);
 
                     if (xCenter == i && yCenter == j) {
@@ -83,9 +85,9 @@ public class CharacterBlock : MonoBehaviour {
         }
     }
 
-    private BlockPart CreateBlock(Vector2 localPosition, int frontSortingOrder) {
+    private BlockPart CreateBlock(Vector2 localPosition, int frontSortingOrder, Vector2Int location) {
         BlockPart blockPart = Instantiate(_blockPartPrefab, transform);
-        blockPart.Init(this, frontSortingOrder);
+        blockPart.Init(this, frontSortingOrder, location);
         blockPart.transform.localPosition = localPosition;
         blockPart.transform.parent = _blockPartsRoot;
 
@@ -165,5 +167,9 @@ public class CharacterBlock : MonoBehaviour {
 
     public CharacterBlockData GetData() {
         return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree);
+    }
+
+    public void Equip(Equipment equipment) {
+        _equipments.Add(equipment);
     }
 }

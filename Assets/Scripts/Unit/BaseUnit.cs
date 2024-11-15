@@ -83,6 +83,18 @@ public class BaseUnit : MonoBehaviour, IUnit
     public Action OnDestroy { get; set; } //전투 중 사망하는 것을 포함해, '유닛의 GameObject가 제거될 때' 호출되는 이벤트. 전투 승리 시 남은 유닛의 처리 등에 의해서도 호출됨.
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
+    public int ConfigMaxHP {
+        get {
+            if (_characterBlockConfig != null)
+                return _characterBlockConfig.MaxHP;
+            else if (_config != null)
+                return _config.MaxHP;
+            else
+                Debug.LogError("config와 characterBlockConfig가 모두 비어 있습니다.");
+            return 0;
+
+        } 
+    }
     public int CurrentHP
     {
         get => _currentHP;
@@ -93,7 +105,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             {
                 _unitDrawer.UpdateHP(_currentHP, Color.red);
             }
-            else if (_maxHP < _currentHP || _characterBlockConfig.MaxHP < _maxHP)
+            else if (_maxHP < _currentHP || ConfigMaxHP < _maxHP)
             {
                 _unitDrawer.UpdateHP(_currentHP, new Color(0, 0.8f, 0));
             }
