@@ -18,6 +18,7 @@ public class UnitSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
     }
 
+    
     public IUnit CreateUnit(UnitConfig unitConfig, CharacterTypes owner) {
         GameObject unitGO = Instantiate(_unitPrefab);
 
@@ -46,6 +47,7 @@ public class UnitSystem : MonoBehaviour
 
         return unit;
     }
+    
 
     public BaseUnit CreateUnit(CharacterBlockConfig config, CharacterTypes owner) {
         GameObject unitGO = Instantiate(_unitPrefab);

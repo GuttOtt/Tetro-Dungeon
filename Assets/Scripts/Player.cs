@@ -67,6 +67,10 @@ namespace Assets.Scripts
                 CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
             }
         }
+
+        public void SaveCharacterBlockDataOnInventroy(List<CharacterBlockData> datas) {
+            _characterBlocksInventory = datas.ToList();
+        }
         #endregion
 
         #region Board

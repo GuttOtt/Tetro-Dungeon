@@ -25,4 +25,6 @@ public class EnemyData : ScriptableObject {
 
     [SerializeField]
     public List<UnitConfig> UnitConfigs = new List<UnitConfig>();
+
+    public List<CharacterBlockConfig> CharacterBlockConfigs = new List<CharacterBlockConfig>();
 }

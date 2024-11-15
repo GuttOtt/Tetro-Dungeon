@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using EnumTypes;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviour, IGameManager
 
     [SerializeField]
     private CharacterBlockSystem _characterBlockSystem;
+
+    [SerializeField]
+    private SceneChanger _sceneChanger;
     #endregion
 
     [SerializeField]
@@ -72,13 +76,16 @@ public class GameManager : MonoBehaviour, IGameManager
             StartBattleScene();
     }
 
-    private void StartBattleScene() {
-        PlacePlayerUnits();
+    private async void StartBattleScene() {
+        PlaceEnemyUnits();
+        PlacePlayerUnits().Forget();
 
-        //배틀 시작
+        await UniTask.Delay(TimeSpan.FromSeconds(3));
+
+        _battleSystem.StartBattle().Forget();
     }
 
-    private async void PlacePlayerUnits() {
+    private async UniTaskVoid PlacePlayerUnits() {
         List<CharacterBlock> blocks = new List<CharacterBlock>();
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
@@ -94,11 +101,15 @@ public class GameManager : MonoBehaviour, IGameManager
             //Place unit in the center of the characterBlock
             Vector2Int centerCellPos = block.CenterCellPos;
             Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);
-            centerCell.UnitIn(unit);
-            unit.transform.localPosition = Vector3.zero;
+
+            _board.Place(centerCell, unit);
 
             Destroy(block.gameObject);
         }
+    }
+
+    private void PlaceEnemyUnits() {
+        _enemySystem.DecideUnitList();
     }
 
     public void RestartBattleScene() {
@@ -144,14 +155,14 @@ public class GameManager : MonoBehaviour, IGameManager
         }
     }
 
-    public void PlayerWin() {
-        _cardSystem.SetInputOff();
-        _rewardSystem.DisplayReward(true);
+    public async void PlayerWin() {
+        Debug.Log("플레이어 승리! 3초 후 다음 스테이지로 넘어갑니다.");
+        await UniTask.Delay(TimeSpan.FromSeconds(3));
+        _sceneChanger.LoadReadyScene();
     }
 
     public void PlayerLose() {
-        _cardSystem.SetInputOn();
-        _rewardSystem.DisplayReward(false);
+        Debug.Log("플레이어 패배... ");
     }
 
     public TurnContext CreateTurnContext() {

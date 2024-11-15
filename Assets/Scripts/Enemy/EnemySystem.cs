@@ -66,11 +66,8 @@ public class EnemySystem : MonoBehaviour {
             
             //유닛을 unitList에 추가
             unitList.Add(unit);
-            unit.transform.parent = unitListDisplay.transform;
-            unit.transform.localPosition = unitGap * i;
         }
 
-        ApplyBuffTokens();
         PlaceUnit();
     }
 

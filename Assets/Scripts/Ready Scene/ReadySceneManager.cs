@@ -26,11 +26,13 @@ public class ReadySceneManager : MonoBehaviour {
 
     public void ReloadReadyScene() {
         SaveBoardData();
+        SaveInventoryData();
         _sceneChanger.LoadReadyScene();
     }
 
     public void ToBattleScene() {
         SaveBoardData();
+        SaveInventoryData();
         _sceneChanger.LoadBattleScene();
     }
 
@@ -39,5 +41,12 @@ public class ReadySceneManager : MonoBehaviour {
             _characterBlockSystem.GetCharacterBlockDatasOnBoard();
 
         _player.SaveCharacterBlockDatasOnBoard(characterBlockDatas);
+    }
+
+    private void SaveInventoryData() {
+        List<CharacterBlockData> characterBlockDatas =
+            _inventorySystem.GetCharacterBlockDatas();
+
+        _player.SaveCharacterBlockDataOnInventroy(characterBlockDatas);
     }
 }

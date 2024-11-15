@@ -26,7 +26,10 @@ public class CharacterBlock : MonoBehaviour {
     public Vector2Int CenterCellPos {
         get {
             Cell centerCell = _centerBlockPart.PickCell();
-            return new Vector2Int(centerCell.position.col, centerCell.position.row);
+            if (centerCell == null)
+                return default(Vector2Int);
+            else
+                return new Vector2Int(centerCell.position.col, centerCell.position.row);
         }
     }
     public BlockPart CenterBlockPart { get => _centerBlockPart; }
@@ -160,7 +163,7 @@ public class CharacterBlock : MonoBehaviour {
         }
     }
 
-    public CharacterBlockData Datalize() {
+    public CharacterBlockData GetData() {
         return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree);
     }
 }

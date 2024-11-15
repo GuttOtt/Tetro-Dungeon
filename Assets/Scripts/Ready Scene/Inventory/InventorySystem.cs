@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour {
@@ -28,5 +29,16 @@ public class InventorySystem : MonoBehaviour {
 
     public bool ContainsItem(CharacterBlock characterBlock) {
         return _characterBlocks.Contains(characterBlock);
+    }
+
+    public List<CharacterBlockData> GetCharacterBlockDatas() {
+        List<CharacterBlockData> datas = new List<CharacterBlockData>();
+
+        foreach (CharacterBlock characterBlock in _characterBlocks) {
+            CharacterBlockData data = characterBlock.GetData();
+            datas.Add(data);
+        }
+
+        return datas.ToList();
     }
 }

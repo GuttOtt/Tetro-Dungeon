@@ -153,7 +153,7 @@ public class CharacterBlockSystem : MonoBehaviour {
 
         foreach (CharacterBlock block in _characterBlocks) {
             if (block.IsPlaced) {
-                datas.Add(block.Datalize());
+                datas.Add(block.GetData());
             }
         }
 

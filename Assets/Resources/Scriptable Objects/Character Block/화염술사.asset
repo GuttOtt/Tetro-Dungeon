@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
-  m_Name: "\uB9C8\uAC80\uC0AC"
+  m_Name: "\uD654\uC5FC\uC220\uC0AC"
   m_EditorClassIdentifier: 
-  Name: "\uB9C8\uAC80\uC0AC"
+  Name: "\uD654\uC5FC\uC220\uC0AC"
   Illust: {fileID: 21300000, guid: fc9fa45c8dbf5904c8eb31a0663433c5, type: 3}
-  UnitConfig: {fileID: 0}
+  UnitTypeString: 
   Shapes:
   - Level: 1
     Shape:
@@ -34,3 +34,15 @@ MonoBehaviour:
       - row: 010101
       - row: 000100
     CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 3188768033771658690, guid: 6e9a6f9f63dd94a49870120cf8c08e75, type: 3}
+  MaxHP: 50
+  Attack: 20
+  SpellPower: 10
+  Defence: 1
+  SpellDefence: 2
+  Range: 3
+  Speed: 1
+  DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
+  ActiveSkills:
+  - {fileID: 11400000, guid: c3bb08e349a24c7488bc7510daa4094c, type: 2}
+  Synergies: []

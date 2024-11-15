@@ -84,7 +84,7 @@ public class BattleSystem : MonoBehaviour
         CharacterTypes winner = CharacterTypes.None;
 
         //배틀 시작 시 발생하는 Synergy 효과들 발동
-        await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
+        //await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
         //한 쪽의 유닛이 전부 사라질 때까지 전투
         while (true)
@@ -97,6 +97,7 @@ public class BattleSystem : MonoBehaviour
             else if (_board.GetUnits(CharacterTypes.Player).Count == 0)
             {
                 winner = CharacterTypes.Enemy;
+                Debug.Log("Player Lose");
                 break;
             }
 
@@ -106,40 +107,33 @@ public class BattleSystem : MonoBehaviour
             await UniTask.NextFrame();
         }
 
-        //라운드 승리 판정
-        //남은 승리 유닛들의 공격력만큼 패배한 캐릭터에게 데미지
+        //배틀 승리 판정
         await UniTask.WaitForSeconds(2f);
         List<IUnit> winnerUnits = _board.GetUnits(winner);
         foreach (IUnit unit in winnerUnits)
         {
             LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).DestroySelf();
-            await UniTask.WaitForSeconds(0.2f);
+            await UniTask.WaitForSeconds(0.1f);
         }
 
         //한 쪽의 Life가 0이 됐다면 게임 승리 판정
-        if (_lifeDic[CharacterTypes.Enemy] <= 0) {
+        if (winner == CharacterTypes.Player) {
             Player.Instance.CurrentLife = _lifeDic[CharacterTypes.Player];
             _gameManager.PlayerWin();
             return;
         }
-        else if (_lifeDic[CharacterTypes.Player] <= 0) {
-            Debug.Log("bi");
+        else { 
             _gameManager.PlayerLose();
             return;
         }
-
-        //배틀 종료
-        _isProcessing = false;
-        _attackTurn = CharacterTypes.None;
-        _gameManager.GetSystem<PhaseSystem>().ToEndPhase();
     }
 
     public void TimePass() {
         OnTimePass?.Invoke();
 
         //시너지의 쿨타임 회복
-        _synergySystem.OnTimePass(_gameManager.CreateTurnContext());
+        //_synergySystem.OnTimePass(_gameManager.CreateTurnContext());
 
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
 
@@ -222,7 +216,7 @@ public class BattleSystem : MonoBehaviour
 
     private void UpdateLifeText(CharacterTypes charactertype)
     {
-        _lifeTextDic[charactertype].text = "Life: " + _lifeDic[charactertype].ToString();
+        _lifeTextDic[charactertype]?.SetText("Life: " + _lifeDic[charactertype].ToString());
     }
     #endregion
 }

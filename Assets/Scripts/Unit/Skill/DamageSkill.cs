@@ -26,7 +26,7 @@ public class DamageSkill : ActiveSkill
         int damage = (int)(baseDamage + activator.Attack * attackRatio + activator.SpellPower * spellPowerRatio);
         
         foreach (IUnit target in targets) {
-            Debug.Log($"{activator._config.name}이 {(target as BaseUnit)._config.name}에게 {name}으로 {damage}만큼의 데미지");
+            Debug.Log($"{activator.Name}이 {(target as BaseUnit).Name}에게 {name}으로 {damage}만큼의 데미지");
             target?.TakeDamage(turnContext, damage, damageType);
         }
 

@@ -29,6 +29,17 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
     #region Properties
+    public string Name { get {
+            if (_characterBlockConfig != null)
+                return _characterBlockConfig.Name;
+            else if (_config != null)
+                return _config.Name;
+            else
+                Debug.LogError("config와 characterBlockConfig가 모두 비어 있습니다.");
+            return null;
+        }
+    }
+
     #region Stats
     public int MaxHP { get => _maxHP; }
     public int Attack
@@ -82,7 +93,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             {
                 _unitDrawer.UpdateHP(_currentHP, Color.red);
             }
-            else if (_maxHP < _currentHP || _config.MaxHP < _maxHP)
+            else if (_maxHP < _currentHP || _characterBlockConfig.MaxHP < _maxHP)
             {
                 _unitDrawer.UpdateHP(_currentHP, new Color(0, 0.8f, 0));
             }
@@ -256,13 +267,13 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void Act(TurnContext turnContext) {
         if (IsAttackable(turnContext)) {
             AttackAction(turnContext);
-            Debug.Log($"{_config.name} Attack");
+            Debug.Log($"{Name} Attack");
         }
         else if (IsMovable(turnContext)) {
             Move(turnContext);
         }
         else {
-            Debug.Log($"{_config.name} None Action");
+            Debug.Log($"{Name} None Action");
         }
 
         ResetActionCoolDown();
@@ -277,7 +288,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     {
         List<Cell> movePath = GetMovePath(turnContext.Board);
 
-        Debug.Log($"[{_config.name}, id: {_id}] Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
+        Debug.Log(movePath[1]);
+        Debug.Log($"[{Name}, id: {_id}] Moved from ({CurrentCell.position.col}, {CurrentCell.position.row}) to ({movePath[1].position.col}, {movePath[1].position.row})");
 
         Cell moveCell = movePath[1];
 
@@ -379,7 +391,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //선택한 스킬을 발동
-        Debug.Log($"[{_config.name}, id: {_id}]의 스킬 발동: {skill.name}을 [{mainTarget._config.name}, id: {mainTarget.ID}]에게 사용.");
+        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.name}을 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용.");
         skill.Activate(turnContext, this, mainTarget);
     }
 
@@ -395,7 +407,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     protected void FireProjectile(BaseUnit target, Action<BaseUnit> onHit, float speed = 7) {
         if (_projectilePrefab == null) {
-            Debug.LogError($"There is no _projectilePrefab in {_config.name}. Please check the UnitConfig or Init method.");
+            Debug.LogError($"There is no _projectilePrefab in {Name}. Please check the UnitConfig or Init method.");
         }
 
         Projectile projectile = Instantiate(_projectilePrefab);
@@ -405,7 +417,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     protected void FireProjectile(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
         if (_projectilePrefab == null) {
-            Debug.LogError($"There is no _projectilePrefab in {_config.name}. Please check the UnitConfig or Init method.");
+            Debug.LogError($"There is no _projectilePrefab in {Name}. Please check the UnitConfig or Init method.");
         }
 
         Projectile projectile = Instantiate(_projectilePrefab);
