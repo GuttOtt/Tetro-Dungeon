@@ -21,9 +21,9 @@ MonoBehaviour:
       gridSize: {x: 3, y: 3}
       cellSize: {x: 16, y: 16}
       cells:
-      - row: 000100
-      - row: 010101
-      - row: 000100
+      - row: 000101
+      - row: 000101
+      - row: 000101
     CenterIndex: {x: 1, y: 1}
   - Level: 2
     Shape:

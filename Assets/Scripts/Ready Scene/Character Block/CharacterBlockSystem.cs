@@ -125,6 +125,7 @@ public class CharacterBlockSystem : MonoBehaviour {
                 }
                 else {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
+                    _selectedBlock.Place();
                 }
             }
         }

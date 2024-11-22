@@ -35,14 +35,17 @@ public class EquipmentSystem : MonoBehaviour {
 
     public Equipment CreateEquipment(EquipmentData data, CharacterBlock characterBlock) {
         Equipment newEquipment = CreateEquipment(data.Config);
-        
+
+
         //Spin
         int spinDegree = data.SpinDegree;
-        newEquipment.Spin(spinDegree);
+        //newEquipment.transform.Rotate(0, 0, -spinDegree);
+        newEquipment.SpinDegree = spinDegree;
 
         //Locate in characterBlock
         Vector2Int location = data.Location;
         newEquipment.Place(characterBlock, location);
+
 
         return newEquipment;
     }
@@ -111,6 +114,7 @@ public class EquipmentSystem : MonoBehaviour {
                 }
                 else {
                     _selectedEquipment.transform.position = _selectedPos;
+                    _selectedEquipment.Place();
                 }
             }
         }

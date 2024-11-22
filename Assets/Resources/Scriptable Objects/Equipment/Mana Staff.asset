@@ -15,12 +15,11 @@ MonoBehaviour:
   Name: "\uB9C8\uB098 \uC2A4\uD0DC\uD504"
   Sprite: {fileID: 21300000, guid: 7e866e7b85d580e4cb85465cbeef1299, type: 3}
   Shape:
-    gridSize: {x: 3, y: 3}
+    gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
-    - row: 000000
-    - row: 000000
-    - row: 000000
+    - row: 0101
+    - row: 0100
   MaxHP: 0
   Attack: 0
   SpellPower: 10

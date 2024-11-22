@@ -36,6 +36,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public BlockPart CenterBlockPart { get => _centerBlockPart; }
     public CharacterBlockConfig Config { get => _config; }
     public List<Equipment> Equipments { get => _equipments; }
+    public int SpinDegree { get => _spinDegree; }
 
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
@@ -208,7 +209,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     public void Equip(Equipment equipment) {
         _equipments.Add(equipment);
-        equipment.transform.parent = transform;
+        equipment.transform.SetParent(transform);
     }
 
     public void Unequip(Equipment equipment) {
