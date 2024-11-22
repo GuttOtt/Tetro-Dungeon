@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour, IGameManager
         List<CharacterBlock> blocks = new List<CharacterBlock>();
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
-            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
+            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data, true);
             blocks.Add(block);
         }
 
@@ -97,7 +97,13 @@ public class GameManager : MonoBehaviour, IGameManager
 
         foreach (CharacterBlock block in blocks) {
             BaseUnit unit = _unitSystem.CreateUnit(block.Config, CharacterTypes.Player);
-            
+
+            //Equipments
+            List<Equipment> equipments = block.Equipments;
+            foreach (Equipment equipment in equipments) {
+                unit.Equip(equipment.Config);
+            }
+
             //Place unit in the center of the characterBlock
             Vector2Int centerCellPos = block.CenterCellPos;
             Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);

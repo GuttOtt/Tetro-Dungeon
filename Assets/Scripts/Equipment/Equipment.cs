@@ -18,6 +18,7 @@ public class Equipment : MonoBehaviour {
 
     public BlockPart_Equipment CenterBlockPart { get => _blockParts[0]; }
     public int SpinDegree { get => _spinDegree; set => _spinDegree = value; }
+    public EquipmentConfig Config { get => _config; }
 
     #region Init
     public void Init(EquipmentConfig config) {

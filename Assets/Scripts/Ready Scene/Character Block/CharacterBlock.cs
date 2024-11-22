@@ -35,6 +35,7 @@ public class CharacterBlock : MonoBehaviour {
     }
     public BlockPart CenterBlockPart { get => _centerBlockPart; }
     public CharacterBlockConfig Config { get => _config; }
+    public List<Equipment> Equipments { get => _equipments; }
 
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {

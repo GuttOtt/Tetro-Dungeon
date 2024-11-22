@@ -505,4 +505,15 @@ public class BaseUnit : MonoBehaviour, IUnit
         _actionCoolDown = 0;
     }
 
+
+    public void Equip(EquipmentConfig equipmentConfig) {
+        //Stats
+        ChangeMaxHP(equipmentConfig.MaxHP);
+        ChangeAttack(equipmentConfig.Attack);
+        _spellPower += equipmentConfig.SpellPower;
+        _defence += equipmentConfig.Defence;
+        _spellDefence += equipmentConfig.SpellDefence;
+        _range += equipmentConfig.Range;
+        _speed += equipmentConfig.Speed;
+    }
 }
