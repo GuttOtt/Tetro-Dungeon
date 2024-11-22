@@ -13,6 +13,7 @@ public class CharacterBlockSystem : MonoBehaviour {
 
     [SerializeField] private InventorySystem _inventorySystem;
     [SerializeField] private EquipmentSystem _equipmentSystem;
+    [SerializeField] private ShopSystem _shopSystem;
     [SerializeField] private Board _board;
 
     private bool _isInputOn = true;
@@ -105,6 +106,15 @@ public class CharacterBlockSystem : MonoBehaviour {
             if (_inventorySystem.ContainsItem(_selectedBlock)) {
                 if (!_inventorySystem.IsInsideArea(_selectedBlock)) {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
+                }
+            }
+            //Shop에 있는 상태였을 경우
+            else if (_shopSystem.ContainsItem(_selectedBlock)) {
+                //Shop -> Inventory
+                if (_inventorySystem.IsInsideArea(_selectedBlock)
+                    && _shopSystem.IsAffordable(_selectedBlock)) {
+                    _shopSystem.Buy(_selectedBlock);
+                    _inventorySystem.Add(_selectedBlock);
                 }
             }
             //Place 되어 있던 상태일 때

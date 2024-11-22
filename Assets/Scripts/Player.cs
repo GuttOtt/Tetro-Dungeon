@@ -44,7 +44,7 @@ namespace Assets.Scripts
         #endregion
 
         //Money and Life
-        [SerializeField] private int initialMoney = 100;
+        [SerializeField] private int initialMoney = 10;
         private int _currentMoney;
         [SerializeField] private int _currentLife = 500;
 

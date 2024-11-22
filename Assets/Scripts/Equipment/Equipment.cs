@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equipment : MonoBehaviour {
+public class Equipment : MonoBehaviour, IItem {
     private EquipmentConfig _config;
     private Array2DBool _shape;
     private List<BlockPart_Equipment> _blockParts = new List<BlockPart_Equipment>();

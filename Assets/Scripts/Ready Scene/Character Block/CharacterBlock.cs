@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterBlock : MonoBehaviour {
+public class CharacterBlock : MonoBehaviour, IItem {
     private string _name;
     private Sprite _illust;
     private int _level;

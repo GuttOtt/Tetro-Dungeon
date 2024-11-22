@@ -9,6 +9,7 @@ public class EquipmentSystem : MonoBehaviour {
     private Vector3 _selectedPos;
 
     [SerializeField] private InventorySystem _inventorySystem;
+    [SerializeField] private ShopSystem _shopSystem;
 
     private bool _isInputOn = true;
 
@@ -91,6 +92,15 @@ public class EquipmentSystem : MonoBehaviour {
             if (_inventorySystem.ContainsItem(_selectedEquipment)) {
                 if (!_inventorySystem.IsInsideArea(_selectedEquipment)) {
                     _selectedEquipment.transform.position = _selectedPos;
+                }
+            }
+            //Shop에 있는 상태였을 경우
+            else if (_shopSystem.ContainsItem(_selectedEquipment)) {
+                //Shop -> Inventory
+                if (_inventorySystem.IsInsideArea(_selectedEquipment)
+                    && _shopSystem.IsAffordable(_selectedEquipment)) {
+                    _shopSystem.Buy(_selectedEquipment);
+                    _inventorySystem.Add(_selectedEquipment);
                 }
             }
             //Place 되어 있던 상태일 때
