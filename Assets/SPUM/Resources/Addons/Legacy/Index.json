@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-10-25 19:17:18",
+    "CreationDate": "2024-11-12 21:00:00",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -1919,6 +1919,14 @@
             "SubType": "Bow_1",
             "PartSubType": "Bow",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/2_Bow/Bow_1"
+        },
+        {
+            "Name": "Weapon_gun1",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Weapon_gun1",
+            "PartSubType": "Bow",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/2_Bow/Weapon_gun1"
         },
         {
             "Name": "Shield_1",

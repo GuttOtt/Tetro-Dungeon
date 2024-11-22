@@ -286,6 +286,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 101160103685821066, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: _manager
+      value: 
+      objectReference: {fileID: 1513135268}
+    - target: {fileID: 101160103685821066, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: _nowSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2962c0a94c552a344810199df38ad370, type: 3}
     - target: {fileID: 2805380862094096055, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
       propertyPath: m_Name
       value: SpriteEditorPrefab
@@ -314,6 +322,22 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4613899289502228055, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4613899289502228055, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4613899289502228055, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2962c0a94c552a344810199df38ad370, type: 3}
+    - target: {fileID: 4613899289502228055, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4613899289502228061, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
       propertyPath: m_Size.x
       value: 0.3125
@@ -328,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 725372649, guid: b51fc67b1dafd884388792fb6672431d, type: 3}
     - target: {fileID: 4613899289502228061, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6395052015739597799, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
       propertyPath: _manager
@@ -434,6 +458,18 @@ PrefabInstance:
       propertyPath: _manager
       value: 
       objectReference: {fileID: 1513135268}
+    - target: {fileID: 8413955542767014167, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413955542767014167, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0625
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413955542767014167, guid: e4a230169a75d304397f392e28b8f10e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
