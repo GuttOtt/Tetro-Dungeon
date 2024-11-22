@@ -21,4 +21,5 @@ public class BlockPart_Equipment : MonoBehaviour {
     public BlockPart PickBlockPart() {
         return Utils.Pick<BlockPart>(transform.position);
     }
+
 }

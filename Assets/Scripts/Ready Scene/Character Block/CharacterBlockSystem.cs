@@ -12,6 +12,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     private Vector3 _selectedBlockOriginalPos;
 
     [SerializeField] private InventorySystem _inventorySystem;
+    [SerializeField] private EquipmentSystem _equipmentSystem;
     [SerializeField] private Board _board;
 
     private bool _isInputOn = true;
@@ -31,24 +32,27 @@ public class CharacterBlockSystem : MonoBehaviour {
         return newBlock;
     }
 
-    public CharacterBlock CreateCharacterBlock(CharacterBlockData data) {
+    public CharacterBlock CreateCharacterBlock(CharacterBlockData data, bool isOnBoard = false) {
         CharacterBlock newBlock = CreateCharacterBlock(data.Config, data.Level);
+
+        //Equipments
+        List<EquipmentData> equipmentDatas = data.Equipments;
+        if (equipmentDatas != null) {
+            foreach (EquipmentData equipmentData in equipmentDatas) {
+                _equipmentSystem.CreateEquipment(equipmentData, newBlock);
+            }
+        }
 
         //Spin
         newBlock.Spin(data.SpinDegree);
         
         //Move and Place
-        Vector2Int centerCellIndex = data.CenterCellIndex;
-        Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
-        Vector3 centerCellPos = centerCell.transform.position;
+        if (isOnBoard) {
+            Vector2Int centerCellIndex = data.CenterCellIndex;
+            Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
 
-        BlockPart centerBlockPart = newBlock.CenterBlockPart;
-        Vector3 centerBlockPartPos = centerBlockPart.transform.position;
-
-        Vector3 vectorDifference = centerBlockPartPos - centerCellPos;
-        newBlock.transform.position -= vectorDifference;
-
-        TryPlace(newBlock);
+            newBlock.Place(centerCell);
+        }
 
         return newBlock;
     }

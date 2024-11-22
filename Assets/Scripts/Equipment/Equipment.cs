@@ -7,8 +7,9 @@ public class Equipment : MonoBehaviour {
     private EquipmentConfig _config;
     private Array2DBool _shape;
     private List<BlockPart_Equipment> _blockParts = new List<BlockPart_Equipment>();
-    private int _spinDegree;
+    [SerializeField] private int _spinDegree;
     private bool _isPlaced;
+    private CharacterBlock _characterBlock;
     private Vector2Int _locationInCharacter;
     
     [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -16,6 +17,7 @@ public class Equipment : MonoBehaviour {
     [SerializeField] private Transform _blockPartsRoot;
 
     public BlockPart_Equipment CenterBlockPart { get => _blockParts[0]; }
+    public int SpinDegree { get => _spinDegree; set => _spinDegree = value; }
 
     #region Init
     public void Init(EquipmentConfig config) {
@@ -65,11 +67,24 @@ public class Equipment : MonoBehaviour {
     public void Spin(bool isClockwise) {
         if (!isClockwise) {
             transform.Rotate(0, 0, 90);
-            _spinDegree += 90;
+            _spinDegree += -90;
         }
         else {
             transform.Rotate(0, 0, -90);
-            _spinDegree -= 90;
+            _spinDegree += 90;
+        }
+    }
+
+    public void Spin(int spinDegree) {
+        if (spinDegree < 0) {
+            for (int i = 0; i < -spinDegree / 90; i++) {
+                Spin(false);
+            }
+        }
+        else {
+            for (int i = 0; i < spinDegree / 90; i++) {
+                Spin(true);
+            }
         }
     }
 
@@ -97,22 +112,38 @@ public class Equipment : MonoBehaviour {
         //임의의 셀 하나를 택해 Cell과의 상대적 position 차이 구하기
         BlockPart_Equipment centerBlock = _blockParts[0];
         BlockPart centerCharacterBlock = _blockParts[0].PickBlockPart();
-        Vector3 blockPartPos = centerBlock.transform.position;
-        Vector3 characterBlockPartPos = centerCharacterBlock.transform.position;
-        Vector3 vectorDifference = blockPartPos - characterBlockPartPos;
 
+        CharacterBlock characterBlock = centerCharacterBlock.CharacterBlock;
+        Vector2Int location = centerCharacterBlock.Location;
+
+        Place(characterBlock, location);
+    }
+
+    public void Place(CharacterBlock characterBlock, Vector2Int location) {
+        if (characterBlock == null) return;
+
+        BlockPart blockPart = characterBlock.GetBlockPart(location.x, location.y);
+        Vector3 blockPartPos = blockPart.transform.position;
+
+        BlockPart_Equipment center = CenterBlockPart;
+        Vector3 centerPos = center.transform.position;
+
+        Vector3 vectorDifference = centerPos - blockPartPos;
         transform.position -= vectorDifference;
 
-        _isPlaced = true;
-
-        _locationInCharacter = centerCharacterBlock.Location;
-        centerCharacterBlock.CharacterBlock.Equip(this);
+        _locationInCharacter = location;
+        blockPart.CharacterBlock.Equip(this);
 
         //반투명
         _spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+
+        _characterBlock = characterBlock;
+        _isPlaced = true;
     }
 
     public void Unplace() {
+        _characterBlock?.Unequip(this);
+
         _isPlaced = false;
         transform.parent = null;
 
@@ -122,10 +153,6 @@ public class Equipment : MonoBehaviour {
 
     public void ChangeSortingLayer(int sortingLayerID) {
         _spriteRenderer.sortingLayerID = sortingLayerID;
-
-        foreach (BlockPart_Equipment blockPart in _blockParts) {
-            //blockPart.SetSortingLayer(sortingLayerID);
-        }
     }
 
     public EquipmentData GetData() {

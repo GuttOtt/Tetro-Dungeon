@@ -32,6 +32,20 @@ public class EquipmentSystem : MonoBehaviour {
         return newEquipment;
     }
 
+    public Equipment CreateEquipment(EquipmentData data, CharacterBlock characterBlock) {
+        Equipment newEquipment = CreateEquipment(data.Config);
+        
+        //Spin
+        int spinDegree = data.SpinDegree;
+        newEquipment.Spin(spinDegree);
+
+        //Locate in characterBlock
+        Vector2Int location = data.Location;
+        newEquipment.Place(characterBlock, location);
+
+        return newEquipment;
+    }
+
     private void Select() {
         if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedEquipment != null) {
             return;
@@ -103,7 +117,7 @@ public class EquipmentSystem : MonoBehaviour {
 
         if (_selectedEquipment.IsPlacable()) {
             _selectedEquipment.Place();
-            //_inventorySystem.Remove(_selectedEquipment);
+            _inventorySystem.Remove(_selectedEquipment);
             return true;
         }
         else {

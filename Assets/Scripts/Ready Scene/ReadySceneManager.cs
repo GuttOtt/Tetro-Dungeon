@@ -21,7 +21,7 @@ public class ReadySceneManager : MonoBehaviour {
         }
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
-            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data);
+            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data, true);
         }
 
         foreach (EquipmentData data in _player.EquipmentsInventory) {
@@ -50,9 +50,16 @@ public class ReadySceneManager : MonoBehaviour {
     }
 
     private void SaveInventoryData() {
+        //Save Character Blocks
         List<CharacterBlockData> characterBlockDatas =
             _inventorySystem.GetCharacterBlockDatas();
 
         _player.SaveCharacterBlockDataOnInventroy(characterBlockDatas);
+
+        //Save Equipments
+        List<EquipmentData> equipmentDatas =
+            _inventorySystem.GetEquipmentDatas();
+
+        _player.SaveEquipmentsInventory(equipmentDatas);
     }
 }

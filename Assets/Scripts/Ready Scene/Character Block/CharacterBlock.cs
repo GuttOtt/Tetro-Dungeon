@@ -19,7 +19,7 @@ public class CharacterBlock : MonoBehaviour {
     [SerializeField] private Transform _blockPartsRoot;
     private List<BlockPart> _blockParts = new List<BlockPart>();
 
-    private bool _isPlaced = false;
+    [SerializeField] private bool _isPlaced = false;
     private int _spinDegree = 0;
     private BlockPart _centerBlockPart;
 
@@ -95,25 +95,29 @@ public class CharacterBlock : MonoBehaviour {
     }
 
     public void Spin(bool isClockwise) {
+        int spinDegree = 0;
+
         if (!isClockwise) {
-            transform.Rotate(0, 0, 90);
-            _spinDegree += 90;
+            spinDegree = -90;
         }
         else {
-            transform.Rotate(0, 0, -90);
-            _spinDegree -= 90;
+            spinDegree = 90;
         }
+
+        transform.Rotate(0, 0, -spinDegree);
+        _spinDegree += spinDegree;
+
     }
 
     public void Spin(int spinDegree) {
         if (spinDegree < 0) {
             for (int i = 0; i < -spinDegree / 90; i++) {
-                Spin(true);
+                Spin(false);
             }
         }
         else {
             for (int i = 0; i < spinDegree / 90; i++) {
-                Spin(false);
+                Spin(true);
             }
         }
     }
@@ -129,6 +133,21 @@ public class CharacterBlock : MonoBehaviour {
         Vector3 cellPos = _blockParts[0].Cell.transform.position;
         Vector3 vectorDifference = blockPartPos - cellPos;
 
+        transform.position -= vectorDifference;
+
+        _isPlaced = true;
+    }
+
+    public void Place(Cell centerCell) {
+        foreach (BlockPart blockPart in _blockParts) {
+            Cell cellUnder = blockPart.PickCell();
+            blockPart.Cell = cellUnder;
+        }
+
+        Vector3 centerCellPos = centerCell.transform.position;
+        Vector3 centerBlockPartPos = CenterBlockPart.transform.position;
+
+        Vector3 vectorDifference = centerBlockPartPos - centerCellPos;
         transform.position -= vectorDifference;
 
         _isPlaced = true;
@@ -176,8 +195,22 @@ public class CharacterBlock : MonoBehaviour {
         return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree, equipmentDatas);
     }
 
+    public BlockPart GetBlockPart(int x, int y) {
+        foreach (BlockPart blockPart in _blockParts) {
+            if (blockPart.Location.x == x && blockPart.Location.y == y) {
+                return blockPart;
+            }
+        }
+
+        return null;
+    }
+
     public void Equip(Equipment equipment) {
         _equipments.Add(equipment);
         equipment.transform.parent = transform;
+    }
+
+    public void Unequip(Equipment equipment) {
+        _equipments.Remove(equipment);
     }
 }

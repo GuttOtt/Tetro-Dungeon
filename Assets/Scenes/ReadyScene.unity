@@ -923,6 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterBlockPrefab: {fileID: 4263772644774641244, guid: f75ed3be250068b4cba0c0804414a250, type: 3}
   _inventorySystem: {fileID: 382986974}
+  _equipmentSystem: {fileID: 748715679}
   _board: {fileID: 1299432548}
 --- !u!4 &1386957425
 Transform:
