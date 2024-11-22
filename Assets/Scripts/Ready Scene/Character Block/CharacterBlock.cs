@@ -57,8 +57,8 @@ public class CharacterBlock : MonoBehaviour {
 
         Vector2 blockSize = _blockPartPrefab.Size;
 
-        float xOrigin = x / 2 == 0 ? -(x / 2 - 0.5f) * blockSize.x : -(x / 2) * blockSize.x;
-        float yOrigin = y / 2 == 0 ? (y / 2 - 0.5f) * blockSize.y : (y / 2) * blockSize.y;
+        float xOrigin = x % 2 == 0 ? -(x / 2 - 0.5f) * blockSize.x : -(x / 2) * blockSize.x;
+        float yOrigin = y % 2 == 0 ? (y / 2 - 0.5f) * blockSize.y : (y / 2) * blockSize.y;
 
         Vector2Int centerIndex = _config.GetCenterIndex(_level);
         int xCenter = centerIndex.x;
@@ -166,10 +166,18 @@ public class CharacterBlock : MonoBehaviour {
     }
 
     public CharacterBlockData GetData() {
-        return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree);
+        List<EquipmentData> equipmentDatas = new List<EquipmentData>();
+
+        foreach (Equipment equipment in _equipments) {
+            EquipmentData data = equipment.GetData();
+            equipmentDatas.Add(data);
+        }
+
+        return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree, equipmentDatas);
     }
 
     public void Equip(Equipment equipment) {
         _equipments.Add(equipment);
+        equipment.transform.parent = transform;
     }
 }

@@ -46,6 +46,9 @@ TagManager:
   - name: Illust
     uniqueID: 3553864469
     locked: 0
+  - name: Equipment
+    uniqueID: 2701157197
+    locked: 0
   - name: Dragging
     uniqueID: 105409535
     locked: 0

@@ -6,14 +6,39 @@ using UnityEngine;
 public class InventorySystem : MonoBehaviour {
     [SerializeField] private BoxCollider2D _area;
     private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
+    private List<Equipment> _equipments = new List<Equipment>();
 
     public void Add(CharacterBlock characterBlock) {
         _characterBlocks.Add(characterBlock);
-        characterBlock.transform.position = _area.transform.position;
+        //characterBlock.transform.SetParent(_area.transform);
+        ArrangeTransform(characterBlock.transform);
     }
 
     public void Remove(CharacterBlock characterBlock) {
         _characterBlocks.Remove(characterBlock);
+    }
+
+    public void Add(Equipment equipment) {
+        _equipments.Add(equipment);
+        //equipment.transform.SetParent(_area.transform);
+        ArrangeTransform(equipment.transform);
+    }
+
+    private void ArrangeTransform(Transform itemTransform) {
+        Vector3 position = itemTransform.position;
+        Bounds areaBounds = _area.bounds;
+        float y = position.y;
+
+        bool isYInside =  areaBounds.min.y <= y  && y <= areaBounds.max.y;
+
+        if (!isYInside) {
+            position.y = areaBounds.center.y;
+            itemTransform.position = position;
+        }
+    }
+
+    public void Remove(Equipment equipment) {
+        _equipments.Remove(equipment);
     }
 
     public bool IsInsideArea(CharacterBlock characterBlock) {
@@ -21,8 +46,13 @@ public class InventorySystem : MonoBehaviour {
         blockPos.z = 0;
         Bounds areaBounds = _area.bounds;
 
-        Debug.Log(areaBounds.size);
-        Debug.Log(areaBounds.Contains(blockPos));
+        return areaBounds.Contains(blockPos);
+    }
+
+    public bool IsInsideArea(Equipment equipment) {
+        Vector3 blockPos = equipment.transform.position;
+        blockPos.z = 0;
+        Bounds areaBounds = _area.bounds;
 
         return areaBounds.Contains(blockPos);
     }
@@ -31,11 +61,26 @@ public class InventorySystem : MonoBehaviour {
         return _characterBlocks.Contains(characterBlock);
     }
 
+    public bool ContainsItem(Equipment equipment) {
+        return _equipments.Contains(equipment);
+    }
+
     public List<CharacterBlockData> GetCharacterBlockDatas() {
         List<CharacterBlockData> datas = new List<CharacterBlockData>();
 
         foreach (CharacterBlock characterBlock in _characterBlocks) {
             CharacterBlockData data = characterBlock.GetData();
+            datas.Add(data);
+        }
+
+        return datas.ToList();
+    }
+
+    public List<EquipmentData> GetEquipmentDatas() {
+        List<EquipmentData> datas = new List<EquipmentData>();
+
+        foreach (Equipment equipment in _equipments) {
+            EquipmentData data = equipment.GetData();
             datas.Add(data);
         }
 

@@ -5,29 +5,21 @@ using UnityEngine;
 public class BlockPart : MonoBehaviour {
     [SerializeField] private SpriteMask _spriteMask;
     private CharacterBlock _characterBlock;
-    private Equipment _equipment;
 
     private Vector2Int _location = new Vector2Int();
 
     public Cell Cell;
-    public int CharacterBlockPartIndex;
 
     public Vector2 Size { get => _spriteMask.bounds.size; }
     public CharacterBlock CharacterBlock { get => _characterBlock; }
     public Vector2Int Location { get => _location; }
 
     public void Init(CharacterBlock characterBlock, int frontSortingOrder, Vector2Int location) {
+        _location = location;
         _characterBlock = characterBlock;
         SetSortingOrder(frontSortingOrder);
-        _location = location;
     }
 
-    public void Init(Equipment equipment) {
-        _equipment= equipment;
-
-        int equipmentLayerID = SortingLayer.NameToID("Equipment");
-        _spriteMask.sortingLayerID = equipmentLayerID;
-    }
 
     public Cell PickCell() {
         return Utils.Pick<Cell>(transform.position);

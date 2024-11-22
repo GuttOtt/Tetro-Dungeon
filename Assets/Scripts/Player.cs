@@ -53,10 +53,14 @@ namespace Assets.Scripts
         public int CurrentMoney { get => _currentMoney; set => _currentMoney = value; }
 
         private List<CharacterBlockConfig> _characterBlockConfigs = new List<CharacterBlockConfig>();
+        private List<EquipmentConfig> _equipmentConfigs = new List<EquipmentConfig>();
 
         #region Inventory
         private List<CharacterBlockData> _characterBlocksInventory = new List<CharacterBlockData>();
+        private List<EquipmentData> _equipmentsInventory = new List<EquipmentData>();
+
         public List<CharacterBlockData> CharacterBlocksInventory { get => _characterBlocksInventory; }
+        public List<EquipmentData> EquipmentsInventory { get => _equipmentsInventory; }
 
         private void SetInitialInventory() {
             //랜덤으로 캐릭터 블럭 3개 생성
@@ -66,10 +70,24 @@ namespace Assets.Scripts
 
                 CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
             }
+
+            //랜덤으로 아이템 3개 생성
+            for (int i = 0; i < 3; i++) {
+                EquipmentConfig config = _equipmentConfigs[Random.Range(0, _equipmentConfigs.Count)];
+
+                EquipmentData data = new EquipmentData();
+                data.Config = config;
+
+                EquipmentsInventory.Add(data);
+            }
         }
 
         public void SaveCharacterBlockDataOnInventroy(List<CharacterBlockData> datas) {
             _characterBlocksInventory = datas.ToList();
+        }
+
+        public void SaveEquipmentsInventory(List<EquipmentData> datas) {
+            _equipmentsInventory = datas.ToList();
         }
         #endregion
 
@@ -100,6 +118,7 @@ namespace Assets.Scripts
             SetDeck(15);
 
             _characterBlockConfigs = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
+            _equipmentConfigs = Resources.LoadAll<EquipmentConfig>("Scriptable Objects/Equipment").ToList();
             SetInitialInventory();
 
             _currentMoney = initialMoney;

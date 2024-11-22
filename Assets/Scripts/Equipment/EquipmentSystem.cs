@@ -6,18 +6,17 @@ public class EquipmentSystem : MonoBehaviour {
     private List<Equipment> _equipments = new List<Equipment>();
     [SerializeField] private Equipment _euipmentPrefab;
     private Equipment _selectedEquipment;
+    private Vector3 _selectedPos;
 
     [SerializeField] private InventorySystem _inventorySystem;
 
-    private bool _isInputOn;
+    private bool _isInputOn = true;
 
-    void Start() {
-
-    }
-
-    // Update is called once per frame
     void Update() {
-
+        Select();
+        UnSelect();
+        MoveSelectedEquipment();
+        SpinEquipment();
     }
 
     public Equipment CreateEquipment(EquipmentConfig config) {
@@ -28,12 +27,101 @@ public class EquipmentSystem : MonoBehaviour {
         return newEquipment;
     }
 
+    public Equipment CreateEquipment(EquipmentData data) {
+        Equipment newEquipment = CreateEquipment(data.Config);
+        return newEquipment;
+    }
+
     private void Select() {
-        if (!_isInputOn || !Input.GetMouseButton(0) || _selectedEquipment != null) {
+        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedEquipment != null) {
             return;
         }
 
-        BlockPart selectedBlockPart = Utils.Pick<BlockPart>();
+        BlockPart_Equipment selectedBlockPart = Utils.Pick<BlockPart_Equipment>();
         if (selectedBlockPart == null) return;
+
+        Equipment selectedEquipment = selectedBlockPart.Equipment;
+        if (selectedEquipment == null) return;
+
+        _selectedEquipment = selectedEquipment;
+
+        //가장 위로 가게 하기 위해 SortingLayer 설정
+        int draggingLayerID = SortingLayer.NameToID("Dragging");
+        selectedEquipment.ChangeSortingLayer(draggingLayerID);
+
+        //원래 위치 저장
+        _selectedPos = selectedEquipment.transform.position;
+
+        selectedEquipment.Unplace();
+    }
+
+    private void MoveSelectedEquipment() {
+        if (_selectedEquipment == null) return;
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = _selectedEquipment.transform.position.z;
+        _selectedEquipment.transform.position = mousePosition;
+    }
+
+    private void UnSelect() {
+        if (!Input.GetMouseButtonUp(0) || _selectedEquipment == null) return;
+
+        //SortingLayer 원래대로 되돌리기
+        int equipmentLayerID = SortingLayer.NameToID("Equipment");
+        _selectedEquipment.ChangeSortingLayer(equipmentLayerID);
+
+        //Placing
+        bool isPlaced = TryPlace();
+        if (!isPlaced) {
+            //Inventory에 있었던 경우
+            if (_inventorySystem.ContainsItem(_selectedEquipment)) {
+                if (!_inventorySystem.IsInsideArea(_selectedEquipment)) {
+                    _selectedEquipment.transform.position = _selectedPos;
+                }
+            }
+            //Place 되어 있던 상태일 때
+            else {
+                if (_inventorySystem.IsInsideArea(_selectedEquipment)) {
+                    _selectedEquipment.Unplace();
+                    _inventorySystem.Add(_selectedEquipment);
+                }
+                else {
+                    _selectedEquipment.transform.position = _selectedPos;
+                }
+            }
+        }
+        else {
+            Debug.Log("Placed");
+        }
+
+        _selectedEquipment = null;
+    }
+
+    private bool TryPlace() {
+        if (_selectedEquipment == null)
+            return false;
+
+        if (_selectedEquipment.IsPlacable()) {
+            _selectedEquipment.Place();
+            //_inventorySystem.Remove(_selectedEquipment);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void SpinEquipment() {
+        if (_selectedEquipment == null) return;
+
+        bool isClockwise;
+        if (Input.GetKeyDown(KeyCode.Q))
+            isClockwise = false;
+        else if (Input.GetKeyDown(KeyCode.E))
+            isClockwise = true;
+        else
+            return;
+
+        _selectedEquipment.Spin(isClockwise);
     }
 }

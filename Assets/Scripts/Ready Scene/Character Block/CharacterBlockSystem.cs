@@ -55,9 +55,12 @@ public class CharacterBlockSystem : MonoBehaviour {
 
     #region Selection and Dragging Control
     private void SelectBlock() {
-        if (!_isInputOn || !Input.GetMouseButton(0) || _selectedBlock != null) {
+        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedBlock != null) {
             return;
         }
+
+        if (Utils.Pick<BlockPart_Equipment>() != null)
+            return;
 
         BlockPart selectedBlockPart = Utils.Pick<BlockPart>();
         if (selectedBlockPart == null) return;
