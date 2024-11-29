@@ -36,14 +36,6 @@ public class CharacterBlockSystem : MonoBehaviour {
     public CharacterBlock CreateCharacterBlock(CharacterBlockData data, bool isOnBoard = false) {
         CharacterBlock newBlock = CreateCharacterBlock(data.Config, data.Level);
 
-        //Equipments
-        List<EquipmentData> equipmentDatas = data.Equipments;
-        if (equipmentDatas != null) {
-            foreach (EquipmentData equipmentData in equipmentDatas) {
-                _equipmentSystem.CreateEquipment(equipmentData, newBlock);
-            }
-        }
-
         //Spin
         newBlock.Spin(data.SpinDegree);
         
@@ -53,6 +45,14 @@ public class CharacterBlockSystem : MonoBehaviour {
             Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
 
             newBlock.Place(centerCell);
+        }
+
+        //Equipments
+        List<EquipmentData> equipmentDatas = data.Equipments;
+        if (equipmentDatas != null) {
+            foreach (EquipmentData equipmentData in equipmentDatas) {
+                _equipmentSystem.CreateEquipment(equipmentData, newBlock);
+            }
         }
 
         return newBlock;

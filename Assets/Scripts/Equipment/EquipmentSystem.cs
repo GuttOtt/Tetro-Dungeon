@@ -39,7 +39,7 @@ public class EquipmentSystem : MonoBehaviour {
 
         //Spin
         int spinDegree = data.SpinDegree;
-        //newEquipment.transform.Rotate(0, 0, -spinDegree);
+        newEquipment.transform.Rotate(0, 0, -spinDegree);
         newEquipment.SpinDegree = spinDegree;
 
         //Locate in characterBlock

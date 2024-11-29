@@ -137,6 +137,9 @@ public class CharacterBlock : MonoBehaviour, IItem {
         transform.Rotate(0, 0, -spinDegree);
         _spinDegree += spinDegree;
 
+        foreach(Equipment equipment in _equipments) {
+            equipment.SpinDegree += spinDegree;
+        }
     }
 
     public void Spin(int spinDegree) {
@@ -145,7 +148,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
                 Spin(false);
             }
         }
-        else {
+        else if (0 < spinDegree) {
             for (int i = 0; i < spinDegree / 90; i++) {
                 Spin(true);
             }
