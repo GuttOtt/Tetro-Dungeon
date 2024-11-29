@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.Rendering;
+
 public enum PlayerState
 {
     IDLE,
@@ -200,5 +202,11 @@ public class SPUM_Prefabs : MonoBehaviour
         }
         
         return clip;
+    }
+
+    public void SetSortingLayer(int sortingLayerID) {
+        SortingGroup sortingGroup = _anim.GetComponent<SortingGroup>();
+
+        sortingGroup.sortingLayerID = sortingLayerID;
     }
 }

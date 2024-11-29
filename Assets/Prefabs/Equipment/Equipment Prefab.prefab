@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc8b73d469d631498c696a5daa6283b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spinDegree: 0
   _spriteRenderer: {fileID: 7470077829780108863}
   _blockPartPrefab: {fileID: 1170904547552020097, guid: aaf4b2330422add4682f9eba58a56fc3, type: 3}
   _blockPartsRoot: {fileID: 8791544106147222282}

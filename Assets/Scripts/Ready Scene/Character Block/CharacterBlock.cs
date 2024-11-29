@@ -2,6 +2,7 @@ using Array2DEditor;
 using Cysharp.Threading.Tasks.Triggers;
 using Extensions;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -38,14 +39,41 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public List<Equipment> Equipments { get => _equipments; }
     public int SpinDegree { get => _spinDegree; }
 
+    #region Stats
+    private int _maxHP, _attack, _spellPower, _defence, _spellDefence, _range, _speed;
+    public int MaxHP { get => _maxHP; }
+    public int Attack { get => _attack; }
+    public int SpellPower { get => _spellPower; }
+    public int Defence { get => _defence; }
+    public int SpellDefence { get => _spellDefence; }
+    public int Speed { get => _speed; }
+    public int Range { get => _range; }
+    public int OriginalHP { get => Config.MaxHP; }
+    public int OriginalAttack { get => Config.Attack; }
+    public int OriginalSpellPower { get => Config.SpellPower; }
+    public int OriginalDefence { get => Config.Defence; }
+    public int OriginalSpellDefence { get => Config.SpellDefence; }
+    public int OriginalSpeed { get => Config.Speed; }
+    public int OriginalRange { get => Config.Range; }
+
+    #endregion
+
 
     public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
         _config = config;
         _name = config.name;
         _illust = config.Illust;
         _level = currentLvl;
-
         _illustRenderer.sprite = _illust;
+
+        //Stats
+        _maxHP = config.MaxHP;
+        _attack = config.Attack;
+        _defence= config.Defence;
+        _spellPower = config.SpellPower;
+        _spellDefence = config.Defence;
+        _speed = config.Speed;
+        _range = config.Range;
 
         CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;
@@ -186,6 +214,12 @@ public class CharacterBlock : MonoBehaviour, IItem {
         }
     }
 
+    public void ChangeEquipmentSortingLayer(int sortingLayerID) {
+        foreach (Equipment equipment in _equipments) {
+            equipment.ChangeSortingLayer(sortingLayerID);
+        }
+    }
+
     public CharacterBlockData GetData() {
         List<EquipmentData> equipmentDatas = new List<EquipmentData>();
 
@@ -210,9 +244,25 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public void Equip(Equipment equipment) {
         _equipments.Add(equipment);
         equipment.transform.SetParent(transform);
+
+        _maxHP += equipment.Config.MaxHP;
+        _attack += equipment.Config.Attack;
+        _defence += equipment.Config.Defence;
+        _spellPower += equipment.Config.SpellPower;
+        _spellDefence += equipment.Config.SpellDefence;
+        _speed += equipment.Config.Speed;
+        _range += equipment.Config.Range;
     }
 
     public void Unequip(Equipment equipment) {
         _equipments.Remove(equipment);
+
+        _maxHP -= equipment.Config.MaxHP;
+        _attack -= equipment.Config.Attack;
+        _defence -= equipment.Config.Defence;
+        _spellPower -= equipment.Config.SpellPower;
+        _spellDefence -= equipment.Config.Defence;
+        _speed -= equipment.Config.Speed;
+        _range -= equipment.Config.Range;
     }
 }

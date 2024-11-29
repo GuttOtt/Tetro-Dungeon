@@ -5,7 +5,7 @@ using Extensions;
 using EnumTypes;
 
 public class UnitSkill : ScriptableObject {
-    
+    [SerializeField] private string Description;
 }
 
 public class ActiveSkill : UnitSkill {

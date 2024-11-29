@@ -40,6 +40,16 @@ public static class Utils {
         return default(T);
     }
 
+    public static CharacterBlock PickCharacterBlock() {
+        BlockPart selectedBlockPart = Pick<BlockPart>();
+        if (selectedBlockPart == null) return null;
+
+        CharacterBlock selectedBlock = selectedBlockPart.CharacterBlock;
+        if (selectedBlock == null) return null;
+
+        return selectedBlock;
+    }
+
     public static void Shuffle<T>(this IList<T> list) {
         System.Random rng = new System.Random();
 

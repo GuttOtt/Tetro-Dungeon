@@ -70,6 +70,9 @@ public class EquipmentSystem : MonoBehaviour {
         //원래 위치 저장
         _selectedPos = selectedEquipment.transform.position;
 
+        //마커 보이게
+        _selectedEquipment.SetMarkersOn(true);
+
         selectedEquipment.Unplace();
     }
 
@@ -121,6 +124,9 @@ public class EquipmentSystem : MonoBehaviour {
         else {
             Debug.Log("Placed");
         }
+
+        //마커 안 보이게
+        _selectedEquipment.SetMarkersOn(false);
 
         _selectedEquipment = null;
     }

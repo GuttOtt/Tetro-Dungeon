@@ -51,6 +51,7 @@ public class Equipment : MonoBehaviour, IItem {
             }
         }
 
+        SetMarkersOn(false);
     }
 
     private BlockPart_Equipment CreateBlock(Vector2 localPosition) {
@@ -144,6 +145,7 @@ public class Equipment : MonoBehaviour, IItem {
 
     public void Unplace() {
         _characterBlock?.Unequip(this);
+        _characterBlock = null;
 
         _isPlaced = false;
         transform.parent = null;
@@ -164,5 +166,11 @@ public class Equipment : MonoBehaviour, IItem {
         data.SpinDegree = _spinDegree;
 
         return data;
+    }
+
+    public void SetMarkersOn(bool isOn) {
+        foreach (BlockPart_Equipment blockPart in _blockParts) {
+            blockPart.SetMarkerOn(isOn);
+        }
     }
 }

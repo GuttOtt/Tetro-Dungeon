@@ -52,6 +52,9 @@ TagManager:
   - name: Dragging
     uniqueID: 105409535
     locked: 0
+  - name: Dragging Equipment
+    uniqueID: 2742021671
+    locked: 0
   - name: Effect
     uniqueID: 2704949953
     locked: 0

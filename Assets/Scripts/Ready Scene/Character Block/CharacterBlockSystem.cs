@@ -80,6 +80,10 @@ public class CharacterBlockSystem : MonoBehaviour {
         int draggingLayerID = SortingLayer.NameToID("Dragging");
         selectedBlock.ChangeSortingLayer(draggingLayerID);
 
+        //Equipments들의 SortingLayer 설정
+        int draggingEquipmentLayerID = SortingLayer.NameToID("Dragging Equipment");
+        selectedBlock.ChangeEquipmentSortingLayer(draggingEquipmentLayerID);
+
         //Unplace
         selectedBlock.Unplace();
     }
