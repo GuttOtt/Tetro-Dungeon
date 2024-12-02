@@ -46,15 +46,16 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
         //Name
         _nameText.text = characterBlock.Config.Name;
-        
+
         //Stats
+        Stat stat = characterBlock.Stat;
         //_hpText.text = characterBlock.MaxHP.ToString();
-        _attackText.text = characterBlock.Attack.ToString();
-        _spellPowerText.text = characterBlock.SpellPower.ToString();
-        _defenceText.text = characterBlock.Defence.ToString();
-        _spellDefenceText.text = characterBlock.SpellDefence.ToString();
-        _speedText.text = characterBlock.Speed.ToString();
-        _rangeText.text = characterBlock.Range.ToString();
+        _attackText.text = stat.Attack.ToString();
+        _spellPowerText.text = stat.SpellPower.ToString();
+        _defenceText.text = stat.Defence.ToString();
+        _spellDefenceText.text = stat.SpellDefence.ToString();
+        _speedText.text = stat.Speed.ToString();
+        _rangeText.text = stat.Range.ToString();
 
         //Illust
         _illustImage.sprite = characterBlock.Config.Illust;

@@ -19,10 +19,11 @@ MonoBehaviour:
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
-  MaxHP: 0
-  Attack: 5
-  SpellPower: 0
-  Defence: 0
-  SpellDefence: 0
-  Range: 0
-  Speed: 0
+  _stat:
+    _maxHP: 0
+    _attack: 10
+    _spellPower: 0
+    _defence: 0
+    _spellDefence: 0
+    _speed: 0
+    _range: 0

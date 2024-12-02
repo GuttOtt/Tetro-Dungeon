@@ -42,6 +42,14 @@ MonoBehaviour:
   SpellDefence: 1
   Range: 3
   Speed: 1
+  _stat:
+    _maxHP: 30
+    _attack: 5
+    _spellPower: 10
+    _defence: 1
+    _spellDefence: 1
+    _speed: 3
+    _range: 1
   DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
   ActiveSkills: []
   Synergies: []

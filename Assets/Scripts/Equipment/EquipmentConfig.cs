@@ -10,13 +10,8 @@ public class EquipmentConfig : ScriptableObject {
     public Array2DBool Shape;
 
     #region Stats
-    public int MaxHP;
-    public int Attack;
-    public int SpellPower;
-    public int Defence;
-    public int SpellDefence;
-    public int Range;
-    public int Speed;
+    [SerializeField] private Stat _stat;
+    public Stat Stat { get => _stat.DeepCopy(); }
     #endregion
 
 

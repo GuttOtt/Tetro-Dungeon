@@ -20,10 +20,11 @@ MonoBehaviour:
     cells:
     - row: 0101
     - row: 0100
-  MaxHP: 0
-  Attack: 0
-  SpellPower: 10
-  Defence: 0
-  SpellDefence: 0
-  Range: 0
-  Speed: 0
+  _stat:
+    _maxHP: 0
+    _attack: 0
+    _spellPower: 10
+    _defence: 0
+    _spellDefence: 0
+    _speed: 0
+    _range: 0

@@ -16,7 +16,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public UnitConfig _config;
     public CharacterBlockConfig _characterBlockConfig;
     private UnitSPUMControl _spumControl;
-    private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, _spellPower, _spellDefence, _unitTypeValue;
+    
     private float _speed;
     private float _actionCoolDown;
 
@@ -41,6 +41,9 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     #region Stats
+
+    private int _maxHP, _currentHP, _attack, _defence, _currentAttack, _range, 
+        _spellPower, _spellDefence, _unitTypeValue;
     public int MaxHP { get => _maxHP; }
     public int Attack
     {
@@ -86,7 +89,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int ConfigMaxHP {
         get {
             if (_characterBlockConfig != null)
-                return _characterBlockConfig.MaxHP;
+                return _characterBlockConfig.Stat.MaxHP;
             else if (_config != null)
                 return _config.MaxHP;
             else
@@ -208,15 +211,16 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //Stats
-        _maxHP = config.MaxHP;
-        _currentHP = config.MaxHP;
-        _attack = config.Attack;
-        _currentAttack = config.Attack;
-        _spellPower = config.SpellPower;
-        _defence = config.Defence;
-        _spellDefence = config.SpellDefence;
-        _range = config.Range;
-        _speed = config.Speed;
+        Stat stat = config.Stat;
+        _maxHP = stat.MaxHP;
+        _currentHP = stat.MaxHP;
+        _attack = stat.Attack;
+        _currentAttack = stat.Attack;
+        _spellPower = stat.SpellPower;
+        _defence = stat.Defence;
+        _spellDefence = stat.SpellDefence;
+        _range = stat.Range;
+        _speed = stat.Speed;
 
         //Skills
         _defaultSkill = config.DefaultSkill;
@@ -508,12 +512,13 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void Equip(EquipmentConfig equipmentConfig) {
         //Stats
-        ChangeMaxHP(equipmentConfig.MaxHP);
-        ChangeAttack(equipmentConfig.Attack);
-        _spellPower += equipmentConfig.SpellPower;
-        _defence += equipmentConfig.Defence;
-        _spellDefence += equipmentConfig.SpellDefence;
-        _range += equipmentConfig.Range;
-        _speed += equipmentConfig.Speed;
+        Stat equipmentStat = equipmentConfig.Stat;
+        ChangeMaxHP(equipmentStat.MaxHP);
+        ChangeAttack(equipmentStat.Attack);
+        _spellPower += equipmentStat.SpellPower;
+        _defence += equipmentStat.Defence;
+        _spellDefence += equipmentStat.SpellDefence;
+        _range += equipmentStat.Range;
+        _speed += equipmentStat.Speed;
     }
 }

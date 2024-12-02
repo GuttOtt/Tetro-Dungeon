@@ -40,22 +40,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public int SpinDegree { get => _spinDegree; }
 
     #region Stats
-    private int _maxHP, _attack, _spellPower, _defence, _spellDefence, _range, _speed;
-    public int MaxHP { get => _maxHP; }
-    public int Attack { get => _attack; }
-    public int SpellPower { get => _spellPower; }
-    public int Defence { get => _defence; }
-    public int SpellDefence { get => _spellDefence; }
-    public int Speed { get => _speed; }
-    public int Range { get => _range; }
-    public int OriginalHP { get => Config.MaxHP; }
-    public int OriginalAttack { get => Config.Attack; }
-    public int OriginalSpellPower { get => Config.SpellPower; }
-    public int OriginalDefence { get => Config.Defence; }
-    public int OriginalSpellDefence { get => Config.SpellDefence; }
-    public int OriginalSpeed { get => Config.Speed; }
-    public int OriginalRange { get => Config.Range; }
-
+    private Stat _stat;
+    
+    public Stat Stat { get => _stat.DeepCopy(); }
+    public Stat OriginalStat { get => Config.Stat; }
     #endregion
 
 
@@ -67,13 +55,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _illustRenderer.sprite = _illust;
 
         //Stats
-        _maxHP = config.MaxHP;
-        _attack = config.Attack;
-        _defence= config.Defence;
-        _spellPower = config.SpellPower;
-        _spellDefence = config.Defence;
-        _speed = config.Speed;
-        _range = config.Range;
+        _stat = config.Stat;
 
         CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;
@@ -248,24 +230,12 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _equipments.Add(equipment);
         equipment.transform.SetParent(transform);
 
-        _maxHP += equipment.Config.MaxHP;
-        _attack += equipment.Config.Attack;
-        _defence += equipment.Config.Defence;
-        _spellPower += equipment.Config.SpellPower;
-        _spellDefence += equipment.Config.SpellDefence;
-        _speed += equipment.Config.Speed;
-        _range += equipment.Config.Range;
+        _stat += equipment.Stat;
     }
 
     public void Unequip(Equipment equipment) {
         _equipments.Remove(equipment);
 
-        _maxHP -= equipment.Config.MaxHP;
-        _attack -= equipment.Config.Attack;
-        _defence -= equipment.Config.Defence;
-        _spellPower -= equipment.Config.SpellPower;
-        _spellDefence -= equipment.Config.Defence;
-        _speed -= equipment.Config.Speed;
-        _range -= equipment.Config.Range;
+        _stat -= equipment.Stat;
     }
 }

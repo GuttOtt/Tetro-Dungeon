@@ -67,14 +67,14 @@ public class UnitDrawer : MonoBehaviour
 
     public void Draw(CharacterBlockConfig config, int attackBuff = 0, int hpBuff = 0) {
         _characterBlockConfig = config;
-        int attack = config.Attack + attackBuff;
-        int hp = config.MaxHP + hpBuff;
+        int attack = config.Stat.MaxHP + attackBuff;
+        int hp = config.Stat.MaxHP + hpBuff;
 
         //≈ÿΩ∫∆Æ
         _hpText?.SetText(hp.ToString());
         _mpText?.SetText(attack.ToString());
-        _attackText?.SetText(config.Attack.ToString());
-        _rangeText?.SetText(config.Range.ToString());
+        _attackText?.SetText(config.Stat.MaxHP.ToString());
+        _rangeText?.SetText(config.Stat.MaxHP.ToString());
         _synergyText?.SetText(config.Synergies[0].ToString());
 
         //_tooltip_name?.SetText(config.Name);
