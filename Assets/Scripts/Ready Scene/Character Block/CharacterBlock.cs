@@ -7,19 +7,28 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class CharacterBlock : MonoBehaviour, IItem {
+    //Basic Infos
     private string _name;
     private Sprite _illust;
     private int _level;
     private Array2DBool _shape;
     private CharacterBlockConfig _config;
+
+    //Equipment
     private List<Equipment> _equipments = new List<Equipment>();
 
-    [SerializeField] private SpriteRenderer _illustRenderer;
+    //Skill
+    private UnitSkill _defaultSkill;
+    private List<UnitSkill> _skills = new List<UnitSkill>();
+    public List<UnitSkill> Skills { get => _skills; }
 
+    //Serialized Fields
+    [SerializeField] private SpriteRenderer _illustRenderer;
     [SerializeField] private BlockPart _blockPartPrefab;
     [SerializeField] private Transform _blockPartsRoot;
-    private List<BlockPart> _blockParts = new List<BlockPart>();
 
+    //Placing and spining
+    private List<BlockPart> _blockParts = new List<BlockPart>();
     [SerializeField] private bool _isPlaced = false;
     private int _spinDegree = 0;
     private BlockPart _centerBlockPart;
@@ -56,6 +65,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         //Stats
         _stat = config.Stat;
+
+        //Skills
+        _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
+        _skills = SkillFactory.CreateSkills(config.Skills);
 
         CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;

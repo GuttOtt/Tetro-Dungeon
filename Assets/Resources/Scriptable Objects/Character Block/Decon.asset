@@ -43,6 +43,6 @@ MonoBehaviour:
     _spellDefence: 1
     _speed: 1
     _range: 3
-  DefaultSkill: {fileID: 11400000, guid: d9ad5db6fb1c14944bbfdc2126dc56f2, type: 2}
-  ActiveSkills: []
+  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  Skills: []
   Synergies: []

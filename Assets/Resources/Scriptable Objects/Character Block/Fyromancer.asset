@@ -43,7 +43,9 @@ MonoBehaviour:
     _spellDefence: 2
     _speed: 1
     _range: 3
-  DefaultSkill: {fileID: 11400000, guid: d9ad5db6fb1c14944bbfdc2126dc56f2, type: 2}
-  ActiveSkills:
-  - {fileID: 11400000, guid: a2a99a4dd10cf15439f185dc2703503e, type: 2}
+  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  Skills:
+  - {fileID: 11400000, guid: e3b033ba34e8945429a4baed61ae5000, type: 2}
+  - {fileID: 11400000, guid: e3b033ba34e8945429a4baed61ae5000, type: 2}
+  - {fileID: 11400000, guid: e3b033ba34e8945429a4baed61ae5000, type: 2}
   Synergies: []

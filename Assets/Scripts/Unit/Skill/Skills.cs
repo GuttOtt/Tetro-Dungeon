@@ -18,8 +18,18 @@ public static class SkillFactory
         }
         // 다른 스킬 타입을 추가하려면 여기에 더 많은 조건을 추가할 수 있음.
         else {
-            throw new System.ArgumentException("Unknown SkillConfig type");
+            throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }
+    }
+
+    public static List<UnitSkill> CreateSkills(List<SkillConfig> configs) {
+        List<UnitSkill> skills = new List<UnitSkill>();
+        
+        foreach (SkillConfig config in configs) {
+            skills.Add(CreateSkill(config));
+        }
+
+        return skills;
     }
 }
 
@@ -29,7 +39,7 @@ public abstract class SkillConfig : ScriptableObject {
     [SerializeField] private float _skillChance;
 
     public string SkillName => _skillName;
-    public string BaseCooldown => _skillDescription;
+    public string SkillDescription => _skillDescription;
     public float SkillChance => _skillChance;
 
     // 스킬별 추가 설정은 하위 클래스에서 정의    
@@ -43,12 +53,15 @@ public abstract class UnitSkill
     private float _skillChance;
 
     public string SkillName { get => _skillName; }
+    public string SkillDescription { get => _skillDescription; }
+    public float SkillChance => _skillChance;
 
     public UnitSkill(SkillConfig config) {
         this.config = config;
 
         _skillName = config.SkillName;
         _skillChance = config.SkillChance;
+        _skillDescription = config.SkillDescription;
     }
     public bool CheckChance(float chanceMultiplier) {
         float multipliedChance = _skillChance * (1 + chanceMultiplier);

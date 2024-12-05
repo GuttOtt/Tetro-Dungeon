@@ -224,7 +224,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
-        foreach (SkillConfig skillConfig in config.ActiveSkills) {
+        foreach (SkillConfig skillConfig in config.Skills) {
             _activeSkills.Add(SkillFactory.CreateSkill(skillConfig));
         }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,10 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private GameObject _spumRoot;
     [SerializeField] private SPUM_Prefabs _spum;
     [SerializeField] private SimpleMonoButton _closeButton;
+    [SerializeField] private SkillDescriptor _skillDescriptorPrefab;
+    [SerializeField] private Vector3 _skillDescriptorOrigin, _skillDescriptorGap;
+
+    private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
 
     private void Start() {
         _panel.SetActive(false);
@@ -71,6 +76,24 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
         int uiSortingLayer = SortingLayer.NameToID("UI");
         _spum.SetSortingLayer(uiSortingLayer);
+
+        //Skill
+        foreach (SkillDescriptor descriptor in _skillDescriptors) {
+            Destroy(descriptor.gameObject);
+        }
+        _skillDescriptors.Clear();
+
+        List<UnitSkill> skills = characterBlock.Skills;
+        for (int i = 0; i < skills.Count; i++) {
+            if (skills[i] == null) continue;
+
+            SkillDescriptor descriptor = Instantiate(_skillDescriptorPrefab, _panel.transform);
+            descriptor.DescribeSkill(skills[i]);
+            _skillDescriptors.Add(descriptor);
+
+            Vector3 localPos = _skillDescriptorOrigin + i * _skillDescriptorGap;
+            descriptor.transform.localPosition = localPos;
+        }
     }
 
     public void ClosePanel() {
