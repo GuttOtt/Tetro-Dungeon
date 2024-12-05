@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
-  m_Name: "\uACAC\uC2B5\uC0AC\uC81C"
+  m_Name: Fyromancer
   m_EditorClassIdentifier: 
-  Name: "\uACAC\uC2B5 \uC0AC\uC81C"
-  Illust: {fileID: 21300000, guid: 0286f63033992ff4a9993c880e7b3f90, type: 3}
-  UnitTypeString: FrontHealer
+  Name: "\uD654\uC5FC\uC220\uC0AC"
+  Illust: {fileID: 21300000, guid: cf9f9ed5bcc4f8c4bbd01551f3923166, type: 3}
+  UnitTypeString: 
   Shapes:
   - Level: 1
     Shape:
@@ -23,7 +23,7 @@ MonoBehaviour:
       cells:
       - row: 000101
       - row: 000101
-      - row: 000101
+      - row: 000100
     CenterIndex: {x: 1, y: 1}
   - Level: 2
     Shape:
@@ -32,24 +32,18 @@ MonoBehaviour:
       cells:
       - row: 000101
       - row: 010101
-      - row: 000101
+      - row: 000100
     CenterIndex: {x: 1, y: 1}
-  SPUM_Prefabs: {fileID: 3861913456753963883, guid: 660108a2b05b4694f9af4ddf20511935, type: 3}
-  MaxHP: 30
-  Attack: 5
-  SpellPower: 10
-  Defence: 1
-  SpellDefence: 1
-  Range: 3
-  Speed: 1
+  SPUM_Prefabs: {fileID: 3188768033771658690, guid: 6e9a6f9f63dd94a49870120cf8c08e75, type: 3}
   _stat:
-    _maxHP: 30
-    _attack: 5
+    _maxHP: 50
+    _attack: 20
     _spellPower: 10
     _defence: 1
-    _spellDefence: 1
-    _speed: 3
-    _range: 1
-  DefaultSkill: {fileID: 11400000, guid: 43b2b859de9fdc04a96e84f6251dbb3f, type: 2}
-  ActiveSkills: []
+    _spellDefence: 2
+    _speed: 1
+    _range: 3
+  DefaultSkill: {fileID: 11400000, guid: d9ad5db6fb1c14944bbfdc2126dc56f2, type: 2}
+  ActiveSkills:
+  - {fileID: 11400000, guid: a2a99a4dd10cf15439f185dc2703503e, type: 2}
   Synergies: []

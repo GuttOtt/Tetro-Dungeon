@@ -74,8 +74,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 10f); }
     #endregion
     #region Skills
-    private ActiveSkill _defaultSkill;
-    private List<ActiveSkill> _activeSkills;
+    private UnitSkill _defaultSkill;
+    private List<UnitSkill> _activeSkills = new List<UnitSkill>();
     private float _skillChanceMultiplier;
     #endregion
 
@@ -223,8 +223,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         _speed = stat.Speed;
 
         //Skills
-        _defaultSkill = config.DefaultSkill;
-        _activeSkills = config.ActiveSkills.ToList();
+        _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
+        foreach (SkillConfig skillConfig in config.ActiveSkills) {
+            _activeSkills.Add(SkillFactory.CreateSkill(skillConfig));
+        }
 
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
 
@@ -389,7 +391,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public async virtual void AttackAction(TurnContext turnContext)
     {
         //이번 공격에 사용할 Active Skill을 선택
-        ActiveSkill skill = _defaultSkill;
+        UnitSkill skill = _defaultSkill;
         for (int i = 0; i < _activeSkills.Count; i++) {
             if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
                 skill = _activeSkills[i];
@@ -407,7 +409,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //선택한 스킬을 발동
-        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.name}을 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용.");
+        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.SkillName}을 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용.");
         skill.Activate(turnContext, this, mainTarget);
     }
 

@@ -18,6 +18,7 @@ public class EnemySystem : MonoBehaviour {
     //Unit 관련
     [SerializeField]
     private List<UnitConfig> unitPool = new List<UnitConfig>();
+    private List<CharacterBlockConfig> characterPool = new List<CharacterBlockConfig>();
     private List<BaseUnit> unitList = new List<BaseUnit>();//이번 턴에 소환할 유닛들
 
     [SerializeField]
@@ -45,6 +46,7 @@ public class EnemySystem : MonoBehaviour {
         _gameManager.GetSystem<BattleSystem>().OnTimePass += EffectCoolDown;
 
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
+        characterPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
 
         InitByStageData();
     }
@@ -58,9 +60,9 @@ public class EnemySystem : MonoBehaviour {
 
         for (int i = 0; i < number; i++) {
             //유닛 풀에서 랜덤으로 하나를 선택 후 Create
-            int r = Random.Range(0, unitPool.Count);
-            UnitConfig config = unitPool[r];
-            BaseUnit unit = _unitSystem.CreateUnit(config, CharacterTypes.Enemy) as BaseUnit;
+            int r = Random.Range(0, characterPool.Count);
+            CharacterBlockConfig config = characterPool[r];
+            BaseUnit unit = _unitSystem.CreateUnit(config, CharacterTypes.Enemy);
 
             unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
             

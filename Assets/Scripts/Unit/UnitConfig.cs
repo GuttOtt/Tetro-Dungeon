@@ -31,10 +31,10 @@ public class UnitConfig : ScriptableObject
     private Projectile _projectile;
 
     [SerializeField]
-    public ActiveSkill DefaultSkill;
+    public UnitSkill DefaultSkill;
 
     [SerializeField]
-    public List<ActiveSkill> ActiveSkills = new List<ActiveSkill>();
+    public List<UnitSkill> ActiveSkills = new List<UnitSkill>();
 
     public Sprite Sprite { get => _sprite; }
     public int MaxHP { get => _maxHp; }
