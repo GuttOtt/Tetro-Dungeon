@@ -31,4 +31,8 @@ namespace EnumTypes
     public enum DamageTypes {
         Attack, Spell, True
     }
+
+    public enum UnitEventTypes {
+        OnDying = 0, OnAttacking = 1,
+    }
 }

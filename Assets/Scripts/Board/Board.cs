@@ -293,7 +293,7 @@ public class Board : MonoBehaviour
         foreach (IUnit unit in units) {
             float distance = GetDistance(center, unit.CurrentCell);
 
-            if (distance <= temp) {
+            if (distance <= temp && 0 < distance) {
                 temp = distance;
                 closest = unit;
             }

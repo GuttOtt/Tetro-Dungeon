@@ -435,6 +435,23 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public async virtual void AttackAction(TurnContext turnContext)
     {
+        //OnAttack Invoke
+        bool shouldInterrupt = false;
+
+        if (_onAttacking != null) {
+            foreach (Func<BaseUnit, TurnContext, bool> action in _onAttacking.GetInvocationList()) {
+                bool result = action.Invoke(this, turnContext);
+                if (result) {
+                    Debug.Log($"{name}의 onAttack 핸들러 {action.Method.Name}에서 중단 신호 반환.");
+                    shouldInterrupt = true; // true 반환 시 중단 플래그 설정
+                }
+            }
+        }
+
+        if (shouldInterrupt) {
+            return;
+        }
+
         //이번 공격에 사용할 Active Skill을 선택
         UnitSkill skill = _defaultSkill;
         for (int i = 0; i < _skills.Count; i++) {
