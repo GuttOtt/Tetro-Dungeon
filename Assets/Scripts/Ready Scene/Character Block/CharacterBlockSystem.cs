@@ -120,6 +120,9 @@ public class CharacterBlockSystem : MonoBehaviour {
                     _shopSystem.Buy(_selectedBlock);
                     _inventorySystem.Add(_selectedBlock);
                 }
+                else {
+                    _selectedBlock.transform.position = _selectedBlockOriginalPos;
+                }
             }
             //Place 되어 있던 상태일 때
             else {

@@ -3,6 +3,7 @@ using EnumTypes;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
 
@@ -18,36 +19,7 @@ public class UnitSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
     }
 
-    
-    public IUnit CreateUnit(UnitConfig unitConfig, CharacterTypes owner) {
-        GameObject unitGO = Instantiate(_unitPrefab);
-
-        //유닛 패턴 생성
-        string unitTypeString = unitConfig.UnitTypeString;
-        if (unitTypeString == string.Empty || unitTypeString == null) {
-            unitTypeString = "BaseUnit";
-        }
-
-        Type unitType = Type.GetType(unitTypeString);
-
-        if (unitType == null) {
-            Debug.Log(unitType);
-            Debug.LogError("해당하는 unit type이 없습니다");
-        }
-
-        BaseUnit unit = unitGO.AddComponent(unitType) as BaseUnit;
-
-        //유닛 인스턴스 식별에 사용되는 고유 id
-        int id = _units.Count;
-
-        unit.Init(this, unitConfig, owner, id);
-        _units.Add(unit);
-
-        unit.OnDestroy += () => DestroyUnit(unit);
-
-        return unit;
-    }
-    
+      
 
     public BaseUnit CreateUnit(CharacterBlockConfig config, CharacterTypes owner) {
         GameObject unitGO = Instantiate(_unitPrefab);
@@ -71,6 +43,35 @@ public class UnitSystem : MonoBehaviour
         int id = _units.Count;
 
         unit.Init(this, config, owner, id);
+        _units.Add(unit);
+
+        unit.OnDestroy += () => DestroyUnit(unit);
+
+        return unit;
+    }
+
+    public BaseUnit CreateUnit(CharacterBlock characterBlock, CharacterTypes owner) {
+        GameObject unitGO = Instantiate(_unitPrefab);
+
+        //유닛 패턴 생성
+        string unitTypeString = characterBlock.Config.UnitTypeString;
+        if (unitTypeString == string.Empty || unitTypeString == null) {
+            unitTypeString = "BaseUnit";
+        }
+
+        Type unitType = Type.GetType(unitTypeString);
+
+        if (unitType == null) {
+            Debug.Log(unitType);
+            Debug.LogError("해당하는 unit type이 없습니다");
+        }
+
+        BaseUnit unit = unitGO.AddComponent(unitType) as BaseUnit;
+
+        //유닛 인스턴스 식별에 사용되는 고유 id
+        int id = _units.Count;
+
+        unit.Init(this, characterBlock.Config, owner, id);
         _units.Add(unit);
 
         unit.OnDestroy += () => DestroyUnit(unit);

@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Revivie Skill Config", menuName = "ScriptableObjects/Skill/ReviveSkillConfig")]
 public class ReviveSkillConfig : SkillConfig {
     [SerializeField] private int _restoringHP;
+    [SerializeField] private float _restoringHPRatio;
     [SerializeField] private int _reviveCount;
 
     public int RestoringHP { get { return _restoringHP; } }
+    public float RestoringHPRatio { get => _restoringHPRatio; }
     public int ReviveCount { get { return _reviveCount; }}
 }
 
 public class ReviveSkill : UnitSkill {
     private int _restoringHP;
+    private float _restoringHPRatio;
     private int _reviveCount;
 
     public int RestoringHP { get { return _restoringHP; } }
+    public float RestoringHPRatio { get { return _restoringHPRatio; }}
     public int ReviveCount { get { return _reviveCount; } }
 
     public ReviveSkill(ReviveSkillConfig config) : base(config) { 
         _restoringHP = config.RestoringHP;
+        _restoringHPRatio = config.RestoringHPRatio;
         _reviveCount= config.ReviveCount;
     }
 
@@ -40,7 +46,8 @@ public class ReviveSkill : UnitSkill {
 
     private bool Revive(BaseUnit unit, TurnContext turnContext) {
         if (unit.CurrentHP <= 0 && 0 < _reviveCount) {
-            //unit.TakeHeal(turnContext, _restoringHP)
+            unit.TakeHeal(turnContext, _restoringHPRatio);
+            unit.TakeHeal(turnContext, _restoringHP);
             _reviveCount--;
             return true;
         }

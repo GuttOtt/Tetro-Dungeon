@@ -36,7 +36,7 @@ MonoBehaviour:
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 3861913456753963883, guid: 660108a2b05b4694f9af4ddf20511935, type: 3}
   _stat:
-    _maxHP: 30
+    _maxHP: 40
     _attack: 5
     _spellPower: 10
     _defence: 1

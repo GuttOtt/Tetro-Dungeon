@@ -16,7 +16,9 @@ public static class SkillFactory
         if (config is DamageSkillConfig damageConfig) {
             return new DamageSkill(damageConfig);  // DamageSkill 생성
         }
-        // 다른 스킬 타입을 추가하려면 여기에 더 많은 조건을 추가할 수 있음.
+        if (config is ReviveSkillConfig reviveConfig) {
+            return new ReviveSkill(reviveConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }

@@ -108,6 +108,9 @@ public class EquipmentSystem : MonoBehaviour {
                     _shopSystem.Buy(_selectedEquipment);
                     _inventorySystem.Add(_selectedEquipment);
                 }
+                else {
+                    _selectedEquipment.transform.position = _selectedPos;
+                }
             }
             //Place 되어 있던 상태일 때
             else {

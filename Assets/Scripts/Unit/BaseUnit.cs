@@ -6,6 +6,7 @@ using DG.Tweening;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -76,7 +77,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     #region Skills
     private UnitSkill _defaultSkill;
-    private List<UnitSkill> _activeSkills = new List<UnitSkill>();
+    private List<UnitSkill> _skills = new List<UnitSkill>();
     private float _skillChanceMultiplier;
     #endregion
 
@@ -151,61 +152,6 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public virtual void Init(UnitSystem unitSystem, UnitConfig config, CharacterTypes owner, int id) { 
-        //System
-        _unitSystem = unitSystem;
-        _id = id;
-
-        //Config
-        _config = config;
-
-        //Draw
-        _unitDrawer = GetComponent<UnitDrawer>();
-        _unitDrawer.Draw(config);
-
-        //Spum
-        if (_config.SPU_Prefabs != null) {
-            if (_spumControl == null) {
-                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
-            }
-            SPUM_Prefabs spum = Instantiate(_config.SPU_Prefabs, gameObject.transform);
-            _spumControl.SetSPUM(spum);
-
-            //위치와 방향 설정
-            spum.transform.localPosition = new Vector3(0, -0.2f, -1);
-            if (owner == CharacterTypes.Player) {
-                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            }
-
-            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
-            GetComponent<SpriteRenderer>().sprite = null;
-        }
-
-        //Stats
-        _maxHP = config.MaxHP;
-        _currentHP = config.MaxHP;
-        _attack = config.Attack;
-        _currentAttack = config.Attack;
-        _spellPower = config.SpellPower;
-        _defence = config.Defence;
-        _spellDefence = config.SpellDefence;
-        _range = config.Range;
-        _speed = config.Speed;
-
-        //Skills
-        _defaultSkill = config.DefaultSkill;
-        _activeSkills = config.ActiveSkills.ToList();
-
-        _unitTypeValue = config.UnitTypeValue;
-        _unitDrawer._healthBar.SetMaxHealth(MaxHP);
-
-        _owner = owner;
-
-        //Projectile
-        if (config.Projectile != null) {
-            _projectilePrefab = config.Projectile;
-        }
-    }
 
     public virtual void Init(UnitSystem unitSystem, CharacterBlockConfig config, CharacterTypes owner, int id) {
         //System
@@ -252,7 +198,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
         foreach (SkillConfig skillConfig in config.Skills) {
-            _activeSkills.Add(SkillFactory.CreateSkill(skillConfig));
+            UnitSkill newSkill = SkillFactory.CreateSkill(skillConfig);
+            _skills.Add(newSkill);
+            newSkill.RegisterToUnitEvents(this);
         }
 
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
@@ -270,6 +218,63 @@ public class BaseUnit : MonoBehaviour, IUnit
         */
     }
 
+    public virtual void Init(UnitSystem unitSystem, CharacterBlock characterBlock, CharacterTypes owner, int id) {
+        //System
+        _unitSystem = unitSystem;
+        _id = id;
+
+        //Config
+        CharacterBlockConfig config = characterBlock.Config;
+        _characterBlockConfig = config;
+
+        //Draw
+        _unitDrawer = GetComponent<UnitDrawer>();
+        _unitDrawer.Draw(config);
+
+        //Spum
+        if (config.SPUM_Prefabs != null) {
+            if (_spumControl == null) {
+                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
+            }
+            SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
+            _spumControl.SetSPUM(spum);
+
+            //위치와 방향 설정
+            spum.transform.localPosition = new Vector3(0, -0.2f, -1);
+            if (owner == CharacterTypes.Player) {
+                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            }
+
+            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+
+        //Stats
+        Stat stat = config.Stat;
+        _maxHP = stat.MaxHP;
+        _currentHP = stat.MaxHP;
+        _attack = stat.Attack;
+        _currentAttack = stat.Attack;
+        _spellPower = stat.SpellPower;
+        _defence = stat.Defence;
+        _spellDefence = stat.SpellDefence;
+        _range = stat.Range;
+        _speed = stat.Speed;
+
+        //Skills
+        _defaultSkill = characterBlock.DefaultSkill;
+        _skills = characterBlock.Skills.ToList();
+
+        //Synergies
+        //_synergies = config.Synergies;
+
+        //Projectile
+        /*
+        if (config.Projectile != null) {
+            _projectilePrefab = config.Projectile;
+        }
+        */
+    }
 
     public void DestroySelf() {
         OnDestroy?.Invoke();
@@ -432,9 +437,9 @@ public class BaseUnit : MonoBehaviour, IUnit
     {
         //이번 공격에 사용할 Active Skill을 선택
         UnitSkill skill = _defaultSkill;
-        for (int i = 0; i < _activeSkills.Count; i++) {
-            if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
-                skill = _activeSkills[i];
+        for (int i = 0; i < _skills.Count; i++) {
+            if (_skills[i].CheckChance(_skillChanceMultiplier)) {
+                skill = _skills[i];
                 break;
             }
         }
@@ -530,6 +535,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         CurrentHP -= damage;
         if (CurrentHP <= 0)
         {
+            CurrentHP = 0;
             Die(turnContext);
         }
     }
@@ -537,9 +543,14 @@ public class BaseUnit : MonoBehaviour, IUnit
     public virtual void TakeHeal(TurnContext turnContext, int amount)
     {
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
+        Debug.Log($"Take Heal. CurrentHP: {CurrentHP}");
     }
 
-
+    public void TakeHeal(TurnContext turnContext, float ratio) {
+        int amount = (int) (MaxHP * ratio);
+        TakeHeal(turnContext, amount);
+        Debug.Log($"Take Heal Ratio. amount: {amount}");
+    }
 
     #endregion
 

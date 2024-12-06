@@ -63,7 +63,7 @@ public class CardSystem : MonoBehaviour
 
     private void Update() {
         SelectCard();
-        PlayCard();
+        //PlayCard();
 
         if (Input.GetKeyDown(KeyCode.Q)) {
             SpinUnitBlockMarker(false);
@@ -200,6 +200,7 @@ public class CardSystem : MonoBehaviour
         }
     }
 
+    /*
     private void PlayCard() {
         if (_selectedCard != null && Input.GetMouseButtonUp(0)) {
 
@@ -234,6 +235,7 @@ public class CardSystem : MonoBehaviour
             _cardSelector.Unselect();
         }
     }
+    */
 
     private void SpinUnitBlockMarker(bool clockwise) {
         //유닛 블럭 마커가 없다면 리턴
