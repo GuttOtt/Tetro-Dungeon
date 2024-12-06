@@ -69,7 +69,15 @@ public abstract class UnitSkill
         return r <= multipliedChance;
     }
 
-    public abstract void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target);
+    public virtual void RegisterToUnitEvents(BaseUnit unit) {
+        //자식 클래스에서 세부 구현
+    }
+
+    public virtual void UnregisterToUnitEvents(BaseUnit unit) {
+        //자식 클래스에서 세부 구현
+    }
+
+    public abstract void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null);
 
     public abstract void Decorate(SkillConfig config);
 }

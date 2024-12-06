@@ -73,10 +73,37 @@ public class BaseUnit : MonoBehaviour, IUnit
     public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
     public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 10f); }
     #endregion
+
     #region Skills
     private UnitSkill _defaultSkill;
     private List<UnitSkill> _activeSkills = new List<UnitSkill>();
     private float _skillChanceMultiplier;
+    #endregion
+
+    #region Events
+    private event Func<BaseUnit, TurnContext, bool> _onDying;
+    public event Func<BaseUnit, TurnContext, bool> onDying {
+        add {
+            Debug.Log($"{value.Method.Name}이(가) {name}의 onDying에 등록되었습니다.");
+            _onDying += value;
+        }
+        remove {
+            Debug.Log($"{value.Method.Name}이(가) {name}의 onDying에서 제거되었습니다.");
+            _onDying -= value;
+        }
+    }
+
+    public event Func<BaseUnit, TurnContext, bool> _onAttacking;
+    public event Func<BaseUnit, TurnContext, bool> onAttacking {
+        add {
+            Debug.Log($"{value.Method.Name}이(가) {name}의 _onAttacking에 등록되었습니다.");
+            _onAttacking += value;
+        }
+        remove {
+            Debug.Log($"{value.Method.Name}이(가) {name}의 _onAttacking에서 제거되었습니다.");
+            _onAttacking -= value;
+        }
+    }
     #endregion
 
     public int ID { get => _id; }
@@ -243,21 +270,34 @@ public class BaseUnit : MonoBehaviour, IUnit
         */
     }
 
-    public void Die()
-    {
-        OnDie?.Invoke();
-        OnDestroy?.Invoke();
-        CurrentCell.UnitOut();
-    }
 
     public void DestroySelf() {
         OnDestroy?.Invoke();
         CurrentCell.UnitOut();
     }
 
-    public virtual void Die(TurnContext turnContext)
-    {
-        Die();
+    public virtual void Die(TurnContext turnContext) {
+        bool shouldInterrupt = false;
+
+        if (_onDying != null) {
+            foreach (Func<BaseUnit, TurnContext, bool> action in _onDying.GetInvocationList()) {
+                bool result = action.Invoke(this, turnContext);
+                if (result) {
+                    Debug.Log($"{name}의 onDying 핸들러 {action.Method.Name}에서 중단 신호 반환.");
+                    shouldInterrupt = true; // true 반환 시 중단 플래그 설정
+                }
+            }
+        }
+
+        if (shouldInterrupt) {
+            Debug.Log($"{name}의 사망 처리가 중단되었습니다.");
+            return;
+        }
+
+        //사망 처리
+        OnDie?.Invoke();
+        OnDestroy?.Invoke();
+        CurrentCell.UnitOut();
     }
 
     public void Highlight()

@@ -9,7 +9,7 @@ public class Domination : BaseUnit
         if (target.CurrentHP < UnitTypeValue)
         {
             Debug.Log($"{base.name}ÀÌ {(target as BaseUnit).name} Á¦¾Ð !");
-            (target as BaseUnit).Die();
+            //(target as BaseUnit).Die();
         }
         else 
         {
