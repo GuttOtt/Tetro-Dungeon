@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8e0849b18a49f479092961c90087cc, type: 3}
-  m_Name: Default Melee Attack
+  m_Name: _Default Melee Attack
   m_EditorClassIdentifier: Assembly-CSharp::DamageSkillConfig
   _skillName: "\uAE30\uBCF8 \uACF5\uACA9"
   _skillDescription: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC778 \uACF5\uACA9\uC785\uB2C8\uB2E4."
