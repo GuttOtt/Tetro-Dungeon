@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd8b7b6259dc6604aa0fbadff2b6db1e, type: 3}
-  m_Name: Decon_Skill1
+  m_Name: Decon_Decorator1
   m_EditorClassIdentifier: 
-  _skillName: "\uD790"
-  _skillDescription: "\uACF5\uACA9 \uC2DC \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC720\uB2DB
-    \uD55C \uBA85\uC744 {BaseHealAmount}+\uC8FC\uBB38\uB825x{SpellPowerRatio}\uB9CC\uD07C
-    \uCE58\uC720\uD569\uB2C8\uB2E4."
-  _skillChance: 1
-  _unitEvents: 01000000
+  _skillName: 
+  _skillDescription: 
+  _skillChance: 0
+  _unitEvents: 
   _shouldInterrupt: 0
   _baseHealAmount: 0
-  _spellPowerRatio: 0.3
+  _spellPowerRatio: 0.2
   _attackRatio: 0
-  _targetAmount: 1
+  _targetAmount: 0

@@ -47,3 +47,5 @@ MonoBehaviour:
   Skills:
   - {fileID: 11400000, guid: 15c24a17ebfb2cc4faabbc601ccceede, type: 2}
   Synergies: []
+  Awakenings:
+  - {fileID: 11400000, guid: f3eb984356f24a0439aa34da6ef034da, type: 2}

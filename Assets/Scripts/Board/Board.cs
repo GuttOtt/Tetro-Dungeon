@@ -302,6 +302,27 @@ public class Board : MonoBehaviour
         return closest;
     }
 
+    public List<BaseUnit> GetClosestUnits(Cell center, CharacterTypes characterType, int unitNumber, int maxDistance) {
+        List<IUnit> units = GetUnits(characterType);
+
+        Dictionary<IUnit, float> unitDistancePair = new Dictionary<IUnit, float>();
+
+        foreach (IUnit unit in unitDistancePair.Keys) {
+            float distance = GetDistance(center, unit.CurrentCell);
+            unitDistancePair.Add(unit, distance);
+        }
+
+        // 거리 기준으로 정렬
+        var sortedUnits = unitDistancePair
+            .OrderBy(pair => pair.Value) // 거리 기준 오름차순 정렬
+            .Take(unitNumber)           // 필요한 개수만 가져옴
+            .Select(pair => pair.Key)   // IUnit만 추출
+            .OfType<BaseUnit>()         // BaseUnit으로 변환
+            .ToList();
+
+        return sortedUnits;
+    }
+
     public IUnit GetFarthestUnit(Cell center, CharacterTypes characterType, int maxDistance) {
         List<IUnit> units = GetUnits(characterType);
 

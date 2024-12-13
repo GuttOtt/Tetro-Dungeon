@@ -18,10 +18,9 @@ public class Projectile : MonoBehaviour {
 
     private List<BaseUnit> _hitUnits = new List<BaseUnit>();
 
-    public void Init(BaseUnit target, Action<BaseUnit> onHit, float speed = 7) {
+    public void Init(BaseUnit target, Action onHit, float speed = 7) {
         _target = target;
         _speed = speed;
-        _onHit = onHit;
         _isTargetBased = true;
     }
 
