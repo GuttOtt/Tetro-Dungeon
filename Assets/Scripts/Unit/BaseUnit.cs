@@ -265,6 +265,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         _defaultSkill = characterBlock.DefaultSkill;
         _skills = characterBlock.Skills.ToList();
 
+        _unitDrawer._healthBar.SetMaxHealth(MaxHP);
+        _owner = owner;
+
         //Synergies
         //_synergies = config.Synergies;
 

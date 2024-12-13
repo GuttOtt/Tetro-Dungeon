@@ -72,6 +72,25 @@ public class DamageSkill : UnitSkill
         }
     }
 
+    public override void Undecorate(SkillConfig config) {
+        if (config is DamageSkillConfig damageSkillConfig) {
+            //Changes
+            DamageSkillConfig original = config as DamageSkillConfig;
+            _damageType = original.DamageType;
+            _aoe = original.AoE;
+            _effectSprite = original.EffectSprite;
+            _isEffectOnCells = original.IsEffectOnCells;
+
+            //Damages
+            _baseDamage -= damageSkillConfig.BaseDamage;
+            _attackRatio -= damageSkillConfig.AttackRatio;
+            _spellPowerRatio -= damageSkillConfig.SpellPowerRatio;
+        }
+        else {
+            Debug.LogWarning("Invalid config type for DamageSkill.");
+        }
+    }
+
     #region Activation
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit mainTarget) {
         Board board = turnContext.Board;

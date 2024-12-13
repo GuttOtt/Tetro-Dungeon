@@ -20,6 +20,7 @@ MonoBehaviour:
     cells:
     - row: 0101
     - row: 0100
+  _synergyTypes: 01000000
   _stat:
     _maxHP: 0
     _attack: 0

@@ -71,7 +71,7 @@ public class UnitSystem : MonoBehaviour
         //유닛 인스턴스 식별에 사용되는 고유 id
         int id = _units.Count;
 
-        unit.Init(this, characterBlock.Config, owner, id);
+        unit.Init(this, characterBlock, owner, id);
         _units.Add(unit);
 
         unit.OnDestroy += () => DestroyUnit(unit);

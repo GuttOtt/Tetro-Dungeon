@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour, IGameManager
         await UniTask.WaitForSeconds(2f);
 
         foreach (CharacterBlock block in blocks) {
-            BaseUnit unit = _unitSystem.CreateUnit(block.Config, CharacterTypes.Player);
+            BaseUnit unit = _unitSystem.CreateUnit(block, CharacterTypes.Player);
 
             //Equipments
             List<Equipment> equipments = block.Equipments;

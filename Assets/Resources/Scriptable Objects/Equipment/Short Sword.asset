@@ -19,6 +19,7 @@ MonoBehaviour:
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
+  _synergyTypes: 00000000
   _stat:
     _maxHP: 0
     _attack: 10

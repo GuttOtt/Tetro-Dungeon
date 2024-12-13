@@ -96,9 +96,6 @@ public abstract class UnitSkill
     public abstract void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null);
 
     public abstract void Decorate(SkillConfig config);
+    public abstract void Undecorate(SkillConfig config);
 }
-#endregion
-
-#region Damage Skill
-
 #endregion

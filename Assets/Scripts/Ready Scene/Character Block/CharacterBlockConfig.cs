@@ -18,6 +18,7 @@ public class CharacterBlockConfig : ScriptableObject
 
     public SPUM_Prefabs SPUM_Prefabs;
 
+
     #region Stats
     [SerializeField] private Stat _stat;
     public Stat Stat { get => _stat.DeepCopy(); }
@@ -30,6 +31,8 @@ public class CharacterBlockConfig : ScriptableObject
     #endregion
 
     public List<SynergyValuePair> Synergies;
+
+    public List<Awakening> Awakenings;
 
     public Array2DBool GetShape(int lvl) {
         return Shapes[lvl].Shape;

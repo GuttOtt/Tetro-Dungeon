@@ -46,6 +46,16 @@ public class HealClosestSkill : UnitSkill {
             Debug.LogWarning("Invalid config type for HealSkill.");
         }
     }
+    public override void Undecorate(SkillConfig config) {
+        if (config is HealClosestSkillConfig healSkillConfig) {
+            _baseHealAmount -= healSkillConfig.BaseHealAmount;
+            _spellPowerRatio -= healSkillConfig.SpellPowerRatio;
+            _attackRatio -= healSkillConfig.AttackRatio;
+        }
+        else {
+            Debug.LogWarning("Invalid config type for HealSkill.");
+        }
+    }
 
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null) {
         Heal(activator, turnContext);
