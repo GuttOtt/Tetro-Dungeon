@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class HealClosestSkill : UnitSkill {
     [SerializeField] private float _attackRatio;
     [SerializeField] private int _targetAmount;
 
+    private Func<BaseUnit, BaseUnit, TurnContext, bool> _healHandler;
+
     public int BaseHealAmount { get { return _baseHealAmount; } }
     public float SpellPowerRatio { get { return _spellPowerRatio; } }
     public float AttackRatio { get { return _attackRatio; } }
@@ -34,11 +37,14 @@ public class HealClosestSkill : UnitSkill {
     }
 
     public override void RegisterToUnitEvents(BaseUnit unit) {
-        unit.onAttacking += Heal;
+        _healHandler = (activator, target, turnContext) => {
+            return Heal(activator, turnContext);
+        };
+        unit.onAttacking += _healHandler;
     }
 
     public override void UnregisterToUnitEvents(BaseUnit unit) {
-        unit.onAttacking -= Heal;
+        unit.onAttacking -= _healHandler;
     }
 
     public override void Decorate(SkillConfig config) {

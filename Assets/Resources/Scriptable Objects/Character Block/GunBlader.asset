@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
-  m_Name: Spell Blade
+  m_Name: GunBlader
   m_EditorClassIdentifier: 
   Name: 
   Illust: {fileID: 0}

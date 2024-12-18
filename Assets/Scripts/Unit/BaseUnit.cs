@@ -36,7 +36,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.Name;
             else
-                Debug.LogError("config와 characterBlockConfig가 모두 비어 있습니다.");
+                Debug.LogError("이름을 참조 할 config나 characterBlockConfig가 존재하지 않습니다.");
             return null;
         }
     }
@@ -85,24 +85,30 @@ public class BaseUnit : MonoBehaviour, IUnit
     private event Func<BaseUnit, TurnContext, bool> _onDying;
     public event Func<BaseUnit, TurnContext, bool> onDying {
         add {
-            Debug.Log($"{value.Method.Name}이(가) {name}의 onDying에 등록되었습니다.");
             _onDying += value;
         }
         remove {
-            Debug.Log($"{value.Method.Name}이(가) {name}의 onDying에서 제거되었습니다.");
             _onDying -= value;
         }
     }
 
-    public event Func<BaseUnit, TurnContext, bool> _onAttacking;
-    public event Func<BaseUnit, TurnContext, bool> onAttacking {
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> _onAttacking;
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> onAttacking {
         add {
-            Debug.Log($"{value.Method.Name}이(가) {name}의 _onAttacking에 등록되었습니다.");
             _onAttacking += value;
         }
         remove {
-            Debug.Log($"{value.Method.Name}이(가) {name}의 _onAttacking에서 제거되었습니다.");
             _onAttacking -= value;
+        }
+    }
+
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> _onAttacked;
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> onAttacked {
+        add {
+            _onAttacked += value;
+        }
+        remove {
+            _onAttacked -= value;
         }
     }
     #endregion
@@ -110,8 +116,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int ID { get => _id; }
     public int UnitTypeValue { get => _unitTypeValue; }
     
-    public Action OnDie { get; set; } //전투 중 유닛이 공격이나 효과에 의해 사망할 때 회출되는 이벤트.
-    public Action OnDestroy { get; set; } //전투 중 사망하는 것을 포함해, '유닛의 GameObject가 제거될 때' 호출되는 이벤트. 전투 승리 시 남은 유닛의 처리 등에 의해서도 호출됨.
+    public Action OnDie { get; set; } 
+    public Action OnDestroy { get; set; } 
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
     public int ConfigMaxHP {
@@ -121,7 +127,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.MaxHP;
             else
-                Debug.LogError("config와 characterBlockConfig가 모두 비어 있습니다.");
+                Debug.LogError("최대 체력을 참조할 config가 존재하지 않습니다.");
             return 0;
 
         } 
@@ -173,13 +179,13 @@ public class BaseUnit : MonoBehaviour, IUnit
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
             _spumControl.SetSPUM(spum);
 
-            //위치와 방향 설정
+            //????? ???? ????
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
+            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
@@ -239,13 +245,13 @@ public class BaseUnit : MonoBehaviour, IUnit
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
             _spumControl.SetSPUM(spum);
 
-            //위치와 방향 설정
+            //????? ???? ????
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //임시 코드. Sprite Renderer가 전부 SPUM으로 대체되면 삭제해야 함.
+            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
@@ -291,14 +297,12 @@ public class BaseUnit : MonoBehaviour, IUnit
             foreach (Func<BaseUnit, TurnContext, bool> action in _onDying.GetInvocationList()) {
                 bool result = action.Invoke(this, turnContext);
                 if (result) {
-                    Debug.Log($"{name}의 onDying 핸들러 {action.Method.Name}에서 중단 신호 반환.");
-                    shouldInterrupt = true; // true 반환 시 중단 플래그 설정
+                    shouldInterrupt = true; 
                 }
             }
         }
 
         if (shouldInterrupt) {
-            Debug.Log($"{name}의 사망 처리가 중단되었습니다.");
             return;
         }
 
@@ -359,16 +363,16 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         Cell moveCell = movePath[1];
 
-        //유닛 이동
+        //???? ???
         if (moveCell.Unit != null) {
-            Debug.LogError("이동하려는 칸에 이미 유닛이 있습니다!");
+            Debug.LogError("???????? ??? ??? ?????? ??????!");
         }
 
         CurrentCell.UnitOut();
         moveCell.UnitIn(this);
         CurrentCell = movePath[1];
 
-        //Transform 이동
+        //Transform ???
         var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, 2f);
         tween.OnStart(() =>
             _spumControl?.ChangeState(PlayerState.MOVE)
@@ -384,7 +388,6 @@ public class BaseUnit : MonoBehaviour, IUnit
             return null;
         }
 
-        //closestOpponent를 공격할 수 있는 모든 셀 중 가장 가까운 경로를 만드는 셀을 구함
         List<Cell> attackableCells = board.GetEmptyCellsInRange(closestOpponent.CurrentCell, 1, Range);
 
         List<Cell> shortestMovePath = null;
@@ -409,10 +412,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         */
 
         if (shortestMovePath != null && shortestMovePath.Count <= 1) {
-            Debug.LogError("shortestMovePath가 1임. 이런 경우는 존재해서는 안 됨. Board 클래스의 PathFinding 알고리즘을 확인해볼 것.");
+            Debug.LogError("Pathfinding 과정에서 오류가 발생했습니다.");
         }
 
-        //만약 공격 가능한 위치로 이동할 수 없다면, 그냥 가장 가까운 적을 향해 한 칸 이동할 수 있는지 계산
         if (shortestMovePath == null) {
             int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
             Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
@@ -445,8 +447,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             foreach (Func<BaseUnit, TurnContext, bool> action in _onAttacking.GetInvocationList()) {
                 bool result = action.Invoke(this, turnContext);
                 if (result) {
-                    Debug.Log($"{name}의 onAttack 핸들러 {action.Method.Name}에서 중단 신호 반환.");
-                    shouldInterrupt = true; // true 반환 시 중단 플래그 설정
+                    shouldInterrupt = true; 
                 }
             }
         }
@@ -455,7 +456,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             return;
         }
 
-        //이번 공격에 사용할 Active Skill을 선택
+        //발동할 Active Skill을 선택
         UnitSkill skill = _defaultSkill;
         for (int i = 0; i < _skills.Count; i++) {
             if (_skills[i].CheckChance(_skillChanceMultiplier)) {
@@ -464,18 +465,21 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
 
-        //메인 타겟 설정
+        //타겟 설정
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
-        //공격 애니메이션 출력
+        //애니메이션
         if (_spumControl != null) {
             _spumControl.PlayAttackAnimation(mainTarget);
             await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
         }
 
-        //선택한 스킬을 발동
-        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.SkillName}을 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용.");
+        //스킬 발동
+        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.SkillName}를 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용용.");
         skill.Activate(turnContext, this, mainTarget);
+        
+        //onAttacked Invoke
+        _onAttacked?.Invoke(this, mainTarget, turnContext);
     }
 
     protected IUnit GetAttackTarget(Board board)

@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EnumTypes;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class Projectile : MonoBehaviour {
-
-    private Action<BaseUnit> _onHit;
     [SerializeField] private BaseUnit _target;
     [SerializeField] private bool _isTargetBased;
     private Vector2 _direction;
@@ -15,20 +14,26 @@ public class Projectile : MonoBehaviour {
 
     private float _maxDistance = 1;
     private float _flyDistance = 0;
+    private int _damage = 0;
+    private DamageTypes _damageType;
+    private TurnContext _turnContext;
 
     private List<BaseUnit> _hitUnits = new List<BaseUnit>();
 
-    public void Init(BaseUnit target, Action onHit, float speed = 7) {
+    public void Init(TurnContext turnContext, BaseUnit target, int damage, DamageTypes damageType, float speed = 7) {
+        _turnContext = turnContext;
         _target = target;
         _speed = speed;
+        _damage = damage;
+        _damageType = damageType;
         _isTargetBased = true;
     }
 
-    public void Init(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
+    public void Init(TurnContext turnContext, Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
+        
         _target = null;
         _direction = direction;
         _speed = speed;
-        _onHit = onHit;
         _penetrateCount = penetrateCount;
         _maxDistance = maxDistance;
 
@@ -49,7 +54,7 @@ public class Projectile : MonoBehaviour {
         }
     }
 
-    //TargetÀ» ÃßÀûÇØ ³¯¾Æ°¡´Â ¹æ½Ä
+    //Targetì„ í–¥í•´ ë‚ ì•„ê°€ëŠ” ë°©ì‹
     private void FlyToTarget() {
         if (_target == null || _target.transform == null) return;
 
@@ -63,7 +68,7 @@ public class Projectile : MonoBehaviour {
         SetRotation(direction);
     }
 
-    //Target ¾øÀÌ Á¤ÇØÁø ¹æÇâÀ» µû¶ó ÀÏÁ÷¼±À¸·Î ³¯¾Æ°¡´Â ¹æ½Ä
+    //Target ì—†ì´ ì¼ì •í•œ ë°©í–¥ì„ í–¥í•´ ë‚ ì•„ê°€ëŠ” ë°©ì‹
     private void FlyToDirection() {
         if (_direction == null || _target != null) return;
 
@@ -79,30 +84,23 @@ public class Projectile : MonoBehaviour {
 
         if (hitUnit == null) return;
 
-        //Å¸°ÙÀÌ ÀÖ´Â °æ¿ì
         if (_target != null) {
 
-            //ÀÏÄ¡ÇÒ °æ¿ì, OnHit ½ÇÇà ÈÄ »èÁ¦
             if (hitUnit == _target) {
-                _onHit.Invoke(_target);
+                hitUnit.TakeDamage(_turnContext, _damage, _damageType);
                 Destroy(gameObject);
             }
-            //ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ¸®ÅÏ
             else {
                 return;
             }
         }
-        //Å¸°Ù ¾ø´Â °æ¿ì (ÁöÁ¤ÇÑ ¹æÇâ´ë·Î ³¯¾Æ°¡´Â °æ¿ì)
         else {
-            //ÀÌ¹Ì Ãæµ¹Çß´ø À¯´ÖÀÌ¶ó¸é ¸®ÅÏ
             if (_hitUnits.Contains(hitUnit)) {
                 return;
             }
 
-            _onHit.Invoke(hitUnit);
             _hitUnits.Add(hitUnit);
 
-            //°üÅë È½¼ö¸¦ Â÷°¨ÇÑ ÈÄ, À½¼ö°¡ µÇ¾ú´Ù¸é ÆÄ±«
             _penetrateCount--;
             if (_penetrateCount < 0) {
                 Debug.Log("Penetration ends. destroy projectile.");

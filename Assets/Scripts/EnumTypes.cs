@@ -33,6 +33,6 @@ namespace EnumTypes
     }
 
     public enum UnitEventTypes {
-        OnDying = 0, OnAttacking = 1,
+        OnDying = 0, OnAttacking = 1, OnAttacked = 2,
     }
 }

@@ -60,7 +60,7 @@ public abstract class UnitSkill
     protected SkillConfig config;
     private string _skillDescription;
     private float _skillChance;
-    [SerializeField] private List<UnitEventTypes> _unitEvents;
+    [SerializeField] protected List<UnitEventTypes> _unitEvents;
     [SerializeField] private bool _shouldInterrupt;
 
     public string SkillName { get => _skillName; }
