@@ -440,12 +440,15 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public async virtual void AttackAction(TurnContext turnContext)
     {
+        //타겟 설정
+        BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
+
         //OnAttack Invoke
         bool shouldInterrupt = false;
 
         if (_onAttacking != null) {
-            foreach (Func<BaseUnit, TurnContext, bool> action in _onAttacking.GetInvocationList()) {
-                bool result = action.Invoke(this, turnContext);
+            foreach (Func<BaseUnit, BaseUnit, TurnContext, bool> action in _onAttacking.GetInvocationList()) {
+                bool result = action.Invoke(this, mainTarget, turnContext);
                 if (result) {
                     shouldInterrupt = true; 
                 }
@@ -465,8 +468,6 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
 
-        //타겟 설정
-        BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
         //애니메이션
         if (_spumControl != null) {

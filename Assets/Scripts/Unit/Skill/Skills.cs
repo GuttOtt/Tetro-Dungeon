@@ -5,22 +5,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using EnumTypes;
 using UnityEngine.UIElements;
 
 /// Config and Skill Class Bases
-#region Models
+#region Models  
 public static class SkillFactory
 {
     public static UnitSkill CreateSkill(SkillConfig config) {
         if (config is DamageSkillConfig damageConfig) {
             return new DamageSkill(damageConfig);  // DamageSkill »ý¼º
         }
-        if (config is ReviveSkillConfig reviveConfig) {
+        else if (config is ReviveSkillConfig reviveConfig) {
             return new ReviveSkill(reviveConfig);
         }
-        if (config is HealClosestSkillConfig skillConfig) {
-            return new HealClosestSkill(skillConfig);
+        else if (config is HealClosestSkillConfig healClosestConfig) {
+            return new HealClosestSkill(healClosestConfig);
+        }
+        else if (config is ProjectileSkillConfig projectileConfig) {
+            return new ProjectileSkill(projectileConfig);
         }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");

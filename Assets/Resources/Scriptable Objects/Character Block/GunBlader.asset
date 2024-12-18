@@ -10,22 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
-  m_Name: GunBlader
+  m_Name: Gunblader
   m_EditorClassIdentifier: 
-  Name: 
-  Illust: {fileID: 0}
+  Name: "\uCD1D\uAC80\uC0AC"
+  Illust: {fileID: 21300000, guid: cae6baaa77435fe41bdd6af82c9fe92c, type: 3}
   UnitTypeString: 
-  Shapes: []
-  SPUM_Prefabs: {fileID: 0}
+  Shapes:
+  - Level: 1
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000100
+      - row: 010101
+      - row: 000100
+    CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 5452419287144626809, guid: 5292adcbede1f174e80e8b1a7c642bf2, type: 3}
   _stat:
-    _maxHP: 0
-    _attack: 0
+    _maxHP: 60
+    _attack: 20
     _spellPower: 0
-    _defence: 0
-    _spellDefence: 0
-    _speed: 0
-    _range: 0
-  DefaultSkill: {fileID: 0}
-  Skills: []
+    _defence: 3
+    _spellDefence: 2
+    _speed: 1
+    _range: 2
+  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  Skills:
+  - {fileID: 11400000, guid: e56aa5ad4c2d8294cb622318c8347535, type: 2}
   Synergies: []
   Awakenings: []

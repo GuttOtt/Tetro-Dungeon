@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using EnumTypes;
 using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "New Projectile Skill Config", menuName = "ScriptableObjects/Skill/ProjectileSkillConfig")]
 public class ProjectileSkillConfig : SkillConfig {
     [SerializeField] private Sprite _projectileSprite;
     [SerializeField] private int _baseDamage;
@@ -101,7 +104,12 @@ public class ProjectileSkill : UnitSkill {
     }
 
     private bool FireProjectile(BaseUnit unit, BaseUnit target, TurnContext turnContext) {
+        if (!CheckChance(1)){
+            return ShouldInterrupt;
+        }
+
         GameObject go = new GameObject();
+        go.transform.position = unit.transform.position;
         Projectile proj = go.AddComponent<Projectile>();
         SpriteRenderer spr = go.AddComponent<SpriteRenderer>();
         spr.sprite = _projectileSprite;
