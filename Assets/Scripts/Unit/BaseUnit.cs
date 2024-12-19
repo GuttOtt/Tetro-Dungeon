@@ -561,7 +561,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         if (CurrentHP <= 0)
         {
             CurrentHP = 0;
-            int damageDealt = reducedDamage;//This endsures that returning int value after object is destroyed.
+            int damageDealt = reducedDamage;//This ensures that returning int value after object is destroyed.
 
             Die(turnContext);
             return damageDealt;
