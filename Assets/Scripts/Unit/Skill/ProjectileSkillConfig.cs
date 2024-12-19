@@ -49,11 +49,13 @@ public class ProjectileSkill : UnitSkill {
 
     public override void Decorate(SkillConfig skillConfig) {
         if (skillConfig is ProjectileSkillConfig config) {
-            _projectileSprite = config.ProjectileSprite;
             _baseDamage += config.BaseDamage;
             _attackRatio += config.AttackRatio;
             _spellPowerRatio += config.SpellPowerRatio;
             _targetAmount += config.TargetAmount;
+
+            if (config.ProjectileSprite != null)
+                _projectileSprite = config.ProjectileSprite;
         }
         else {
             Debug.LogError("Invalid SkillConfig for ProjectileSkill.");
@@ -74,17 +76,17 @@ public class ProjectileSkill : UnitSkill {
     }
 
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null) {
-        FireProjectile(activator, target, turnContext);
+        FireProjectiles(activator, target, turnContext);
     }
 
     public override void RegisterToUnitEvents(BaseUnit unit) {
         foreach (UnitEventTypes unitEvent in UnitEvents) {
             switch (unitEvent) {
                 case UnitEventTypes.OnAttacking:
-                    unit.onAttacking += FireProjectile;
+                    unit.onAttacking += FireProjectiles;
                     break;
                 case UnitEventTypes.OnAttacked:
-                    unit.onAttacked += FireProjectile;
+                    unit.onAttacked += FireProjectiles;
                     break;
             }
         }
@@ -94,18 +96,33 @@ public class ProjectileSkill : UnitSkill {
     {foreach (UnitEventTypes unitEvent in UnitEvents) {
             switch (unitEvent) {
                 case UnitEventTypes.OnAttacking:
-                    unit.onAttacking -= FireProjectile;
+                    unit.onAttacking -= FireProjectiles;
                     break;
                 case UnitEventTypes.OnAttacked:
-                    unit.onAttacked -= FireProjectile;
+                    unit.onAttacked -= FireProjectiles;
                     break;
             }
         }
     }
 
-    private bool FireProjectile(BaseUnit unit, BaseUnit target, TurnContext turnContext) {
-        if (!CheckChance(1)){
+    private bool FireProjectiles(BaseUnit unit, BaseUnit mainTarget, TurnContext turnContext) {
+        if (!CheckChance(1)) {
             return ShouldInterrupt;
+        }
+
+        BaseUnit presentTarget = mainTarget;
+
+        for (int i = 0; i < TargetAmount; i++) {
+            FireProjectile(unit, presentTarget, turnContext);
+            presentTarget = turnContext.Board.GetClosestUnit(unit.CurrentCell, unit.Owner.Opponent(), 100) as BaseUnit;
+        }
+
+        return ShouldInterrupt;
+    }
+
+    private void FireProjectile(BaseUnit unit, BaseUnit target, TurnContext turnContext) {
+        if (!CheckChance(1)){
+            return;
         }
 
         GameObject go = new GameObject();
@@ -114,10 +131,16 @@ public class ProjectileSkill : UnitSkill {
         SpriteRenderer spr = go.AddComponent<SpriteRenderer>();
         spr.sprite = _projectileSprite;
 
+        //set sorting layer of spr
+        int sortingLayerID = SortingLayer.NameToID("Projectile");
+        spr.sortingLayerID = sortingLayerID;
+
+
         int damage = (int) (_baseDamage + unit.Attack * _attackRatio + unit.SpellPower * _spellPowerRatio);
 
         proj.Init(turnContext, target, damage, _damageType);
 
-        return ShouldInterrupt;
+        return;
     }
+
 }

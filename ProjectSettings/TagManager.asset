@@ -58,6 +58,9 @@ TagManager:
   - name: Effect
     uniqueID: 2704949953
     locked: 0
+  - name: Projectile
+    uniqueID: 3964076195
+    locked: 0
   - name: UI
     uniqueID: 3827726337
     locked: 0
