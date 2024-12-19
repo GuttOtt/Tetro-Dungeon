@@ -9,23 +9,24 @@ public class Projectile : MonoBehaviour {
     [SerializeField] private BaseUnit _target;
     [SerializeField] private bool _isTargetBased;
     private Vector2 _direction;
-    private float _speed = 7;
+    [SerializeField] private float _speed = 7;
     private int _penetrateCount = 0;
 
     private float _maxDistance = 1;
     private float _flyDistance = 0;
-    private int _damage = 0;
+    private Damage _damage;
     private DamageTypes _damageType;
     private TurnContext _turnContext;
+    private Action<TurnContext, BaseUnit, Damage> _onHit;
 
     private List<BaseUnit> _hitUnits = new List<BaseUnit>();
 
-    public void Init(TurnContext turnContext, BaseUnit target, int damage, DamageTypes damageType, float speed = 7) {
+    public void Init(TurnContext turnContext, BaseUnit target, Damage damage, Action<TurnContext, BaseUnit, Damage> onHit, float speed = 7) {
         _turnContext = turnContext;
         _target = target;
         _speed = speed;
+        _onHit = onHit;
         _damage = damage;
-        _damageType = damageType;
         _isTargetBased = true;
     }
 
@@ -87,7 +88,8 @@ public class Projectile : MonoBehaviour {
         if (_target != null) {
 
             if (hitUnit == _target) {
-                hitUnit.TakeDamage(_turnContext, _damage, _damageType);
+                Damage dealtDamage = hitUnit.TakeDamage(_turnContext, _damage);
+                _onHit?.Invoke(_turnContext, hitUnit, dealtDamage);
                 Destroy(gameObject);
             }
             else {
@@ -110,11 +112,7 @@ public class Projectile : MonoBehaviour {
     }
 
     private void SetRotation(Vector2 direction) {
-        Vector2 from = transform.position;
-        Vector2 to = from + direction;
+        transform.right = direction;
 
-        float angle = Quaternion.FromToRotation(from, to).eulerAngles.z;
-
-        transform.rotation = Quaternion.Euler(0, 0, angle + 90);
     }
 }

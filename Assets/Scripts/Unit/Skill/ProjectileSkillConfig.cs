@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -19,6 +20,7 @@ public class ProjectileSkillConfig : SkillConfig {
     public float SpellPowerRatio { get { return _spellPowerRatio; } }
     public int TargetAmount { get { return _targetAmount;} }
     public DamageTypes DamageType {get => _damageType;}
+    public float Speed { get => _speed; }
 }
 
 
@@ -45,6 +47,7 @@ public class ProjectileSkill : UnitSkill {
         _attackRatio = config.AttackRatio;
         _spellPowerRatio = config.SpellPowerRatio;
         _targetAmount = config.TargetAmount;
+        _speed = config.Speed;
     }
 
     public override void Decorate(SkillConfig skillConfig) {
@@ -136,9 +139,10 @@ public class ProjectileSkill : UnitSkill {
         spr.sortingLayerID = sortingLayerID;
 
 
-        int damage = (int) (_baseDamage + unit.Attack * _attackRatio + unit.SpellPower * _spellPowerRatio);
+        int damageAmount = Utils.CalculateDamageAmount(unit, _baseDamage, _attackRatio, _spellPowerRatio);
+        Damage damage = new Damage(_damageType, damageAmount);
 
-        proj.Init(turnContext, target, damage, _damageType);
+        proj.Init(turnContext, target, damage, unit.OnDamageDealt, _speed);
 
         return;
     }

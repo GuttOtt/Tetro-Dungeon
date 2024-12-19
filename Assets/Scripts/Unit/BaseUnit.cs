@@ -36,7 +36,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.Name;
             else
-                Debug.LogError("ÀÌ¸§À» ÂüÁ¶ ÇÒ config³ª characterBlockConfig°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+                Debug.LogError("ì´ë¦„ì„ ì°¸ì¡° í•  configë‚˜ characterBlockConfigê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
     }
@@ -111,6 +111,16 @@ public class BaseUnit : MonoBehaviour, IUnit
             _onAttacked -= value;
         }
     }
+
+    private event Action<TurnContext, BaseUnit, BaseUnit, Damage> _onDamageDealt;
+    public event Action<TurnContext, BaseUnit, BaseUnit, Damage> onDamageDealt {
+        add {
+            _onDamageDealt += value;
+        }
+        remove {
+            _onDamageDealt -= value;
+        }
+    }
     #endregion
 
     public int ID { get => _id; }
@@ -127,7 +137,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.MaxHP;
             else
-                Debug.LogError("ÃÖ´ë Ã¼·ÂÀ» ÂüÁ¶ÇÒ config°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+                Debug.LogError("ìµœëŒ€ ì²´ë ¥ì„ ì°¸ì¡°í•  configê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return 0;
 
         } 
@@ -306,7 +316,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             return;
         }
 
-        //»ç¸Á Ã³¸®
+        //ì‚¬ë§ ì²˜ë¦¬
         OnDie?.Invoke();
         OnDestroy?.Invoke();
         CurrentCell.UnitOut();
@@ -372,7 +382,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         moveCell.UnitIn(this);
         CurrentCell = movePath[1];
 
-        //Transform ???
+        //Transform ì´ë™
         var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, 2f);
         tween.OnStart(() =>
             _spumControl?.ChangeState(PlayerState.MOVE)
@@ -412,7 +422,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         */
 
         if (shortestMovePath != null && shortestMovePath.Count <= 1) {
-            Debug.LogError("Pathfinding °úÁ¤¿¡¼­ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.");
+            Debug.LogError("Pathfinding ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
         }
 
         if (shortestMovePath == null) {
@@ -440,7 +450,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public async virtual void AttackAction(TurnContext turnContext)
     {
-        //Å¸°Ù ¼³Á¤
+        //íƒ€ê²Ÿ ì„¤ì •
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
         //OnAttack Invoke
@@ -459,7 +469,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             return;
         }
 
-        //¹ßµ¿ÇÒ Active SkillÀ» ¼±ÅÃ
+        //ë°œë™í•  Active Skillì„ ì„ íƒ
         UnitSkill skill = _defaultSkill;
         for (int i = 0; i < _skills.Count; i++) {
             if (_skills[i].CheckChance(_skillChanceMultiplier)) {
@@ -469,14 +479,14 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
 
-        //¾Ö´Ï¸ŞÀÌ¼Ç
+        //ì• ë‹ˆë©”ì´ì…˜
         if (_spumControl != null) {
             _spumControl.PlayAttackAnimation(mainTarget);
             await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
         }
 
-        //½ºÅ³ ¹ßµ¿
-        Debug.Log($"[{Name}, id: {_id}]ÀÇ ½ºÅ³ ¹ßµ¿: {skill.SkillName}¸¦ [{mainTarget.Name}, id: {mainTarget.ID}]¿¡°Ô »ç¿ë¿ë.");
+        //ìŠ¤í‚¬ ë°œë™
+        Debug.Log($"[{Name}, id: {_id}]ì˜ ìŠ¤í‚¬ ë°œë™: {skill.SkillName}ë¥¼ [{mainTarget.Name}, id: {mainTarget.ID}]ì—ê²Œ ì‚¬ìš©.");
         skill.Activate(turnContext, this, mainTarget);
         
         //onAttacked Invoke
@@ -492,7 +502,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         return attackTarget;
     }
 
-
+    public void OnDamageDealt(TurnContext turnContext, BaseUnit target, Damage damage) {
+        _onDamageDealt?.Invoke(turnContext, this, target, damage);
+    }
     #endregion
 
     #region Stat
@@ -516,12 +528,19 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeSpeed(float value) => _speed += value;
     #endregion
 
-    public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker)
-    {
-        TakeDamage(turnContext, damage);
+
+    public virtual Damage TakeDamage(TurnContext turnContext, Damage damage) {
+        int attackDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Attack), DamageTypes.Attack);
+        int spellDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Spell), DamageTypes.Spell);
+        int trueDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.True), DamageTypes.True);
+
+        Damage totalDamage = new Damage(attackDmgDealt, spellDmgDealt, trueDmgDealt);
+        Debug.Log($"{Name}ì´ ì´ {totalDamage.GetSum()}ë§Œí¼ì˜ ë°ë¯¸ì§€ë¥¼ ë°›ìŒ.");
+
+        return totalDamage;
     }
 
-    public virtual void TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType = DamageTypes.True)
+    private int TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType = DamageTypes.True)
     {
         int reducedDamage = damage;
 
@@ -537,14 +556,20 @@ public class BaseUnit : MonoBehaviour, IUnit
                 break;
         }
 
-        _unitDrawer.DisplayDamageText(damage, damageType);
-        CurrentHP -= damage;
+        _unitDrawer.DisplayDamageText(reducedDamage, damageType);
+        CurrentHP -= reducedDamage;
         if (CurrentHP <= 0)
         {
             CurrentHP = 0;
+            int damageDealt = reducedDamage;//This endsures that returning int value after object is destroyed.
+
             Die(turnContext);
+            return damageDealt;
         }
+
+        return reducedDamage;
     }
+
 
     public virtual void TakeHeal(TurnContext turnContext, int amount)
     {
