@@ -546,13 +546,13 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         switch (damageType) {
             case DamageTypes.Attack:
-                reducedDamage -= (int)(damage * AttackDamageReductionRate);
+                reducedDamage = (int)(damage * AttackDamageReductionRate);
                 break;
             case DamageTypes.Spell:
-                reducedDamage -= (int)(damage * SpellDamageReductionRate);
+                reducedDamage = (int)(damage * SpellDamageReductionRate);
                 break;
             case DamageTypes.True:
-                reducedDamage -= 0;
+                reducedDamage = damage;
                 break;
         }
 
