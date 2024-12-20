@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
+using System.Reflection;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -113,12 +114,18 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     private event Action<TurnContext, BaseUnit, BaseUnit, Damage> _onDamageDealt;
+    private Dictionary<Action<TurnContext, BaseUnit, BaseUnit, Damage>, string> _onDamageDealtSubscribers = 
+        new Dictionary<Action<TurnContext, BaseUnit, BaseUnit, Damage>, string>();
     public event Action<TurnContext, BaseUnit, BaseUnit, Damage> onDamageDealt {
-        add {
+        add
+        {
             _onDamageDealt += value;
+            _onDamageDealtSubscribers[value] = value.Method.Name;  // Store the method name
         }
-        remove {
+        remove
+        {
             _onDamageDealt -= value;
+            _onDamageDealtSubscribers.Remove(value);  // Remove the method name
         }
     }
     #endregion
@@ -279,7 +286,10 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Skills
         _defaultSkill = characterBlock.DefaultSkill;
-        _skills = characterBlock.Skills.ToList();
+        foreach (UnitSkill skill in characterBlock.Skills) {
+            _skills.Add(skill);
+            skill.RegisterToUnitEvents(this);
+        }
 
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
         _owner = owner;
@@ -504,6 +514,15 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void OnDamageDealt(TurnContext turnContext, BaseUnit target, Damage damage) {
         _onDamageDealt?.Invoke(turnContext, this, target, damage);
+        PrintOnDamageDealtSubscribers();
+    }
+    public void PrintOnDamageDealtSubscribers()
+    {
+        Debug.Log($"Methods subscribed to _onDamageDealt of {Name}:");
+        foreach (var subscriber in _onDamageDealtSubscribers)
+        {
+            Debug.Log(subscriber.Value);
+        }
     }
     #endregion
 

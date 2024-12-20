@@ -102,9 +102,10 @@ public class DamageSkill : UnitSkill
 
         foreach (BaseUnit target in targets) {
             target?.TakeDamage(turnContext, damage);
+            activator.OnDamageDealt(turnContext, target, damage);
         }
 
-        //Effect
+        //Effect Sprite
         if (_effectSprite == null) {
             return;
         }

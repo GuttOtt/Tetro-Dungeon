@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using EnumTypes;
 using Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ public static class SkillFactory
         }
         else if (config is ProjectileSkillConfig projectileConfig) {
             return new ProjectileSkill(projectileConfig);
+        }
+        else if (config is LeechSkillConfig leechSkillConfig) {
+            return new LeechSkill(leechSkillConfig);
         }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
@@ -56,6 +60,7 @@ public abstract class SkillConfig : ScriptableObject {
     // 스킬별 추가 설정은 하위 클래스에서 정의    
 }
 
+[Serializable]
 public abstract class UnitSkill
 {
     protected string _skillName;
@@ -83,7 +88,7 @@ public abstract class UnitSkill
     }
     public bool CheckChance(float chanceMultiplier) {
         float multipliedChance = _skillChance * (1 + chanceMultiplier);
-        float r = Random.Range(0, 1f);
+        float r = UnityEngine.Random.Range(0, 1f);
         return r <= multipliedChance;
     }
 

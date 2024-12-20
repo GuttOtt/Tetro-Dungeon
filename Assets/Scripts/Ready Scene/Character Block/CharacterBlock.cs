@@ -20,7 +20,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     //Skill
     private UnitSkill _defaultSkill;
-    private List<UnitSkill> _skills = new List<UnitSkill>();
+    [SerializeField] private List<UnitSkill> _skills = new List<UnitSkill>();
     public UnitSkill DefaultSkill { get => _defaultSkill; }
     public List<UnitSkill> Skills { get => _skills; }
 
