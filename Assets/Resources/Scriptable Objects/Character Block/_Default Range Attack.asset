@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a224ffea6c0e8bf42af7881a560c8093, type: 3}
-  m_Name: Gunblader_Sklill1
+  m_Name: _Default Range Attack
   m_EditorClassIdentifier: 
-  _skillName: "\uC5F0\uACC4 \uC0AC\uACA9"
-  _skillDescription: "\uACF5\uACA9 \uC2DC {SkillChance}\uC758 \uD655\uB960\uB85C
-    \uCD1D\uC54C\uC744 \uBC1C\uC0AC\uD574 \uC778\uC811\uD55C \uB300\uC0C1 {TargetAmount}\uBA85\uC5D0\uAC8C
-    \uACF5\uACA9\uB825 \uB9CC\uD07C\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
-  _skillChance: 0.2
-  _unitEvents: 02000000
+  _skillName: "\uAE30\uBCF8 \uC6D0\uAC70\uB9AC \uACF5\uACA9"
+  _skillDescription: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC778 \uC6D0\uAC70\uB9AC \uACF5\uACA9\uC785\uB2C8\uB2E4."
+  _skillChance: 1
+  _unitEvents: 
   _shouldInterrupt: 0
-  _projectileSprite: {fileID: 21300000, guid: 2fe5933dae42675459139aa641245d2d, type: 3}
+  _projectileSprite: {fileID: 21300000, guid: f3731e9f9b1b86547bce754c6c873b9a, type: 3}
   _baseDamage: 0
   _damageType: 0
   _attackRatio: 1
