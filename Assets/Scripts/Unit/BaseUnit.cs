@@ -514,15 +514,6 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public void OnDamageDealt(TurnContext turnContext, BaseUnit target, Damage damage) {
         _onDamageDealt?.Invoke(turnContext, this, target, damage);
-        PrintOnDamageDealtSubscribers();
-    }
-    public void PrintOnDamageDealtSubscribers()
-    {
-        Debug.Log($"Methods subscribed to _onDamageDealt of {Name}:");
-        foreach (var subscriber in _onDamageDealtSubscribers)
-        {
-            Debug.Log(subscriber.Value);
-        }
     }
     #endregion
 

@@ -41,6 +41,7 @@ public class HealClosestSkill : UnitSkill {
             return Heal(activator, turnContext);
         };
         unit.onAttacking += _healHandler;
+        Debug.Log("힐 스킬 등록");
     }
 
     public override void UnregisterToUnitEvents(BaseUnit unit) {
@@ -75,13 +76,26 @@ public class HealClosestSkill : UnitSkill {
     }
 
     private bool Heal(BaseUnit activator,TurnContext turnContext) {
+        Debug.Log("힐 스킬 발동");
         int healAmount = (int) (_baseHealAmount + _attackRatio * activator.Attack
             + _spellPowerRatio * activator.SpellPower);
 
-        List<BaseUnit> closestUnits = GetClosestUnits(activator, turnContext.Board);
+        List<BaseUnit> closestUnits = new List<BaseUnit>();
+
+        //Getting closest Units
+        BaseUnit indexUnit = activator;
+        for (int i = 0; i < _targetAmount; i++) {
+            BaseUnit closest = GetClosestUnit(indexUnit, turnContext.Board);
+            closestUnits.Add(closest);
+            indexUnit = closest;
+        }
 
         foreach (BaseUnit unit in closestUnits) {
+            if (unit == null)
+                continue;
+
             unit.TakeHeal(turnContext, healAmount);
+            Debug.Log($"{activator.Name}, id {activator.ID}가 {unit.Name}, id {unit.ID}를 {healAmount}만큼 회복!");
         }
 
         return ShouldInterrupt;
@@ -91,7 +105,4 @@ public class HealClosestSkill : UnitSkill {
         return board.GetClosestUnit(unit.CurrentCell, unit.Owner, 100) as BaseUnit;
     }
 
-    private List<BaseUnit> GetClosestUnits(BaseUnit unit, Board board) {
-        return board.GetClosestUnits(unit.CurrentCell, unit.Owner, _targetAmount, 100);
-    }
 }

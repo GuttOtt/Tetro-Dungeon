@@ -53,7 +53,6 @@ public class LeechSkill : UnitSkill {
     public override void RegisterToUnitEvents(BaseUnit unit) {
         unit.onDamageDealt += Leech;
         Debug.Log("Leech 스킬 등록");
-        unit.PrintOnDamageDealtSubscribers();
     }
 
     public override void UnregisterToUnitEvents(BaseUnit unit) {

@@ -16,7 +16,7 @@ MonoBehaviour:
   _skillDescription: "\uACF5\uACA9 \uC2DC \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC720\uB2DB
     \uD55C \uBA85\uC744 {BaseHealAmount}+\uC8FC\uBB38\uB825x{SpellPowerRatio}\uB9CC\uD07C
     \uCE58\uC720\uD569\uB2C8\uB2E4."
-  _skillChance: 1
+  _skillChance: 0
   _unitEvents: 01000000
   _shouldInterrupt: 0
   _baseHealAmount: 0

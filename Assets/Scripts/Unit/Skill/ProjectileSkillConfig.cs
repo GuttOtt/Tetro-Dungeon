@@ -124,7 +124,7 @@ public class ProjectileSkill : UnitSkill {
     }
 
     private void FireProjectile(BaseUnit unit, BaseUnit target, TurnContext turnContext) {
-        if (target == null || target.transform == null)
+        if (target == null || target.transform == null || unit == null || unit.transform == null)
             return;
 
         GameObject go = new GameObject();
