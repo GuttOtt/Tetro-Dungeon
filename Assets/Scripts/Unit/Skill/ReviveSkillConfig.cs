@@ -64,4 +64,14 @@ public class ReviveSkill : UnitSkill {
             Debug.LogWarning("Invalid config type for ReviveSkill");
         }
     }
+
+    public override void Undecorate(SkillConfig config) {
+        if (config is ReviveSkillConfig reviveSkillConfig) {
+            _restoringHP -= reviveSkillConfig.RestoringHP;
+            _reviveCount -= reviveSkillConfig.ReviveCount;
+        }
+        else {
+            Debug.LogWarning("Invalid config type for ReviveSkill");
+        }
+    }
 }

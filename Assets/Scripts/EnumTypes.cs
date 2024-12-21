@@ -25,10 +25,14 @@ namespace EnumTypes
     }
         
     public enum SynergyTypes {
-        None = 0,Dragon=1, Gunner=2, Plant=3
+        None = 0,Magician = 1, 
     }
 
     public enum DamageTypes {
         Attack, Spell, True
+    }
+
+    public enum UnitEventTypes {
+        OnDying = 0, OnAttacking = 1, OnAttacked = 2,
     }
 }

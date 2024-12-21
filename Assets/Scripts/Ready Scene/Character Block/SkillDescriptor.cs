@@ -25,7 +25,6 @@ public class SkillDescriptor : MonoBehaviour {
             Debug.Log($"{fieldName}");
             var property = type.GetProperty(fieldName);
             if (property != null) {
-                Debug.Log("Match");
                 return property.GetValue(skill)?.ToString() ?? match.Value;
             }
             return match.Value; // 일치하는 프로퍼티가 없으면 원래 값 반환

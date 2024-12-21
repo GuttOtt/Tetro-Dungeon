@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public class Stat {
     [SerializeField]
-    private int _maxHP, _attack, _spellPower, _defence, _spellDefence, _speed, _range;
+    private int _maxHP, _attack, _spellPower, _defence, _spellDefence, _range;
+    [SerializeField] private float _speed;
 
     #region Properties
     public int MaxHP { get => _maxHP; }
@@ -14,11 +15,11 @@ public class Stat {
     public int SpellPower { get => _spellPower;}
     public int Defence { get => _defence;}
     public int SpellDefence { get => _spellDefence;}
-    public int Speed { get => _speed;}
+    public float Speed { get => _speed;}
     public int Range { get => _range;}
     #endregion
 
-    public Stat(int maxHP, int attack, int spellPower, int defence, int spellDefence, int speed, int range) {
+    public Stat(int maxHP, int attack, int spellPower, int defence, int spellDefence, float speed, int range) {
         _maxHP = maxHP;
         _attack = attack;
         _spellPower = spellPower;

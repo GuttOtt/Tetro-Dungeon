@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
+using System.Reflection;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -36,7 +37,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.Name;
             else
-                Debug.LogError("config¿Í characterBlockConfig°¡ ¸ğµÎ ºñ¾î ÀÖ½À´Ï´Ù.");
+                Debug.LogError("ì´ë¦„ì„ ì°¸ì¡° í•  configë‚˜ characterBlockConfigê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return null;
         }
     }
@@ -85,24 +86,46 @@ public class BaseUnit : MonoBehaviour, IUnit
     private event Func<BaseUnit, TurnContext, bool> _onDying;
     public event Func<BaseUnit, TurnContext, bool> onDying {
         add {
-            Debug.Log($"{value.Method.Name}ÀÌ(°¡) {name}ÀÇ onDying¿¡ µî·ÏµÇ¾ú½À´Ï´Ù.");
             _onDying += value;
         }
         remove {
-            Debug.Log($"{value.Method.Name}ÀÌ(°¡) {name}ÀÇ onDying¿¡¼­ Á¦°ÅµÇ¾ú½À´Ï´Ù.");
             _onDying -= value;
         }
     }
 
-    public event Func<BaseUnit, TurnContext, bool> _onAttacking;
-    public event Func<BaseUnit, TurnContext, bool> onAttacking {
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> _onAttacking;
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> onAttacking {
         add {
-            Debug.Log($"{value.Method.Name}ÀÌ(°¡) {name}ÀÇ _onAttacking¿¡ µî·ÏµÇ¾ú½À´Ï´Ù.");
             _onAttacking += value;
         }
         remove {
-            Debug.Log($"{value.Method.Name}ÀÌ(°¡) {name}ÀÇ _onAttacking¿¡¼­ Á¦°ÅµÇ¾ú½À´Ï´Ù.");
             _onAttacking -= value;
+        }
+    }
+
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> _onAttacked;
+    public event Func<BaseUnit, BaseUnit, TurnContext, bool> onAttacked {
+        add {
+            _onAttacked += value;
+        }
+        remove {
+            _onAttacked -= value;
+        }
+    }
+
+    private event Action<TurnContext, BaseUnit, BaseUnit, Damage> _onDamageDealt;
+    private Dictionary<Action<TurnContext, BaseUnit, BaseUnit, Damage>, string> _onDamageDealtSubscribers = 
+        new Dictionary<Action<TurnContext, BaseUnit, BaseUnit, Damage>, string>();
+    public event Action<TurnContext, BaseUnit, BaseUnit, Damage> onDamageDealt {
+        add
+        {
+            _onDamageDealt += value;
+            _onDamageDealtSubscribers[value] = value.Method.Name;  // Store the method name
+        }
+        remove
+        {
+            _onDamageDealt -= value;
+            _onDamageDealtSubscribers.Remove(value);  // Remove the method name
         }
     }
     #endregion
@@ -110,8 +133,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int ID { get => _id; }
     public int UnitTypeValue { get => _unitTypeValue; }
     
-    public Action OnDie { get; set; } //ÀüÅõ Áß À¯´ÖÀÌ °ø°İÀÌ³ª È¿°ú¿¡ ÀÇÇØ »ç¸ÁÇÒ ¶§ È¸ÃâµÇ´Â ÀÌº¥Æ®.
-    public Action OnDestroy { get; set; } //ÀüÅõ Áß »ç¸ÁÇÏ´Â °ÍÀ» Æ÷ÇÔÇØ, 'À¯´ÖÀÇ GameObject°¡ Á¦°ÅµÉ ¶§' È£ÃâµÇ´Â ÀÌº¥Æ®. ÀüÅõ ½Â¸® ½Ã ³²Àº À¯´ÖÀÇ Ã³¸® µî¿¡ ÀÇÇØ¼­µµ È£ÃâµÊ.
+    public Action OnDie { get; set; } 
+    public Action OnDestroy { get; set; } 
     public Cell CurrentCell { get => _currentCell; set => _currentCell = value; }
     public CharacterTypes Owner { get => _owner; set => _owner = value; }
     public int ConfigMaxHP {
@@ -121,7 +144,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             else if (_config != null)
                 return _config.MaxHP;
             else
-                Debug.LogError("config¿Í characterBlockConfig°¡ ¸ğµÎ ºñ¾î ÀÖ½À´Ï´Ù.");
+                Debug.LogError("ìµœëŒ€ ì²´ë ¥ì„ ì°¸ì¡°í•  configê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return 0;
 
         } 
@@ -173,13 +196,13 @@ public class BaseUnit : MonoBehaviour, IUnit
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
             _spumControl.SetSPUM(spum);
 
-            //À§Ä¡¿Í ¹æÇâ ¼³Á¤
+            //????? ???? ????
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //ÀÓ½Ã ÄÚµå. Sprite Renderer°¡ ÀüºÎ SPUMÀ¸·Î ´ëÃ¼µÇ¸é »èÁ¦ÇØ¾ß ÇÔ.
+            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
@@ -239,13 +262,13 @@ public class BaseUnit : MonoBehaviour, IUnit
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
             _spumControl.SetSPUM(spum);
 
-            //À§Ä¡¿Í ¹æÇâ ¼³Á¤
+            //????? ???? ????
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //ÀÓ½Ã ÄÚµå. Sprite Renderer°¡ ÀüºÎ SPUMÀ¸·Î ´ëÃ¼µÇ¸é »èÁ¦ÇØ¾ß ÇÔ.
+            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
@@ -263,7 +286,13 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Skills
         _defaultSkill = characterBlock.DefaultSkill;
-        _skills = characterBlock.Skills.ToList();
+        foreach (UnitSkill skill in characterBlock.Skills) {
+            _skills.Add(skill);
+            skill.RegisterToUnitEvents(this);
+        }
+
+        _unitDrawer._healthBar.SetMaxHealth(MaxHP);
+        _owner = owner;
 
         //Synergies
         //_synergies = config.Synergies;
@@ -288,18 +317,16 @@ public class BaseUnit : MonoBehaviour, IUnit
             foreach (Func<BaseUnit, TurnContext, bool> action in _onDying.GetInvocationList()) {
                 bool result = action.Invoke(this, turnContext);
                 if (result) {
-                    Debug.Log($"{name}ÀÇ onDying ÇÚµé·¯ {action.Method.Name}¿¡¼­ Áß´Ü ½ÅÈ£ ¹İÈ¯.");
-                    shouldInterrupt = true; // true ¹İÈ¯ ½Ã Áß´Ü ÇÃ·¡±× ¼³Á¤
+                    shouldInterrupt = true; 
                 }
             }
         }
 
         if (shouldInterrupt) {
-            Debug.Log($"{name}ÀÇ »ç¸Á Ã³¸®°¡ Áß´ÜµÇ¾ú½À´Ï´Ù.");
             return;
         }
 
-        //»ç¸Á Ã³¸®
+        //ì‚¬ë§ ì²˜ë¦¬
         OnDie?.Invoke();
         OnDestroy?.Invoke();
         CurrentCell.UnitOut();
@@ -356,16 +383,16 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         Cell moveCell = movePath[1];
 
-        //À¯´Ö ÀÌµ¿
+        //???? ???
         if (moveCell.Unit != null) {
-            Debug.LogError("ÀÌµ¿ÇÏ·Á´Â Ä­¿¡ ÀÌ¹Ì À¯´ÖÀÌ ÀÖ½À´Ï´Ù!");
+            Debug.LogError("???????? ??? ??? ?????? ??????!");
         }
 
         CurrentCell.UnitOut();
         moveCell.UnitIn(this);
         CurrentCell = movePath[1];
 
-        //Transform ÀÌµ¿
+        //Transform ì´ë™
         var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, 2f);
         tween.OnStart(() =>
             _spumControl?.ChangeState(PlayerState.MOVE)
@@ -381,7 +408,6 @@ public class BaseUnit : MonoBehaviour, IUnit
             return null;
         }
 
-        //closestOpponent¸¦ °ø°İÇÒ ¼ö ÀÖ´Â ¸ğµç ¼¿ Áß °¡Àå °¡±î¿î °æ·Î¸¦ ¸¸µå´Â ¼¿À» ±¸ÇÔ
         List<Cell> attackableCells = board.GetEmptyCellsInRange(closestOpponent.CurrentCell, 1, Range);
 
         List<Cell> shortestMovePath = null;
@@ -406,10 +432,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         */
 
         if (shortestMovePath != null && shortestMovePath.Count <= 1) {
-            Debug.LogError("shortestMovePath°¡ 1ÀÓ. ÀÌ·± °æ¿ì´Â Á¸ÀçÇØ¼­´Â ¾È µÊ. Board Å¬·¡½ºÀÇ PathFinding ¾Ë°í¸®ÁòÀ» È®ÀÎÇØº¼ °Í.");
+            Debug.LogError("Pathfinding ê³¼ì •ì—ì„œ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
         }
 
-        //¸¸¾à °ø°İ °¡´ÉÇÑ À§Ä¡·Î ÀÌµ¿ÇÒ ¼ö ¾ø´Ù¸é, ±×³É °¡Àå °¡±î¿î ÀûÀ» ÇâÇØ ÇÑ Ä­ ÀÌµ¿ÇÒ ¼ö ÀÖ´ÂÁö °è»ê
         if (shortestMovePath == null) {
             int forwardOffset = Owner == CharacterTypes.Player ? 1 : -1;
             Cell forwardCell = board.GetCell(CurrentCell.position.col + forwardOffset, CurrentCell.position.row);
@@ -435,7 +460,26 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public async virtual void AttackAction(TurnContext turnContext)
     {
-        //ÀÌ¹ø °ø°İ¿¡ »ç¿ëÇÒ Active SkillÀ» ¼±ÅÃ
+        //íƒ€ê²Ÿ ì„¤ì •
+        BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
+
+        //OnAttack Invoke
+        bool shouldInterrupt = false;
+
+        if (_onAttacking != null) {
+            foreach (Func<BaseUnit, BaseUnit, TurnContext, bool> action in _onAttacking.GetInvocationList()) {
+                bool result = action.Invoke(this, mainTarget, turnContext);
+                if (result) {
+                    shouldInterrupt = true; 
+                }
+            }
+        }
+
+        if (shouldInterrupt) {
+            return;
+        }
+
+        //ë°œë™í•  Active Skillì„ ì„ íƒ
         UnitSkill skill = _defaultSkill;
         for (int i = 0; i < _skills.Count; i++) {
             if (_skills[i].CheckChance(_skillChanceMultiplier)) {
@@ -444,18 +488,19 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
 
-        //¸ŞÀÎ Å¸°Ù ¼³Á¤
-        BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
 
-        //°ø°İ ¾Ö´Ï¸ŞÀÌ¼Ç Ãâ·Â
+        //ì• ë‹ˆë©”ì´ì…˜
         if (_spumControl != null) {
             _spumControl.PlayAttackAnimation(mainTarget);
             await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
         }
 
-        //¼±ÅÃÇÑ ½ºÅ³À» ¹ßµ¿
-        Debug.Log($"[{Name}, id: {_id}]ÀÇ ½ºÅ³ ¹ßµ¿: {skill.SkillName}À» [{mainTarget.Name}, id: {mainTarget.ID}]¿¡°Ô »ç¿ë.");
+        //ìŠ¤í‚¬ ë°œë™
+        Debug.Log($"[{Name}, id: {_id}]ì˜ ìŠ¤í‚¬ ë°œë™: {skill.SkillName}ë¥¼ [{mainTarget.Name}, id: {mainTarget.ID}]ì—ê²Œ ì‚¬ìš©.");
         skill.Activate(turnContext, this, mainTarget);
+        
+        //onAttacked Invoke
+        _onAttacked?.Invoke(this, mainTarget, turnContext);
     }
 
     protected IUnit GetAttackTarget(Board board)
@@ -467,25 +512,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         return attackTarget;
     }
 
-
-    protected void FireProjectile(BaseUnit target, Action<BaseUnit> onHit, float speed = 7) {
-        if (_projectilePrefab == null) {
-            Debug.LogError($"There is no _projectilePrefab in {Name}. Please check the UnitConfig or Init method.");
-        }
-
-        Projectile projectile = Instantiate(_projectilePrefab);
-        projectile.transform.position = transform.position;
-        projectile.Init(target, onHit, speed);
-    }
-
-    protected void FireProjectile(Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
-        if (_projectilePrefab == null) {
-            Debug.LogError($"There is no _projectilePrefab in {Name}. Please check the UnitConfig or Init method.");
-        }
-
-        Projectile projectile = Instantiate(_projectilePrefab);
-        projectile.transform.position = transform.position;
-        projectile.Init(direction, onHit, maxDistance, speed, penetrateCount);
+    public void OnDamageDealt(TurnContext turnContext, BaseUnit target, Damage damage) {
+        _onDamageDealt?.Invoke(turnContext, this, target, damage);
     }
     #endregion
 
@@ -510,35 +538,48 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeSpeed(float value) => _speed += value;
     #endregion
 
-    public virtual void AttackedBy(TurnContext turnContext, int damage, IUnit attacker)
-    {
-        TakeDamage(turnContext, damage);
+
+    public virtual Damage TakeDamage(TurnContext turnContext, Damage damage) {
+        int attackDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Attack), DamageTypes.Attack);
+        int spellDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Spell), DamageTypes.Spell);
+        int trueDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.True), DamageTypes.True);
+
+        Damage totalDamage = new Damage(attackDmgDealt, spellDmgDealt, trueDmgDealt);
+        Debug.Log($"{Name}ì´ ì´ {totalDamage.GetSum()}ë§Œí¼ì˜ ë°ë¯¸ì§€ë¥¼ ë°›ìŒ.");
+
+        return totalDamage;
     }
 
-    public virtual void TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType = DamageTypes.True)
+    private int TakeDamage(TurnContext turnContext, int damage, DamageTypes damageType = DamageTypes.True)
     {
         int reducedDamage = damage;
 
         switch (damageType) {
             case DamageTypes.Attack:
-                reducedDamage -= (int)(damage * AttackDamageReductionRate);
+                reducedDamage = (int)(damage * AttackDamageReductionRate);
                 break;
             case DamageTypes.Spell:
-                reducedDamage -= (int)(damage * SpellDamageReductionRate);
+                reducedDamage = (int)(damage * SpellDamageReductionRate);
                 break;
             case DamageTypes.True:
-                reducedDamage -= 0;
+                reducedDamage = damage;
                 break;
         }
 
-        _unitDrawer.DisplayDamageText(damage, damageType);
-        CurrentHP -= damage;
+        _unitDrawer.DisplayDamageText(reducedDamage, damageType);
+        CurrentHP -= reducedDamage;
         if (CurrentHP <= 0)
         {
             CurrentHP = 0;
+            int damageDealt = reducedDamage;//This ensures that returning int value after object is destroyed.
+
             Die(turnContext);
+            return damageDealt;
         }
+
+        return reducedDamage;
     }
+
 
     public virtual void TakeHeal(TurnContext turnContext, int amount)
     {

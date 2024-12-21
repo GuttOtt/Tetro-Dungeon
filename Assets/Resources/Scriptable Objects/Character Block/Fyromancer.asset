@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fyromancer
   m_EditorClassIdentifier: 
   Name: "\uD654\uC5FC\uC220\uC0AC"
-  Illust: {fileID: 21300000, guid: cf9f9ed5bcc4f8c4bbd01551f3923166, type: 3}
+  Illust: {fileID: 21300000, guid: ae312a305aea13f449294b99d89d0792, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1
@@ -36,14 +36,16 @@ MonoBehaviour:
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 3188768033771658690, guid: 6e9a6f9f63dd94a49870120cf8c08e75, type: 3}
   _stat:
-    _maxHP: 50
-    _attack: 20
+    _maxHP: 80
+    _attack: 15
     _spellPower: 10
     _defence: 1
     _spellDefence: 2
-    _speed: 1
     _range: 3
-  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+    _speed: 0.95
+  DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
   Skills:
   - {fileID: 11400000, guid: e3b033ba34e8945429a4baed61ae5000, type: 2}
   Synergies: []
+  Awakenings:
+  - {fileID: 11400000, guid: fc031fffebf90bb43b13861eb9646352, type: 2}

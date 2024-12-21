@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decon
   m_EditorClassIdentifier: 
   Name: "\uACAC\uC2B5 \uC0AC\uC81C"
-  Illust: {fileID: 21300000, guid: 0286f63033992ff4a9993c880e7b3f90, type: 3}
+  Illust: {fileID: 21300000, guid: d9b0b274f14df5a489c8abf7a127a3bc, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1
@@ -36,13 +36,16 @@ MonoBehaviour:
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 3861913456753963883, guid: 660108a2b05b4694f9af4ddf20511935, type: 3}
   _stat:
-    _maxHP: 40
-    _attack: 5
+    _maxHP: 75
+    _attack: 10
     _spellPower: 10
     _defence: 1
     _spellDefence: 1
-    _speed: 1
     _range: 3
-  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
-  Skills: []
+    _speed: 1
+  DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
+  Skills:
+  - {fileID: 11400000, guid: 15c24a17ebfb2cc4faabbc601ccceede, type: 2}
   Synergies: []
+  Awakenings:
+  - {fileID: 11400000, guid: f3eb984356f24a0439aa34da6ef034da, type: 2}

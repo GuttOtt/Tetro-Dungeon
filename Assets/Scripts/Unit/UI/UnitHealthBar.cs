@@ -43,8 +43,10 @@ namespace Assets.Scripts.Unit.UI
 
         public void SetHealth(int health)
         {
-            slider.value = health;
+            if (slider == null || fill == null)
+                return;
 
+            slider.value = health;
             fill.color = gradient.Evaluate(slider.normalizedValue);
         }
     }

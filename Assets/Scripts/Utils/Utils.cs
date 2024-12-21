@@ -181,4 +181,8 @@ public static class Utils {
 
         return rotated;
     }
+
+    public static int CalculateDamageAmount(BaseUnit unit, int baseDamage, float attackRatio, float spellPowerRatio){
+        return (int)(baseDamage + unit.Attack * attackRatio + unit.SpellPower * spellPowerRatio);
+    }
 }

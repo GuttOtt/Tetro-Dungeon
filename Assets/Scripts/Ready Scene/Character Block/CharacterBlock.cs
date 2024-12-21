@@ -2,6 +2,7 @@ using Array2DEditor;
 using Cysharp.Threading.Tasks.Triggers;
 using Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,7 +20,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     //Skill
     private UnitSkill _defaultSkill;
-    private List<UnitSkill> _skills = new List<UnitSkill>();
+    [SerializeField] private List<UnitSkill> _skills = new List<UnitSkill>();
     public UnitSkill DefaultSkill { get => _defaultSkill; }
     public List<UnitSkill> Skills { get => _skills; }
 
@@ -33,6 +34,9 @@ public class CharacterBlock : MonoBehaviour, IItem {
     [SerializeField] private bool _isPlaced = false;
     private int _spinDegree = 0;
     private BlockPart _centerBlockPart;
+
+    //Awakenings
+    private List<Awakening> _awakenings;
 
     public bool IsPlaced { get => _isPlaced; }
     public Vector2Int CenterCellPos {
@@ -70,6 +74,9 @@ public class CharacterBlock : MonoBehaviour, IItem {
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
         _skills = SkillFactory.CreateSkills(config.Skills);
+
+        //Awakenings
+        _awakenings = config.Awakenings.ToList();
 
         CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;
@@ -245,11 +252,21 @@ public class CharacterBlock : MonoBehaviour, IItem {
         equipment.transform.SetParent(transform);
 
         _stat += equipment.Stat;
+
+        UpdateAwakening();
     }
 
     public void Unequip(Equipment equipment) {
         _equipments.Remove(equipment);
 
         _stat -= equipment.Stat;
+
+        UpdateAwakening();
+    }
+
+    private void UpdateAwakening() {
+        foreach (Awakening awakening in _awakenings) {
+            awakening.UpdateActivation(this);
+        }
     }
 }

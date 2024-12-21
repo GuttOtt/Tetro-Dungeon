@@ -11,8 +11,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-//Àü¹İÀûÀÎ °ÔÀÓ ÇÃ·Î¿ì Á¦¾î ¹×
-//System µéÀÇ ÄÄÆ÷ÁöÆ® ·çÆ® ´ã´ç
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+//System ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 public class GameManager : MonoBehaviour, IGameManager
 {
     #region private members
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour, IGameManager
     #endregion
 
     [SerializeField]
-    private bool isWin = false; // Inspector¿¡ ³ëÃâµÉ º¯¼ö
+    private bool isWin = false; // Inspectorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     #endregion
 
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour, IGameManager
         await UniTask.WaitForSeconds(2f);
 
         foreach (CharacterBlock block in blocks) {
-            BaseUnit unit = _unitSystem.CreateUnit(block.Config, CharacterTypes.Player);
+            BaseUnit unit = _unitSystem.CreateUnit(block, CharacterTypes.Player);
 
             //Equipments
             List<Equipment> equipments = block.Equipments;
@@ -162,13 +162,13 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     public async void PlayerWin() {
-        Debug.Log("ÇÃ·¹ÀÌ¾î ½Â¸®! 3ÃÊ ÈÄ ´ÙÀ½ ½ºÅ×ÀÌÁö·Î ³Ñ¾î°©´Ï´Ù.");
+        Debug.Log("í”Œë ˆì´ì–´ ìŠ¹ë¦¬! 3ì´ˆ í›„ ë‹¤ìŒ í™”ë©´ìœ¼ë¡œ ë„˜ì–´ê°‘ë‹ˆë‹¤.");
         await UniTask.Delay(TimeSpan.FromSeconds(3));
         _sceneChanger.LoadReadyScene();
     }
 
     public void PlayerLose() {
-        Debug.Log("ÇÃ·¹ÀÌ¾î ÆĞ¹è... ");
+        Debug.Log("í”Œë ˆì´ì–´ê°€ íŒ¨ë°°í–ˆìŠµë‹ˆë‹¤..");
     }
 
     public TurnContext CreateTurnContext() {

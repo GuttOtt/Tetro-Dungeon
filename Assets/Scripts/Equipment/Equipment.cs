@@ -1,6 +1,8 @@
 using Array2DEditor;
+using EnumTypes;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Equipment : MonoBehaviour, IItem {
@@ -20,6 +22,7 @@ public class Equipment : MonoBehaviour, IItem {
     public int SpinDegree { get => _spinDegree; set => _spinDegree = value; }
     public EquipmentConfig Config { get => _config; }
     public Stat Stat { get => Config.Stat; }
+    public List<SynergyTypes> Synergies { get => Config.Synergies.ToList(); }
 
     #region Init
     public void Init(EquipmentConfig config) {

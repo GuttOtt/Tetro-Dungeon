@@ -21,6 +21,9 @@ namespace Assets.Scripts.Unit.UI {
         private Dictionary<TMP_Text, float> _textCountDic = new Dictionary<TMP_Text, float>();
 
         public void DisplayText(int number, Color color) {
+            if (number == 0)
+                return;
+
             TMP_Text newText = Instantiate(_textPrefab, _canvas.transform);
 
             if (0 < number) {
@@ -37,6 +40,9 @@ namespace Assets.Scripts.Unit.UI {
             Dictionary<TMP_Text, float> temp = new Dictionary<TMP_Text, float>(_textCountDic);
 
             foreach (TMP_Text text in temp.Keys) {
+                //movement
+                text.transform.localPosition += Vector3.up * 0.1f;
+
                 _textCountDic[text] += Time.deltaTime;
 
                 if (_displayingTime < _textCountDic[text]) {

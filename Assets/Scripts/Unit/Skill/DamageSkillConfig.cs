@@ -72,20 +72,40 @@ public class DamageSkill : UnitSkill
         }
     }
 
+    public override void Undecorate(SkillConfig config) {
+        if (config is DamageSkillConfig damageSkillConfig) {
+            //Changes
+            DamageSkillConfig original = config as DamageSkillConfig;
+            _damageType = original.DamageType;
+            _aoe = original.AoE;
+            _effectSprite = original.EffectSprite;
+            _isEffectOnCells = original.IsEffectOnCells;
+
+            //Damages
+            _baseDamage -= damageSkillConfig.BaseDamage;
+            _attackRatio -= damageSkillConfig.AttackRatio;
+            _spellPowerRatio -= damageSkillConfig.SpellPowerRatio;
+        }
+        else {
+            Debug.LogWarning("Invalid config type for DamageSkill.");
+        }
+    }
+
     #region Activation
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit mainTarget) {
         Board board = turnContext.Board;
 
         List<IUnit> targets = GetUnitsInAoE(board, activator, mainTarget, mainTarget.Owner);
 
-        int damage = (int)(_baseDamage + activator.Attack * _attackRatio + activator.SpellPower * _spellPowerRatio);
+        int damageAmount = Utils.CalculateDamageAmount(activator, _baseDamage, _attackRatio, _spellPowerRatio);
+        Damage damage = new Damage(_damageType, damageAmount);
 
-        foreach (IUnit target in targets) {
-            Debug.Log($"{activator.Name}이 {(target as BaseUnit).Name}에게 {_skillName}으로 {damage}만큼의 데미지");
-            target?.TakeDamage(turnContext, damage, _damageType);
+        foreach (BaseUnit target in targets) {
+            target?.TakeDamage(turnContext, damage);
+            activator.OnDamageDealt(turnContext, target, damage);
         }
 
-        //Effect
+        //Effect Sprite
         if (_effectSprite == null) {
             return;
         }

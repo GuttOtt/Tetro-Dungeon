@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8b7b6259dc6604aa0fbadff2b6db1e, type: 3}
+  m_Name: Decon_Decorator1
+  m_EditorClassIdentifier: 
+  _skillName: 
+  _skillDescription: 
+  _skillChance: 0
+  _unitEvents: 
+  _shouldInterrupt: 0
+  _baseHealAmount: 0
+  _spellPowerRatio: 0.2
+  _attackRatio: 0
+  _targetAmount: 0

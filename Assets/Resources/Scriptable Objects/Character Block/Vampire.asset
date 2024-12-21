@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
+  m_Name: Vampire
+  m_EditorClassIdentifier: 
+  Name: "\uBC40\uD30C\uC774\uC5B4"
+  Illust: {fileID: 21300000, guid: 3a20b3cd4b6ba8d4ba554157e53d8e11, type: 3}
+  UnitTypeString: 
+  Shapes:
+  - Level: 1
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000101
+      - row: 010100
+      - row: 000101
+    CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 8807033705580885241, guid: e312c7fc257ac1c409a9ae913102f780, type: 3}
+  _stat:
+    _maxHP: 110
+    _attack: 15
+    _spellPower: 0
+    _defence: 2
+    _spellDefence: 2
+    _range: 1
+    _speed: 1.1
+  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  Skills:
+  - {fileID: 11400000, guid: 79711016aa161bc418dea66f1d047e39, type: 2}
+  Synergies: []
+  Awakenings: []
