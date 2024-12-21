@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2024-11-12 21:00:00",
+    "CreationDate": "2024-12-22 01:31:05",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -551,6 +551,14 @@
             "SubType": "Hair_9",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_9"
+        },
+        {
+            "Name": "Hair_magical_swordman",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_magical_swordman",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_magical_swordman"
         },
         {
             "Name": "Hair_vampire",
@@ -1497,6 +1505,54 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_12"
         },
         {
+            "Name": "Cloth_magical_swordman-export 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_magical_swordman-export 1"
+        },
+        {
+            "Name": "Cloth_magical_swordman-export 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_magical_swordman-export 1"
+        },
+        {
+            "Name": "Cloth_magical_swordman-export 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_magical_swordman-export 1"
+        },
+        {
+            "Name": "Cloth_pyromaniac",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_pyromaniac"
+        },
+        {
+            "Name": "Cloth_pyromaniac",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_pyromaniac"
+        },
+        {
+            "Name": "Cloth_pyromaniac",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_pyromaniac"
+        },
+        {
             "Name": "Cloth_vampire 1",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -1713,6 +1769,14 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_9"
         },
         {
+            "Name": "Helmet_magical_swordman-export",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Helmet_magical_swordman-export",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_magical_swordman-export"
+        },
+        {
             "Name": "Armor_1",
             "UnitType": "Unit",
             "PartType": "Armor",
@@ -1903,6 +1967,14 @@
             "SubType": "Sword_6",
             "PartSubType": "Sword",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/0_Sword/Sword_6"
+        },
+        {
+            "Name": "Sword_magical_swordman-export",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Sword_magical_swordman-export",
+            "PartSubType": "Sword",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/0_Sword/Sword_magical_swordman-export"
         },
         {
             "Name": "Axe_1",
