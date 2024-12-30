@@ -113,11 +113,20 @@ public class ProjectileSkill : UnitSkill {
             return ShouldInterrupt;
         }
 
+        List<BaseUnit> targets = new List<BaseUnit>();
         BaseUnit presentTarget = mainTarget;
 
         for (int i = 0; i < TargetAmount; i++) {
-            FireProjectile(unit, presentTarget, turnContext);
-            presentTarget = turnContext.Board.GetClosestUnit(unit.CurrentCell, unit.Owner.Opponent(), 100) as BaseUnit;
+            targets.Add(presentTarget);
+            BaseUnit nextTarget = turnContext.Board.GetClosestUnit(presentTarget.CurrentCell, unit.Owner.Opponent(), 100) as BaseUnit;
+
+            if (nextTarget == null) break;
+            else presentTarget = nextTarget;
+        } 
+
+        foreach (BaseUnit target in targets) {
+            if (target != null && target.gameObject != null)
+                FireProjectile(unit, target, turnContext);
         }
 
         return ShouldInterrupt;
