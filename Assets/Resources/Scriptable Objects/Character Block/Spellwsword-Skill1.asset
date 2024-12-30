@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8e0849b18a49f479092961c90087cc, type: 3}
+  m_Name: Spellwsword-Skill1
+  m_EditorClassIdentifier: 
+  _skillName: "\uB9C8\uAC80"
+  _skillDescription: "\uACF5\uACA9 \uC2DC \uC8FC\uBB38\uB825\uC758 {SpellPowerRatio}\uB9CC\uD07C\uC758
+    \uB9C8\uBC95 \uB370\uBBF8\uC9C0\uB97C \uCD94\uAC00\uB85C \uC90D\uB2C8\uB2E4."
+  _skillChance: 0
+  _unitEvents: 
+  _shouldInterrupt: 0
+  _damageType: 1
+  _baseDamage: 0
+  _attackRatio: 0
+  _spellPowerRatio: 0.5
+  _aoe:
+    size: {x: 1, y: 1}
+    data: 01
+  _effectSprite: {fileID: 0}
+  _isEffectOnCells: 0

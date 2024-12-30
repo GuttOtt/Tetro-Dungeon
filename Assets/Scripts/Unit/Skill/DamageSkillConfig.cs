@@ -93,6 +93,11 @@ public class DamageSkill : UnitSkill
 
     #region Activation
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit mainTarget) {
+        DealDamage(activator, mainTarget, turnContext);
+    }
+    #endregion
+
+    private bool DealDamage(BaseUnit activator, BaseUnit mainTarget, TurnContext turnContext) {
         Board board = turnContext.Board;
 
         List<IUnit> targets = GetUnitsInAoE(board, activator, mainTarget, mainTarget.Owner);
@@ -107,7 +112,7 @@ public class DamageSkill : UnitSkill
 
         //Effect Sprite
         if (_effectSprite == null) {
-            return;
+            return ShouldInterrupt;
         }
 
         if (_isEffectOnCells) {
@@ -119,8 +124,19 @@ public class DamageSkill : UnitSkill
             CreateEffectSprite(baseUnitList).Forget();
         }
 
+        return ShouldInterrupt;
     }
 
+    public override void RegisterToUnitEvents(BaseUnit unit) {
+        unit.onAttacked += DealDamage;
+    }
+
+    public override void UnregisterToUnitEvents(BaseUnit unit) {
+        unit.onAttacked -= DealDamage;
+    }
+
+
+    #region Getting units in AoE
     private List<IUnit> GetUnitsInAoE(Board board, BaseUnit activator, BaseUnit target, CharacterTypes opponentType) {
         Cell targetCell = target.CurrentCell;
         int targetCol = targetCell.position.col;
