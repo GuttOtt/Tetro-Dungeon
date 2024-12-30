@@ -21,9 +21,9 @@ MonoBehaviour:
       gridSize: {x: 3, y: 3}
       cellSize: {x: 16, y: 16}
       cells:
+      - row: 010100
+      - row: 010100
       - row: 000100
-      - row: 000101
-      - row: 000101
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 3819536124728917448, guid: 31d6e7a52a0108a439c345a644ae4214, type: 3}
   _stat:
@@ -38,4 +38,5 @@ MonoBehaviour:
   Skills:
   - {fileID: 11400000, guid: 5236bce20403e4742a64c8e1f3be0d0a, type: 2}
   Synergies: []
-  Awakenings: []
+  Awakenings:
+  - {fileID: 11400000, guid: 5470d4d7400b45c4883ddf3812cff970, type: 2}

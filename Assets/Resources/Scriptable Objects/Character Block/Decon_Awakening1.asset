@@ -17,5 +17,5 @@ MonoBehaviour:
       _serializedList:
       - Key: 1
         Value: 2
-  _skillIndex: 1
+  _skillIndex: 0
   _decorator: {fileID: 11400000, guid: 5ddc3b96acdb78f4491cafb3773a7d9c, type: 2}

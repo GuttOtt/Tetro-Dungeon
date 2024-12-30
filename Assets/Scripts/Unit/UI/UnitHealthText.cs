@@ -20,11 +20,22 @@ namespace Assets.Scripts.Unit.UI {
 
         private Dictionary<TMP_Text, float> _textCountDic = new Dictionary<TMP_Text, float>();
 
+        private Vector2 _canvasSize;
+
         public void DisplayText(int number, Color color) {
             if (number == 0)
                 return;
 
+            //Set random position in the canvas
+            if (_canvasSize == null) {
+                _canvasSize = _canvas.GetComponent<RectTransform>().sizeDelta;
+            }
+            float xPos = Random.Range(-30, 30);
+            float yPos = Random.Range(-80, -20);
+            Vector2 textPos = new Vector2(xPos, yPos);
+
             TMP_Text newText = Instantiate(_textPrefab, _canvas.transform);
+            newText.transform.localPosition = new Vector3(textPos.x, textPos.y, 0);
 
             if (0 < number) {
                 newText.text = "+";
@@ -41,7 +52,7 @@ namespace Assets.Scripts.Unit.UI {
 
             foreach (TMP_Text text in temp.Keys) {
                 //movement
-                text.transform.localPosition += Vector3.up * 0.1f;
+                text.transform.localPosition += Vector3.up * 0.05f;
 
                 _textCountDic[text] += Time.deltaTime;
 
