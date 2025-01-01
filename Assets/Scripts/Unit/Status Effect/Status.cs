@@ -33,19 +33,23 @@ public class StatusConfig: ScriptableObject {
     [SerializeField] private string _description;
     [SerializeField] private List<UnitEventTypes> _unitEvents;
     [SerializeField] private List<SkillConfig> _skills;
+    [SerializeField] private bool _isStackable;
 
     public string Name { get => _name; }
     public string Description { get => _description; }
     public List<UnitEventTypes> UnitEvents { get => _unitEvents; }
     public List<SkillConfig> Skills {get => _skills; }
+    public bool IsStackable { get => _isStackable; }
 }
 
 
 public abstract class Status {
-    [SerializeField] private string _name;
-    [SerializeField] private string _description;
-    [SerializeField] private List<UnitEventTypes> _unitEvents;
+    private string _name;
+    private string _description;
+    private List<UnitEventTypes> _unitEvents;
+    private bool _isStackable;
 
+    public bool IsStackable{get=>_isStackable;}
 
     public string Name {get => _name;}
     public string Description {get => _description;}
@@ -56,6 +60,7 @@ public abstract class Status {
         _name = config.Name;
         _description = config.Description;
         _unitEvents = config.UnitEvents;
+        _isStackable = config.IsStackable;
     }
 
     public abstract void ApplyTo(BaseUnit unit);

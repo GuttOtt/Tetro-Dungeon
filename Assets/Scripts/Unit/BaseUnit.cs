@@ -627,8 +627,15 @@ public class BaseUnit : MonoBehaviour, IUnit
     private List<Status> _statuses = new List<Status>();
 
     public void GrantStatus(Status status) {
-        _statuses.Add(status);
-        status.ApplyTo(this);
+        if (GetStatus(status.Name) == null) {
+            _statuses.Add(status);
+            status.ApplyTo(this);
+        }
+        else {
+            if (status.IsStackable) {
+                status.ApplyTo(this);
+            }
+        }
     }
 
     public void RemoveStatus(Status status) {

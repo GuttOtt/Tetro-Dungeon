@@ -28,8 +28,8 @@ MonoBehaviour:
   SPUM_Prefabs: {fileID: 8709130725696389567, guid: 5e2b3748cc7a4aa48816dd8a662cf58e, type: 3}
   _stat:
     _maxHP: 100
-    _attack: 10
-    _spellPower: 10
+    _attack: 15
+    _spellPower: 0
     _defence: 2
     _spellDefence: 2
     _range: 3

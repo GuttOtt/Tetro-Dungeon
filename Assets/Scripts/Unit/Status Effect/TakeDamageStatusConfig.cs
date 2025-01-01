@@ -28,13 +28,13 @@ public class TakeDamageStatus : Status {
     public TakeDamageStatus(TakeDamageStatusConfig config) : base(config) {
         _damageType = config.DamageType;
         _baseDamage = config.BaseDamage;
+        _originalDamageRatio = config.OriginalDamageRatio;
     }
 
     public override void ApplyTo(BaseUnit unit) {
         foreach(UnitEventTypes eventType in UnitEvents) {
             Register(unit, eventType);
         }
-        unit.GrantStatus(this);
     }
 
     private void Register(BaseUnit unit, UnitEventTypes eventType) {

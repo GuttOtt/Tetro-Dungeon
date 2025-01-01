@@ -16,7 +16,8 @@ MonoBehaviour:
   _description: 
   _unitEvents: 
   _skills: []
-  _maxCount: 10
+  _isStackable: 1
+  _maxCount: 3
   _explosionArea:
     gridSize: {x: 3, y: 3}
     cellSize: {x: 16, y: 16}

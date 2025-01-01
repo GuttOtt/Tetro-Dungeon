@@ -41,6 +41,9 @@ public class GrantStatusSkill : UnitSkill {
     }
 
     public override void RegisterToUnitEvents(BaseUnit unit) {
+        if (unit.GetStatus(_statusConfig.Name) != null)
+            return;
+
         foreach(UnitEventTypes unitEvent in UnitEvents) {
             switch (unitEvent) {
                 case UnitEventTypes.OnAttacked:

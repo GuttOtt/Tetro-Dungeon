@@ -46,13 +46,11 @@ public class ExplosionStatus : Status {
 
 
     public override void ApplyTo(BaseUnit unit) {
-        Debug.Log($"Explosion Status Granted. {_currentCount}");
         if (unit.GetStatus(Name) != null) {
             ExplosionStatus status = unit.GetStatus(Name) as ExplosionStatus;
             status.CountUp(unit);
         }
         else {
-            unit.GrantStatus(this);
             _currentCount = 1;
         }
     }
@@ -86,8 +84,6 @@ public class ExplosionStatus : Status {
         if (_effectSprite != null) {
             CreateEffectSprite(cells).Forget();
         }
-
-        Debug.Log("Explode");
     }
 
     private List<BaseUnit> GetTarget(Board board, BaseUnit center) {

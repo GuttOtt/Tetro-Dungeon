@@ -23,7 +23,7 @@ namespace Assets.Scripts.Unit.UI {
         private Vector2 _canvasSize;
 
         public void DisplayText(int number, Color color) {
-            if (number == 0)
+            if (number == 0 || _canvas == null || _canvas.transform == null)
                 return;
 
             //Set random position in the canvas
