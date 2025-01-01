@@ -2984,7 +2984,7 @@ GameObject:
   - component: {fileID: 5469795645264103554}
   - component: {fileID: 3819536124728917448}
   m_Layer: 5
-  m_Name: MagicalSwordman
+  m_Name: SpellSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

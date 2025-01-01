@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vampire
   m_EditorClassIdentifier: 
   Name: "\uBC40\uD30C\uC774\uC5B4"
-  Illust: {fileID: 21300000, guid: 3a20b3cd4b6ba8d4ba554157e53d8e11, type: 3}
+  Illust: {fileID: 21300000, guid: bf28901fa81c4d243a0cb30ad371e917, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

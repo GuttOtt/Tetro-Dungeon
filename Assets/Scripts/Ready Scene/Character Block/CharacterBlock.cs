@@ -22,14 +22,8 @@ public class CharacterBlock : MonoBehaviour, IItem {
     private UnitSkill _defaultSkill;
     [SerializeField] private List<UnitSkill> _skills = new List<UnitSkill>();
     public UnitSkill DefaultSkill { get => _defaultSkill; }
-    public List<UnitSkill> Skills { 
-        get {
-            List<UnitSkill> skills = new List<UnitSkill>();
-            skills.Add(_defaultSkill);
-            skills.AddRange(_skills);
-            return skills;
-        }
-    }
+    public List<UnitSkill> Skills { get => _skills; }
+    
 
     //Serialized Fields
     [SerializeField] private SpriteRenderer _illustRenderer;

@@ -28,6 +28,9 @@ public static class SkillFactory
         else if (config is LeechSkillConfig leechSkillConfig) {
             return new LeechSkill(leechSkillConfig);
         }
+        else if (config is GrantStatusSkillConfig grantStatusConfig) {
+            return new GrantStatusSkill(grantStatusConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfa9ff4014d8e443850d7e0e05970f3, type: 3}
+  m_Name: VampireHunter_Skill1
+  m_EditorClassIdentifier: 
+  _skillName: "\uC0AC\uB0E5 \uAC1C\uC2DC"
+  _skillDescription: "\uC801\uC5D0\uAC8C '\uD45C\uC2DD' \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  _skillChance: 0
+  _unitEvents: 02000000
+  _shouldInterrupt: 0
+  _statusConfig: {fileID: 11400000, guid: 6b2d5230bb685144aa10e32bfe10aa96, type: 2}

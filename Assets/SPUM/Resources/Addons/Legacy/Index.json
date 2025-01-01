@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-01 18:08:33",
+    "CreationDate": "2025-01-02 00:20:24",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -479,6 +479,14 @@
             "SubType": "Front",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Eye/Eye_Close"
+        },
+        {
+            "Name": "Cloth_Inquisitor_Temp 1",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Cloth_Inquisitor_Temp 1",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Cloth_Inquisitor_Temp 1"
         },
         {
             "Name": "Hair_1",
@@ -1775,14 +1783,6 @@
             "SubType": "Helmet_magical_swordman-export",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_magical_swordman-export"
-        },
-        {
-            "Name": "Helmet_성배기사",
-            "UnitType": "Unit",
-            "PartType": "Helmet",
-            "SubType": "Helmet_성배기사",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_성배기사"
         },
         {
             "Name": "Armor_1",

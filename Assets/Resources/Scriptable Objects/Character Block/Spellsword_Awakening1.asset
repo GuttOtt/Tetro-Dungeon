@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _condition:
     _synergyDic:
-      _serializedList: []
-  _skillIndex: 1
+      _serializedList:
+      - Key: 1
+        Value: 1
+  _skillIndex: 0
   _decorator: {fileID: 11400000, guid: 3dbf1fa7d8ef7c54cb9719a1002235dc, type: 2}
