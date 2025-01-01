@@ -72,7 +72,8 @@ public class TakeDamageStatus : Status {
     }
 
     private void ApplyDamage(TurnContext turnContext, BaseUnit unit, Damage originalDamage) {
-        Damage damage = new Damage(_damageType, _baseDamage) + originalDamage * _originalDamageRatio;
-        unit.TakeDamage(turnContext, damage);
+        int damageAmount = _baseDamage + (int) (originalDamage.GetSum() * _originalDamageRatio);
+        Damage damage = new Damage(_damageType, damageAmount);
+        unit.TakeDamage(turnContext, damage, false);
     }
 }

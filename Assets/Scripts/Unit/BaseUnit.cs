@@ -543,7 +543,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
 
-    public virtual Damage TakeDamage(TurnContext turnContext, Damage damage) {
+    public virtual Damage TakeDamage(TurnContext turnContext, Damage damage, bool triggerOnDamageTaken = true) {
         int attackDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Attack), DamageTypes.Attack);
         int spellDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.Spell), DamageTypes.Spell);
         int trueDmgDealt = TakeDamage(turnContext, damage.GetDamage(DamageTypes.True), DamageTypes.True);
@@ -552,7 +552,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         Debug.Log($"{Name}이 총 {totalDamage.GetSum()}만큼의 데미지를 받음.");
 
         //Publish Event
-        onDamageTaken?.Invoke(turnContext, this, totalDamage);
+        if (triggerOnDamageTaken)
+            onDamageTaken?.Invoke(turnContext, this, totalDamage);
 
         return totalDamage;
     }
