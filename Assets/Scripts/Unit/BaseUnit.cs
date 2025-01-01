@@ -128,6 +128,10 @@ public class BaseUnit : MonoBehaviour, IUnit
             _onDamageDealtSubscribers.Remove(value);  // Remove the method name
         }
     }
+
+    public event Action<TurnContext, BaseUnit, Damage> onDamageTaken;
+
+    public event Action<TurnContext, BaseUnit> onEverySeconds;
     #endregion
 
     public int ID { get => _id; }
@@ -547,6 +551,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         Damage totalDamage = new Damage(attackDmgDealt, spellDmgDealt, trueDmgDealt);
         Debug.Log($"{Name}이 총 {totalDamage.GetSum()}만큼의 데미지를 받음.");
 
+        //Publish Event
+        onDamageTaken?.Invoke(turnContext, this, totalDamage);
+
         return totalDamage;
     }
 
@@ -615,4 +622,28 @@ public class BaseUnit : MonoBehaviour, IUnit
         _range += equipmentStat.Range;
         _speed += equipmentStat.Speed;
     }
+
+    #region Status
+    private List<Status> _statuses = new List<Status>();
+
+    public void GrantStatus(Status status) {
+        _statuses.Add(status);
+        status.ApplyTo(this);
+    }
+
+    public void RemoveStatus(Status status) {
+        _statuses.Remove(status);
+        status.RemoveFrom(this);
+    }
+
+
+    public Status GetStatus(string statusName) {
+        foreach (Status status in _statuses) {
+            if (status.Name == statusName) {
+                return status;
+            }
+        }
+        return null;
+    }
+    #endregion
 }

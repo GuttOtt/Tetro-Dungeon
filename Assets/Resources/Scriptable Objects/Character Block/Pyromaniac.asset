@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
+  m_Name: Pyromaniac
+  m_EditorClassIdentifier: 
+  Name: "\uBC29\uD654\uAD11"
+  Illust: {fileID: 21300000, guid: d85e52eec57f1964386fa3264e4f1c4e, type: 3}
+  UnitTypeString: 
+  Shapes:
+  - Level: 0
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 010101
+      - row: 010101
+      - row: 000000
+    CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 8709130725696389567, guid: 5e2b3748cc7a4aa48816dd8a662cf58e, type: 3}
+  _stat:
+    _maxHP: 100
+    _attack: 10
+    _spellPower: 10
+    _defence: 2
+    _spellDefence: 2
+    _range: 3
+    _speed: 1
+  DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
+  Skills:
+  - {fileID: 11400000, guid: b72e58b7082b3874daaff7208c6c5fa5, type: 2}
+  Synergies: []
+  Awakenings: []

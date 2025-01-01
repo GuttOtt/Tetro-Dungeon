@@ -106,8 +106,10 @@ public class DamageSkill : UnitSkill
         Damage damage = new Damage(_damageType, damageAmount);
 
         foreach (BaseUnit target in targets) {
-            target?.TakeDamage(turnContext, damage);
-            activator.OnDamageDealt(turnContext, target, damage);
+            if (target != null)
+                target.TakeDamage(turnContext, damage);
+            if (activator != null)
+                activator.OnDamageDealt(turnContext, target, damage);
         }
 
         //Effect Sprite
@@ -126,6 +128,7 @@ public class DamageSkill : UnitSkill
 
         return ShouldInterrupt;
     }
+
 
     public override void RegisterToUnitEvents(BaseUnit unit) {
         unit.onAttacked += DealDamage;
@@ -166,7 +169,7 @@ public class DamageSkill : UnitSkill
 
         return cellsInAoE;
     }
-
+    
     private bool[,] AdjustAoE(BaseUnit activator, BaseUnit mainTarget) {
         //스킬 시전 유닛과 타겟 유닛의 상대적 위치에 따라 AoE를 조정함
 
