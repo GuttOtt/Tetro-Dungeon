@@ -15,6 +15,9 @@ public static class StatusFactory
         else if (config is DealDamageStatusConfig dealDamageStatusConfig) {
             return new DealDamageStatus(dealDamageStatusConfig);
         }
+        else if (config is StatBuffStatusConfig statBuffStatusConfig) {
+            return new StatBuffStatus(statBuffStatusConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }

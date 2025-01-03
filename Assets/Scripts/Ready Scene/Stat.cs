@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -49,6 +50,22 @@ public class Stat {
             a._spellDefence - b._spellDefence,
             a._speed - b._speed,
             a._range - b._range
+        );
+    }
+
+    public static Stat operator -(Stat a) {
+        return new Stat(-a._maxHP, -a._attack, -a._spellPower, -a._defence, -a._spellDefence, -a._speed, -a._range);
+    }
+
+    public Stat PercentageMultiply(Stat percentage) {
+        return new Stat(
+            (int) (_maxHP * percentage._maxHP/100f),
+            (int) (_attack * percentage._attack/100f),
+            (int) (_spellPower * percentage._spellPower/100f),
+            (int) (_defence * percentage._defence/100f),
+            (int) (_spellDefence * percentage._spellDefence/100f),
+            _speed * percentage._speed/100f,
+            (int) (_range * percentage._range/100f)
         );
     }
 

@@ -58,6 +58,9 @@ public class GrantStatusSkill : UnitSkill {
                 case UnitEventTypes.OnAttacked:
                     unit.onAttacked += GrantStatus;
                     break;
+                case UnitEventTypes.OnBattleStart:
+                    unit.onBattleStart += GrantStatus;
+                    break;
             }
         }
     }
@@ -76,28 +79,44 @@ public class GrantStatusSkill : UnitSkill {
 
         Status status = StatusFactory.CreateStatus(_statusConfig);
 
-        BaseUnit target = GetTarget(activator, attackedTarget, turncontext.Board);
-        if (target == null) {
+        List<BaseUnit> targets = GetTargets(activator, attackedTarget, turncontext.Board);
+        if (targets == null || targets.Count == 0) {
             return ShouldInterrupt;
         }
 
-        StatusApplicationContext context = new StatusApplicationContext(target, activator);
-        target.GrantStatus(status, context);
+        foreach (BaseUnit target in targets) {
+            StatusApplicationContext context = new StatusApplicationContext(target, activator);
+            target.GrantStatus(status, context);
+        }
         return ShouldInterrupt;
     }
 
-    private BaseUnit GetTarget(BaseUnit activator,BaseUnit attackTarget, Board board) {
-        BaseUnit target = null;
+    private void GrantStatus(BaseUnit activator, TurnContext turnContext) {
+        GrantStatus(activator, null, turnContext);
+    }
+
+    private List<BaseUnit> GetTargets(BaseUnit activator,BaseUnit attackTarget, Board board) {
+        List<BaseUnit> targets = new List<BaseUnit>();
 
         switch (TargetType) {
             case TargetTypes.AttackTarget:
-                target = attackTarget;
+                if (attackTarget == null) {
+                    Debug.LogError("Wrong Event for GrantStatusSkill.");
+                }
+                targets.Add(attackTarget);
                 break;
             case TargetTypes.ClosestAlly:
-                target = board.GetClosestUnit(activator.CurrentCell, activator.Owner, 100) as BaseUnit;
+                BaseUnit closestAlly = board.GetClosestUnit(activator.CurrentCell, activator.Owner, 100) as BaseUnit;
+                targets.Add(closestAlly);
+                break;
+            case TargetTypes.AllAllys:
+                List<IUnit> units = board.GetUnits(activator.Owner);
+                foreach (IUnit unit in units) {
+                    targets.Add(unit as BaseUnit);
+                }
                 break;
         }
 
-        return target;
+        return targets;
     }
 }

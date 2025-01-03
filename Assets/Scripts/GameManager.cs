@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour, IGameManager
     private SceneChanger _sceneChanger;
     #endregion
 
-    [SerializeField]
-    private bool isWin = false; // Inspector�� ����� ����
 
     #endregion
 

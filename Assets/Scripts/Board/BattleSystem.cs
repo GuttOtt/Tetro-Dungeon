@@ -86,6 +86,16 @@ public class BattleSystem : MonoBehaviour
         //배틀 시작 시 발생하는 Synergy 효과들 발동
         //await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
+        //Trigger OnStartBattle of Units
+        List<IUnit> playerUnits = _board.PlayerUnits.ToList();
+        List<IUnit> enemyUnits = _board.EnemyUnits.ToList();
+        foreach (BaseUnit unit in playerUnits) {
+            unit.TriggerOnBattleStart(_gameManager.CreateTurnContext());
+        }
+        foreach (BaseUnit unit in enemyUnits) {
+            unit.TriggerOnBattleStart(_gameManager.CreateTurnContext());
+        }
+
         //한 쪽의 유닛이 전부 사라질 때까지 전투
         while (true)
         {

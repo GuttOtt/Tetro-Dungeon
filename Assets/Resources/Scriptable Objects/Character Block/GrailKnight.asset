@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
+  m_Name: GrailKnight
+  m_EditorClassIdentifier: 
+  Name: "\uC131\uBC30 \uAE30\uC0AC"
+  Illust: {fileID: 21300000, guid: 5162819e210d36e448f4476ae13d099c, type: 3}
+  UnitTypeString: 
+  Shapes:
+  - Level: 0
+    Shape:
+      gridSize: {x: 3, y: 4}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 010101
+      - row: 010101
+      - row: 010101
+      - row: 000000
+    CenterIndex: {x: 0, y: 0}
+  SPUM_Prefabs: {fileID: 6681179869973160891, guid: 3b3387c3d751f834caee8ee0e5e9cd79, type: 3}
+  _stat:
+    _maxHP: 200
+    _attack: 25
+    _spellPower: 0
+    _defence: 4
+    _spellDefence: 4
+    _range: 1
+    _speed: 1
+  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  ActiveSkills: []
+  PassiveSkills:
+  - {fileID: 11400000, guid: b14902281a93ec74faf6e2bb81f66205, type: 2}
+  Synergies: []
+  Awakenings: []

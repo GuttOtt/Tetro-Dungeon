@@ -74,6 +74,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public int SpellDefence { get => _spellDefence; }
     public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
     public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 10f); }
+    public Stat Stat { get => new Stat(_maxHP, Attack, SpellPower, Defence, SpellDefence, Speed, Range);}
     #endregion
 
     #region Skills
@@ -133,7 +134,10 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public event Action<TurnContext, BaseUnit, Damage> onDamageTaken;
 
-    //public event Action<TurnContext, BaseUnit> onEverySeconds;
+    public event Action<BaseUnit, TurnContext> onBattleStart;
+    public void TriggerOnBattleStart(TurnContext turnContext) {
+        onBattleStart?.Invoke(this, turnContext);
+    }
     #endregion
 
     public int ID { get => _id; }
@@ -529,6 +533,15 @@ public class BaseUnit : MonoBehaviour, IUnit
     #endregion
 
     #region Stat
+    public void GainStat(Stat stat) {
+        ChangeMaxHP(stat.MaxHP);
+        Attack += stat.Attack;
+        _spellPower += stat.SpellPower;
+        _defence += stat.Defence;
+        _spellDefence += stat.SpellDefence;
+        _range += stat.Range;
+        _speed += stat.Speed;
+    }
     public void SetAttack(int value) => Attack = value;
     public void SetCurrentHP(int value) => CurrentHP = value;
     public void SetMaxHP(int value) {
