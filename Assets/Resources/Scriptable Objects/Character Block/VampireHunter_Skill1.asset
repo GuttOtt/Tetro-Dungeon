@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: "\uC0AC\uB0E5 \uAC1C\uC2DC"
   _skillDescription: "\uC801\uC5D0\uAC8C '\uD45C\uC2DD' \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  _skillChance: 0
+  _skillChance: 1
   _unitEvents: 02000000
   _shouldInterrupt: 0
   _statusConfig: {fileID: 11400000, guid: 6b2d5230bb685144aa10e32bfe10aa96, type: 2}
+  _targetType: 0

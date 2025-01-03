@@ -20,9 +20,19 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     //Skill
     private UnitSkill _defaultSkill;
-    [SerializeField] private List<UnitSkill> _skills = new List<UnitSkill>();
+    private List<UnitSkill> _passiveSkill = new List<UnitSkill>();
+    private List<UnitSkill> _activeSkill = new List<UnitSkill>();
     public UnitSkill DefaultSkill { get => _defaultSkill; }
-    public List<UnitSkill> Skills { get => _skills; }
+    public List<UnitSkill> PassiveSkills { get => _passiveSkill; }
+    public List<UnitSkill> ActiveSkills { get => _activeSkill; }
+    public List<UnitSkill> Skills { 
+        get {
+            List<UnitSkill> allSkills = new List<UnitSkill>();
+            allSkills.AddRange(_activeSkill);
+            allSkills.AddRange(_passiveSkill);
+            return allSkills;
+        }
+    }
     
 
     //Serialized Fields
@@ -74,7 +84,8 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
-        _skills = SkillFactory.CreateSkills(config.Skills);
+        _passiveSkill = SkillFactory.CreateSkills(config.PassiveSkills);
+        _activeSkill = SkillFactory.CreateSkills(config.ActiveSkills);
 
         //Awakenings
         _awakenings = config.Awakenings.ToList();

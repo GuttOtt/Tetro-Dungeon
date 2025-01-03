@@ -110,7 +110,7 @@ public class ProjectileSkill : UnitSkill {
 
     private bool FireProjectiles(BaseUnit unit, BaseUnit mainTarget, TurnContext turnContext) {
         if (!CheckChance(1)) {
-            return ShouldInterrupt;
+            return false;
         }
 
         List<BaseUnit> targets = new List<BaseUnit>();

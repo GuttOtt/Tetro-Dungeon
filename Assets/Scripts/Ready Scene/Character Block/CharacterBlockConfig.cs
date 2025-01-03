@@ -27,7 +27,8 @@ public class CharacterBlockConfig : ScriptableObject
 
     #region Skills
     public SkillConfig DefaultSkill;
-    public List<SkillConfig> Skills;
+    public List<SkillConfig> ActiveSkills;
+    public List<SkillConfig> PassiveSkills;
     #endregion
 
     public List<SynergyValuePair> Synergies;

@@ -7,17 +7,26 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New GrantStatus Skill Config", menuName = "ScriptableObjects/Skill/GrantStatusSkillConfig")]
 public class GrantStatusSkillConfig : SkillConfig {
     [SerializeField] private StatusConfig _statusConfig;
+    [SerializeField] private TargetTypes _targetType;
+
 
     public StatusConfig StatusConfig { get => _statusConfig; }
+    public TargetTypes TargetType { get => _targetType; }
 }
 
 public class GrantStatusSkill : UnitSkill {
-    [SerializeField] private StatusConfig _statusConfig;
+    private StatusConfig _statusConfig;
+    private TargetTypes _targetType;
     private StatusConfig _originalStatusConfig;
+
+    public StatusConfig StatusConfig { get => _statusConfig; }
+    public TargetTypes TargetType { get => _targetType; }
+
 
     public GrantStatusSkill(GrantStatusSkillConfig config) : base(config) {
         _originalStatusConfig = config.StatusConfig;
         _statusConfig = config.StatusConfig;
+        _targetType = config.TargetType;
     }
 
     public override void Decorate(SkillConfig config)
@@ -55,18 +64,40 @@ public class GrantStatusSkill : UnitSkill {
 
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null) {
         if (target != null) {
-            GrantStatus(target);
+            StatusApplicationContext context = new StatusApplicationContext(target, activator);
+            GrantStatus(activator, target, turnContext);
         }
     }
 
-    private bool GrantStatus(BaseUnit activator, BaseUnit target, TurnContext turncontext) {
+    private bool GrantStatus(BaseUnit activator, BaseUnit attackedTarget, TurnContext turncontext) {
+        if (!CheckChance(1)){
+            return false;
+        }
+
         Status status = StatusFactory.CreateStatus(_statusConfig);
-        target.GrantStatus(status);
+
+        BaseUnit target = GetTarget(activator, attackedTarget, turncontext.Board);
+        if (target == null) {
+            return ShouldInterrupt;
+        }
+
+        StatusApplicationContext context = new StatusApplicationContext(target, activator);
+        target.GrantStatus(status, context);
         return ShouldInterrupt;
     }
 
-    private void GrantStatus(BaseUnit targetUnit) {
-        Status status = StatusFactory.CreateStatus(_statusConfig);
-        targetUnit.GrantStatus(status);
+    private BaseUnit GetTarget(BaseUnit activator,BaseUnit attackTarget, Board board) {
+        BaseUnit target = null;
+
+        switch (TargetType) {
+            case TargetTypes.AttackTarget:
+                target = attackTarget;
+                break;
+            case TargetTypes.ClosestAlly:
+                target = board.GetClosestUnit(activator.CurrentCell, activator.Owner, 100) as BaseUnit;
+                break;
+        }
+
+        return target;
     }
 }

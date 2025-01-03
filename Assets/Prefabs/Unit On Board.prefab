@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4805450703542966962
 Transform:
   m_ObjectHideFlags: 0
@@ -307,6 +307,57 @@ MonoBehaviour:
   _canvas: {fileID: 5207628400773659709}
   _textPrefab: {fileID: 6570528743585346672, guid: e88b0985b9da68c4d92098d322e56c1e, type: 3}
   _displayingTime: 1
+--- !u!1 &3919860366242750058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7377061940012083624}
+  - component: {fileID: 1263779928795500637}
+  m_Layer: 5
+  m_Name: StatusDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7377061940012083624
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3919860366242750058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2149698277698771118}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1263779928795500637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3919860366242750058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ec83bcf394286468d8657d446027b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 5207628400773659709}
+  _origin: {x: -22.5, y: 17.5}
+  _statusImageSize: {x: 20, y: 20}
 --- !u!1 &4226810683068166313
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +416,7 @@ MonoBehaviour:
   _synergyText: {fileID: 0}
   _tooltip: {fileID: 0}
   _healthText: {fileID: 7437227785867316393}
+  _statusDrawer: {fileID: 1263779928795500637}
   _healthBar: {fileID: 4300906012069900143}
 --- !u!61 &942966753341164003
 BoxCollider2D:
@@ -564,7 +616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3649815363325405374
 Transform:
   m_ObjectHideFlags: 0
@@ -985,7 +1037,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 280862307034684824, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
       propertyPath: m_Name
-      value: HealthBar
+      value: UI Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 591955067933942524, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
       propertyPath: m_SortingOrder
@@ -1138,6 +1190,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6748501923930408559, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 684601135058656163}
+    - targetCorrespondingSourceObject: {fileID: 6748501923930408559, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7377061940012083624}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 288442299506363627, guid: 330b39db9dc28594b9243da28cd21f5e, type: 3}
       insertIndex: -1

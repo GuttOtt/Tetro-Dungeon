@@ -31,7 +31,8 @@ public class TakeDamageStatus : Status {
         _originalDamageRatio = config.OriginalDamageRatio;
     }
 
-    public override void ApplyTo(BaseUnit unit) {
+    public override void ApplyTo(StatusApplicationContext context) {
+        BaseUnit unit = context.TargetUnit;
         foreach(UnitEventTypes eventType in UnitEvents) {
             Register(unit, eventType);
         }

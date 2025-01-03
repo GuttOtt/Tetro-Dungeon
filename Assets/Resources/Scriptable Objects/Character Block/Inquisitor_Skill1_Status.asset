@@ -17,6 +17,7 @@ MonoBehaviour:
   _unitEvents: 02000000
   _skills: []
   _isStackable: 0
+  _iconSprite: {fileID: 21300000, guid: 55d79089fac622f43b8d56da9d786897, type: 3}
   damageType: 2
   _baseDamage: 5
   _originalDamageRatio: 0

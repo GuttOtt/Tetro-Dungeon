@@ -12,6 +12,9 @@ public static class StatusFactory
         else if (config is ExplosionStatusConfig explosionStatusConfig) {
             return new ExplosionStatus(explosionStatusConfig);
         }
+        else if (config is DealDamageStatusConfig dealDamageStatusConfig) {
+            return new DealDamageStatus(dealDamageStatusConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }
@@ -34,12 +37,14 @@ public class StatusConfig: ScriptableObject {
     [SerializeField] private List<UnitEventTypes> _unitEvents;
     [SerializeField] private List<SkillConfig> _skills;
     [SerializeField] private bool _isStackable;
+    [SerializeField] private Sprite _iconSprite;
 
     public string Name { get => _name; }
     public string Description { get => _description; }
     public List<UnitEventTypes> UnitEvents { get => _unitEvents; }
     public List<SkillConfig> Skills {get => _skills; }
     public bool IsStackable { get => _isStackable; }
+    public Sprite Sprite { get => _iconSprite; }
 }
 
 
@@ -48,12 +53,15 @@ public abstract class Status {
     private string _description;
     private List<UnitEventTypes> _unitEvents;
     private bool _isStackable;
+    private Sprite _iconSprite;
 
     public bool IsStackable{get=>_isStackable;}
 
     public string Name {get => _name;}
     public string Description {get => _description;}
     public List<UnitEventTypes> UnitEvents {get => _unitEvents;}
+    public Sprite IconSprite {get => _iconSprite;}
+
 
 
     public Status(StatusConfig config) {
@@ -61,9 +69,20 @@ public abstract class Status {
         _description = config.Description;
         _unitEvents = config.UnitEvents;
         _isStackable = config.IsStackable;
+        _iconSprite = config.Sprite;
     }
 
-    public abstract void ApplyTo(BaseUnit unit);
+    public abstract void ApplyTo(StatusApplicationContext context);
 
     public abstract void RemoveFrom(BaseUnit unit);
+}
+
+public class StatusApplicationContext {
+    public BaseUnit TargetUnit {get; private set;}
+    public BaseUnit ActivatorUnit {get; private set;}
+
+    public StatusApplicationContext(BaseUnit target, BaseUnit activator) {
+        TargetUnit = target;
+        ActivatorUnit = activator;
+    }
 }

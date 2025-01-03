@@ -16,7 +16,7 @@ MonoBehaviour:
   _skillDescription: "\uACF5\uACA9 \uC2DC {SkillChance}\uC758 \uD655\uB960\uB85C
     \uCD1D\uC54C\uC744 \uBC1C\uC0AC\uD574 \uC778\uC811\uD55C \uB300\uC0C1 {TargetAmount}\uBA85\uC5D0\uAC8C
     \uACF5\uACA9\uB825 \uB9CC\uD07C\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
-  _skillChance: 1
+  _skillChance: 0.2
   _unitEvents: 02000000
   _shouldInterrupt: 0
   _projectileSprite: {fileID: 21300000, guid: 2fe5933dae42675459139aa641245d2d, type: 3}

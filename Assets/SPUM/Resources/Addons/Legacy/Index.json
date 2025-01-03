@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-02 00:20:24",
+    "CreationDate": "2025-01-03 08:50:56",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -575,6 +575,14 @@
             "SubType": "Hair_vampire",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_vampire"
+        },
+        {
+            "Name": "Hair_Wood_Elf_Temp",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_Wood_Elf_Temp",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_Wood_Elf_Temp"
         },
         {
             "Name": "Devil_1",
@@ -1783,6 +1791,14 @@
             "SubType": "Helmet_magical_swordman-export",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_magical_swordman-export"
+        },
+        {
+            "Name": "Helmet_성배기사",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Helmet_성배기사",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_성배기사"
         },
         {
             "Name": "Armor_1",

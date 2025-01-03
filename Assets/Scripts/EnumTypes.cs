@@ -35,4 +35,8 @@ namespace EnumTypes
     public enum UnitEventTypes {
         OnDying = 0, OnAttacking = 1, OnAttacked = 2, OnDamageTaken = 3, OnEverySeconds = 4,
     }
+
+    public enum TargetTypes {
+        AttackTarget = 0, ClosestAlly = 1,
+    }
 }

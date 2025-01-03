@@ -45,7 +45,9 @@ public class ExplosionStatus : Status {
     }
 
 
-    public override void ApplyTo(BaseUnit unit) {
+    public override void ApplyTo(StatusApplicationContext context) {
+        BaseUnit unit = context.TargetUnit;
+
         if (unit.GetStatus(Name) != null) {
             ExplosionStatus status = unit.GetStatus(Name) as ExplosionStatus;
             status.CountUp(unit);

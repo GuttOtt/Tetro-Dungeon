@@ -78,7 +78,9 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     #region Skills
     private UnitSkill _defaultSkill;
-    private List<UnitSkill> _skills = new List<UnitSkill>();
+    private List<UnitSkill> _activeSkills = new List<UnitSkill>();
+    private List<UnitSkill> _passiveSkills = new List<UnitSkill>();
+    
     private float _skillChanceMultiplier;
     #endregion
 
@@ -131,7 +133,7 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     public event Action<TurnContext, BaseUnit, Damage> onDamageTaken;
 
-    public event Action<TurnContext, BaseUnit> onEverySeconds;
+    //public event Action<TurnContext, BaseUnit> onEverySeconds;
     #endregion
 
     public int ID { get => _id; }
@@ -224,9 +226,13 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);
-        foreach (SkillConfig skillConfig in config.Skills) {
+        foreach (SkillConfig skillConfig in config.ActiveSkills) {
             UnitSkill newSkill = SkillFactory.CreateSkill(skillConfig);
-            _skills.Add(newSkill);
+            _activeSkills.Add(newSkill);
+        }
+        foreach (SkillConfig skillConfig in config.PassiveSkills) {
+            UnitSkill newSkill = SkillFactory.CreateSkill(skillConfig);
+            _passiveSkills.Add(newSkill);
             newSkill.RegisterToUnitEvents(this);
         }
 
@@ -266,13 +272,11 @@ public class BaseUnit : MonoBehaviour, IUnit
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
             _spumControl.SetSPUM(spum);
 
-            //????? ???? ????
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
         }
 
@@ -290,9 +294,12 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //Skills
         _defaultSkill = characterBlock.DefaultSkill;
-        foreach (UnitSkill skill in characterBlock.Skills) {
-            _skills.Add(skill);
+        foreach (UnitSkill skill in characterBlock.PassiveSkills) {
+            _passiveSkills.Add(skill);
             skill.RegisterToUnitEvents(this);
+        }
+        foreach (UnitSkill skill in characterBlock.ActiveSkills) {
+            _activeSkills.Add(skill);
         }
 
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
@@ -485,9 +492,9 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         //발동할 Active Skill을 선택
         UnitSkill skill = _defaultSkill;
-        for (int i = 0; i < _skills.Count; i++) {
-            if (_skills[i].CheckChance(_skillChanceMultiplier)) {
-                skill = _skills[i];
+        for (int i = 0; i < _activeSkills.Count; i++) {
+            if (_activeSkills[i].CheckChance(_skillChanceMultiplier)) {
+                skill = _activeSkills[i];
                 break;
             }
         }
@@ -627,16 +634,18 @@ public class BaseUnit : MonoBehaviour, IUnit
     #region Status
     private List<Status> _statuses = new List<Status>();
 
-    public void GrantStatus(Status status) {
+    public void GrantStatus(Status status, StatusApplicationContext context) {
         if (GetStatus(status.Name) == null) {
             _statuses.Add(status);
-            status.ApplyTo(this);
+            status.ApplyTo(context);
         }
         else {
             if (status.IsStackable) {
-                status.ApplyTo(this);
+                status.ApplyTo(context);
             }
         }
+
+        _unitDrawer.UpdateStatus(_statuses);
     }
 
     public void RemoveStatus(Status status) {

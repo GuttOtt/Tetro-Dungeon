@@ -35,7 +35,8 @@ MonoBehaviour:
     _range: 1
     _speed: 1
   DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
-  Skills:
+  ActiveSkills: []
+  PassiveSkills:
   - {fileID: 11400000, guid: 5236bce20403e4742a64c8e1f3be0d0a, type: 2}
   Synergies: []
   Awakenings:

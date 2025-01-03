@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Unit.UI;
 using EnumTypes;
 using TMPro;
@@ -16,6 +17,8 @@ public class UnitDrawer : MonoBehaviour
 
     [SerializeField]
     private UnitHealthText _healthText;
+
+    [SerializeField] private UnitStatusDrawer _statusDrawer;
 
     public UnitHealthBar _healthBar;
     private UnitConfig _unitConfig;
@@ -150,5 +153,9 @@ public class UnitDrawer : MonoBehaviour
         {
             Debug.LogWarning("SpriteRenderer is missing or destroyed.");
         }
+    }
+
+    public void UpdateStatus(List<Status> statuses) {
+        _statusDrawer.DrawStatuses(statuses);
     }
 }

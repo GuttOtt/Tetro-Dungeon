@@ -15,7 +15,8 @@ MonoBehaviour:
   _skillName: "\uBC29\uD654"
   _skillDescription: "\uACF5\uACA9\uC774 \uC801\uC911\uD558\uBA74 \uD574\uB2F9 \uC801\uC5D0\uAC8C
     \uD3ED\uBC1C \uB514\uBC84\uD504 \uD558\uB098\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  _skillChance: 0
+  _skillChance: 1
   _unitEvents: 02000000
   _shouldInterrupt: 0
   _statusConfig: {fileID: 11400000, guid: f1f43af8c5082ba40a9886a94e4f0d59, type: 2}
+  _targetType: 0
