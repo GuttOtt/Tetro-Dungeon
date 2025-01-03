@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-03 08:50:56",
+    "CreationDate": "2025-01-04 01:18:41",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -583,6 +583,14 @@
             "SubType": "Hair_Wood_Elf_Temp",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_Wood_Elf_Temp"
+        },
+        {
+            "Name": "Hair_뱀파이어 헌터_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_뱀파이어 헌터_SPUM",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_뱀파이어 헌터_SPUM"
         },
         {
             "Name": "Devil_1",
@@ -1591,6 +1599,30 @@
             "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
+        },
+        {
+            "Name": "Cloth_뱀파이어 헌터_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_뱀파이어 헌터_SPUM"
+        },
+        {
+            "Name": "Cloth_뱀파이어 헌터_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_뱀파이어 헌터_SPUM"
+        },
+        {
+            "Name": "Cloth_뱀파이어 헌터_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_뱀파이어 헌터_SPUM"
         },
         {
             "Name": "F_SR_Cloth",
