@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: 3e7f1bcf5e1004551853fead34d7fb5b
+guid: 6c64a93b1310a95449c310481fe5ddc2
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -2684662799446805830
-    second: Head
-  - first:
-      213: 2937410462147611819
-    second: Body
-  - first:
-      213: -6145027692936222975
-    second: Arm_R
-  - first:
-      213: 3401622686825890652
-    second: Foot_R
-  - first:
-      213: 8164750811727990131
-    second: Foot_L
-  - first:
-      213: -9100664811620793741
-    second: Arm_L
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -57,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -83,7 +65,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -103,33 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 128
-    resizeAlgorithm: 0
-    textureFormat: 4
     textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 1
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -142,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -168,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab2744968692ebad0800000000000000
-      internalID: -2684662799446805830
+      spriteID: 68dd13884163c614ab3d71514427c2af
+      internalID: 1143456204
       vertices: []
       indices: 
       edges: []
@@ -178,9 +134,9 @@ TextureImporter:
       name: Body
       rect:
         serializedVersion: 2
-        x: 2
+        x: 3
         y: 6
-        width: 12
+        width: 11
         height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -189,8 +145,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bac03d39047c3c820800000000000000
-      internalID: 2937410462147611819
+      spriteID: 68ee90a38db541246a635cf0ce35ac16
+      internalID: 527847604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foot_R
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 411bdc8124816b74c80d139ad1d1d7ce
+      internalID: -734908921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Foot_L
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 0
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f07eac51e46c19478c29a78f0c1ff7d
+      internalID: -1032854005
       vertices: []
       indices: 
       edges: []
@@ -210,50 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 107299bfed978baa0800000000000000
-      internalID: -6145027692936222975
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foot_R
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 0
-        width: 4
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c53ca24afcdf43f20800000000000000
-      internalID: 3401622686825890652
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Foot_L
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 0
-        width: 4
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37d01a4ca950f4170800000000000000
-      internalID: 8164750811727990131
+      spriteID: 277b196c5727d0543ad3769a24689ef5
+      internalID: -1881147118
       vertices: []
       indices: 
       edges: []
@@ -273,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 372027b3291f3b180800000000000000
-      internalID: -9100664811620793741
+      spriteID: f7e2acecc2bb1d643a8913250a029c61
+      internalID: -697462000
       vertices: []
       indices: 
       edges: []
@@ -282,7 +238,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 093f9838e2366481f9782eca30c200c4
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -290,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Arm_L: -9100664811620793741
-      Arm_R: -6145027692936222975
-      Body: 2937410462147611819
-      Foot_L: 8164750811727990131
-      Foot_R: 3401622686825890652
-      Head: -2684662799446805830
+      Arm_L: -697462000
+      Arm_R: -1881147118
+      Body: 527847604
+      Foot_L: -1032854005
+      Foot_R: -734908921
+      Head: 1143456204
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

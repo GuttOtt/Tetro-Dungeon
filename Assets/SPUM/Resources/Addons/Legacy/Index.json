@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-04 01:18:41",
+    "CreationDate": "2025-01-08 22:29:05",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -583,6 +583,14 @@
             "SubType": "Hair_Wood_Elf_Temp",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_Wood_Elf_Temp"
+        },
+        {
+            "Name": "Hair_네크로맨서_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_네크로맨서_SPUM",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_네크로맨서_SPUM"
         },
         {
             "Name": "Hair_뱀파이어 헌터_SPUM",
@@ -1217,6 +1225,54 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_1"
         },
         {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Arm_R",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_L",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Foot_R",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
+            "Name": "Skelton_2",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Skelton_2"
+        },
+        {
             "Name": "FaceHair_1",
             "UnitType": "Unit",
             "PartType": "FaceHair",
@@ -1601,6 +1657,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
         },
         {
+            "Name": "Cloth_네크로맨서_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_네크로맨서_SPUM"
+        },
+        {
+            "Name": "Cloth_네크로맨서_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_네크로맨서_SPUM"
+        },
+        {
+            "Name": "Cloth_네크로맨서_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_네크로맨서_SPUM"
+        },
+        {
             "Name": "Cloth_뱀파이어 헌터_SPUM",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -1975,6 +2055,22 @@
             "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_8"
+        },
+        {
+            "Name": "Armor_네크로맨서",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Righ",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
+        },
+        {
+            "Name": "Armor_네크로맨서",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
         },
         {
             "Name": "Sword_1",
