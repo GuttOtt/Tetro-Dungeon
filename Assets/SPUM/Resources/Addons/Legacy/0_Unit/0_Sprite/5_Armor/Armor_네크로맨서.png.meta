@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68961f6e4220a0747a834f6c9705b93c
+guid: 159252f43e51f3a408637b739213b0a8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,43 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Right
+      name: Righ
       rect:
         serializedVersion: 2
-        x: 18
-        y: 31
-        width: 6
-        height: 5
+        x: 3
+        y: 14
+        width: 5
+        height: 6
       alignment: 9
-      pivot: {x: 0.5833333, y: 0.5}
+      pivot: {x: 0.7, y: 0.6666667}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8a2de15cffffffff0800000000000000
-      internalID: -987835736
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Body
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 28
-        width: 12
-        height: 10
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 216e276fffffffff0800000000000000
-      internalID: -160242158
+      spriteID: 2d2e4506353205842bf583bef7efa009
+      internalID: 1318852948
       vertices: []
       indices: 
       edges: []
@@ -155,19 +134,19 @@ TextureImporter:
       name: Left
       rect:
         serializedVersion: 2
-        x: 39
-        y: 31
-        width: 6
-        height: 5
+        x: 24
+        y: 14
+        width: 5
+        height: 6
       alignment: 9
-      pivot: {x: 0.4166667, y: 0.5}
+      pivot: {x: 0.4, y: 0.583333}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e9cccb2cffffffff0800000000000000
-      internalID: -1027814242
+      spriteID: b966db4d143a4c545a7ffcb87b31221a
+      internalID: 76887536
       vertices: []
       indices: 
       edges: []
@@ -183,9 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Body: -160242158
-      Left: -1027814242
-      Right: -987835736
+      Left: 76887536
+      Righ: 1318852948
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
