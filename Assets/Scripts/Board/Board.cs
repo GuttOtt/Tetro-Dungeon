@@ -10,6 +10,8 @@ public class Board : MonoBehaviour
     //Manager and systems
     private IGameManager _gameManager;
     private UnitBlockSystem _unitBlockSystem;
+    private UnitSystem _unitSystem;
+
 
     [SerializeField] private bool _isAllPlayerCell;
     [SerializeField] private int row, column;
@@ -40,6 +42,7 @@ public class Board : MonoBehaviour
 
     private void Awake() {
         _gameManager = transform.parent.GetComponent<GameManager>();
+        _unitSystem = _gameManager.GetSystem<UnitSystem>();
 
         if (cells == null || cells.Length == 0) {
             Init();
@@ -105,6 +108,13 @@ public class Board : MonoBehaviour
         }
 
         return true;
+    }
+
+    public BaseUnit SummonUnit(Cell cell, CharacterBlockConfig config, CharacterTypes owner) {
+        BaseUnit unit = _unitSystem.CreateUnit(config, owner);
+        Place(cell, unit);
+
+        return unit;
     }
 
     //Place a Unit
@@ -225,6 +235,18 @@ public class Board : MonoBehaviour
         }
 
         return playerCells;
+    }
+
+    public Cell[,] GetEnemyCells() {
+        Cell[,] enemyCells = new Cell[column / 2, row];
+
+        for (int i = column / 2; i < column; i++) {
+            for (int j = 0; j < row; j++) {
+                enemyCells[i - column / 2, j] = cells[i, j];
+            }
+        }
+
+        return enemyCells;
     }
 
     public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes chracterType = CharacterTypes.None) {
@@ -362,33 +384,7 @@ public class Board : MonoBehaviour
         return Mathf.Sqrt(Mathf.Pow(x, 2f) + Mathf.Pow(y, 2f));
     }
 
-    #region Highlighting Cells
-    /*
-    public void HighlightCell(int[,] array, int top = 0, int left = 0) {
-        int col = array.GetLength(0);
-        int row = array.GetLength(1);
-
-        if (Column < col + top || Row < row + left) {
-            return;
-        }
-
-        int[,] shape = new int[Column, Row];
-
-        for (int i = top; i < top + col; i++) {
-            for (int j = left; j < left + row; j++) {
-                shape[i, j] = array[i, j];
-            }
-        }
-
-        _cellHighlighter.Draw(shape);
-        _cellHighlighter.SetColor(new Color(1, 1, 1, 0.5f));
-    }
-
-    public void UnHighlightCell() {
-        //_cellHighlighter.ClearBlocks();
-    }
-    */
-    #endregion
+    
 
     #region Pathfinding
     public List<Cell> PathFinding(Cell startCell, Cell targetCell) {

@@ -12,7 +12,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     private string _name;
     private Sprite _illust;
     private int _level;
-    private Array2DBool _shape;
+    private Array2DBool _currentShape;
     private CharacterBlockConfig _config;
 
     //Equipment
@@ -69,6 +69,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     
     public Stat Stat { get => _stat.DeepCopy(); }
     public Stat OriginalStat { get => Config.Stat; }
+    public int currentLevel{get=>_level;}
     #endregion
 
 
@@ -95,7 +96,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     }
 
     private void CreateBlockParts(Array2DBool shape, int sortingOrderFront) {
-        _shape = shape;
+        _currentShape = shape;
 
         int x = shape.GridSize.x;
         int y = shape.GridSize.y;

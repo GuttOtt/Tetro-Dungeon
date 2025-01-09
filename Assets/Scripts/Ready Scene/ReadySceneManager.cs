@@ -28,6 +28,7 @@ public class ReadySceneManager : MonoBehaviour {
             Equipment equipment = _equipmentSystem.CreateEquipment(data);
             _inventorySystem.Add(equipment);
         }
+        _inventorySystem.ArrangeAll();
     }
 
     public void ReloadReadyScene() {

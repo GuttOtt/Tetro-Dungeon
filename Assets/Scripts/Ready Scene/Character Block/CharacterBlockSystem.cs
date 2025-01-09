@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections.Editor.Data;
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 
 public class CharacterBlockSystem : MonoBehaviour {
-    private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
+    [SerializeField] private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
     [SerializeField] private CharacterBlock _characterBlockPrefab;
     private CharacterBlock _selectedBlock;
     private Vector3 _selectedBlockOriginalPos;
@@ -23,6 +24,42 @@ public class CharacterBlockSystem : MonoBehaviour {
         MoveSelectedBlock();
         UnSelectBlock();
         SpinBlock();
+
+        //Level up Debugging
+        BlockPart selectedBlockPart = Utils.Pick<BlockPart>();
+        if (selectedBlockPart == null) return;
+
+        CharacterBlock block = selectedBlockPart.CharacterBlock;
+        if (block == null) return;
+
+        if (block != null && Input.GetKeyDown(KeyCode.Space)) {
+            LevelUp(block);
+        }
+    }
+
+    public void LevelUp(CharacterBlock characterBlock) {
+        if (_shopSystem.ContainsItem(characterBlock)) {
+            return;
+        }
+        else if (characterBlock.currentLevel == characterBlock.Config.MaxLevel){
+            Debug.Log("더이상 레벨업할 수 없습니다.");
+            return;
+        }
+
+        characterBlock.Unplace();
+        _inventorySystem.Remove(characterBlock);
+        
+        //Get Data
+        CharacterBlockData data = characterBlock.GetData();
+        data.Level++;
+        
+        //Create Level Up Block
+        CharacterBlock newBlock = CreateCharacterBlock(data, false);
+        _inventorySystem.Add(newBlock);
+
+        //Delete
+        _characterBlocks.Remove(characterBlock);
+        Destroy(characterBlock.gameObject);
     }
 
     public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel) {

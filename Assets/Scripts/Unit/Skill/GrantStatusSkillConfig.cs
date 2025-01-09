@@ -85,6 +85,8 @@ public class GrantStatusSkill : UnitSkill {
         }
 
         foreach (BaseUnit target in targets) {
+            if (target == null) return ShouldInterrupt;
+
             StatusApplicationContext context = new StatusApplicationContext(target, activator);
             target.GrantStatus(status, context);
         }

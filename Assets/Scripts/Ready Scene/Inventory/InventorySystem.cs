@@ -37,6 +37,19 @@ public class InventorySystem : MonoBehaviour {
         }
     }
 
+    public void ArrangeAll() {
+        List<Transform> transforms = new List<Transform>();
+        transforms.AddRange(_characterBlocks.Select(characterBlock => characterBlock.transform));
+        transforms.AddRange(_equipments.Select(equipment => equipment.transform));
+
+        float xGap = _area.bounds.size.x / transforms.Count;
+
+
+        for (int i = 0; i < transforms.Count; i++) {
+            transforms[i].position = new Vector2(_area.bounds.min.x + xGap * (i+0.5f), transforms[i].position.y);
+        }
+    }
+
     public void Remove(Equipment equipment) {
         _equipments.Remove(equipment);
     }
