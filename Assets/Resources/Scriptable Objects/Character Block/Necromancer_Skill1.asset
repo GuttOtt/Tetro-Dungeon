@@ -19,4 +19,4 @@ MonoBehaviour:
   _unitEvents: 05000000
   _shouldInterrupt: 0
   _summonAmount: 3
-  _configToSummon: {fileID: 0}
+  _configToSummon: {fileID: 11400000, guid: b57fa33fc0dca3146846e60af780b907, type: 2}

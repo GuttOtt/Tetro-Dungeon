@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: Necromancer_Skill1_ConfigToSummon
   m_EditorClassIdentifier: 
   Name: "\uD574\uACE8 \uBCD1\uC0AC"
-  Illust: {fileID: 0}
+  Illust: {fileID: 21300000, guid: 4944b79ec34ebe041b63596cc4b472d8, type: 3}
   UnitTypeString: 
-  Shapes: []
-  SPUM_Prefabs: {fileID: 0}
+  Shapes:
+  - Level: 1
+    Shape:
+      gridSize: {x: 1, y: 1}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 01
+    CenterIndex: {x: 0, y: 0}
+  SPUM_Prefabs: {fileID: 7298977969336579851, guid: b142faf9e9fbb4d49851be1e6ac16aaa, type: 3}
   _stat:
-    _maxHP: 100
-    _attack: 15
+    _maxHP: 50
+    _attack: 10
     _spellPower: 0
     _defence: 3
     _spellDefence: 3

@@ -16,7 +16,7 @@ MonoBehaviour:
   Illust: {fileID: 21300000, guid: 0a067f618cc5fce459d876fd6b5ec2dc, type: 3}
   UnitTypeString: 
   Shapes:
-  - Level: 0
+  - Level: 1
     Shape:
       gridSize: {x: 3, y: 4}
       cellSize: {x: 16, y: 16}

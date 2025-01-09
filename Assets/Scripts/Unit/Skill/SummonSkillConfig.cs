@@ -29,7 +29,22 @@ public class SummonSkill: UnitSkill {
     }
 
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null) {
-        Summon(activator, turnContext.Board);
+        Summon(activator, turnContext);
+    }
+
+    public override void RegisterToUnitEvents(BaseUnit unit) {
+        foreach(UnitEventTypes unitEvent in UnitEvents) {
+            switch (unitEvent) {
+                case UnitEventTypes.OnBattleStart:
+                    unit.onBattleStart += Summon;
+                    break;
+            }
+        }
+    }
+
+    public override void UnregisterToUnitEvents(BaseUnit unit)
+    {
+        
     }
 
     public override void Decorate(SkillConfig config)
@@ -53,47 +68,49 @@ public class SummonSkill: UnitSkill {
         }
     }
 
-    private void Summon(BaseUnit activator, Board board) {
+    private void Summon(BaseUnit activator, TurnContext turnContext) {
+        Board board = turnContext.Board;
+
         CharacterTypes owner = activator.Owner;
         Cell[,] cells = owner == CharacterTypes.Player ? board.GetPlayerCells() : board.GetEnemyCells();
 
-    // 1. Flatten the 2D array and filter out occupied cells
-    List<Cell> availableCells = new List<Cell>();
-    foreach (Cell cell in cells) {
-        if (cell.Unit == null) {
-            availableCells.Add(cell);
+        // 1. Flatten the 2D array and filter out occupied cells
+        List<Cell> availableCells = new List<Cell>();
+        foreach (Cell cell in cells) {
+            if (cell.Unit == null) {
+                availableCells.Add(cell);
+            }
         }
-    }
 
-    // 2. Handle edge case where there are not enough available cells.
-    int summonCount = Mathf.Min(_summonAmount, availableCells.Count);
-    if (summonCount == 0) {
-        Debug.LogWarning("No available cells to summon units.");
-        return;
-    }
-
-    // 3. Shuffle the list of available cells using Fisher-Yates shuffle algorithm.
-    for (int i = availableCells.Count - 1; i > 0; i--) {
-        int j = UnityEngine.Random.Range(0, i + 1);
-        Cell temp = availableCells[i];
-        availableCells[i] = availableCells[j];
-        availableCells[j] = temp;
-    }
-
-    // 4. Summon units on the first `summonCount` shuffled cells
-    for (int i = 0; i < summonCount; i++) {
-        Cell cell = availableCells[i];
-
-        // Assuming UnitBlockSystem is accessible and handles instantiation:
-        BaseUnit summonedUnit = board.SummonUnit(cell, _configToSummon, owner); 
-
-        if (summonedUnit != null) {
-           // You might want to add the summoned unit to your unitDic here if necessary.
-           //  board.unitDic[owner].Add(summonedUnit);
-            Debug.Log($"Summoned unit at: ({cell.position.col}, {cell.position.row})");
-        } else {
-            Debug.LogError($"Failed to summon unit at: ({cell.position.col}, {cell.position.row})");
+        // 2. Handle edge case where there are not enough available cells.
+        int summonCount = Mathf.Min(_summonAmount, availableCells.Count);
+        if (summonCount == 0) {
+            Debug.LogWarning("No available cells to summon units.");
+            return;
         }
-    }
+
+        // 3. Shuffle the list of available cells using Fisher-Yates shuffle algorithm.
+        for (int i = availableCells.Count - 1; i > 0; i--) {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            Cell temp = availableCells[i];
+            availableCells[i] = availableCells[j];
+            availableCells[j] = temp;
+        }
+
+        // 4. Summon units on the first `summonCount` shuffled cells
+        for (int i = 0; i < summonCount; i++) {
+            Cell cell = availableCells[i];
+
+            // Assuming UnitBlockSystem is accessible and handles instantiation:
+            BaseUnit summonedUnit = board.SummonUnit(cell, _configToSummon, owner); 
+
+            if (summonedUnit != null) {
+            // You might want to add the summoned unit to your unitDic here if necessary.
+            //  board.unitDic[owner].Add(summonedUnit);
+                Debug.Log($"Summoned unit at: ({cell.position.col}, {cell.position.row})");
+            } else {
+                Debug.LogError($"Failed to summon unit at: ({cell.position.col}, {cell.position.row})");
+            }
+        }
     }
 }
