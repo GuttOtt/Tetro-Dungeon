@@ -34,6 +34,9 @@ public static class SkillFactory
         else if (config is SummonSkillConfig summonSkillConfig) {
             return new SummonSkill(summonSkillConfig);
         }
+        else if (config is RandomTargetDamageSkillConfig randomTargetDamageSkillConfig) {
+            return new RandomTargetDamageSkill(randomTargetDamageSkillConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }

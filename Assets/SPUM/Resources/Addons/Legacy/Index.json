@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-08 22:29:05",
+    "CreationDate": "2025-01-10 20:25:37",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -559,6 +559,14 @@
             "SubType": "Hair_9",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_9"
+        },
+        {
+            "Name": "Hair_HandCanon_Temp",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_HandCanon_Temp",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_HandCanon_Temp"
         },
         {
             "Name": "Hair_magical_swordman",
@@ -2060,7 +2068,7 @@
             "Name": "Armor_네크로맨서",
             "UnitType": "Unit",
             "PartType": "Armor",
-            "SubType": "Righ",
+            "SubType": "Left",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
         },
@@ -2068,7 +2076,7 @@
             "Name": "Armor_네크로맨서",
             "UnitType": "Unit",
             "PartType": "Armor",
-            "SubType": "Left",
+            "SubType": "Righ",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
         },
