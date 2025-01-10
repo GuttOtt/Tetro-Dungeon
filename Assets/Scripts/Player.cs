@@ -115,9 +115,7 @@ namespace Assets.Scripts
 
             _itemInInv = Resources.LoadAll<Item>("Scriptable Objects/Item").ToList();
 
-            SetDeck(15);
-
-            _characterBlockConfigs = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
+            _characterBlockConfigs = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block/General").ToList();
             _equipmentConfigs = Resources.LoadAll<EquipmentConfig>("Scriptable Objects/Equipment").ToList();
             SetInitialInventory();
 

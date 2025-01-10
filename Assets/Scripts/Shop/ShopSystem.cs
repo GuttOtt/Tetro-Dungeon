@@ -29,7 +29,7 @@ public class ShopSystem : MonoBehaviour
 
     private void Awake() {
         _player = Player.Instance;
-        _characterBlockPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
+        _characterBlockPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block/General").ToList();
         _equipmentPool = Resources.LoadAll<EquipmentConfig>("Scriptable Objects/Equipment").ToList();
     }
 

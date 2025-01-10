@@ -61,6 +61,8 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         _spellDefenceText.text = stat.SpellDefence.ToString();
         _speedText.text = stat.Speed.ToString();
         _rangeText.text = stat.Range.ToString();
+        _levelText.text = "Lvl. " + characterBlock.currentLevel.ToString();
+
 
         //Illust
         _illustImage.sprite = characterBlock.Config.Illust;
