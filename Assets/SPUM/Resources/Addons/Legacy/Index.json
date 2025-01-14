@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-09 23:15:58",
+    "CreationDate": "2025-01-14 21:21:22",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -561,12 +561,28 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_9"
         },
         {
+            "Name": "Hair_HandCanon_Temp",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_HandCanon_Temp",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_HandCanon_Temp"
+        },
+        {
             "Name": "Hair_magical_swordman",
             "UnitType": "Unit",
             "PartType": "Hair",
             "SubType": "Hair_magical_swordman",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_magical_swordman"
+        },
+        {
+            "Name": "Hair_VampHunter_Temp",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_VampHunter_Temp",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_VampHunter_Temp"
         },
         {
             "Name": "Hair_vampire",
@@ -1737,6 +1753,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_우드엘프_SPUM"
         },
         {
+            "Name": "Cloth_핸드캐넌_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_핸드캐넌_SPUM"
+        },
+        {
+            "Name": "Cloth_핸드캐넌_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_핸드캐넌_SPUM"
+        },
+        {
+            "Name": "Cloth_핸드캐넌_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_핸드캐넌_SPUM"
+        },
+        {
             "Name": "F_SR_Cloth",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -2183,6 +2223,14 @@
             "SubType": "Weapon_gun1",
             "PartSubType": "Bow",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/2_Bow/Weapon_gun1"
+        },
+        {
+            "Name": "Weapon_핸드캐넌_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Weapon_핸드캐넌_SPUM",
+            "PartSubType": "Bow",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/2_Bow/Weapon_핸드캐넌_SPUM"
         },
         {
             "Name": "Shield_1",
