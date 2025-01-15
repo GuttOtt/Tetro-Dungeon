@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-14 21:21:22",
+    "CreationDate": "2025-01-15 22:51:49",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -1753,6 +1753,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_우드엘프_SPUM"
         },
         {
+            "Name": "Cloth_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_이단심판관"
+        },
+        {
+            "Name": "Cloth_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_이단심판관"
+        },
+        {
+            "Name": "Cloth_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_이단심판관"
+        },
+        {
             "Name": "Cloth_핸드캐넌_SPUM",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -1985,6 +2009,14 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_성배기사"
         },
         {
+            "Name": "Helmet_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Helmet_이단심판관",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_이단심판관"
+        },
+        {
             "Name": "Armor_1",
             "UnitType": "Unit",
             "PartType": "Armor",
@@ -2145,6 +2177,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
         },
         {
+            "Name": "Armor_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_이단심판관"
+        },
+        {
+            "Name": "Armor_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_이단심판관"
+        },
+        {
+            "Name": "Armor_이단심판관",
+            "UnitType": "Unit",
+            "PartType": "Armor",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_이단심판관"
+        },
+        {
             "Name": "Sword_1",
             "UnitType": "Unit",
             "PartType": "Weapons",
@@ -2255,6 +2311,14 @@
             "SubType": "Spear_1",
             "PartSubType": "Spear",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_1"
+        },
+        {
+            "Name": "Spear_이단심문관",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Spear_이단심문관",
+            "PartSubType": "Spear",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_이단심문관"
         },
         {
             "Name": "Ward_1",
