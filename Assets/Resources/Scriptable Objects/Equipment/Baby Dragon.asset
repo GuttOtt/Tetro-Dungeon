@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e72be19418f750428b2f4c078ad8419, type: 3}
-  m_Name: Short Sword
+  m_Name: Baby Dragon
   m_EditorClassIdentifier: 
-  Name: "\uC20F\uC18C\uB4DC"
-  Sprite: {fileID: 21300000, guid: cab7ac050bae16143b7fb4c7e1330cd7, type: 3}
+  Name: "\uC0C8\uB07C\uC6A9"
+  Sprite: {fileID: 21300000, guid: 499414676307b704c980c21bb48b3d31, type: 3}
   Shape:
-    gridSize: {x: 2, y: 1}
+    gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
-  _synergyTypes: 02000000
+    - row: 0100
+  _synergyTypes: 03000000
   _stat:
     _maxHP: 0
     _attack: 10
-    _spellPower: 0
+    _spellPower: 10
     _defence: 0
     _spellDefence: 0
     _range: 0

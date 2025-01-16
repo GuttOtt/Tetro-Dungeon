@@ -29,7 +29,7 @@ MonoBehaviour:
   _stat:
     _maxHP: 200
     _attack: 20
-    _spellPower: 10
+    _spellPower: 20
     _defence: 2
     _spellDefence: 2
     _range: 3

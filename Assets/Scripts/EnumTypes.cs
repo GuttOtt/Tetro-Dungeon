@@ -25,7 +25,7 @@ namespace EnumTypes
     }
         
     public enum SynergyTypes {
-        None = 0,Magician = 1, 
+        None = 0,Magician = 1, Swordman =2, Fire = 3, Dark = 4, Light =5, Shooter = 6,
     }
 
     public enum DamageTypes {

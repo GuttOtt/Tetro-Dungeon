@@ -24,8 +24,8 @@ MonoBehaviour:
   _stat:
     _maxHP: 0
     _attack: 0
-    _spellPower: 10
+    _spellPower: 20
     _defence: 0
     _spellDefence: 0
-    _speed: 0
     _range: 0
+    _speed: 0
