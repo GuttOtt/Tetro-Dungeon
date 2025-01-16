@@ -13,4 +13,8 @@ public class TurnContext {
         MoveTurn = moveTurn;
         CardSystem = cardSystem;
     }
+
+    public TurnContext(Board board) {
+        Board = board;
+    }
 }

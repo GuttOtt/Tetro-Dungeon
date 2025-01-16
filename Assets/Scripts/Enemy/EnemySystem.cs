@@ -46,7 +46,7 @@ public class EnemySystem : MonoBehaviour {
         _gameManager.GetSystem<BattleSystem>().OnTimePass += EffectCoolDown;
 
         unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
-        characterPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block").ToList();
+        characterPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block/General").ToList();
 
         InitByStageData();
     }

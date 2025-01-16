@@ -12,34 +12,27 @@ using UnityEngine.UIElements;
 #region Models  
 public static class SkillFactory
 {
-    public static UnitSkill CreateSkill(SkillConfig config) {
-        if (config is DamageSkillConfig damageConfig) {
-            return new DamageSkill(damageConfig);  // DamageSkill »ý¼º
+
+    private static readonly Dictionary<Type, Func<SkillConfig, UnitSkill>> skillCreators = new Dictionary<Type, Func<SkillConfig, UnitSkill>>
+    {
+        { typeof(DamageSkillConfig), config => new DamageSkill((DamageSkillConfig)config) },
+        { typeof(ReviveSkillConfig), config => new ReviveSkill((ReviveSkillConfig)config) },
+        { typeof(HealClosestSkillConfig), config => new HealClosestSkill((HealClosestSkillConfig)config) },
+        { typeof(ProjectileSkillConfig), config => new ProjectileSkill((ProjectileSkillConfig)config) },
+        { typeof(LeechSkillConfig), config => new LeechSkill((LeechSkillConfig)config) },
+        { typeof(GrantStatusSkillConfig), config => new GrantStatusSkill((GrantStatusSkillConfig)config) },
+        { typeof(SummonSkillConfig), config => new SummonSkill((SummonSkillConfig)config) },
+        { typeof(RandomTargetDamageSkillConfig), config => new RandomTargetDamageSkill((RandomTargetDamageSkillConfig)config) },
+        { typeof(AoEDotSkillConfig), config => new AoEDotSkill((AoEDotSkillConfig)config) }
+    };
+
+    public static UnitSkill CreateSkill(SkillConfig config)
+    {
+        if (skillCreators.TryGetValue(config.GetType(), out var creator))
+        {
+            return creator(config);
         }
-        else if (config is ReviveSkillConfig reviveConfig) {
-            return new ReviveSkill(reviveConfig);
-        }
-        else if (config is HealClosestSkillConfig healClosestConfig) {
-            return new HealClosestSkill(healClosestConfig);
-        }
-        else if (config is ProjectileSkillConfig projectileConfig) {
-            return new ProjectileSkill(projectileConfig);
-        }
-        else if (config is LeechSkillConfig leechSkillConfig) {
-            return new LeechSkill(leechSkillConfig);
-        }
-        else if (config is GrantStatusSkillConfig grantStatusConfig) {
-            return new GrantStatusSkill(grantStatusConfig);
-        }
-        else if (config is SummonSkillConfig summonSkillConfig) {
-            return new SummonSkill(summonSkillConfig);
-        }
-        else if (config is RandomTargetDamageSkillConfig randomTargetDamageSkillConfig) {
-            return new RandomTargetDamageSkill(randomTargetDamageSkillConfig);
-        }
-        else {
-            throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
-        }
+        throw new ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
     }
 
     public static List<UnitSkill> CreateSkills(List<SkillConfig> configs) {

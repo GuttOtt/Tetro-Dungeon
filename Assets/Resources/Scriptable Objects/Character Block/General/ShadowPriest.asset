@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
+  m_Name: ShadowPriest
+  m_EditorClassIdentifier: 
+  Name: "\uC554\uD751 \uC0AC\uC81C"
+  Illust: {fileID: 21300000, guid: dcc11ba1fffb7114783c5b2ad14e37cc, type: 3}
+  UnitTypeString: 
+  Shapes:
+  - Level: 1
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 010101
+      - row: 010101
+      - row: 000000
+    CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 4557214205006405702, guid: 0f6844b3fbc767b4bac32591065ecdb3, type: 3}
+  _stat:
+    _maxHP: 200
+    _attack: 20
+    _spellPower: 10
+    _defence: 2
+    _spellDefence: 2
+    _range: 3
+    _speed: 1
+  DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
+  ActiveSkills:
+  - {fileID: 11400000, guid: be4ea56836e8ec747afb26e2f8fd278b, type: 2}
+  PassiveSkills: []
+  Synergies: []
+  Awakenings: []
