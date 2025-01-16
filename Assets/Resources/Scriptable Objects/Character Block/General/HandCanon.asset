@@ -26,7 +26,7 @@ MonoBehaviour:
       - row: 000000
       - row: 000000
     CenterIndex: {x: 1, y: 1}
-  SPUM_Prefabs: {fileID: 273854678082998959, guid: 44b49806d4121d944aaf451e5e457d3b, type: 3}
+  SPUM_Prefabs: {fileID: 8626065068975908562, guid: 2136d598b57fb75459dfd1c0a09ba83a, type: 3}
   _stat:
     _maxHP: 200
     _attack: 25
