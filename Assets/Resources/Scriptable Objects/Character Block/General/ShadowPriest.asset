@@ -68,13 +68,21 @@ MonoBehaviour:
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 4557214205006405702, guid: 0f6844b3fbc767b4bac32591065ecdb3, type: 3}
   _stat:
-    _maxHP: 200
-    _attack: 20
-    _spellPower: 20
-    _defence: 2
-    _spellDefence: 2
+    _maxHP: 450
+    _attack: 50
+    _spellPower: 50
+    _defence: 30
+    _spellDefence: 30
     _range: 3
     _speed: 1
+  _statForLevelUp:
+    _maxHP: 50
+    _attack: 5
+    _spellPower: 5
+    _defence: 5
+    _spellDefence: 5
+    _range: 0
+    _speed: 0.05
   DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
   ActiveSkills:
   - {fileID: 11400000, guid: be4ea56836e8ec747afb26e2f8fd278b, type: 2}

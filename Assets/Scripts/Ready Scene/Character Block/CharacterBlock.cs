@@ -82,6 +82,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         //Stats
         _stat = config.Stat;
+        _stat += config.StatForLevelUp * (currentLvl - 1);
 
         //Skills
         _defaultSkill = SkillFactory.CreateSkill(config.DefaultSkill);

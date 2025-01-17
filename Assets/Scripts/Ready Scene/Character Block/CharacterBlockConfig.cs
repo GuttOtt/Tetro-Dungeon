@@ -21,7 +21,9 @@ public class CharacterBlockConfig : ScriptableObject
 
     #region Stats
     [SerializeField] private Stat _stat;
+    [SerializeField] private Stat _statForLevelUp;
     public Stat Stat { get => _stat.DeepCopy(); }
+    public Stat StatForLevelUp { get => _statForLevelUp.DeepCopy(); }
     #endregion
 
 

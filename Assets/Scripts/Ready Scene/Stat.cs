@@ -57,6 +57,18 @@ public class Stat {
         return new Stat(-a._maxHP, -a._attack, -a._spellPower, -a._defence, -a._spellDefence, -a._speed, -a._range);
     }
 
+    public static Stat operator *(Stat a, int multiplier) {
+        return new Stat(
+            a._maxHP * multiplier,
+            a._attack * multiplier,
+            a._spellPower * multiplier,
+            a._defence * multiplier,
+            a._spellDefence * multiplier,
+            a._speed * multiplier,
+            a._range * multiplier
+        );
+    }
+
     public Stat PercentageMultiply(Stat percentage) {
         return new Stat(
             (int) (_maxHP * percentage._maxHP/100f),
@@ -68,6 +80,8 @@ public class Stat {
             (int) (_range * percentage._range/100f)
         );
     }
+
+    
 
     public Stat DeepCopy() {
         return new Stat(_maxHP, _attack, _spellPower, _defence, _spellDefence, _speed, _range);

@@ -72,8 +72,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public float Speed { get => _speed; }
     public int Defence { get => _defence; }
     public int SpellDefence { get => _spellDefence; }
-    public float AttackDamageReductionRate { get => 1f / (1 + Defence / 10f); }
-    public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 10f); }
+    public float AttackDamageReductionRate { get => 1f / (1 + Defence / 100f); }
+    public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 100f); }
     public Stat Stat { get => new Stat(_maxHP, Attack, SpellPower, Defence, SpellDefence, Speed, Range);}
     #endregion
 
