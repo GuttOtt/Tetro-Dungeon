@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using AYellowpaper.SerializedCollections.Editor.Data;
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
@@ -19,6 +20,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     [SerializeField] private SimpleMonoButton _levelUpButton;
 
     private bool _isInputOn = true;
+
 
     void Update() {
         SelectBlock();
@@ -46,6 +48,10 @@ public class CharacterBlockSystem : MonoBehaviour {
             Debug.Log("더이상 레벨업할 수 없습니다.");
             return null;
         }
+        else if (Player.Instance.CurrentMoney < characterBlock.LevelUpCost) {
+            Debug.Log("레벨업에 필요한 돈이 부족합니다.");
+            return null;
+        }
 
         characterBlock.Unplace();
         _inventorySystem.Remove(characterBlock);
@@ -58,9 +64,14 @@ public class CharacterBlockSystem : MonoBehaviour {
         CharacterBlock newBlock = CreateCharacterBlock(data, false);
         _inventorySystem.Add(newBlock);
 
+        //Pay cost
+        Player.Instance.CurrentMoney -= characterBlock.LevelUpCost;
+        _shopSystem.UpdateMoneyText();
+
         //Delete
         _characterBlocks.Remove(characterBlock);
         Destroy(characterBlock.gameObject);
+
 
         return newBlock;
     }

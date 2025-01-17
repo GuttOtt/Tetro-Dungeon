@@ -114,7 +114,7 @@ public class ShopSystem : MonoBehaviour
         UpdateMoneyText();
     }
 
-    private void UpdateMoneyText() {
+    public void UpdateMoneyText() {
         _moneyText.text = "Money: "+_player.CurrentMoney.ToString();
     }
 }

@@ -33,6 +33,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
             return allSkills;
         }
     }
+    public int LevelUpCost { get => CurrentLevel + 4; }
     
 
     //Serialized Fields

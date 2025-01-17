@@ -160,7 +160,9 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     public async void PlayerWin() {
-        Debug.Log("플레이어 승리! 3초 후 다음 화면으로 넘어갑니다.");
+        Debug.Log("플레이어 승리! 10Gold 획득.");
+        _player.CurrentMoney += 10;
+        Debug.Log("3초 후 다음 화면으로 넘어갑니다.");
         await UniTask.Delay(TimeSpan.FromSeconds(3));
         _sceneChanger.LoadReadyScene();
     }

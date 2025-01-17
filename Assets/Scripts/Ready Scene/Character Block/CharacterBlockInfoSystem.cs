@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private TMP_Text _nameText, _levelText, _hpText, _attackText, _spellPowerText,
-        _defenceText, _spellDefenceText, _speedText, _rangeText;
+        _defenceText, _spellDefenceText, _speedText, _rangeText, _levelUpCostText;
     
     [SerializeField] private GameObject _panel;
     
@@ -20,7 +20,6 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private Vector3 _skillDescriptorOrigin, _skillDescriptorGap;
     [SerializeField] private SimpleMonoButton _levelUpButton;
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
-
 
     private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
     private CharacterBlock currentCharacterBlock;
@@ -51,13 +50,13 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     }
 
     public void DrawInfo(CharacterBlock characterBlock) {
+        _panel.SetActive(true);
         currentCharacterBlock = characterBlock;
 
-        //Lelvel Up Button
+        //Lelvel Up
         _levelUpButton.onClick = null;
         _levelUpButton.onClick += () => HandleLevelUpButton();
-
-        _panel.SetActive(true);
+        _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
 
         //Name
         _nameText.text = characterBlock.Config.Name;
