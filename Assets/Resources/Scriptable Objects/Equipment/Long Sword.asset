@@ -20,6 +20,10 @@ MonoBehaviour:
     cells:
     - row: 010101
   _synergyTypes: 02000000
+  _synergyDict:
+    _serializedList:
+    - Key: 2
+      Value: 3
   _stat:
     _maxHP: 0
     _attack: 15

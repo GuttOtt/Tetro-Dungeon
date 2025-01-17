@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Dark Orb
   m_EditorClassIdentifier: 
   Name: "\uC554\uD751 \uC624\uBE0C"
-  Sprite: {fileID: 21300000, guid: f7951d8dd1190f5489e54a6338bf1b1a, type: 3}
+  Sprite: {fileID: 21300000, guid: be368531152070145a0a98056744f1c4, type: 3}
   Shape:
     gridSize: {x: 1, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 01
-  _synergyTypes: 04000000
+  _synergyDict:
+    _serializedList:
+    - Key: 4
+      Value: 1
   _stat:
     _maxHP: 0
     _attack: 0

@@ -20,11 +20,15 @@ MonoBehaviour:
     cells:
     - row: 01
   _synergyTypes: 01000000
+  _synergyDict:
+    _serializedList:
+    - Key: 1
+      Value: 1
   _stat:
     _maxHP: 0
     _attack: 0
-    _spellPower: 3
+    _spellPower: 5
     _defence: 0
     _spellDefence: 0
-    _speed: 0
     _range: 0
+    _speed: 0

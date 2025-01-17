@@ -1,4 +1,5 @@
 using Array2DEditor;
+using AYellowpaper.SerializedCollections;
 using EnumTypes;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ public class Equipment : MonoBehaviour, IItem {
     private bool _isPlaced;
     private CharacterBlock _characterBlock;
     private Vector2Int _locationInCharacter;
+    private Sprite _sprite;
     
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private BlockPart_Equipment _blockPartPrefab;
@@ -22,12 +24,14 @@ public class Equipment : MonoBehaviour, IItem {
     public int SpinDegree { get => _spinDegree; set => _spinDegree = value; }
     public EquipmentConfig Config { get => _config; }
     public Stat Stat { get => Config.Stat; }
-    public List<SynergyTypes> Synergies { get => Config.Synergies.ToList(); }
+    public SerializedDictionary<SynergyTypes, int> SynergyDict { get => Config.SynergyDict; }
+    public Sprite Sprite { get => _sprite; }
 
     #region Init
     public void Init(EquipmentConfig config) {
         _config = config;
         _spriteRenderer.sprite = config.Sprite;
+        _sprite = config.Sprite;
 
         CreateBlockParts(config.Shape);
     }

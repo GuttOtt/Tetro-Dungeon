@@ -9,6 +9,7 @@ public class EquipmentSystem : MonoBehaviour {
     private Vector3 _selectedPos;
 
     [SerializeField] private InventorySystem _inventorySystem;
+    [SerializeField] private EquipmentInfoSystem _equipmentInfoSystem;
     [SerializeField] private ShopSystem _shopSystem;
 
     private bool _isInputOn = true;
@@ -18,6 +19,17 @@ public class EquipmentSystem : MonoBehaviour {
         UnSelect();
         MoveSelectedEquipment();
         SpinEquipment();
+        HandleRightClick();
+    }
+
+    private void HandleRightClick() {
+        if (!Input.GetMouseButtonDown(1)) return;
+
+        Equipment equipment = Utils.Pick<Equipment>();
+
+        if (equipment == null) return;
+
+        _equipmentInfoSystem.DrawInfo(equipment);
     }
 
     public Equipment CreateEquipment(EquipmentConfig config) {
