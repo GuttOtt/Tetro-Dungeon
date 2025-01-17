@@ -47,7 +47,7 @@ public class ShopSystem : MonoBehaviour
 
     private void AddCharacterBlock(int slotNumber) {
         CharacterBlockConfig config = _characterBlockPool[Random.Range(0, _characterBlockPool.Count)];
-        CharacterBlock characterBlock = _characterBlockSystem.CreateCharacterBlock(config, 0);
+        CharacterBlock characterBlock = _characterBlockSystem.CreateCharacterBlock(config, 1);
 
         characterBlock.transform.parent = _characterBlockSlots[slotNumber].transform;
         characterBlock.transform.localPosition = Vector3.back;

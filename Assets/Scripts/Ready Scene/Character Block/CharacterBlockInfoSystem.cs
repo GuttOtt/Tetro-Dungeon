@@ -18,8 +18,12 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private SimpleMonoButton _closeButton;
     [SerializeField] private SkillDescriptor _skillDescriptorPrefab;
     [SerializeField] private Vector3 _skillDescriptorOrigin, _skillDescriptorGap;
+    [SerializeField] private SimpleMonoButton _levelUpButton;
+    [SerializeField] private CharacterBlockSystem _characterBlockSystem;
+
 
     private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
+    private CharacterBlock currentCharacterBlock;
 
     private void Start() {
         _panel.SetActive(false);
@@ -47,6 +51,12 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     }
 
     public void DrawInfo(CharacterBlock characterBlock) {
+        currentCharacterBlock = characterBlock;
+
+        //Lelvel Up Button
+        _levelUpButton.onClick = null;
+        _levelUpButton.onClick += () => HandleLevelUpButton();
+
         _panel.SetActive(true);
 
         //Name
@@ -61,7 +71,7 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         _spellDefenceText.text = stat.SpellDefence.ToString();
         _speedText.text = stat.Speed.ToString();
         _rangeText.text = stat.Range.ToString();
-        _levelText.text = "Lvl. " + characterBlock.currentLevel.ToString();
+        _levelText.text = "Lvl. " + characterBlock.CurrentLevel.ToString();
 
 
         //Illust
@@ -95,6 +105,16 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
             Vector3 localPos = _skillDescriptorOrigin + i * _skillDescriptorGap;
             descriptor.transform.localPosition = localPos;
+        }
+    }
+
+    private void HandleLevelUpButton() {
+        CharacterBlock levelUpBlock = _characterBlockSystem.LevelUp(currentCharacterBlock);
+
+        //Level Up에 성공했을 경우.
+        if (levelUpBlock != null) {
+            DrawInfo(levelUpBlock);
+            currentCharacterBlock = levelUpBlock;
         }
     }
 

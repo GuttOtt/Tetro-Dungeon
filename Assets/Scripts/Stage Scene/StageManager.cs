@@ -11,7 +11,7 @@ public class StageManager : Singleton<StageManager> {
     [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
     private int _currentStageIndex = 0;
-    private int _stageAmount = 5;
+    //private int _stageAmount = 5;
 
     public StageData CurrentStage { 
         get {

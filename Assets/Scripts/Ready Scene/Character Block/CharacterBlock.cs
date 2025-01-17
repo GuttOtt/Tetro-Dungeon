@@ -11,7 +11,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     //Basic Infos
     private string _name;
     private Sprite _illust;
-    private int _level;
+    [SerializeField]private int _level;
     private Array2DBool _currentShape;
     private CharacterBlockConfig _config;
 
@@ -69,7 +69,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     
     public Stat Stat { get => _stat.DeepCopy(); }
     public Stat OriginalStat { get => Config.Stat; }
-    public int currentLevel{get=>_level;}
+    public int CurrentLevel{get=>_level;}
     #endregion
 
 

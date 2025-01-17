@@ -16,6 +16,7 @@ public class CharacterBlockSystem : MonoBehaviour {
     [SerializeField] private EquipmentSystem _equipmentSystem;
     [SerializeField] private ShopSystem _shopSystem;
     [SerializeField] private Board _board;
+    [SerializeField] private SimpleMonoButton _levelUpButton;
 
     private bool _isInputOn = true;
 
@@ -37,13 +38,13 @@ public class CharacterBlockSystem : MonoBehaviour {
         }
     }
 
-    public void LevelUp(CharacterBlock characterBlock) {
+    public CharacterBlock LevelUp(CharacterBlock characterBlock) {
         if (_shopSystem.ContainsItem(characterBlock)) {
-            return;
+            return null;
         }
-        else if (characterBlock.currentLevel == characterBlock.Config.MaxLevel){
+        else if (characterBlock.CurrentLevel == characterBlock.Config.MaxLevel){
             Debug.Log("더이상 레벨업할 수 없습니다.");
-            return;
+            return null;
         }
 
         characterBlock.Unplace();
@@ -60,6 +61,8 @@ public class CharacterBlockSystem : MonoBehaviour {
         //Delete
         _characterBlocks.Remove(characterBlock);
         Destroy(characterBlock.gameObject);
+
+        return newBlock;
     }
 
     public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel) {

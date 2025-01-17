@@ -36,11 +36,11 @@ public class CharacterBlockConfig : ScriptableObject
     public List<Awakening> Awakenings;
 
     public Array2DBool GetShape(int lvl) {
-        return Shapes[lvl].Shape;
+        return Shapes[lvl-1].Shape;
     }
 
     public Vector2Int GetCenterIndex(int lvl) {
-        return Shapes[lvl].CenterIndex;
+        return Shapes[lvl-1].CenterIndex;
     }
 }
 

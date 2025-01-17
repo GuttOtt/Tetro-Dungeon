@@ -66,7 +66,7 @@ namespace Assets.Scripts
             //랜덤으로 캐릭터 블럭 3개 생성
             for (int i = 0; i < 3; i++) {
                 CharacterBlockConfig config = _characterBlockConfigs[Random.Range(0, _characterBlockConfigs.Count)];
-                int level = 0;
+                int level = 1;
 
                 CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
             }

@@ -19,18 +19,8 @@ public class EquipmentSystem : MonoBehaviour {
         UnSelect();
         MoveSelectedEquipment();
         SpinEquipment();
-        HandleRightClick();
     }
 
-    private void HandleRightClick() {
-        if (!Input.GetMouseButtonDown(1)) return;
-
-        Equipment equipment = Utils.Pick<Equipment>();
-
-        if (equipment == null) return;
-
-        _equipmentInfoSystem.DrawInfo(equipment);
-    }
 
     public Equipment CreateEquipment(EquipmentConfig config) {
         Equipment newEquipment = Instantiate(_euipmentPrefab);
