@@ -16,7 +16,25 @@ MonoBehaviour:
   Illust: {fileID: 21300000, guid: 204472e596d758049b1584df63d86422, type: 3}
   UnitTypeString: 
   Shapes:
-  - Level: 0
+  - Level: 1
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000100
+      - row: 000100
+      - row: 010100
+    CenterIndex: {x: 1, y: 1}
+  - Level: 2
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000100
+      - row: 010100
+      - row: 010100
+    CenterIndex: {x: 1, y: 1}
+  - Level: 3
     Shape:
       gridSize: {x: 3, y: 3}
       cellSize: {x: 16, y: 16}
@@ -25,7 +43,25 @@ MonoBehaviour:
       - row: 010100
       - row: 010101
     CenterIndex: {x: 1, y: 1}
-  SPUM_Prefabs: {fileID: 410085302821646652, guid: debb45a2fb986d4448b2f59fdc241f6a, type: 3}
+  - Level: 4
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000100
+      - row: 010101
+      - row: 010101
+    CenterIndex: {x: 1, y: 1}
+  - Level: 5
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000101
+      - row: 010101
+      - row: 010101
+    CenterIndex: {x: 1, y: 1}
+  SPUM_Prefabs: {fileID: 2996380718902291613, guid: 20412b9f392326d4289fdcb147cee7b0, type: 3}
   _stat:
     _maxHP: 200
     _attack: 20

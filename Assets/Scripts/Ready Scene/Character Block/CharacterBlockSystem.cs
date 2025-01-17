@@ -64,10 +64,13 @@ public class CharacterBlockSystem : MonoBehaviour {
 
         return newBlock;
     }
-
+    
+    int idCount = 0;
     public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel) {
         CharacterBlock newBlock = Instantiate(_characterBlockPrefab);
-        newBlock.Init(config, _characterBlocks.Count, currentLevel);
+        newBlock.Init(config, idCount, currentLevel);
+        idCount++;
+        
         _characterBlocks.Add(newBlock);
 
         return newBlock;

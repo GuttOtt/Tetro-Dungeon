@@ -23,7 +23,7 @@ MonoBehaviour:
       cells:
       - row: 000101
       - row: 000101
-      - row: 000100
+      - row: 000000
     CenterIndex: {x: 1, y: 1}
   - Level: 2
     Shape:
@@ -31,8 +31,35 @@ MonoBehaviour:
       cellSize: {x: 16, y: 16}
       cells:
       - row: 000101
+      - row: 000101
+      - row: 000100
+    CenterIndex: {x: 1, y: 1}
+  - Level: 3
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000101
       - row: 010101
       - row: 000100
+    CenterIndex: {x: 1, y: 1}
+  - Level: 4
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 010101
+      - row: 010101
+      - row: 000100
+    CenterIndex: {x: 1, y: 1}
+  - Level: 5
+    Shape:
+      gridSize: {x: 3, y: 3}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 010101
+      - row: 010101
+      - row: 000101
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 3188768033771658690, guid: 6e9a6f9f63dd94a49870120cf8c08e75, type: 3}
   _stat:
