@@ -64,6 +64,11 @@ public class CharacterBlockSystem : MonoBehaviour {
         CharacterBlock newBlock = CreateCharacterBlock(data, false);
         _inventorySystem.Add(newBlock);
 
+        //Maintain Position if it's in the inventory
+        if (_inventorySystem.IsInsideArea(characterBlock)) {
+            newBlock.transform.position = characterBlock.transform.position;
+        }
+
         //Pay cost
         Player.Instance.CurrentMoney -= characterBlock.LevelUpCost;
         _shopSystem.UpdateMoneyText();

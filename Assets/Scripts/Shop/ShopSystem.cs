@@ -38,6 +38,14 @@ public class ShopSystem : MonoBehaviour
         UpdateMoneyText();
     }
 
+    private void Update() {
+        
+        if (Input.GetKeyDown(KeyCode.G)) {
+            Player.Instance.CurrentMoney += 10;
+            UpdateMoneyText();
+        }
+    }
+
     public void StartSelling() {
         for (int i = 0; i < 3; i++) {
             AddCharacterBlock(i);
