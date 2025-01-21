@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-15 22:51:49",
+    "CreationDate": "2025-01-21 22:19:21",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -575,6 +575,14 @@
             "SubType": "Hair_magical_swordman",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_magical_swordman"
+        },
+        {
+            "Name": "Hair_ShadowPriests_Temp",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_ShadowPriests_Temp",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_ShadowPriests_Temp"
         },
         {
             "Name": "Hair_VampHunter_Temp",
@@ -1337,30 +1345,6 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/1_FaceHair/FaceHair_5"
         },
         {
-            "Name": "Cloth_1",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Body",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_1"
-        },
-        {
-            "Name": "Cloth_1",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Left",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_1"
-        },
-        {
-            "Name": "Cloth_1",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Right",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_1"
-        },
-        {
             "Name": "Cloth_2",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -1729,6 +1713,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_뱀파이어 헌터_SPUM"
         },
         {
+            "Name": "Cloth_암흑사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_암흑사제"
+        },
+        {
+            "Name": "Cloth_암흑사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_암흑사제"
+        },
+        {
+            "Name": "Cloth_암흑사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_암흑사제"
+        },
+        {
             "Name": "Cloth_우드엘프_SPUM",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -2007,6 +2015,14 @@
             "SubType": "Helmet_성배기사",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_성배기사"
+        },
+        {
+            "Name": "Helmet_암흑사제",
+            "UnitType": "Unit",
+            "PartType": "Helmet",
+            "SubType": "Helmet_암흑사제",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/4_Helmet/Helmet_암흑사제"
         },
         {
             "Name": "Helmet_이단심판관",
@@ -2311,6 +2327,14 @@
             "SubType": "Spear_1",
             "PartSubType": "Spear",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_1"
+        },
+        {
+            "Name": "Spear_암흑사제",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Spear_암흑사제",
+            "PartSubType": "Spear",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_암흑사제"
         },
         {
             "Name": "Spear_이단심문관",
