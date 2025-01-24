@@ -6,80 +6,151 @@ using EnumTypes;
 using TMPro;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using AYellowpaper.SerializedCollections;
 
 public class SynergySystem : MonoBehaviour {
     #region private members
     private IGameManager _gameManager;
-    private Board _board;
+    [SerializeField] private CharacterBlockSystem characterBlockSystem;
+    [SerializeField] private EquipmentSystem equipmentSystem;
 
-    private Dictionary<SynergyTypes, int> _synergyDic = new Dictionary<SynergyTypes, int>();
+    [SerializeField] private SerializedDictionary<SynergyTypes, int> _synergyDic = 
+        new SerializedDictionary<SynergyTypes, int>();
 
     [SerializeField]
     private List<BaseSynergy> _allSynergyList = new List<BaseSynergy>();
 
     [SerializeField]
     private TMP_Text _synergyText;
+    
 
-    [SerializeField]
-    private float _delayPerSynergy = 1f;
     #endregion
 
     private void Awake() {
-        _gameManager = transform.parent.GetComponent<GameManager>();
-        _board = _gameManager.GetSystem<Board>();
 
-        _board.onPlaceUnit += UpdateSynergy;
+        // Subscribe to events
+        characterBlockSystem.OnPlace += HandleCharacterBlockPlace;
+        characterBlockSystem.OnUnplace += HandleCharacterBlockUnplace;
+        equipmentSystem.OnPlace += HandleEquipmentPlace;
+        equipmentSystem.OnUnplace += HandleEquipmentRemove;
+
 
         _allSynergyList = Resources.LoadAll<BaseSynergy>("Scriptable Objects/Synergy").ToList();
     }
 
-    public void UpdateSynergy() {
-        /*
-        Dictionary<SynergyTypes, int> synergyDic = new Dictionary<SynergyTypes, int>();
+    private void Start() {
+        _synergyText.richText = true;  // Rich Text 활성화
+        // ...existing code...
+    }
+    
+    private void HandleEquipmentPlace(Equipment equipment) {
+        foreach (SynergyTypes synergyType in equipment.SynergyDict.Keys) {
+            if (_synergyDic.ContainsKey(synergyType)) {
+                _synergyDic[synergyType] += equipment.SynergyDict[synergyType];
+            }
+            else if (synergyType != SynergyTypes.None) {
+                _synergyDic.Add(synergyType, equipment.SynergyDict[synergyType]);
+            }
+        }
+        DisplaySynergies();
+    }
 
-        List<UnitBlock> unitBlocks = new List<UnitBlock>();
-        unitBlocks = _gameManager.GetSystem<UnitBlockSystem>().UnitBlocks.ToList();
+    private void HandleEquipmentRemove(Equipment equipment) {
+        foreach (SynergyTypes synergyType in equipment.SynergyDict.Keys) {
+            if (_synergyDic.ContainsKey(synergyType)) {
+                _synergyDic[synergyType] -= equipment.SynergyDict[synergyType];
+            }
+        }
+        DisplaySynergies();
+    }
 
-        foreach (UnitBlock unitBlock in unitBlocks) {
-            foreach (SynergyTypes synergyType in unitBlock.Synergies) {
-                if (synergyDic.ContainsKey(synergyType)) {
-                    synergyDic[synergyType]++;
-                }
-                else if (synergyType != SynergyTypes.None) {
-                    synergyDic.Add(synergyType, 1);
-                }
+    private void HandleCharacterBlockPlace(CharacterBlock characterBlock) {
+        foreach (SynergyTypes synergyType in characterBlock.SynergyDict.Keys) {
+            if (_synergyDic.ContainsKey(synergyType)) {
+                _synergyDic[synergyType] += characterBlock.SynergyDict[synergyType];
+            }
+            else if (synergyType != SynergyTypes.None) {
+                _synergyDic.Add(synergyType, characterBlock.SynergyDict[synergyType]);
+            }
+        }
+        DisplaySynergies();
+    }
+
+    private void HandleCharacterBlockUnplace(CharacterBlock characterBlock) {
+        foreach (SynergyTypes synergyType in characterBlock.SynergyDict.Keys) {
+            if (_synergyDic.ContainsKey(synergyType)) {
+                _synergyDic[synergyType] -= characterBlock.SynergyDict[synergyType];
+            }
+        }
+        DisplaySynergies();
+    }
+
+    [Header("Synergy Display")]
+    [SerializeField] private GameObject _synergyDisplayPrefab;
+    [SerializeField] private Transform _displayContainer;
+    private Dictionary<SynergyTypes, SynergyDisplay> _synergyDisplays = new();
+    public void DisplaySynergies() {
+        // 새로운 시너지 디스플레이 생성 또는 업데이트
+        foreach (var synergy in _synergyDic) {
+            if (_synergyDisplays.TryGetValue(synergy.Key, out SynergyDisplay display)) {
+                display.UpdateDisplay(synergy.Value);
+            }
+            else {
+                SynergyDisplay newDisplay = CreateSynergyDisplay(FindSynergy(synergy.Key));
+                newDisplay.UpdateDisplay(synergy.Value);
             }
         }
 
-        _synergyDic = synergyDic;
+        // 제거할 시너지들을 리스트에 저장
+        List<SynergyTypes> synergiesToRemove = new List<SynergyTypes>();
+        foreach (var synergy in _synergyDisplays) {
+            if (!_synergyDic.ContainsKey(synergy.Key) || _synergyDic[synergy.Key] <= 0) {
+                synergiesToRemove.Add(synergy.Key);
+            }
+        }
 
-        DisplaySynergies();
-        */
+        // 저장된 리스트를 순회하며 시너지 제거
+        foreach (var synergyType in synergiesToRemove) {
+            if (_synergyDisplays.TryGetValue(synergyType, out SynergyDisplay display)) {
+                Destroy(display.gameObject);
+                _synergyDisplays.Remove(synergyType);
+            }
+        }
+
+        ArrangeSynergyDisplays();
     }
 
-
-    private void DisplaySynergies() {
-        _synergyText.text = "Synergies: ";
-        _synergyText.text += System.Environment.NewLine;
-
-        foreach (SynergyTypes synergyTypes in _synergyDic.Keys) {
-            _synergyText.text += $"{synergyTypes} : {_synergyDic[synergyTypes]}";
-            _synergyText.text += System.Environment.NewLine;
+    private void ArrangeSynergyDisplays() {
+        float y = 300;
+        float yOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.height + 5;
+        foreach (var synergy in _synergyDisplays) {
+            synergy.Value.transform.localPosition = new Vector3(0, y, 0);
+            Debug.Log("y: " + y);
+            y -= yOffset;
         }
     }
 
-    public async UniTask OnBattleBeginEffects(TurnContext turnContext) {
+    private SynergyDisplay CreateSynergyDisplay(BaseSynergy synergy) {
+        GameObject displayObj = Instantiate(_synergyDisplayPrefab, _displayContainer);
+        SynergyDisplay display = displayObj.GetComponent<SynergyDisplay>();
+        display.Init(synergy.SynergyType, synergy);
+        _synergyDisplays[synergy.SynergyType] = display;
+
+        return display;
+    }
+
+    public void OnBattleBeginEffects() {
         List<BaseSynergy> synergies = FindActivatedSynergies(_synergyDic.Keys.ToList());
+        TurnContext turnContext = _gameManager.CreateTurnContext();
 
         foreach (BaseSynergy synergy in synergies) {
-            await UniTask.WaitForSeconds(_delayPerSynergy);
-
             synergy.OnBattleBegin(turnContext, _synergyDic[synergy.SynergyType]);
         }
     }
 
-    public void OnTimePass(TurnContext turnContext) {
+    public void OnTimePass() {
         List<BaseSynergy> synergies = FindActivatedSynergies(_synergyDic.Keys.ToList());
+        TurnContext turnContext = _gameManager.CreateTurnContext();
 
         foreach (BaseSynergy synergy in synergies) {
             synergy.CoolDownCount += Time.deltaTime;

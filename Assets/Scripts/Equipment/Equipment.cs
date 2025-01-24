@@ -26,6 +26,7 @@ public class Equipment : MonoBehaviour, IItem {
     public Stat Stat { get => Config.Stat; }
     public SerializedDictionary<SynergyTypes, int> SynergyDict { get => Config.SynergyDict; }
     public Sprite Sprite { get => _sprite; }
+    public bool IsPlaced { get => _isPlaced; }
 
     #region Init
     public void Init(EquipmentConfig config) {

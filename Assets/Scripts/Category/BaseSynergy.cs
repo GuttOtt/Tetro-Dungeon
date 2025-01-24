@@ -12,6 +12,9 @@ public class BaseSynergy: ScriptableObject {
     protected float _synergyValue;
     [SerializeField]
     private float _coolTime = 0f;
+    [SerializeField] public List<int> synergyCountThresholds;
+    [TextArea(3, 10)]
+    [SerializeField] public string description;
 
     private float _coolDownCount = 0f;
 

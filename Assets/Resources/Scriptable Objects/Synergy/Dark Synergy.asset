@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d21dc9b23ddc044ae87ea82f8dc74e, type: 3}
+  m_Name: Dark Synergy
+  m_EditorClassIdentifier: 
+  _synergyType: 4
+  _minSynergyCount: 5
+  _synergyValue: 0
+  _coolTime: 0
+  synergyCountThresholds: 050000000a0000000f000000
+  description: "\uC5B4\uB460\n\n\uC544\uAD70 \uC720\uB2DB\uC774 \uACF5\uACA9 \uC2DC,
+    \uC77C\uC815 \uD655\uB960\uB85C \uC801\uC5D0\uAC8C \uACF5\uD3EC \uB514\uBC84\uD504\uB97C
+    \uC801\uC6A9\uD569\uB2C8\uB2E4. \uACF5\uD3EC\uC5D0 \uAC78\uB9B0 \uC801\uC740
+    \uB2E4\uC74C \uD589\uB3D9 \uC2DC \uD574\uB2F9 \uC720\uB2DB\uC73C\uB85C\uBD80\uD130
+    \uD55C \uCE78 \uBB3C\uB7EC\uB0A9\uB2C8\uB2E4.\n\n(5) 5% \uD655\uB960\uB85C \uACF5\uD3EC
+    \uBD80\uC5EC\n(10) 10% \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC\n(15) 15%
+    \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC"

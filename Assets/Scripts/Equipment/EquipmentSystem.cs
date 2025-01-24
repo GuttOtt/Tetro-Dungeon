@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ public class EquipmentSystem : MonoBehaviour {
     [SerializeField] private ShopSystem _shopSystem;
 
     private bool _isInputOn = true;
+
+    public Action<Equipment> OnPlace;
+    public Action<Equipment> OnUnplace;
 
     void Update() {
         Select();
@@ -47,6 +51,7 @@ public class EquipmentSystem : MonoBehaviour {
         //Locate in characterBlock
         Vector2Int location = data.Location;
         newEquipment.Place(characterBlock, location);
+        OnPlace?.Invoke(newEquipment);
 
 
         return newEquipment;
@@ -74,7 +79,10 @@ public class EquipmentSystem : MonoBehaviour {
 
         //마커 보이게
         _selectedEquipment.SetMarkersOn(true);
-
+        
+        //Unplace
+        if (selectedEquipment.IsPlaced)
+            OnUnplace?.Invoke(selectedEquipment);
         selectedEquipment.Unplace();
     }
 
@@ -143,6 +151,7 @@ public class EquipmentSystem : MonoBehaviour {
         if (_selectedEquipment.IsPlacable()) {
             _selectedEquipment.Place();
             _inventorySystem.Remove(_selectedEquipment);
+            OnPlace?.Invoke(_selectedEquipment);
             return true;
         }
         else {
@@ -162,5 +171,9 @@ public class EquipmentSystem : MonoBehaviour {
             return;
 
         _selectedEquipment.Spin(isClockwise);
+    }
+
+    public void UnplaceOnBoard(Equipment equipment) {
+        OnUnplace?.Invoke(equipment);
     }
 }

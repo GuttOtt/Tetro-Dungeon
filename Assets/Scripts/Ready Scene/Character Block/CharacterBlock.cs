@@ -1,5 +1,7 @@
 using Array2DEditor;
+using AYellowpaper.SerializedCollections;
 using Cysharp.Threading.Tasks.Triggers;
+using EnumTypes;
 using Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +36,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
         }
     }
     public int LevelUpCost { get => CurrentLevel + 4; }
+    public SerializedDictionary<SynergyTypes, int> SynergyDict { get => _config.GetSynergyDict(_level); }
     
 
     //Serialized Fields

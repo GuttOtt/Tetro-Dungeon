@@ -44,6 +44,9 @@ public class CharacterBlockConfig : ScriptableObject
     public Vector2Int GetCenterIndex(int lvl) {
         return Shapes[lvl-1].CenterIndex;
     }
+    public SerializedDictionary<SynergyTypes, int> GetSynergyDict(int lvl) {
+        return Shapes[lvl-1].SynergyDic;
+    }
 }
 
 [Serializable]
@@ -52,6 +55,7 @@ public class LevelShapePair
     public int Level;
     public Array2DBool Shape;
     public Vector2Int CenterIndex;
+    public SerializedDictionary<SynergyTypes, int> SynergyDic;
 
     public LevelShapePair() {
         Level = 0;

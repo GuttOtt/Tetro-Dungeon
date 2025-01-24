@@ -25,6 +25,12 @@ MonoBehaviour:
       - row: 000101
       - row: 000000
     CenterIndex: {x: 1, y: 1}
+    SynergyDic:
+      _serializedList:
+      - Key: 5
+        Value: 3
+      - Key: 1
+        Value: 1
   - Level: 2
     Shape:
       gridSize: {x: 3, y: 3}
@@ -34,6 +40,8 @@ MonoBehaviour:
       - row: 000101
       - row: 000100
     CenterIndex: {x: 1, y: 1}
+    SynergyDic:
+      _serializedList: []
   - Level: 3
     Shape:
       gridSize: {x: 3, y: 3}
@@ -43,6 +51,10 @@ MonoBehaviour:
       - row: 000101
       - row: 000101
     CenterIndex: {x: 1, y: 1}
+    SynergyDic:
+      _serializedList:
+      - Key: 5
+        Value: 0
   - Level: 4
     Shape:
       gridSize: {x: 3, y: 4}
@@ -53,6 +65,8 @@ MonoBehaviour:
       - row: 000101
       - row: 000100
     CenterIndex: {x: 1, y: 1}
+    SynergyDic:
+      _serializedList: []
   - Level: 5
     Shape:
       gridSize: {x: 3, y: 4}
@@ -63,6 +77,8 @@ MonoBehaviour:
       - row: 000101
       - row: 000101
     CenterIndex: {x: 1, y: 1}
+    SynergyDic:
+      _serializedList: []
   SPUM_Prefabs: {fileID: 3861913456753963883, guid: 660108a2b05b4694f9af4ddf20511935, type: 3}
   _stat:
     _maxHP: 500
