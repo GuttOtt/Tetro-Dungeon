@@ -1,6 +1,7 @@
 using Assets.Scripts;
 using AYellowpaper.SerializedCollections.Editor.Data;
 using Cysharp.Threading.Tasks.Triggers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
@@ -20,6 +21,9 @@ public class CharacterBlockSystem : MonoBehaviour {
     [SerializeField] private SimpleMonoButton _levelUpButton;
 
     private bool _isInputOn = true;
+
+    public event Action<CharacterBlock> OnPlace;
+    public event Action<CharacterBlock> OnUnplace;
 
 
     void Update() {
@@ -54,6 +58,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         }
 
         characterBlock.Unplace();
+        OnUnplace?.Invoke(characterBlock);
         _inventorySystem.Remove(characterBlock);
         
         //Get Data
@@ -104,6 +109,7 @@ public class CharacterBlockSystem : MonoBehaviour {
             Cell centerCell = _board.GetCell(centerCellIndex.x, centerCellIndex.y);
 
             newBlock.Place(centerCell);
+            OnPlace?.Invoke(newBlock);
         }
 
         //Equipments
@@ -144,6 +150,12 @@ public class CharacterBlockSystem : MonoBehaviour {
         selectedBlock.ChangeEquipmentSortingLayer(draggingEquipmentLayerID);
 
         //Unplace
+        if (selectedBlock.IsPlaced) {
+            OnUnplace?.Invoke(selectedBlock);
+            foreach(Equipment equipment in selectedBlock.Equipments) {
+                _equipmentSystem.UnplaceOnBoard(equipment);
+            }
+        }
         selectedBlock.Unplace();
     }
 
@@ -225,6 +237,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         if (block.IsPlacable()) {
             block.Place();
             _inventorySystem.Remove(block);
+            OnPlace?.Invoke(block);
             return true;
         }
         else {
