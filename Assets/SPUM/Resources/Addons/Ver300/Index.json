@@ -2,7 +2,7 @@
     "Name": "Ver300",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-21 22:19:21",
+    "CreationDate": "2025-01-24 22:39:38",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -210,6 +210,30 @@
             "SubType": "New_Hair_20",
             "PartSubType": "",
             "Path": "Addons/Ver300/0_Unit/0_Sprite/2_Hair/New_Hair_20"
+        },
+        {
+            "Name": "New_Cloth_ 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_ 1"
+        },
+        {
+            "Name": "New_Cloth_ 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_ 1"
+        },
+        {
+            "Name": "New_Cloth_ 1",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_ 1"
         },
         {
             "Name": "New_Cloth_01",
@@ -436,30 +460,6 @@
             "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_10"
         },
         {
-            "Name": "New_Cloth_11",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Body",
-            "PartSubType": "",
-            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_11"
-        },
-        {
-            "Name": "New_Cloth_11",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Left",
-            "PartSubType": "",
-            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_11"
-        },
-        {
-            "Name": "New_Cloth_11",
-            "UnitType": "Unit",
-            "PartType": "Cloth",
-            "SubType": "Right",
-            "PartSubType": "",
-            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_11"
-        },
-        {
             "Name": "New_Cloth_12",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -482,6 +482,30 @@
             "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_12"
+        },
+        {
+            "Name": "New_Cloth_마력포격수",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_마력포격수"
+        },
+        {
+            "Name": "New_Cloth_마력포격수",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_마력포격수"
+        },
+        {
+            "Name": "New_Cloth_마력포격수",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_마력포격수"
         },
         {
             "Name": "New_Helmet_01",
