@@ -30,7 +30,7 @@ public class SwordSynergy : BaseSynergy {
         // 각 유닛에게 공격력 버프 적용
         foreach (IUnit unit in playerUnits) {
             BaseUnit baseUnit = unit as BaseUnit;
-            if (baseUnit != null) {
+            if (baseUnit != null && baseUnit.SynergyDict.ContainsKey(_synergyType)) {
                 StatBuffStatus statBuffStatus = StatusFactory.CreateStatus(_statBuffStatusConfig) as StatBuffStatus;
                 statBuffStatus.SetPercentageStatBuff(statPercentageToBuff);
                 StatusApplicationContext context = new StatusApplicationContext(baseUnit, null);
@@ -39,6 +39,6 @@ public class SwordSynergy : BaseSynergy {
             }
         }
 
-        Debug.Log($"아군 전체에게 공격력 {attackPercent}% 증가 버프 적용!");
+        Debug.Log($"아군 검사 전원에게 공격력 {attackPercent}% 증가 버프 적용!");
     }
 }
