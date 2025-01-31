@@ -17,6 +17,8 @@ public class EquipmentSystem : MonoBehaviour {
 
     public Action<Equipment> OnPlace;
     public Action<Equipment> OnUnplace;
+    public Action<Equipment> OnPlaceOnBoard;
+    public Action<Equipment> OnUnplaceFromBoard;
 
     void Update() {
         Select();
@@ -52,6 +54,9 @@ public class EquipmentSystem : MonoBehaviour {
         Vector2Int location = data.Location;
         newEquipment.Place(characterBlock, location);
         OnPlace?.Invoke(newEquipment);
+        if (characterBlock.IsPlaced) {
+            OnPlaceOnBoard?.Invoke(newEquipment);
+        }
 
 
         return newEquipment;
@@ -81,8 +86,12 @@ public class EquipmentSystem : MonoBehaviour {
         _selectedEquipment.SetMarkersOn(true);
         
         //Unplace
-        if (selectedEquipment.IsPlaced)
+        if (selectedEquipment.IsPlaced) {
+            if (selectedEquipment.CharacterBlock.IsPlaced){
+                OnUnplaceFromBoard?.Invoke(selectedEquipment);
+            }
             OnUnplace?.Invoke(selectedEquipment);
+        }
         selectedEquipment.Unplace();
     }
 
@@ -152,6 +161,9 @@ public class EquipmentSystem : MonoBehaviour {
             _selectedEquipment.Place();
             _inventorySystem.Remove(_selectedEquipment);
             OnPlace?.Invoke(_selectedEquipment);
+            if (_selectedEquipment.CharacterBlock.IsPlaced) {
+                OnPlaceOnBoard?.Invoke(_selectedEquipment);
+            }
             return true;
         }
         else {
@@ -173,7 +185,11 @@ public class EquipmentSystem : MonoBehaviour {
         _selectedEquipment.Spin(isClockwise);
     }
 
-    public void UnplaceOnBoard(Equipment equipment) {
-        OnUnplace?.Invoke(equipment);
+    public void PlaceOnBoard(Equipment equipment) {
+        OnPlaceOnBoard?.Invoke(equipment);
+    }
+
+    public void UnplaceFromBoard(Equipment equipment) {
+        OnUnplaceFromBoard?.Invoke(equipment);
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using EnumTypes;
@@ -51,6 +52,7 @@ public class StatusConfig: ScriptableObject {
 }
 
 
+[Serializable]
 public abstract class Status {
     private string _name;
     private string _description;

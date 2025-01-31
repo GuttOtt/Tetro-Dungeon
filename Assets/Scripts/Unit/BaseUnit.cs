@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using System.Reflection;
+using AYellowpaper.SerializedCollections;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -22,12 +23,12 @@ public class BaseUnit : MonoBehaviour, IUnit
     private float _speed;
     private float _actionCoolDown;
 
-    private List<SynergyValuePair> _synergies;
-
     protected Projectile _projectilePrefab;
 
     [SerializeField] private CharacterTypes _owner;
     [SerializeField] private UnitDrawer _unitDrawer;
+
+    private SerializedDictionary<SynergyTypes, int> _synergyDict = new SerializedDictionary<SynergyTypes, int>();
     #endregion
 
     #region Properties
@@ -180,8 +181,9 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
     }
 
-    public List<SynergyValuePair> Synergies { get => _synergies; }
     public bool IsActionCoolDown { get => _actionCoolDown <= (1/Speed); }
+
+    public SerializedDictionary<SynergyTypes, int> SynergyDict { get => _synergyDict; }
     #endregion
 
 
@@ -245,7 +247,6 @@ public class BaseUnit : MonoBehaviour, IUnit
         _owner = owner;
 
         //Synergies
-        //_synergies = config.Synergies;
 
         //Projectile
         /*
@@ -285,7 +286,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //Stats
-        Stat stat = config.Stat;
+        Stat stat = characterBlock.Stat;
         _maxHP = stat.MaxHP;
         _currentHP = stat.MaxHP;
         _attack = stat.Attack;
@@ -310,7 +311,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         _owner = owner;
 
         //Synergies
-        //_synergies = config.Synergies;
+        _synergyDict = characterBlock.SynergyDict;
 
         //Projectile
         /*
@@ -645,7 +646,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     #region Status
-    private List<Status> _statuses = new List<Status>();
+    [SerializeField] private List<Status> _statuses = new List<Status>();
 
     public void GrantStatus(Status status, StatusApplicationContext context) {
         if (GetStatus(status.Name) == null) {

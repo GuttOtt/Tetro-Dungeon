@@ -21,3 +21,12 @@ MonoBehaviour:
     \uAC80\uC0AC \uC720\uB2DB\uC758 \uACF5\uACA9\uB825\uC774 10% \uC0C1\uC2B9\uD569\uB2C8\uB2E4.\n(10)
     \uAC80\uC0AC \uC720\uB2DB\uC758 \uACF5\uACA9\uB825\uC774 20% \uC0C1\uC2B9\uD569\uB2C8\uB2E4.\n(15)
     \uAC80\uC0AC \uC720\uB2DB\uC758 \uACF5\uACA9\uB825\uC774 30% \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+  _attackPercentPerSynergyCount:
+    _serializedList:
+    - Key: 5
+      Value: 10
+    - Key: 10
+      Value: 20
+    - Key: 15
+      Value: 30
+  _statBuffStatusConfig: {fileID: 11400000, guid: a4f3e60d326d65b408ccaa53cdbf8a9c, type: 2}

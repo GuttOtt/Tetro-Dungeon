@@ -22,3 +22,12 @@ MonoBehaviour:
     \uC8FC\uBB38\uB825\uC774 10% \uC0C1\uC2B9\uD569\uB2C8\uB2E4.\n(10) \uB9C8\uBC95\uC0AC
     \uC720\uB2DB\uC758 \uC8FC\uBB38\uB825\uC774 20% \uC0C1\uC2B9\uD569\uB2C8\uB2E4.\n(15)
     \uB9C8\uBC95\uC0AC \uC720\uB2DB\uC758 \uC8FC\uBB38\uB825\uC774 30% \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
+  _spellPowerPercentPerSynergyCount:
+    _serializedList:
+    - Key: 5
+      Value: 10
+    - Key: 10
+      Value: 20
+    - Key: 15
+      Value: 30
+  _statBuffStatusConfig: {fileID: 11400000, guid: 30a7f114adec299498d3fee4fe838613, type: 2}

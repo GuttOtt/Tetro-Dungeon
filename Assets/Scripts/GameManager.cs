@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
             Destroy(block.gameObject);
         }
+
+        Debug.Log($"현재 보드의 모든 플레이어 유닛: {_board.GetUnits(CharacterTypes.Player).Count}");
     }
 
     private void PlaceEnemyUnits() {

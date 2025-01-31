@@ -35,4 +35,7 @@ public class StatBuffStatus : Status {
         unit.GainStat(-_buffedStat);
     }
 
+    public void SetPercentageStatBuff(Stat percentageStat) {
+        _percentStatBuff = percentageStat;
+    }
 }
