@@ -103,7 +103,7 @@ public class GrantStatusSkill : UnitSkill {
         switch (TargetType) {
             case TargetTypes.AttackTarget:
                 if (attackTarget == null) {
-                    Debug.LogError("Target is null.");
+                    Debug.LogWarning("Target is null.");
                 }
                 targets.Add(attackTarget);
                 break;

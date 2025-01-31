@@ -614,6 +614,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     {
         CurrentHP = Mathf.Min(CurrentHP + amount, MaxHP);
         Debug.Log($"Take Heal. CurrentHP: {CurrentHP}");
+        _unitDrawer.DisplayHealText(amount);
     }
 
     public void TakeHeal(TurnContext turnContext, float ratio) {

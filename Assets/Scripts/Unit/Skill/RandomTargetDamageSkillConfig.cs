@@ -90,6 +90,10 @@ public class RandomTargetDamageSkill : UnitSkill {
     }
 
     private List<BaseUnit> GetTargets(Board board, BaseUnit activator) {
+        if (board.GetUnits(activator.Owner.Opponent()).Count == 0) {
+            return new List<BaseUnit>();
+        }
+
         List<BaseUnit> targets = new List<BaseUnit>();
 
         for (int i = 0; i < _targetAmount; i++) {
@@ -102,6 +106,11 @@ public class RandomTargetDamageSkill : UnitSkill {
 
     private BaseUnit GetTarget(Board board, BaseUnit activator) {
         List<IUnit> opponentUnits = board.GetUnits(activator.Owner.Opponent());
+
+        if (opponentUnits.Count == 0) {
+            return null;
+        }
+
         //Pick Random unit from opponentUnits
         IUnit iUnit = opponentUnits[Random.Range(0, opponentUnits.Count)];
         return iUnit as BaseUnit;

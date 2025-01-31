@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: Light Synergy
   m_EditorClassIdentifier: 
   _synergyType: 5
-  _minSynergyCount: 10
+  _minSynergyCount: 5
   _synergyValue: 0
-  _coolTime: 5
+  _coolTime: 1
   synergyCountThresholds: 050000000a0000000f000000
-  description: "\uC2E0\uC131\n\n5\uCD08\uB9C8\uB2E4 \uC544\uAD70 \uC720\uB2DB \uC804\uC6D0\uC758
+  description: "\uC2E0\uC131\n\n\uB9E4\uCD08 \uC544\uAD70 \uC720\uB2DB \uC804\uC6D0\uC758
     \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n\n(5) \uCD5C\uB300 \uCCB4\uB825\uC758
-    5%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n(10) \uCD5C\uB300 \uCCB4\uB825\uC758
-    10%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n(15) \uCD5C\uB300 \uCCB4\uB825\uC758
-    20%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    1%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n(10) \uCD5C\uB300 \uCCB4\uB825\uC758
+    2%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n(15) \uCD5C\uB300 \uCCB4\uB825\uC758
+    3%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   _healPercentPerSynergyCount:
     _serializedList:
     - Key: 5
-      Value: 5
+      Value: 1
     - Key: 10
-      Value: 10
+      Value: 2
     - Key: 15
-      Value: 20
+      Value: 3
