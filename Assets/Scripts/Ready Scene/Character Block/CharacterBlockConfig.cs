@@ -17,6 +17,7 @@ public class CharacterBlockConfig : ScriptableObject
     public int MaxLevel { get => Shapes.Length; }
 
     public SPUM_Prefabs SPUM_Prefabs;
+    public Animator Animator_Prefabs;
 
 
     #region Stats

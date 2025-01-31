@@ -19,6 +19,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public UnitConfig _config;
     public CharacterBlockConfig _characterBlockConfig;
     private UnitSPUMControl _spumControl;
+    private UnitAnimation unitAnimation;
     
     private float _speed;
     private float _actionCoolDown;
@@ -200,22 +201,33 @@ public class BaseUnit : MonoBehaviour, IUnit
         _unitDrawer = GetComponent<UnitDrawer>();
         _unitDrawer.Draw(config);
 
-        //Spum
-        if (config.SPUM_Prefabs != null) {
-            if (_spumControl == null) {
-                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
-            }
-            SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
-            _spumControl.SetSPUM(spum);
+        //Animation
+        unitAnimation = gameObject.AddComponent<UnitAnimation>();
 
-            //????? ???? ????
+        if (config.SPUM_Prefabs != null) {
+            SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
+            unitAnimation.InitBySPUM(spum);
+
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
                 spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
             }
 
-            //??? ???. Sprite Renderer?? ???? SPUM???? ?????? ??????? ??.
             GetComponent<SpriteRenderer>().sprite = null;
+        }
+        else if (config.Animator_Prefabs != null) {
+            Animator animator = Instantiate(config.Animator_Prefabs, gameObject.transform);
+            unitAnimation.InitByAnimator(animator);
+
+            animator.transform.localPosition = new Vector3(0, 0f, -1);
+            if (owner != CharacterTypes.Player) {
+                animator.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            }
+
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+        else {
+            Debug.LogError("SPUM과 Animator 중 하나는 반드시 있어야 합니다.");
         }
 
         //Stats
@@ -269,13 +281,12 @@ public class BaseUnit : MonoBehaviour, IUnit
         _unitDrawer = GetComponent<UnitDrawer>();
         _unitDrawer.Draw(config);
 
-        //Spum
+        //Animation
+        unitAnimation = gameObject.AddComponent<UnitAnimation>();
+
         if (config.SPUM_Prefabs != null) {
-            if (_spumControl == null) {
-                _spumControl = gameObject.AddComponent<UnitSPUMControl>();
-            }
             SPUM_Prefabs spum = Instantiate(config.SPUM_Prefabs, gameObject.transform);
-            _spumControl.SetSPUM(spum);
+            unitAnimation.InitBySPUM(spum);
 
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
             if (owner == CharacterTypes.Player) {
@@ -283,6 +294,20 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
 
             GetComponent<SpriteRenderer>().sprite = null;
+        }
+        else if (config.Animator_Prefabs != null) {
+            Animator animator = Instantiate(config.Animator_Prefabs, gameObject.transform);
+            unitAnimation.InitByAnimator(animator);
+
+            animator.transform.localPosition = new Vector3(0, 0, -1);
+            if (owner != CharacterTypes.Player) {
+                animator.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            }
+
+            GetComponent<SpriteRenderer>().sprite = null;
+        }
+        else {
+            Debug.LogError("SPUM과 Animator 중 하나는 반드시 있어야 합니다.");
         }
 
         //Stats
@@ -411,10 +436,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         //Transform 이동
         var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, 2f);
         tween.OnStart(() =>
-            _spumControl?.ChangeState(PlayerState.MOVE)
+            unitAnimation?.ChangeState(PlayerState.MOVE)
         );
         tween.OnComplete(() =>
-            _spumControl?.ChangeState(PlayerState.IDLE)
+            unitAnimation?.ChangeState(PlayerState.IDLE)
         );
     }
 
@@ -506,9 +531,9 @@ public class BaseUnit : MonoBehaviour, IUnit
 
 
         //애니메이션
-        if (_spumControl != null) {
-            _spumControl.PlayAttackAnimation(mainTarget);
-            await UniTask.WaitUntil(() => _spumControl.IsCurrentAnimationTimePassed(0.85f));
+        if (unitAnimation != null) {
+            unitAnimation.PlayAttackAnimation(mainTarget);
+            await UniTask.WaitUntil(() => unitAnimation.IsCurrentAnimationTimePassed(0.85f));
         }
 
         //스킬 발동

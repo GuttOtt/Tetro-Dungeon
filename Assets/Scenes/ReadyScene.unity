@@ -1575,6 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b174c01e03229a8408473eed6d41bdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleSystem: {fileID: 0}
   characterBlockSystem: {fileID: 1386957424}
   equipmentSystem: {fileID: 748715679}
   _synergyDic:

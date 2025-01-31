@@ -54,9 +54,6 @@ public class UnitSPUMControl : MonoBehaviour
 
     }
 
-    public void PlayStateAnimation(PlayerState state) {
-        _prefabs.PlayAnimation(state, IndexPair[state]);
-    }
 
     public bool IsCurrentAnimationTimePassed(float time = 1f) {
         if (_prefabs._anim == null) {
@@ -64,5 +61,9 @@ public class UnitSPUMControl : MonoBehaviour
         }
 
         return _prefabs._anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= time;
+    }
+    
+    private void PlayStateAnimation(PlayerState state) {
+        _prefabs.PlayAnimation(state, IndexPair[state]);
     }
 }
