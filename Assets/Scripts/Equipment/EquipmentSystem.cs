@@ -54,6 +54,9 @@ public class EquipmentSystem : MonoBehaviour {
         Vector2Int location = data.Location;
         newEquipment.Place(characterBlock, location);
         OnPlace?.Invoke(newEquipment);
+        if (characterBlock.IsPlaced) {
+            OnPlaceOnBoard?.Invoke(newEquipment);
+        }
 
 
         return newEquipment;
