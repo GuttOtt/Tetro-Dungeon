@@ -12,7 +12,7 @@ public class Equipment : MonoBehaviour, IItem {
     private List<BlockPart_Equipment> _blockParts = new List<BlockPart_Equipment>();
     [SerializeField] private int _spinDegree;
     private bool _isPlaced;
-    private CharacterBlock _characterBlock;
+    [SerializeField]private CharacterBlock _characterBlock;
     private Vector2Int _locationInCharacter;
     private Sprite _sprite;
     
@@ -27,6 +27,7 @@ public class Equipment : MonoBehaviour, IItem {
     public SerializedDictionary<SynergyTypes, int> SynergyDict { get => Config.SynergyDict; }
     public Sprite Sprite { get => _sprite; }
     public bool IsPlaced { get => _isPlaced; }
+    public CharacterBlock CharacterBlock { get => _characterBlock; }
 
     #region Init
     public void Init(EquipmentConfig config) {

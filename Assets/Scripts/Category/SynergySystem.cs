@@ -31,8 +31,8 @@ public class SynergySystem : MonoBehaviour {
         // Subscribe to events
         characterBlockSystem.OnPlace += HandleCharacterBlockPlace;
         characterBlockSystem.OnUnplace += HandleCharacterBlockUnplace;
-        equipmentSystem.OnPlace += HandleEquipmentPlace;
-        equipmentSystem.OnUnplace += HandleEquipmentRemove;
+        equipmentSystem.OnPlaceOnBoard += HandleEquipmentPlace;
+        equipmentSystem.OnUnplaceFromBoard += HandleEquipmentRemove;
 
 
         _allSynergyList = Resources.LoadAll<BaseSynergy>("Scriptable Objects/Synergy").ToList();
@@ -44,6 +44,10 @@ public class SynergySystem : MonoBehaviour {
     }
     
     private void HandleEquipmentPlace(Equipment equipment) {
+        if (!equipment.CharacterBlock.IsPlaced) {
+            return;
+        }
+
         foreach (SynergyTypes synergyType in equipment.SynergyDict.Keys) {
             if (_synergyDic.ContainsKey(synergyType)) {
                 _synergyDic[synergyType] += equipment.SynergyDict[synergyType];
@@ -56,6 +60,10 @@ public class SynergySystem : MonoBehaviour {
     }
 
     private void HandleEquipmentRemove(Equipment equipment) {
+        if (!equipment.CharacterBlock.IsPlaced) {
+            return;
+        }
+
         foreach (SynergyTypes synergyType in equipment.SynergyDict.Keys) {
             if (_synergyDic.ContainsKey(synergyType)) {
                 _synergyDic[synergyType] -= equipment.SynergyDict[synergyType];

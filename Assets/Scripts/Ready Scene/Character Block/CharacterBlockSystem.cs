@@ -153,7 +153,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         if (selectedBlock.IsPlaced) {
             OnUnplace?.Invoke(selectedBlock);
             foreach(Equipment equipment in selectedBlock.Equipments) {
-                _equipmentSystem.UnplaceOnBoard(equipment);
+                _equipmentSystem.UnplaceFromBoard(equipment);
             }
         }
         selectedBlock.Unplace();
@@ -238,6 +238,10 @@ public class CharacterBlockSystem : MonoBehaviour {
             block.Place();
             _inventorySystem.Remove(block);
             OnPlace?.Invoke(block);
+
+            foreach(Equipment equipment in block.Equipments) {
+                _equipmentSystem.PlaceOnBoard(equipment);
+            }
             return true;
         }
         else {
