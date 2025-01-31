@@ -39,7 +39,7 @@ public class UnitStatusDrawer : MonoBehaviour {
 
         statusImage.sprite = status.IconSprite;
         statusImage.rectTransform.sizeDelta = _statusImageSize;
-        statusImage.transform.parent = _canvas.transform;
+        statusImage.transform.SetParent(_canvas.transform);
         statusImage.transform.localScale = new Vector3(1, 1, 1);
 
         _statusImages.Add(statusImage);

@@ -300,7 +300,7 @@ public class Board : MonoBehaviour
     public List<IUnit> GetUnits(CharacterTypes chracterType) {
         return unitDic[chracterType].ToList();
     }
-
+    
     /// <summary>
     /// center Cell을 기준으로 가장 가까운 characterType 유닛을 반환
     /// maxDistance는 체크하는 최대 거리

@@ -81,8 +81,6 @@ public class Stat {
         );
     }
 
-    
-
     public Stat DeepCopy() {
         return new Stat(_maxHP, _attack, _spellPower, _defence, _spellDefence, _speed, _range);
     }

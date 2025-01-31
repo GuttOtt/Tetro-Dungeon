@@ -10,7 +10,7 @@ using AYellowpaper.SerializedCollections;
 
 public class SynergySystem : MonoBehaviour {
     #region private members
-    private IGameManager _gameManager;
+    [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private CharacterBlockSystem characterBlockSystem;
     [SerializeField] private EquipmentSystem equipmentSystem;
 
@@ -33,6 +33,11 @@ public class SynergySystem : MonoBehaviour {
         characterBlockSystem.OnUnplace += HandleCharacterBlockUnplace;
         equipmentSystem.OnPlaceOnBoard += HandleEquipmentPlace;
         equipmentSystem.OnUnplaceFromBoard += HandleEquipmentRemove;
+
+        if (battleSystem != null) {
+            battleSystem.OnBattleBegin += OnBattleBeginEffects;
+            battleSystem.OnTimePass += OnTimePass;
+        }
 
 
         _allSynergyList = Resources.LoadAll<BaseSynergy>("Scriptable Objects/Synergy").ToList();
@@ -133,7 +138,6 @@ public class SynergySystem : MonoBehaviour {
         float yOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.height + 5;
         foreach (var synergy in _synergyDisplays) {
             synergy.Value.transform.localPosition = new Vector3(0, y, 0);
-            Debug.Log("y: " + y);
             y -= yOffset;
         }
     }
@@ -148,8 +152,8 @@ public class SynergySystem : MonoBehaviour {
     }
 
     public void OnBattleBeginEffects() {
-        List<BaseSynergy> synergies = FindActivatedSynergies(_synergyDic.Keys.ToList());
-        TurnContext turnContext = _gameManager.CreateTurnContext();
+        List<BaseSynergy> synergies = FindActivatedSynergies();
+        TurnContext turnContext = TurnContextGenerator.Instance.GenerateTurnContext();
 
         foreach (BaseSynergy synergy in synergies) {
             synergy.OnBattleBegin(turnContext, _synergyDic[synergy.SynergyType]);
@@ -157,8 +161,8 @@ public class SynergySystem : MonoBehaviour {
     }
 
     public void OnTimePass() {
-        List<BaseSynergy> synergies = FindActivatedSynergies(_synergyDic.Keys.ToList());
-        TurnContext turnContext = _gameManager.CreateTurnContext();
+        List<BaseSynergy> synergies = FindActivatedSynergies();
+        TurnContext turnContext = TurnContextGenerator.Instance.GenerateTurnContext();
 
         foreach (BaseSynergy synergy in synergies) {
             synergy.CoolDownCount += Time.deltaTime;
@@ -197,7 +201,7 @@ public class SynergySystem : MonoBehaviour {
         return synergies;
     }
 
-    private List<BaseSynergy> FindActivatedSynergies(List<SynergyTypes> synergyTypes) {
+    private List<BaseSynergy> FindActivatedSynergies() {
         List<BaseSynergy> synergies = new List<BaseSynergy>();
 
         foreach (SynergyTypes synergyType in _synergyDic.Keys) {

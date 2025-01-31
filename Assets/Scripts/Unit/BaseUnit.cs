@@ -645,7 +645,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     #region Status
-    private List<Status> _statuses = new List<Status>();
+    [SerializeField] private List<Status> _statuses = new List<Status>();
 
     public void GrantStatus(Status status, StatusApplicationContext context) {
         if (GetStatus(status.Name) == null) {
