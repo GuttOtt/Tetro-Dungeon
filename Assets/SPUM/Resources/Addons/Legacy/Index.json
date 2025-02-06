@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-24 22:39:37",
+    "CreationDate": "2025-01-31 22:36:53",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -593,6 +593,14 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_magical_swordman"
         },
         {
+            "Name": "Hair_magical_견습사제",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_magical_견습사제",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_magical_견습사제"
+        },
+        {
             "Name": "Hair_ShadowPriests_Temp",
             "UnitType": "Unit",
             "PartType": "Hair",
@@ -647,6 +655,14 @@
             "SubType": "Hair_우드엘프_SPUM",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_우드엘프_SPUM"
+        },
+        {
+            "Name": "Hair_화염술사_SPUM",
+            "UnitType": "Unit",
+            "PartType": "Hair",
+            "SubType": "Hair_화염술사_SPUM",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Hair/Hair_화염술사_SPUM"
         },
         {
             "Name": "Devil_1",
@@ -1681,6 +1697,30 @@
             "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_vampire 1"
         },
         {
+            "Name": "Cloth_견습사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_견습사제"
+        },
+        {
+            "Name": "Cloth_견습사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_견습사제"
+        },
+        {
+            "Name": "Cloth_견습사제",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/2_Cloth/Cloth_견습사제"
+        },
+        {
             "Name": "Cloth_네크로맨서_SPUM",
             "UnitType": "Unit",
             "PartType": "Cloth",
@@ -2351,6 +2391,14 @@
             "SubType": "Spear_1",
             "PartSubType": "Spear",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_1"
+        },
+        {
+            "Name": "Spear_견습사제",
+            "UnitType": "Unit",
+            "PartType": "Weapons",
+            "SubType": "Spear_견습사제",
+            "PartSubType": "Spear",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/6_Weapons/4_Spear/Spear_견습사제"
         },
         {
             "Name": "Spear_암흑사제",
