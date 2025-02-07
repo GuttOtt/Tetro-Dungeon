@@ -21,6 +21,9 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private SimpleMonoButton _levelUpButton;
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
 
+    [Header("Synergy UI")]
+    [SerializeField] private TMP_Text _synergyText;
+
     private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
     private CharacterBlock currentCharacterBlock;
 
@@ -93,6 +96,15 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
             Destroy(descriptor.gameObject);
         }
         _skillDescriptors.Clear();
+
+         // Synergies
+        string synergyText = "";
+        foreach (var synergy in characterBlock.SynergyDict) {
+            if (synergy.Key != EnumTypes.SynergyTypes.None && synergy.Value > 0) {
+                synergyText += $"{synergy.Key}: {synergy.Value} ";
+            }
+        }
+        _synergyText.text = synergyText;
 
         List<UnitSkill> skills = characterBlock.Skills;
         for (int i = 0; i < skills.Count; i++) {
