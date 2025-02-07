@@ -6,25 +6,43 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterBlockInfoSystem : MonoBehaviour {
-    [SerializeField] private TMP_Text _nameText, _levelText, _hpText, _attackText, _spellPowerText,
-        _defenceText, _spellDefenceText, _speedText, _rangeText, _levelUpCostText;
+    [Header("Stats UI")]
+    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private TMP_Text _levelText;
+    [SerializeField] private TMP_Text _hpText;
+    [SerializeField] private TMP_Text _attackText;
+    [SerializeField] private TMP_Text _spellPowerText;
+    [SerializeField] private TMP_Text _defenceText;
+    [SerializeField] private TMP_Text _spellDefenceText;
+    [SerializeField] private TMP_Text _speedText;
+    [SerializeField] private TMP_Text _rangeText;
     
+    [Header("Level Up UI")]
+    [SerializeField] private TMP_Text _levelUpCostText;
+    [SerializeField] private SimpleMonoButton _levelUpButton;
+    
+    [Header("Character Illustration")]
     [SerializeField] private GameObject _panel;
-    
     [SerializeField] private SpriteRenderer _illustImage;
-
     [SerializeField] private GameObject _spumRoot;
     [SerializeField] private SPUM_Prefabs _spum;
-    [SerializeField] private SimpleMonoButton _closeButton;
+    
+    [Header("Skill UI")]
     [SerializeField] private SkillDescriptor _skillDescriptorPrefab;
-    [SerializeField] private Vector3 _skillDescriptorOrigin, _skillDescriptorGap;
-    [SerializeField] private SimpleMonoButton _levelUpButton;
-    [SerializeField] private CharacterBlockSystem _characterBlockSystem;
+    [SerializeField] private Vector3 _skillDescriptorOrigin;
+    [SerializeField] private Vector3 _skillDescriptorGap;
+    private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
 
     [Header("Synergy UI")]
     [SerializeField] private TMP_Text _synergyText;
 
-    private List<SkillDescriptor> _skillDescriptors = new List<SkillDescriptor>();
+    [Header("Awakening UI")]
+    [SerializeField] private TMP_Text _awakeningsText;
+
+    [Header("References")]
+    [SerializeField] private SimpleMonoButton _closeButton;
+    [SerializeField] private CharacterBlockSystem _characterBlockSystem;
+
     private CharacterBlock currentCharacterBlock;
 
     private void Start() {
@@ -105,6 +123,15 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
             }
         }
         _synergyText.text = synergyText;
+
+        // Awakenings
+        string awakeningsText = "";
+        foreach (var awakening in characterBlock.Awakenings) {
+            if (awakening != null) {
+                awakeningsText += $"{awakening.description}\n";
+            }
+        }
+        _awakeningsText.text = awakeningsText;
 
         List<UnitSkill> skills = characterBlock.Skills;
         for (int i = 0; i < skills.Count; i++) {

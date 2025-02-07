@@ -17,5 +17,8 @@ MonoBehaviour:
       _serializedList:
       - Key: 1
         Value: 2
+  description: "2. \uC870\uAC74: [\uB9C8\uBC95\uC0AC] \uC544\uC774\uD15C 2\uAC1C
+    \uCC29\uC6A9 \uD6A8\uACFC: \uB300\uC2E0 \uC8FC\uBB38\uB825\uC758 0.5 \uB9CC\uD07C
+    \uCE58\uC720\uD569\uB2C8\uB2E4."
   _skillIndex: 0
   _decorator: {fileID: 11400000, guid: 5ddc3b96acdb78f4491cafb3773a7d9c, type: 2}

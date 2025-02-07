@@ -23,15 +23,26 @@ MonoBehaviour:
       cells:
       - row: 01
     CenterIndex: {x: 0, y: 0}
+    SynergyDic:
+      _serializedList: []
   SPUM_Prefabs: {fileID: 7790972324508443555, guid: 920161853ec08f84caf73cba33ab12f9, type: 3}
+  Animator_Prefabs: {fileID: 0}
   _stat:
-    _maxHP: 50
-    _attack: 10
+    _maxHP: 100
+    _attack: 30
     _spellPower: 0
-    _defence: 3
-    _spellDefence: 3
+    _defence: 20
+    _spellDefence: 20
     _range: 1
     _speed: 0.8
+  _statForLevelUp:
+    _maxHP: 0
+    _attack: 0
+    _spellPower: 0
+    _defence: 0
+    _spellDefence: 0
+    _range: 0
+    _speed: 0
   DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
   ActiveSkills: []
   PassiveSkills: []

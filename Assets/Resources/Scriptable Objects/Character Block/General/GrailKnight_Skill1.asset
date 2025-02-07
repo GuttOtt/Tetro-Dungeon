@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: "\uC131\uBC30\uC758 \uCD95\uBCF5"
   _skillDescription: "\uC804\uD22C \uC2DC\uC791 \uC2DC, \uC544\uAD70 \uC804\uCCB4\uC758
-    \uACF5\uACA9\uB825\uACFC \uCD5C\uB300 \uCCB4\uB825\uC744 10% \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+    \uACF5\uACA9\uB825\uACFC \uCD5C\uB300 \uCCB4\uB825\uC744 {StatusValue}% \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
   _skillChance: 1
   _unitEvents: 05000000
   _shouldInterrupt: 0
   _statusConfig: {fileID: 11400000, guid: 65ebeb7681eb3a24abcb484f2b79f828, type: 2}
   _targetType: 2
+  _statusValue: 10

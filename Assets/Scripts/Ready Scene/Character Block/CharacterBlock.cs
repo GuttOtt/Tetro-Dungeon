@@ -52,6 +52,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     //Awakenings
     private List<Awakening> _awakenings;
+    public List<Awakening> Awakenings { get => _awakenings; }
 
     public bool IsPlaced { get => _isPlaced; }
     public Vector2Int CenterCellPos {

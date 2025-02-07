@@ -11,6 +11,8 @@ public abstract class Awakening: ScriptableObject {
     [SerializeField]
     public AwakeningCondition _condition;
 
+    public string description;
+
     public abstract void UpdateActivation(CharacterBlock characterBlock);
 }
 

@@ -8,31 +8,39 @@ using UnityEngine;
 public class GrantStatusSkillConfig : SkillConfig {
     [SerializeField] private StatusConfig _statusConfig;
     [SerializeField] private TargetTypes _targetType;
+    [SerializeField] private string _statusValue;
 
 
     public StatusConfig StatusConfig { get => _statusConfig; }
     public TargetTypes TargetType { get => _targetType; }
+    public string StatusValue { get => _statusValue; }
 }
 
 public class GrantStatusSkill : UnitSkill {
     private StatusConfig _statusConfig;
     private TargetTypes _targetType;
     private StatusConfig _originalStatusConfig;
+    private string _statusValue;
+    private string _originalStatusValue;
 
     public StatusConfig StatusConfig { get => _statusConfig; }
     public TargetTypes TargetType { get => _targetType; }
+    public string StatusValue { get => _statusValue; }
 
 
     public GrantStatusSkill(GrantStatusSkillConfig config) : base(config) {
         _originalStatusConfig = config.StatusConfig;
         _statusConfig = config.StatusConfig;
         _targetType = config.TargetType;
+        _statusValue = config.StatusValue;
     }
 
     public override void Decorate(SkillConfig config)
     {
         if (config is GrantStatusSkillConfig grantStatusConfig) {
             _statusConfig = grantStatusConfig.StatusConfig;
+            _statusValue = grantStatusConfig.StatusValue;
+            _originalStatusValue = grantStatusConfig.StatusValue;
         }
         else {
             Debug.LogWarning("Invalid config type for GrantStatusSkill.");
@@ -43,6 +51,7 @@ public class GrantStatusSkill : UnitSkill {
     {
         if (config is GrantStatusSkillConfig grantStatusConfig) {
             _statusConfig = _originalStatusConfig;
+            _statusValue = _originalStatusValue;
         }
         else {
             Debug.LogWarning("Invalid config type for GrantStatusSkill.");
