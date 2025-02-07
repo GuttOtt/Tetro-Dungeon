@@ -2,7 +2,7 @@
     "Name": "Ver300",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-24 22:39:38",
+    "CreationDate": "2025-01-31 22:36:53",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -506,6 +506,54 @@
             "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_마력포격수"
+        },
+        {
+            "Name": "New_Cloth_총검사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_총검사"
+        },
+        {
+            "Name": "New_Cloth_총검사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_총검사"
+        },
+        {
+            "Name": "New_Cloth_총검사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_총검사"
+        },
+        {
+            "Name": "New_Cloth_화염술사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Body",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_화염술사"
+        },
+        {
+            "Name": "New_Cloth_화염술사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Left",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_화염술사"
+        },
+        {
+            "Name": "New_Cloth_화염술사",
+            "UnitType": "Unit",
+            "PartType": "Cloth",
+            "SubType": "Right",
+            "PartSubType": "",
+            "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_화염술사"
         },
         {
             "Name": "New_Helmet_01",
