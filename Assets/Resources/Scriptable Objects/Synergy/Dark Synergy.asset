@@ -24,3 +24,12 @@ MonoBehaviour:
     \uD55C \uCE78 \uBB3C\uB7EC\uB0A9\uB2C8\uB2E4.\n\n(5) 5% \uD655\uB960\uB85C \uACF5\uD3EC
     \uBD80\uC5EC\n(10) 10% \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC\n(15) 15%
     \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC"
+  _fearStatusConfig: {fileID: 11400000, guid: 33dafe0d6de9b6e41a2981dc93d0e097, type: 2}
+  _fearChancePercentPerSynergyCount:
+    _serializedList:
+    - Key: 5
+      Value: 50
+    - Key: 10
+      Value: 10
+    - Key: 15
+      Value: 15

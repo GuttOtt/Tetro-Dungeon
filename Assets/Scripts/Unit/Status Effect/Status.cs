@@ -22,6 +22,9 @@ public static class StatusFactory
         else if (config is DoubleAttackStatusConfig doubleAttackStatusConfig) {
             return new DoubleAttackStatus(doubleAttackStatusConfig);
         }
+        else if (config is FearStatusConfig fearStatusConfig) {
+            return new FearStatus(fearStatusConfig);
+        }
         else {
             throw new System.ArgumentException($"Unknown SkillConfig type: {config.GetType()}");
         }

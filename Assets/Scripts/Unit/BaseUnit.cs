@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using System.Reflection;
 using AYellowpaper.SerializedCollections;
+using Unity.VisualScripting.Dependencies.NCalc;
 
 public class BaseUnit : MonoBehaviour, IUnit
 {
@@ -140,6 +141,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void TriggerOnBattleStart(TurnContext turnContext) {
         onBattleStart?.Invoke(this, turnContext);
     }
+
+    public event Func<BaseUnit, TurnContext, bool> OnActionStart;
     #endregion
 
     public int ID { get => _id; }
@@ -396,6 +399,11 @@ public class BaseUnit : MonoBehaviour, IUnit
 
     #region Unit Action Pattern
     public void Act(TurnContext turnContext) {
+        if (OnActionStart?.Invoke(this, turnContext) == true) {
+            ResetActionCoolDown();
+            return;
+        }
+
         if (IsAttackable(turnContext)) {
             AttackAction(turnContext);
             Debug.Log($"{Name} Attack");
@@ -697,6 +705,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void RemoveStatus(Status status) {
         _statuses.Remove(status);
         status.RemoveFrom(this);
+        _unitDrawer.UpdateStatus(_statuses);
     }
 
 
