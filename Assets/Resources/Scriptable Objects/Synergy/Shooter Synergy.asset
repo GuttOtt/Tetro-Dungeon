@@ -21,3 +21,12 @@ MonoBehaviour:
     2\uD68C \uACF5\uACA9\uD569\uB2C8\uB2E4.\n\n(5) 5% \uD655\uB960\uB85C 2\uD68C
     \uACF5\uACA9\n(10) 10% \uD655\uB960\uB85C 2\uD68C \uACF5\uACA9\n(15) 15% \uD655\uB960\uB85C
     2\uD68C \uACF5\uACA9"
+  _doubleAttackChancePercentPerSynergyCount:
+    _serializedList:
+    - Key: 5
+      Value: 100
+    - Key: 10
+      Value: 10
+    - Key: 15
+      Value: 15
+  _doubleAttackStatusConfig: {fileID: 11400000, guid: 90dc1d785bc1aee48bcf8234ae200ba8, type: 2}

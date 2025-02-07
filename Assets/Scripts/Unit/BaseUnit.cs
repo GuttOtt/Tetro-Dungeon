@@ -499,10 +499,15 @@ public class BaseUnit : MonoBehaviour, IUnit
             return false;
     }
 
-    public async virtual void AttackAction(TurnContext turnContext)
+    public async virtual void AttackAction(TurnContext turnContext, bool invokeOnAttacked = true)
     {
         //타겟 설정
         BaseUnit mainTarget = GetAttackTarget(turnContext.Board) as BaseUnit;
+
+        if (mainTarget == null) {
+        Debug.Log($"[{Name}, id: {_id}]의 타겟이 없습니다.");
+        return;
+    }
 
         //OnAttack Invoke
         bool shouldInterrupt = false;
@@ -529,7 +534,6 @@ public class BaseUnit : MonoBehaviour, IUnit
             }
         }
 
-
         //애니메이션
         if (unitAnimation != null) {
             unitAnimation.PlayAttackAnimation(mainTarget);
@@ -537,11 +541,13 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //스킬 발동
-        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill.SkillName}를 [{mainTarget.Name}, id: {mainTarget.ID}]에게 사용.");
+        Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill?.SkillName}를 [{mainTarget?.Name}, id: {mainTarget?.ID}]에게 사용.");
         skill.Activate(turnContext, this, mainTarget);
         
         //onAttacked Invoke
-        _onAttacked?.Invoke(this, mainTarget, turnContext);
+        if (invokeOnAttacked) {
+            _onAttacked?.Invoke(this, mainTarget, turnContext);
+        }
     }
 
     protected IUnit GetAttackTarget(Board board)
