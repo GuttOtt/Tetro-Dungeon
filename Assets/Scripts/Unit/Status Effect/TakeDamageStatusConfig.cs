@@ -80,10 +80,12 @@ public class TakeDamageStatus : Status {
         int damageAmount = _baseDamage + (int) (originalDamage.GetSum() * _originalDamageRatio);
         Damage damage = new Damage(_damageType, damageAmount);
         unit.TakeDamage(turnContext, damage, false);
+        Debug.Log("TakeDamageStatus: " + damageAmount + " damage applied to " + unit.name);
 
         // 현재 체력 / 최대 체력 비율이 임계값 이하면 즉시 처형
-        if (_maxHpExecutionThreshold > 0 && unit.CurrentHP / unit.MaxHP <= _maxHpExecutionThreshold) {
+        if (_maxHpExecutionThreshold > 0 && ((float)unit.CurrentHP / unit.MaxHP) <= _maxHpExecutionThreshold) {
             unit.Die(turnContext);
+            Debug.Log("TakeDamageStatus: " + unit.name + " executed" + "hp: " + unit.CurrentHP + "/" + unit.MaxHP + " threshold: " + _maxHpExecutionThreshold);
         }
     }
 }
