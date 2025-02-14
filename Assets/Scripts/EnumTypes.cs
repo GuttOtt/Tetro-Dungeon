@@ -37,6 +37,10 @@ namespace EnumTypes
     }
 
     public enum TargetTypes {
-        AttackTarget = 0, ClosestAlly = 1, AllAllys = 2,
+        AttackTarget = 0, ClosestAlly = 1, AllAllys = 2, Enemies3x3 = 3,
+    }
+
+    public enum SkillTypes {
+        Passive = 0, Active = 1,
     }
 }

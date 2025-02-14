@@ -101,6 +101,22 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _illustRenderer.sortingOrder = id + 1;
     }
 
+    public void AddActiveSkill(UnitSkill skill) {
+        _activeSkill.Add(skill);
+    }
+
+    public void AddPassiveSkill(UnitSkill skill) {
+        _passiveSkill.Add(skill);
+    }
+
+    public void RemovePassiveSkill(UnitSkill skill) {
+        _passiveSkill.Remove(skill);
+    }
+
+    public void RemoveActiveSkill(UnitSkill skill) {
+        _activeSkill.Remove(skill);
+    }  
+
     private void CreateBlockParts(Array2DBool shape, int sortingOrderFront) {
         _currentShape = shape;
 

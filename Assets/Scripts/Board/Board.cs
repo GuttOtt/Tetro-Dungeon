@@ -375,6 +375,41 @@ public class Board : MonoBehaviour
 
         return unitsInArea;
     }
+
+    public List<IUnit> GetUnitsInArea(Cell center, int areaCols, int areaRows, CharacterTypes characterType = CharacterTypes.None) {
+        // areaCols와 areaRows는 홀수여야 함을 전제
+        int halfCols = areaCols / 2;
+        int halfRows = areaRows / 2;
+        List<IUnit> unitsInArea = new List<IUnit>();
+
+        // center cell의 인덱스
+        int centerCol = center.position.col;
+        int centerRow = center.position.row;
+
+        int startCol = centerCol - halfCols;
+        int endCol = centerCol + halfCols;
+        int startRow = centerRow - halfRows;
+        int endRow = centerRow + halfRows;
+        
+        // board의 범위를 벗어나지 않도록 조정
+        startCol = Mathf.Max(startCol, 0);
+        startRow = Mathf.Max(startRow, 0);
+        endCol = Mathf.Min(endCol, column - 1);
+        endRow = Mathf.Min(endRow, row - 1);
+
+        for (int x = startCol; x <= endCol; x++) {
+            for (int y = startRow; y <= endRow; y++) {
+                Cell cell = cells[x, y];
+                if (cell != null && cell.Unit != null) {
+                    if (characterType == CharacterTypes.None || cell.Unit.Owner == characterType) {
+                        unitsInArea.Add(cell.Unit);
+                    }
+                }
+            }
+        }
+
+        return unitsInArea;
+    }
     #endregion
 
     private float GetDistance(Cell cell1, Cell cell2) {

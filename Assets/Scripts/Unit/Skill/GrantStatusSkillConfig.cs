@@ -70,6 +70,9 @@ public class GrantStatusSkill : UnitSkill {
                 case UnitEventTypes.OnBattleStart:
                     unit.onBattleStart += GrantStatus;
                     break;
+                case UnitEventTypes.OnDying:
+                    unit.onDying += (activator, turnContext) => GrantStatus(activator, null, turnContext);
+                    break;
             }
         }
     }
@@ -78,6 +81,7 @@ public class GrantStatusSkill : UnitSkill {
         if (target != null) {
             StatusApplicationContext context = new StatusApplicationContext(target, activator);
             GrantStatus(activator, target, turnContext);
+            Debug.Log("Grant Status");
         }
     }
 
@@ -123,6 +127,12 @@ public class GrantStatusSkill : UnitSkill {
             case TargetTypes.AllAllys:
                 List<IUnit> units = board.GetUnits(activator.Owner);
                 foreach (IUnit unit in units) {
+                    targets.Add(unit as BaseUnit);
+                }
+                break;
+            case TargetTypes.Enemies3x3:
+                List<IUnit> enemies = board.GetUnitsInArea(activator.CurrentCell, 3, 3, activator.Owner.Opponent());
+                foreach (IUnit unit in enemies) {
                     targets.Add(unit as BaseUnit);
                 }
                 break;

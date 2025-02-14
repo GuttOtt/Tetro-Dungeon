@@ -78,6 +78,7 @@ MonoBehaviour:
     SynergyDic:
       _serializedList: []
   SPUM_Prefabs: {fileID: 2293564076991944912, guid: 5c48893c286c0c34f8f509aab1e5daf3, type: 3}
+  Animator_Prefabs: {fileID: 0}
   _stat:
     _maxHP: 650
     _attack: 60
@@ -99,4 +100,5 @@ MonoBehaviour:
   PassiveSkills:
   - {fileID: 11400000, guid: 6ef4bb999a6a92345a1ab4465c6b4f90, type: 2}
   Synergies: []
-  Awakenings: []
+  Awakenings:
+  - {fileID: 11400000, guid: 745b94e731a9c7e40b34c0f4880f0587, type: 2}
