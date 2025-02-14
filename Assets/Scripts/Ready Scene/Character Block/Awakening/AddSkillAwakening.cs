@@ -9,7 +9,7 @@ public class AddSkillAwakening : Awakening {
     [SerializeField] private SkillTypes skillType;
     private Dictionary<CharacterBlock, UnitSkill> activationDic = new Dictionary<CharacterBlock, UnitSkill>();
 
-    public override void UpdateActivation(CharacterBlock characterBlock) {
+    public override bool UpdateActivation(CharacterBlock characterBlock) {
         if (!activationDic.ContainsKey(characterBlock)) {
             activationDic.Add(characterBlock, null);
         }
@@ -19,13 +19,17 @@ public class AddSkillAwakening : Awakening {
         if (!isActivated && _condition.IsSatisfied(characterBlock)) {
             activationDic[characterBlock] = AddSkill(characterBlock);
             Debug.Log("Added");
+            return true;
         }
         else if (isActivated && !_condition.IsSatisfied(characterBlock)) {
             RemoveSkill(characterBlock);
             activationDic[characterBlock] = null;
             Debug.Log("Removed");
+            return false;
         }
-
+        else {
+            return activationDic[characterBlock] != null;
+        }
     }
 
     private UnitSkill AddSkill(CharacterBlock characterBlock) {

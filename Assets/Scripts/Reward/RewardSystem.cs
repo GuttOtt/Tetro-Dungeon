@@ -17,7 +17,7 @@ namespace Assets.Scripts.Reward
         [SerializeField] private GameObject unitConfigPrefab;
         [SerializeField] private GameObject blockCardPrefab;
 
-        [SerializeField] private Button selectButton;
+        //[SerializeField] private Button selectButton;
         [SerializeField] private CardSelector cardSelector;
         [SerializeField] private TMP_Text rewardRemainText; //남은 보상을 표시해주는 텍스트
 
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Reward
         [SerializeField] private int rewardCount = 0;
 
         #region Reroll And Money
-        [SerializeField] private int _baseRerollCost = 20;
+        //[SerializeField] private int _baseRerollCost = 20;
         [SerializeField] private int _rerollCostIncrement = 0;
         private int _currentRerollCost = 20;
 

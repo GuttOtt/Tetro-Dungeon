@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 589027c70ca4c0f43ad63efe38cc22bd, type: 3}
-  m_Name: Inquisitor_Skill1_Status
+  m_Name: Inquisitor_Decorator1_Status
   m_EditorClassIdentifier: 
   _name: "\uC9D5\uBC8C"
   _description: 
@@ -21,4 +21,4 @@ MonoBehaviour:
   damageType: 2
   _baseDamage: 20
   _originalDamageRatio: 0
-  _maxHpExecutionThreshold: 0
+  _maxHpExecutionThreshold: 0.05

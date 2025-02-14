@@ -14,7 +14,7 @@ public abstract class Awakening: ScriptableObject {
     [TextArea(3, 10)]
     public string description;
 
-    public abstract void UpdateActivation(CharacterBlock characterBlock);
+    public abstract bool UpdateActivation(CharacterBlock characterBlock);
 }
 
 [Serializable]

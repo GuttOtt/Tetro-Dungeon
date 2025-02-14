@@ -9,31 +9,35 @@ public class TakeDamageStatusConfig : StatusConfig {
     [SerializeField] private DamageTypes damageType;
     [SerializeField] private int _baseDamage;
     [SerializeField] private float _originalDamageRatio;
+    [SerializeField] private float _maxHpExecutionThreshold;
 
     public DamageTypes DamageType { get => damageType; }
     public int BaseDamage { get => _baseDamage; }
     public float OriginalDamageRatio { get => _originalDamageRatio; }
+    public float MaxHpExecutionThreshold { get => _maxHpExecutionThreshold; }
 }
 
 public class TakeDamageStatus : Status {
-    [SerializeField] private DamageTypes _damageType;
-    [SerializeField] private int _baseDamage;
-    [SerializeField] private float _originalDamageRatio;
+    private DamageTypes _damageType;
+    private int _baseDamage;
+    private float _originalDamageRatio;
+    float _maxHpExecutionThreshold; // 최대 체력 대비 처형 임계값
 
     public DamageTypes DamageType { get => _damageType; }
     public int BaseDamage { get => _baseDamage; }
-    public float OriginalDamageRatio { get => _originalDamageRatio; }
-
+    public float OriginalDamageRatio { get => _originalDamageRatio; } 
+    public float MaxHpExecutionThreshold { get => _maxHpExecutionThreshold; }
 
     public TakeDamageStatus(TakeDamageStatusConfig config) : base(config) {
         _damageType = config.DamageType;
         _baseDamage = config.BaseDamage;
         _originalDamageRatio = config.OriginalDamageRatio;
+        _maxHpExecutionThreshold = config.MaxHpExecutionThreshold;
     }
 
     public override void ApplyTo(StatusApplicationContext context) {
         BaseUnit unit = context.TargetUnit;
-        foreach(UnitEventTypes eventType in UnitEvents) {
+        foreach (UnitEventTypes eventType in UnitEvents) {
             Register(unit, eventType);
         }
     }
@@ -50,7 +54,7 @@ public class TakeDamageStatus : Status {
     }
 
     public override void RemoveFrom(BaseUnit unit) {
-        foreach(UnitEventTypes eventType in UnitEvents) {
+        foreach (UnitEventTypes eventType in UnitEvents) {
             Unregister(unit, eventType);
         }
     }
@@ -76,5 +80,10 @@ public class TakeDamageStatus : Status {
         int damageAmount = _baseDamage + (int) (originalDamage.GetSum() * _originalDamageRatio);
         Damage damage = new Damage(_damageType, damageAmount);
         unit.TakeDamage(turnContext, damage, false);
+
+        // 현재 체력 / 최대 체력 비율이 임계값 이하면 즉시 처형
+        if (_maxHpExecutionThreshold > 0 && unit.CurrentHP / unit.MaxHP <= _maxHpExecutionThreshold) {
+            unit.Die(turnContext);
+        }
     }
 }

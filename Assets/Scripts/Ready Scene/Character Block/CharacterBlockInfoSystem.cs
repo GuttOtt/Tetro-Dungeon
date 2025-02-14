@@ -128,7 +128,19 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         string awakeningsText = "";
         foreach (var awakening in characterBlock.Awakenings) {
             if (awakening != null) {
-                awakeningsText += $"{awakening.description}\n";
+                // 만약 해당 awakening의 활성화 결과가 true라면 초록색 리치 텍스트로 표시
+                bool isActive = false;
+
+                if (characterBlock.AwakeningActivation.ContainsKey(awakening)) {
+                    isActive = characterBlock.AwakeningActivation[awakening];
+                }
+
+                if (isActive) {
+                    awakeningsText += $"<color=green>{awakening.description}</color>\n";
+                }
+                else {
+                    awakeningsText += $"{awakening.description}\n";
+                }
             }
         }
         _awakeningsText.text = awakeningsText;

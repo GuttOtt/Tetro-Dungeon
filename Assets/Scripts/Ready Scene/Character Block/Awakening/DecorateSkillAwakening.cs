@@ -8,7 +8,7 @@ public class DecorateSkillAwakening : Awakening {
     [SerializeField] private SkillConfig _decorator;
     private Dictionary<UnitSkill, bool> _activationDic= new Dictionary<UnitSkill, bool>();
 
-    public override void UpdateActivation(CharacterBlock characterBlock) {
+    public override bool UpdateActivation(CharacterBlock characterBlock) {
         UnitSkill skill = characterBlock.Skills[_skillIndex];
         
         if (!_activationDic.ContainsKey(skill)) { 
@@ -21,11 +21,16 @@ public class DecorateSkillAwakening : Awakening {
             Decorate(characterBlock.Skills[_skillIndex]);
             _activationDic[skill] = true;
             Debug.Log("Decorated");
+            return true;
         }
         else if (isActivated && !_condition.IsSatisfied(characterBlock)) {
             Undecorate(characterBlock.Skills[_skillIndex]);
             _activationDic[skill] = false;
             Debug.Log("Undecorated");
+            return false;
+        }
+        else {
+            return _activationDic[skill];
         }
     }
 

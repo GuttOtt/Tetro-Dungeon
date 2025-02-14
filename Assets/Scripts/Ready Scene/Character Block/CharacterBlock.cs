@@ -53,6 +53,8 @@ public class CharacterBlock : MonoBehaviour, IItem {
     //Awakenings
     private List<Awakening> _awakenings;
     public List<Awakening> Awakenings { get => _awakenings; }
+    private Dictionary<Awakening, bool> _awakeningActivation = new Dictionary<Awakening, bool>();
+    public Dictionary<Awakening, bool> AwakeningActivation { get => _awakeningActivation; }
 
     public bool IsPlaced { get => _isPlaced; }
     public Vector2Int CenterCellPos {
@@ -96,6 +98,9 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         //Awakenings
         _awakenings = config.Awakenings.ToList();
+        foreach (Awakening awakening in _awakenings) {
+            _awakeningActivation.Add(awakening, false);
+        }
 
         CreateBlockParts(config.GetShape(currentLvl), id + 1);
         _illustRenderer.sortingOrder = id + 1;
@@ -301,7 +306,8 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     private void UpdateAwakening() {
         foreach (Awakening awakening in _awakenings) {
-            awakening.UpdateActivation(this);
+            bool isActivated = awakening.UpdateActivation(this);
+            _awakeningActivation[awakening] = isActivated;
         }
     }
 }
