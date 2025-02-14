@@ -32,5 +32,5 @@ MonoBehaviour:
   _attackRatio: 0
   _spellPowerRatio: 0.2
   _damageType: 1
-  _duration: 5
+  _duration: 3
   _effectSprite: {fileID: 21300000, guid: 78393dc4487c1b343976f049b1d8fb62, type: 3}
