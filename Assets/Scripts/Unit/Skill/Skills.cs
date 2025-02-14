@@ -48,6 +48,7 @@ public static class SkillFactory
 
 public abstract class SkillConfig : ScriptableObject {
     [SerializeField] private string _skillName;
+    [TextArea(3, 10)]
     [SerializeField] private string _skillDescription;
     [SerializeField] private float _skillChance;
     [SerializeField] private List<EnumTypes.UnitEventTypes> _unitEvents;
@@ -67,7 +68,7 @@ public abstract class UnitSkill
 {
     protected string _skillName;
     protected SkillConfig config;
-    private string _skillDescription;
+    protected string _skillDescription;
     private float _skillChance;
     [SerializeField] protected List<UnitEventTypes> _unitEvents;
     [SerializeField] private bool _shouldInterrupt;

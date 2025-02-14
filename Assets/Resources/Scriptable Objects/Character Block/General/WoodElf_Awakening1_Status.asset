@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727f0cc5ec7c7084aa38e3fe0516c6b5, type: 3}
+  m_Name: WoodElf_Awakening1_Status
+  m_EditorClassIdentifier: 
+  _name: "\uC815\uB839\uC758 \uB3C4\uC6C0"
+  _description: 
+  _unitEvents: 02000000
+  _skills: []
+  _isStackable: 0
+  _iconSprite: {fileID: 21300000, guid: c48d135a4f60b2a4b92994e17c5eb065, type: 3}
+  _damageType: 1
+  _baseDamage: 0
+  _originalDamageRatio: 0
+  _spellPowerRatio: 0.5
+  _attackRatio: 0
+  maxHPHealRatio: 0.05

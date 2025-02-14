@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _skillName: "\uC815\uB839 \uBD80\uC5EC"
   _skillDescription: "\uACF5\uACA9 \uC2DC {SkillChance}\uC758 \uD655\uB960\uB85C
-    \uAC00\uAE4C\uC6B4 \uC544\uAD70 \uD55C \uBA85\uC5D0\uAC8C '\uC815\uB839' \uBC84\uD504\uB97C
-    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    \uAC00\uAE4C\uC6B4 \uC544\uAD70 \uD55C \uBA85\uC5D0\uAC8C '\uC815\uB839\uC758
+    \uB3C4\uC6C0' \uBC84\uD504\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4. '\uC815\uB839\uC758
+    \uB3C4\uC6C0'\uC774 \uC788\uB294 \uC544\uAD70\uC740 \uACF5\uACA9\uD560 \uB54C\uB9C8\uB2E4
+    \uC6B0\uB4DC \uC5D8\uD504\uC758 \uC8FC\uBB38\uB825\uC758 50%\uB9CC\uD07C \uCD94\uAC00
+    \uD53C\uD574\uB97C \uAC00\uD569\uB2C8\uB2E4."
   _skillChance: 0.2
   _unitEvents: 02000000
   _shouldInterrupt: 0
   _statusConfig: {fileID: 11400000, guid: f2120f4155eb4db468c6d3e2f00db53e, type: 2}
   _targetType: 1
+  _statusValue: 

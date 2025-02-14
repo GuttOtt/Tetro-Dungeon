@@ -11,12 +11,14 @@ public class DealDamageStatusConfig : StatusConfig {
     [SerializeField] private float _originalDamageRatio;
     [SerializeField] private float _spellPowerRatio;
     [SerializeField] private float _attackRatio;
+    [SerializeField] private float maxHPHealRatio;
 
     public DamageTypes DamageType { get => _damageType; }
     public int BaseDamage { get => _baseDamage; }
     public float OriginalDamageRatio { get => _originalDamageRatio; }
     public float SpellPowerRatio { get => _spellPowerRatio; }
     public float AttackRatio { get => _attackRatio; }
+    public float MaxHPHealRatio => maxHPHealRatio;
 }
 
 public class DealDamageStatus : Status{
@@ -26,6 +28,7 @@ public class DealDamageStatus : Status{
     private float _spellPowerRatio;
     private float _attackRatio;
     private int _ratioDamageAmount = 0;
+    private float maxHPHealRatio;
 
     public DamageTypes DamageType { get => _damageType; }
     public int BaseDamage { get => _baseDamage; }
@@ -39,6 +42,7 @@ public class DealDamageStatus : Status{
         _originalDamageRatio = config.OriginalDamageRatio;
         _spellPowerRatio = config.SpellPowerRatio;
         _attackRatio = config.AttackRatio;
+        this.maxHPHealRatio = config.MaxHPHealRatio;
     }
 
     public override void ApplyTo(StatusApplicationContext context) {
@@ -83,6 +87,10 @@ public class DealDamageStatus : Status{
 
     private void ApplyDamage(TurnContext turnContext, BaseUnit attackingUnit, BaseUnit attackedUnit, Damage damage){
         ApplyDamage(turnContext, attackedUnit, damage);
+
+        // Heal the attacking unit
+        int healAmount = (int) (attackedUnit.MaxHP * maxHPHealRatio);
+        attackedUnit.TakeHeal(turnContext, healAmount);
     }
 
     private void ApplyDamage(TurnContext turnContext, BaseUnit unit, Damage originalDamage) {
