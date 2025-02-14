@@ -56,13 +56,19 @@ public class DamageSkill : UnitSkill
 
     public override void Decorate(SkillConfig config) {
         if (config is DamageSkillConfig damageSkillConfig) {
-            //Changes
+            // Changes
             _damageType = damageSkillConfig.DamageType;
-            _aoe = damageSkillConfig.AoE;
             _effectSprite = damageSkillConfig.EffectSprite;
             _isEffectOnCells = damageSkillConfig.IsEffectOnCells;
 
-            //Damages
+            // AoE: 교체 조건 - 현재 _aoe의 true 개수가 damageSkillConfig.AoE의 true 개수보다 작을 때만 교체
+            int currentTrueCount = CountTrue(_aoe);
+            int newTrueCount = CountTrue(damageSkillConfig.AoE);
+            if (currentTrueCount < newTrueCount) {
+                _aoe = damageSkillConfig.AoE;
+            }
+
+            // Damages
             _baseDamage += damageSkillConfig.BaseDamage;
             _attackRatio += damageSkillConfig.AttackRatio;
             _spellPowerRatio += damageSkillConfig.SpellPowerRatio;
@@ -74,14 +80,21 @@ public class DamageSkill : UnitSkill
 
     public override void Undecorate(SkillConfig config) {
         if (config is DamageSkillConfig damageSkillConfig) {
-            //Changes
-            DamageSkillConfig original = config as DamageSkillConfig;
+            // Changes
+            DamageSkillConfig original = damageSkillConfig; // original config
             _damageType = original.DamageType;
-            _aoe = original.AoE;
+            
+            // AoE: 오직 현재 _aoe의 true 개수가 damageSkillConfig.AoE의 true 개수와 일치할 때만 original.AoE로 되돌림
+            int currentTrueCount = CountTrue(_aoe);
+            int newTrueCount = CountTrue(original.AoE);
+            if (currentTrueCount == newTrueCount) {
+                _aoe = original.AoE;
+            }
+            
             _effectSprite = original.EffectSprite;
             _isEffectOnCells = original.IsEffectOnCells;
 
-            //Damages
+            // Damages
             _baseDamage -= damageSkillConfig.BaseDamage;
             _attackRatio -= damageSkillConfig.AttackRatio;
             _spellPowerRatio -= damageSkillConfig.SpellPowerRatio;
@@ -89,6 +102,18 @@ public class DamageSkill : UnitSkill
         else {
             Debug.LogWarning("Invalid config type for DamageSkill.");
         }
+    }
+
+    private int CountTrue(TArray<bool> tArray) {
+        bool[,] array = tArray.GetArray<bool>();
+        int count = 0;
+        for (int i = 0; i < array.GetLength(0); i++) {
+            for (int j = 0; j < array.GetLength(1); j++) {
+                if (array[i, j])
+                    count++;
+            }
+        }
+        return count;
     }
 
     #region Activation
