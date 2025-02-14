@@ -38,6 +38,10 @@ public class UnitSPUMControl : MonoBehaviour
         PlayStateAnimation(PlayerState.MOVE);
     }
 
+    public void PlayDeathAnimation() {
+        PlayStateAnimation(PlayerState.DEATH);
+    }
+
     public void PlayAttackAnimation(BaseUnit target) {
         //DoTween ¿òÁ÷ÀÓ
         if (target == null) {

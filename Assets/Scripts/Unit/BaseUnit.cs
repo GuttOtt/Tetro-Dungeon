@@ -374,6 +374,10 @@ public class BaseUnit : MonoBehaviour, IUnit
         OnDie?.Invoke();
         OnDestroy?.Invoke();
         CurrentCell.UnitOut();
+        unitAnimation.PlayDeathAnimation();
+
+        //HP바 끄기
+        _unitDrawer._healthBar.SetSliderOff();
     }
 
     public void Highlight()

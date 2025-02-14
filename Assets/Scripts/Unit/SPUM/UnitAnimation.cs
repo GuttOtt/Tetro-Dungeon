@@ -54,6 +54,14 @@ public class UnitAnimation : MonoBehaviour {
         }
     }
 
+    public void PlayDeathAnimation() {
+        if (isUsingSPUM) {
+            unitSPUMControl.PlayDeathAnimation();
+        } else {
+            animatorControl.PlayDeathAnimation();
+        }
+    }
+
     public bool IsCurrentAnimationTimePassed(float time = 1f) {
         if (isUsingSPUM) {
             return unitSPUMControl.IsCurrentAnimationTimePassed(time);

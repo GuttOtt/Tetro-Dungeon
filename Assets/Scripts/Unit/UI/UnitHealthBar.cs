@@ -49,5 +49,9 @@ namespace Assets.Scripts.Unit.UI
             slider.value = health;
             fill.color = gradient.Evaluate(slider.normalizedValue);
         }
+
+        public void SetSliderOff() {
+            slider.gameObject.SetActive(false);
+        }
     }
 }

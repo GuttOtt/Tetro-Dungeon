@@ -5596,18 +5596,18 @@ MonoBehaviour:
   _speedText: {fileID: 2016257763}
   _rangeText: {fileID: 851441327}
   _levelUpCostText: {fileID: 489016160}
+  _levelUpButton: {fileID: 2103685241}
   _panel: {fileID: 1725313453}
   _illustImage: {fileID: 1743490939}
   _spumRoot: {fileID: 1205558018}
   _spum: {fileID: 0}
-  _closeButton: {fileID: 1608435730}
   _skillDescriptorPrefab: {fileID: 237704371215826383, guid: 7c700b604e5c11d498fce8ff1c87c39c, type: 3}
   _skillDescriptorOrigin: {x: 0, y: 1.6, z: 0}
   _skillDescriptorGap: {x: 0, y: -1.5, z: 0}
-  _levelUpButton: {fileID: 2103685241}
-  _characterBlockSystem: {fileID: 1386957424}
   _synergyText: {fileID: 135703461}
   _awakeningsText: {fileID: 517456684}
+  _closeButton: {fileID: 1608435730}
+  _characterBlockSystem: {fileID: 1386957424}
 --- !u!1 &1608435727
 GameObject:
   m_ObjectHideFlags: 0

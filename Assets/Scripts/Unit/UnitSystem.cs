@@ -84,6 +84,13 @@ public class UnitSystem : MonoBehaviour
         if (baseUnit == null) return;
         
         _units.Remove(baseUnit);
+        DelayedDestroy(baseUnit);
+    }
+
+    private async void DelayedDestroy(BaseUnit baseUnit) {
+        await Cysharp.Threading.Tasks.UniTask.Delay(1000);
+        if (baseUnit == null|| baseUnit.gameObject == null)
+            return;
         Destroy(baseUnit.gameObject);
     }
 }
