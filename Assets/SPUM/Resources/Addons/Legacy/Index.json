@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-31 22:36:53",
+    "CreationDate": "2025-02-16 22:13:22",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -126,6 +126,15 @@
             "Name": "0_Sit.anim",
             "StateType": "OTHER",
             "ClipPath": "Addons/Legacy/0_Unit/1_Animation/06_Other/02_Etc/0_Sit.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": "Etc"
+        },
+        {
+            "index": 0,
+            "Name": "1_jump.anim",
+            "StateType": "OTHER",
+            "ClipPath": "Addons/Legacy/0_Unit/1_Animation/06_Other/02_Etc/1_jump.anim",
             "HasData": false,
             "UnitType": "Unit",
             "SubCategory": "Etc"
@@ -388,7 +397,7 @@
             "Name": "Eye8",
             "UnitType": "Unit",
             "PartType": "Eye",
-            "SubType": "Back",
+            "SubType": "Front",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Eye/Eye8"
         },
@@ -396,7 +405,7 @@
             "Name": "Eye8",
             "UnitType": "Unit",
             "PartType": "Eye",
-            "SubType": "Front",
+            "SubType": "Back",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/0_Eye/Eye8"
         },
@@ -812,7 +821,7 @@
             "Name": "Human_1",
             "UnitType": "Unit",
             "PartType": "Body",
-            "SubType": "Head",
+            "SubType": "Body",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Human_1"
         },
@@ -828,15 +837,7 @@
             "Name": "Human_1",
             "UnitType": "Unit",
             "PartType": "Body",
-            "SubType": "Arm_L",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Human_1"
-        },
-        {
-            "Name": "Human_1",
-            "UnitType": "Unit",
-            "PartType": "Body",
-            "SubType": "Body",
+            "SubType": "Foot_R",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Human_1"
         },
@@ -852,7 +853,15 @@
             "Name": "Human_1",
             "UnitType": "Unit",
             "PartType": "Body",
-            "SubType": "Foot_R",
+            "SubType": "Arm_L",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Human_1"
+        },
+        {
+            "Name": "Human_1",
+            "UnitType": "Unit",
+            "PartType": "Body",
+            "SubType": "Head",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/1_Body/Human_1"
         },
@@ -2564,7 +2573,15 @@
             "Name": "Horse1",
             "UnitType": "Horse",
             "PartType": "Body",
-            "SubType": "FootBackBottom",
+            "SubType": "Acc",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
+        },
+        {
+            "Name": "Horse1",
+            "UnitType": "Horse",
+            "PartType": "Body",
+            "SubType": "BodyBack",
             "PartSubType": "",
             "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
         },
@@ -2580,7 +2597,23 @@
             "Name": "Horse1",
             "UnitType": "Horse",
             "PartType": "Body",
-            "SubType": "Neck",
+            "SubType": "FootBackBottom",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
+        },
+        {
+            "Name": "Horse1",
+            "UnitType": "Horse",
+            "PartType": "Body",
+            "SubType": "FootBackTop",
+            "PartSubType": "",
+            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
+        },
+        {
+            "Name": "Horse1",
+            "UnitType": "Horse",
+            "PartType": "Body",
+            "SubType": "FootFrontBottom",
             "PartSubType": "",
             "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
         },
@@ -2604,23 +2637,7 @@
             "Name": "Horse1",
             "UnitType": "Horse",
             "PartType": "Body",
-            "SubType": "FootFrontBottom",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
-        },
-        {
-            "Name": "Horse1",
-            "UnitType": "Horse",
-            "PartType": "Body",
-            "SubType": "FootBackTop",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
-        },
-        {
-            "Name": "Horse1",
-            "UnitType": "Horse",
-            "PartType": "Body",
-            "SubType": "BodyBack",
+            "SubType": "Neck",
             "PartSubType": "",
             "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
         },
@@ -2629,14 +2646,6 @@
             "UnitType": "Horse",
             "PartType": "Body",
             "SubType": "Tail",
-            "PartSubType": "",
-            "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
-        },
-        {
-            "Name": "Horse1",
-            "UnitType": "Horse",
-            "PartType": "Body",
-            "SubType": "Acc",
             "PartSubType": "",
             "Path": "Addons/Legacy/1_Horse/0_Spite/0_Body/Horse1"
         },

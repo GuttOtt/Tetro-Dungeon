@@ -1,0 +1,90 @@
+{
+    "Name": "CustomAddon",
+    "Path": "Assets/SPUM/Resources/Addons",
+    "Version": "",
+    "CreationDate": "2025-02-16 22:13:22",
+    "SpumAnimationData": [
+        {
+            "index": 0,
+            "Name": "Gunblader_idle.anim",
+            "StateType": "IDLE",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/0_Idle/Gunblader_idle.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": ""
+        },
+        {
+            "index": 0,
+            "Name": "HandCannon_idle.anim",
+            "StateType": "IDLE",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/0_Idle/HandCannon_idle.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": ""
+        },
+        {
+            "index": 0,
+            "Name": "Heavy_idle.anim",
+            "StateType": "IDLE",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/0_Idle/Heavy_idle.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": ""
+        },
+        {
+            "index": 0,
+            "Name": "HandCannon_Move.anim",
+            "StateType": "MOVE",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/1_Move/HandCannon_Move.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": ""
+        },
+        {
+            "index": 0,
+            "Name": "Heavy_Move.anim",
+            "StateType": "MOVE",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/1_Move/Heavy_Move.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": ""
+        },
+        {
+            "index": 0,
+            "Name": "0_Attack_Blade.anim",
+            "StateType": "ATTACK",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/2_Attack/0_MeleeAttack/0_Attack_Blade.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": "MeleeAttack"
+        },
+        {
+            "index": 0,
+            "Name": "0_Attack_Gun.anim",
+            "StateType": "ATTACK",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/2_Attack/1_LongRangeAttack/0_Attack_Gun.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": "LongRangeAttack"
+        },
+        {
+            "index": 0,
+            "Name": "0_Attack_Gun_1.anim",
+            "StateType": "ATTACK",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/2_Attack/1_LongRangeAttack/0_Attack_Gun_1.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": "LongRangeAttack"
+        },
+        {
+            "index": 0,
+            "Name": "0_Attack_HandCannon.anim",
+            "StateType": "ATTACK",
+            "ClipPath": "Addons/CustomAddon/0_Unit/1_Animation/2_Attack/1_LongRangeAttack/0_Attack_HandCannon.anim",
+            "HasData": false,
+            "UnitType": "Unit",
+            "SubCategory": "LongRangeAttack"
+        }
+    ],
+    "SpumTextureData": []
+}

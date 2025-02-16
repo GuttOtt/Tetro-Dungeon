@@ -2,7 +2,7 @@
     "Name": "Ver300",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-01-31 22:36:53",
+    "CreationDate": "2025-02-16 22:13:23",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -519,7 +519,7 @@
             "Name": "New_Cloth_총검사",
             "UnitType": "Unit",
             "PartType": "Cloth",
-            "SubType": "Left",
+            "SubType": "Right",
             "PartSubType": "",
             "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_총검사"
         },
@@ -527,7 +527,7 @@
             "Name": "New_Cloth_총검사",
             "UnitType": "Unit",
             "PartType": "Cloth",
-            "SubType": "Right",
+            "SubType": "Left",
             "PartSubType": "",
             "Path": "Addons/Ver300/0_Unit/0_Sprite/4_Cloth/New_Cloth_총검사"
         },
