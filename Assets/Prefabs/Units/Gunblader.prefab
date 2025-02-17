@@ -3365,7 +3365,7 @@ GameObject:
   - component: {fileID: 5042450271218442303}
   - component: {fileID: 9168085276705221729}
   m_Layer: 5
-  m_Name: SPUM_20241112202432661
+  m_Name: Gunblader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
