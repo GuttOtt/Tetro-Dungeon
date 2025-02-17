@@ -80,7 +80,8 @@ MonoBehaviour:
     CenterIndex: {x: 0, y: 1}
     SynergyDic:
       _serializedList: []
-  SPUM_Prefabs: {fileID: 8709130725696389567, guid: 5e2b3748cc7a4aa48816dd8a662cf58e, type: 3}
+  SPUM_Prefabs: {fileID: 8709130725696389567, guid: 745907b1fe44fe9458a9870f87a59c4f, type: 3}
+  Animator_Prefabs: {fileID: 0}
   _stat:
     _maxHP: 530
     _attack: 50
