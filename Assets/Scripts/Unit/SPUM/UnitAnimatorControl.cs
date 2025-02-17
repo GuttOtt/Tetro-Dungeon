@@ -42,7 +42,7 @@ public class UnitAnimatorControl : MonoBehaviour {
 
         isDead = true;
         animator.SetBool("Death", true);
-        //Fade(1f).Forget();
+        Fade(1.5f).Forget();
     }
 
     public async UniTask Fade(float duration) {
