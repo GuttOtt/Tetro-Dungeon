@@ -2,7 +2,7 @@
     "Name": "Legacy",
     "Path": "Assets/SPUM/Resources/Addons",
     "Version": "",
-    "CreationDate": "2025-02-16 22:13:22",
+    "CreationDate": "2025-02-19 16:15:44",
     "SpumAnimationData": [
         {
             "index": 0,
@@ -2253,7 +2253,7 @@
             "Name": "Armor_네크로맨서",
             "UnitType": "Unit",
             "PartType": "Armor",
-            "SubType": "Righ",
+            "SubType": "Armor_네크로맨서",
             "PartSubType": "",
             "Path": "Addons/Legacy/0_Unit/0_Sprite/5_Armor/Armor_네크로맨서"
         },
