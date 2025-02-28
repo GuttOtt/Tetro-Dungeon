@@ -70,6 +70,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public CharacterBlockConfig Config { get => _config; }
     public List<Equipment> Equipments { get => _equipments; }
     public int SpinDegree { get => _spinDegree; }
+    public List<BlockPart> BlockParts { get => _blockParts; }
 
     #region Stats
     private Stat _stat;
@@ -77,6 +78,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public Stat Stat { get => _stat.DeepCopy(); }
     public Stat OriginalStat { get => Config.Stat; }
     public int CurrentLevel{get=>_level;}
+    public List<Cell> Cells { get => _blockParts.Select(blockPart => blockPart.Cell).ToList(); }
     #endregion
 
 

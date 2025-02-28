@@ -1,12 +1,14 @@
 using Assets.Scripts;
 using Assets.Scripts.Reward;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
 using EnumTypes;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -56,8 +58,9 @@ public class GameManager : MonoBehaviour, IGameManager
     private SceneChanger _sceneChanger;
     #endregion
 
-
+    [SerializeField] BaseUnitMarker _baseUnitMarkerPrefab;
     #endregion
+
 
 
     private void Start() {
@@ -75,15 +78,16 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     private async void StartBattleScene() {
+        _characterBlockSystem.SetInputOff();
         PlaceEnemyUnits();
-        PlacePlayerUnits().Forget();
+        await PlacePlayerUnits();
 
         await UniTask.Delay(TimeSpan.FromSeconds(3));
 
         _battleSystem.StartBattle().Forget();
     }
 
-    private async UniTaskVoid PlacePlayerUnits() {
+    private async UniTask PlacePlayerUnits() {
         List<CharacterBlock> blocks = new List<CharacterBlock>();
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
@@ -91,9 +95,21 @@ public class GameManager : MonoBehaviour, IGameManager
             blocks.Add(block);
         }
 
-        await UniTask.WaitForSeconds(2f);
+        await UniTask.WaitForSeconds(1f);
 
         foreach (CharacterBlock block in blocks) {
+            foreach (BlockPart blockPart in block.BlockParts) {
+                blockPart.Cell = blockPart.PickCell();
+                Debug.Log($"BlockPart {blockPart.name} is placed at {blockPart.Cell}");
+            }
+        }
+
+        // BaseUnitMarker를 생성하고 드래그 앤 드랍으로 유닛의 위치를 조절
+        List<BaseUnitMarker> markers = await ManipulatePlayerUnitPos(blocks);
+
+        foreach (BaseUnitMarker marker in markers) {
+            CharacterBlock block = marker.characterBlock;
+            
             BaseUnit unit = _unitSystem.CreateUnit(block, CharacterTypes.Player);
 
             //Equipments
@@ -102,16 +118,32 @@ public class GameManager : MonoBehaviour, IGameManager
                 unit.Equip(equipment.Config);
             }
 
-            //Place unit in the center of the characterBlock
-            Vector2Int centerCellPos = block.CenterCellPos;
-            Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);
-
-            _board.Place(centerCell, unit);
+            //Place unit in the manipulated marker's cell
+            Cell cellToPlace = marker.cell;
+            _board.Place(cellToPlace, unit);
 
             Destroy(block.gameObject);
+            Destroy(marker.gameObject);
         }
 
         Debug.Log($"현재 보드의 모든 플레이어 유닛: {_board.GetUnits(CharacterTypes.Player).Count}");
+    }
+
+    private async UniTask<List<BaseUnitMarker>> ManipulatePlayerUnitPos(List<CharacterBlock> characterBlocks) {
+        // BaseUnitMarker들을 생성
+        List<BaseUnitMarker> markers = new List<BaseUnitMarker>();
+        foreach (CharacterBlock block in characterBlocks) {
+            Vector2Int centerCellPos = block.CenterCellPos;
+            Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);
+            BaseUnitMarker marker = Instantiate(_baseUnitMarkerPrefab, centerCell.transform);
+            marker.Initialize(centerCell, block);
+            markers.Add(marker);
+        }
+
+        // 엔터키 입력을 기다림
+        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        return markers;
     }
 
     private void PlaceEnemyUnits() {

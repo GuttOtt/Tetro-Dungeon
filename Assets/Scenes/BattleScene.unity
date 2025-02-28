@@ -431,6 +431,7 @@ MonoBehaviour:
   _rewardSystem: {fileID: 0}
   _characterBlockSystem: {fileID: 1309278070}
   _sceneChanger: {fileID: 1991772152}
+  _baseUnitMarkerPrefab: {fileID: 7210395391773260483, guid: 4c712e17e09a7e64b951c6e3e44d283c, type: 3}
 --- !u!4 &715896374
 Transform:
   m_ObjectHideFlags: 0

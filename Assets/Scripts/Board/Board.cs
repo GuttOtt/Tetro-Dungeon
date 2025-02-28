@@ -46,6 +46,7 @@ public class Board : MonoBehaviour
 
         if (cells == null || cells.Length == 0) {
             Init();
+            Debug.Log("Board Initialized");
         }
     }
 

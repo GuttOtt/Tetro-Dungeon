@@ -22,7 +22,11 @@ public class BlockPart : MonoBehaviour {
 
 
     public Cell PickCell() {
-        return Utils.Pick<Cell>(transform.position);
+        var position = transform.position;
+        Debug.Log($"Picking cell at position: {position}");
+        var cell = Utils.Pick<Cell>(position);
+        Debug.Log($"Picked cell: {cell}");
+        return cell;
     }
 
     public BlockPart PickBlockPart() {

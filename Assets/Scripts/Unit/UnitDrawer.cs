@@ -30,9 +30,9 @@ public class UnitDrawer : MonoBehaviour
     public UnitConfig UnitConfig { get => _unitConfig; } 
     public void Awake()
     {
-        // Ã¼·Â ¹Ù
+        // ì²´ë ¥ ë°”
         _healthBar = GetComponentInChildren<UnitHealthBar>();
-        // Tooltip ³»ÀÇ Name TextMeshPro ÄÄÆ÷³ÍÆ® Ã£±â
+        // Tooltip ë‚´ì˜ Name TextMeshPro ì»´í¬ë„ŒíŠ¸ ì°¾ê¸°
         if (_tooltip != null)
         {
             _tooltip_name = _tooltip.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
@@ -41,7 +41,7 @@ public class UnitDrawer : MonoBehaviour
     }
 
     public void Draw(UnitConfig unitConfig, int attackBuff = 0, int hpBuff = 0) {
-        //½ºÇÁ¶óÀÌÆ®
+        //ìŠ¤í”„ë¼ì´íŠ¸
         if (_unitSprite != null) {
             _unitSprite.sprite = unitConfig.Sprite;
         }
@@ -50,7 +50,7 @@ public class UnitDrawer : MonoBehaviour
         int attack = unitConfig.Attack + attackBuff;
         int hp = unitConfig.MaxHP + hpBuff;
 
-        //ÅØ½ºÆ®
+        //í…ìŠ¤íŠ¸
         _hpText?.SetText(hp.ToString());
         _mpText?.SetText(attack.ToString());
         _attackText?.SetText(unitConfig.Attack.ToString());
@@ -73,7 +73,7 @@ public class UnitDrawer : MonoBehaviour
         int attack = config.Stat.MaxHP + attackBuff;
         int hp = config.Stat.MaxHP + hpBuff;
 
-        //ÅØ½ºÆ®
+        //í…ìŠ¤íŠ¸
         _hpText?.SetText(hp.ToString());
         _mpText?.SetText(attack.ToString());
         _attackText?.SetText(config.Stat.MaxHP.ToString());
@@ -157,5 +157,9 @@ public class UnitDrawer : MonoBehaviour
 
     public void UpdateStatus(List<Status> statuses) {
         _statusDrawer.DrawStatuses(statuses);
+    }
+
+    public void SetHpBarOff() {
+        _healthBar.SetSliderOff();
     }
 }

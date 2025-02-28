@@ -124,6 +124,10 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     #region Selection and Dragging Control
+    public void SetInputOff() {
+        _isInputOn = false;
+    }
+
     private void SelectBlock() {
         if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedBlock != null) {
             return;
