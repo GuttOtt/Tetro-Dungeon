@@ -103,4 +103,5 @@ MonoBehaviour:
   PassiveSkills:
   - {fileID: 11400000, guid: b72e58b7082b3874daaff7208c6c5fa5, type: 2}
   Synergies: []
-  Awakenings: []
+  Awakenings:
+  - {fileID: 11400000, guid: 680f28529bda91b438cd018fd0e1b258, type: 2}

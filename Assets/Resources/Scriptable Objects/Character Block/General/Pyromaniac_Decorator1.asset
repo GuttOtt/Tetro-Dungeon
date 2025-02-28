@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dfa9ff4014d8e443850d7e0e05970f3, type: 3}
-  m_Name: GrailKnight_Skill1
+  m_Name: Pyromaniac_Decorator1
   m_EditorClassIdentifier: 
-  _skillName: "\uC131\uBC30\uC758 \uCD95\uBCF5"
-  _skillDescription: "\uC804\uD22C \uC2DC\uC791 \uC2DC, \uC544\uAD70 \uC804\uCCB4\uC758
-    \uACF5\uACA9\uB825\uACFC \uCD5C\uB300 \uCCB4\uB825\uC744 {StatusValue}% \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  _skillName: "\uBC29\uD654"
+  _skillDescription: "\uACF5\uACA9\uC774 \uC801\uC911\uD558\uBA74 \uD574\uB2F9 \uC801\uC5D0\uAC8C
+    \uD3ED\uBC1C \uB514\uBC84\uD504 {GrantAmount}\uAC1C\uB97C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
   _skillChance: 1
-  _unitEvents: 05000000
+  _unitEvents: 02000000
   _shouldInterrupt: 0
-  _statusConfig: {fileID: 11400000, guid: 65ebeb7681eb3a24abcb484f2b79f828, type: 2}
-  _targetType: 2
-  _statusValue: 10
+  _statusConfig: {fileID: 11400000, guid: f1f43af8c5082ba40a9886a94e4f0d59, type: 2}
+  _targetType: 0
+  _statusValue: 
   grantAmount: 1

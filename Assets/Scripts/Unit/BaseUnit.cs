@@ -371,6 +371,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
 
         //사망 처리
+        CurrentHP = 0;
         OnDie?.Invoke();
         OnDestroy?.Invoke();
         CurrentCell.UnitOut();

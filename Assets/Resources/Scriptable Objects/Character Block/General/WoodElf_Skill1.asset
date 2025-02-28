@@ -25,3 +25,4 @@ MonoBehaviour:
   _statusConfig: {fileID: 11400000, guid: f2120f4155eb4db468c6d3e2f00db53e, type: 2}
   _targetType: 1
   _statusValue: 
+  grantAmount: 1

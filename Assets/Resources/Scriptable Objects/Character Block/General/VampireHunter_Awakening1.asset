@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e76619fae4c5a458ced01071a98f07, type: 3}
+  m_Name: VampireHunter_Awakening1
+  m_EditorClassIdentifier: 
+  _condition:
+    _synergyDic:
+      _serializedList:
+      - Key: 6
+        Value: 2
+  description: "1. \uC870\uAC74: [\uC288\uD130] \uC544\uC774\uD15C 2\uAC1C \uCC29\uC6A9\n\uD6A8\uACFC:
+    \uD45C\uC2DD\uC774 \uC788\uB294 \uC801\uC774 \uC0AC\uB9DD\uD560 \uB54C\uB9C8\uB2E4,
+    \uC774 \uC720\uB2DB\uC758\n\uACF5\uACA9\uB825\uC774 10% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  _skillIndex: 0
+  _decorator: {fileID: 11400000, guid: d033c7f872ed2b440bfe53f3ba1c8277, type: 2}

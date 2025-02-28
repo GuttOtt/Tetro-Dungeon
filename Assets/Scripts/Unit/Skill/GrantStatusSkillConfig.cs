@@ -9,11 +9,13 @@ public class GrantStatusSkillConfig : SkillConfig {
     [SerializeField] private StatusConfig _statusConfig;
     [SerializeField] private TargetTypes _targetType;
     [SerializeField] private string _statusValue;
+    [SerializeField] private int grantAmount = 1;
 
 
     public StatusConfig StatusConfig { get => _statusConfig; }
     public TargetTypes TargetType { get => _targetType; }
     public string StatusValue { get => _statusValue; }
+    public int GrantAmount => grantAmount;
 }
 
 public class GrantStatusSkill : UnitSkill {
@@ -22,10 +24,12 @@ public class GrantStatusSkill : UnitSkill {
     private StatusConfig _originalStatusConfig;
     private string _statusValue;
     private string _originalStatusValue;
+    private int grantAmount;
 
     public StatusConfig StatusConfig { get => _statusConfig; }
     public TargetTypes TargetType { get => _targetType; }
     public string StatusValue { get => _statusValue; }
+    public int GrantAmount => grantAmount;
 
 
     public GrantStatusSkill(GrantStatusSkillConfig config) : base(config) {
@@ -33,6 +37,7 @@ public class GrantStatusSkill : UnitSkill {
         _statusConfig = config.StatusConfig;
         _targetType = config.TargetType;
         _statusValue = config.StatusValue;
+        grantAmount = config.GrantAmount;
     }
 
     public override void Decorate(SkillConfig config)
@@ -41,6 +46,7 @@ public class GrantStatusSkill : UnitSkill {
             _statusConfig = grantStatusConfig.StatusConfig;
             _statusValue = grantStatusConfig.StatusValue;
             _originalStatusValue = grantStatusConfig.StatusValue;
+            grantAmount += grantStatusConfig.GrantAmount;
         }
         else {
             Debug.LogWarning("Invalid config type for GrantStatusSkill.");
@@ -52,6 +58,7 @@ public class GrantStatusSkill : UnitSkill {
         if (config is GrantStatusSkillConfig grantStatusConfig) {
             _statusConfig = _originalStatusConfig;
             _statusValue = _originalStatusValue;
+            grantAmount -= grantStatusConfig.GrantAmount;
         }
         else {
             Debug.LogWarning("Invalid config type for GrantStatusSkill.");
@@ -101,7 +108,9 @@ public class GrantStatusSkill : UnitSkill {
             if (target == null) return ShouldInterrupt;
 
             StatusApplicationContext context = new StatusApplicationContext(target, activator);
-            target.GrantStatus(status, context);
+            
+            for (int i = 0; i < grantAmount; i++)
+                target.GrantStatus(status, context);
         }
         return ShouldInterrupt;
     }

@@ -19,3 +19,5 @@ MonoBehaviour:
   _shouldInterrupt: 0
   _statusConfig: {fileID: 11400000, guid: 6b2d5230bb685144aa10e32bfe10aa96, type: 2}
   _targetType: 0
+  _statusValue: 
+  grantAmount: 1

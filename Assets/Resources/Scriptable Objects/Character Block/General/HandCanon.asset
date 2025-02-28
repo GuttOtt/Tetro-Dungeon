@@ -80,7 +80,7 @@ MonoBehaviour:
     CenterIndex: {x: 1, y: 1}
     SynergyDic:
       _serializedList: []
-  SPUM_Prefabs: {fileID: 8626065068975908562, guid: 8e54be3baa1cd2647a35d1a4fb6eae06, type: 3}
+  SPUM_Prefabs: {fileID: 1569576391900241504, guid: f0b2fd41cc9ee2a448dcfc8f3d76d939, type: 3}
   Animator_Prefabs: {fileID: 0}
   _stat:
     _maxHP: 550
@@ -103,4 +103,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a71591214f8f2341b931add5fd445d0, type: 2}
   PassiveSkills: []
   Synergies: []
-  Awakenings: []
+  Awakenings:
+  - {fileID: 11400000, guid: da621f5ead48dda46856ffb98f576f9a, type: 2}

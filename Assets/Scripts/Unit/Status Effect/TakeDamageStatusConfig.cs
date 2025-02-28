@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks.Triggers;
 using EnumTypes;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,11 +11,13 @@ public class TakeDamageStatusConfig : StatusConfig {
     [SerializeField] private int _baseDamage;
     [SerializeField] private float _originalDamageRatio;
     [SerializeField] private float _maxHpExecutionThreshold;
+    [SerializeField] private float onDieActivatorAttackBuffRatio;
 
     public DamageTypes DamageType { get => damageType; }
     public int BaseDamage { get => _baseDamage; }
     public float OriginalDamageRatio { get => _originalDamageRatio; }
     public float MaxHpExecutionThreshold { get => _maxHpExecutionThreshold; }
+    public float OnDieActivatorAttackBuffRatio => onDieActivatorAttackBuffRatio;
 }
 
 public class TakeDamageStatus : Status {
@@ -22,17 +25,21 @@ public class TakeDamageStatus : Status {
     private int _baseDamage;
     private float _originalDamageRatio;
     float _maxHpExecutionThreshold; // 최대 체력 대비 처형 임계값
+    private float onDieActivatorAttackBuffRatio;
+    private BaseUnit activator;
 
     public DamageTypes DamageType { get => _damageType; }
     public int BaseDamage { get => _baseDamage; }
     public float OriginalDamageRatio { get => _originalDamageRatio; } 
     public float MaxHpExecutionThreshold { get => _maxHpExecutionThreshold; }
+    public float OnDieActivatorAttackBuffRatio => onDieActivatorAttackBuffRatio;
 
     public TakeDamageStatus(TakeDamageStatusConfig config) : base(config) {
         _damageType = config.DamageType;
         _baseDamage = config.BaseDamage;
         _originalDamageRatio = config.OriginalDamageRatio;
         _maxHpExecutionThreshold = config.MaxHpExecutionThreshold;
+        onDieActivatorAttackBuffRatio = config.OnDieActivatorAttackBuffRatio;
     }
 
     public override void ApplyTo(StatusApplicationContext context) {
@@ -40,6 +47,7 @@ public class TakeDamageStatus : Status {
         foreach (UnitEventTypes eventType in UnitEvents) {
             Register(unit, eventType);
         }
+        activator = context.ActivatorUnit;
     }
 
     private void Register(BaseUnit unit, UnitEventTypes eventType) {
@@ -86,6 +94,13 @@ public class TakeDamageStatus : Status {
         if (_maxHpExecutionThreshold > 0 && ((float)unit.CurrentHP / unit.MaxHP) <= _maxHpExecutionThreshold) {
             unit.Die(turnContext);
             Debug.Log("TakeDamageStatus: " + unit.name + " executed" + "hp: " + unit.CurrentHP + "/" + unit.MaxHP + " threshold: " + _maxHpExecutionThreshold);
+        }
+
+        if (unit.CurrentHP <= 0 && onDieActivatorAttackBuffRatio > 0 && activator != null) {
+            int attackBuff = (int) (activator.Stat.Attack * onDieActivatorAttackBuffRatio);
+            activator.ChangeAttack(attackBuff);
+            Debug.Log("TakeDamageStatus: " + activator.Name + " attack buffed by " + attackBuff);
+            
         }
     }
 }
