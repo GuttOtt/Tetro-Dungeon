@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dark Orb
   m_EditorClassIdentifier: 
   Name: "\uC554\uD751 \uC624\uBE0C"
-  Sprite: {fileID: 21300000, guid: be368531152070145a0a98056744f1c4, type: 3}
+  Sprite: {fileID: 21300000, guid: 6f9c2b919a0c7f049b0638b627f9c757, type: 3}
   Shape:
     gridSize: {x: 1, y: 1}
     cellSize: {x: 16, y: 16}

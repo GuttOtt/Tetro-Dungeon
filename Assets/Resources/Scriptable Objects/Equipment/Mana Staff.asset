@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Mana Staff
   m_EditorClassIdentifier: 
   Name: "\uB9C8\uB098 \uC2A4\uD0DC\uD504"
-  Sprite: {fileID: 21300000, guid: 7e866e7b85d580e4cb85465cbeef1299, type: 3}
+  Sprite: {fileID: 21300000, guid: 589085f0c157736438715b56ad00b511, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0100
-  _synergyTypes: 01000000
   _synergyDict:
     _serializedList:
     - Key: 1

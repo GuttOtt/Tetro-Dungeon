@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Bible
   m_EditorClassIdentifier: 
   Name: "\uC131\uC11C"
-  Sprite: {fileID: 21300000, guid: 4e0de8f564583e642b58d2a3572ab0fe, type: 3}
+  Sprite: {fileID: 21300000, guid: ae9b75256599f0b40af9b90908bbe7f4, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0101
-  _synergyTypes: 05000000
   _synergyDict:
     _serializedList:
     - Key: 5

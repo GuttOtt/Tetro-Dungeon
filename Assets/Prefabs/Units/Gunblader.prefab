@@ -6873,8 +6873,8 @@ MonoBehaviour:
   MOVE_List:
   - {fileID: 7400000, guid: 5187132de96c18244b62b7d6e2580323, type: 2}
   ATTACK_List:
-  - {fileID: 7400000, guid: 510eb509e26ff4848912b182c29b1cc8, type: 2}
   - {fileID: 7400000, guid: e092cff53cac680428b72d08266345eb, type: 2}
+  - {fileID: 7400000, guid: 510eb509e26ff4848912b182c29b1cc8, type: 2}
   DAMAGED_List:
   - {fileID: 7400000, guid: eeb8ba3a0a6cb63499a6fa72e6ad7358, type: 2}
   DEBUFF_List:
@@ -7028,7 +7028,7 @@ Transform:
   m_GameObject: {fileID: 7893800239642486202}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000014044326, y: -0.0000003743895, z: -0.00008370232, w: 1}
-  m_LocalPosition: {x: 0.0000129773525, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

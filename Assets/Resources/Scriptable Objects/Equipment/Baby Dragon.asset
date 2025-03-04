@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Baby Dragon
   m_EditorClassIdentifier: 
   Name: "\uC0C8\uB07C\uC6A9"
-  Sprite: {fileID: 21300000, guid: 499414676307b704c980c21bb48b3d31, type: 3}
+  Sprite: {fileID: 21300000, guid: 767cf0b7e5e572447a3fb78e88546b7a, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0100
-  _synergyTypes: 03000000
   _synergyDict:
     _serializedList:
     - Key: 3

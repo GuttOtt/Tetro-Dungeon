@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Name: "\uD53C\uC2A4\uD1A8"
-  Sprite: {fileID: 21300000, guid: 008f3a3c260fca640bda0b21bf6dea8e, type: 3}
+  Sprite: {fileID: 21300000, guid: f61a789ee0cfd6342995ddb388c904ce, type: 3}
   Shape:
     gridSize: {x: 2, y: 1}
     cellSize: {x: 16, y: 16}

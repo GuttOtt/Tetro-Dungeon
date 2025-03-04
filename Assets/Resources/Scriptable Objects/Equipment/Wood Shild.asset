@@ -13,18 +13,20 @@ MonoBehaviour:
   m_Name: Wood Shild
   m_EditorClassIdentifier: 
   Name: "\uB098\uBB34 \uBC29\uD328"
-  Sprite: {fileID: 21300000, guid: 476b42ea1449dc64e9c395f278fdce28, type: 3}
+  Sprite: {fileID: 21300000, guid: 55931a01413fe3741a73a823987fb184, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0101
+  _synergyDict:
+    _serializedList: []
   _stat:
     _maxHP: 7
     _attack: 0
     _spellPower: 0
     _defence: 7
     _spellDefence: 0
-    _speed: 0
     _range: 0
+    _speed: 0

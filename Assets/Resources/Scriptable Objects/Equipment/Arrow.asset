@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Arrow
   m_EditorClassIdentifier: 
   Name: "\uD654\uC0B4"
-  Sprite: {fileID: 21300000, guid: 85e3754405a5e5945bfa9814cb2c1a67, type: 3}
+  Sprite: {fileID: 21300000, guid: da62a20276b93dc468e12f2adad93458, type: 3}
   Shape:
     gridSize: {x: 2, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
-  _synergyTypes: 06000000
   _synergyDict:
     _serializedList:
     - Key: 6

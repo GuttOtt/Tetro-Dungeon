@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Long Sword
   m_EditorClassIdentifier: 
   Name: "\uB871\uC18C\uB4DC"
-  Sprite: {fileID: 21300000, guid: b46ea07f5f0f7ee40ac24270f9095743, type: 3}
+  Sprite: {fileID: 21300000, guid: 08ea319a8dcfefe4fbac50821d7c5ef9, type: 3}
   Shape:
     gridSize: {x: 3, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 010101
-  _synergyTypes: 02000000
   _synergyDict:
     _serializedList:
     - Key: 2
