@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EnumTypes;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Heal Closest Skill Config", menuName = "ScriptableObjects/Skill/HealSkillConfig")]
@@ -41,7 +42,6 @@ public class HealClosestSkill : UnitSkill {
             return Heal(activator, turnContext);
         };
         unit.onAttacking += _healHandler;
-        Debug.Log("힐 스킬 등록");
     }
 
     public override void UnregisterToUnitEvents(BaseUnit unit) {

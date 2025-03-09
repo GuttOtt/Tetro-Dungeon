@@ -11,6 +11,7 @@ public class EquipmentInfoSystem : MonoBehaviour
     [SerializeField] private TMP_Text _nameText;
     [SerializeField] private TMP_Text _statText;
     [SerializeField] private TMP_Text _synergiesText;
+    [SerializeField] private TMP_Text _descriptionText;
     [SerializeField] private GameObject _panel;
     [SerializeField] private SimpleMonoButton _closeButton;
     [SerializeField] private SpriteRenderer _equipmentSprite;
@@ -45,6 +46,9 @@ public class EquipmentInfoSystem : MonoBehaviour
 
         // Name
         _nameText.text = equipment.Config.Name;
+
+        // Description
+        _descriptionText.text = equipment.Config.Description;
 
         // Sprite
         _equipmentSprite.sprite = equipment.Sprite;

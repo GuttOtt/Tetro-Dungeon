@@ -15,6 +15,7 @@ public class Equipment : MonoBehaviour, IItem {
     [SerializeField]private CharacterBlock _characterBlock;
     private Vector2Int _locationInCharacter;
     private Sprite _sprite;
+    private List<UnitSkill> skills = new List<UnitSkill>();
     
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private BlockPart_Equipment _blockPartPrefab;
@@ -28,12 +29,14 @@ public class Equipment : MonoBehaviour, IItem {
     public Sprite Sprite { get => _sprite; }
     public bool IsPlaced { get => _isPlaced; }
     public CharacterBlock CharacterBlock { get => _characterBlock; }
+    public List<UnitSkill> Skills { get => skills; }
 
     #region Init
     public void Init(EquipmentConfig config) {
         _config = config;
         _spriteRenderer.sprite = config.Sprite;
         _sprite = config.Sprite;
+        skills = SkillFactory.CreateSkills(config.Skills);
 
         CreateBlockParts(config.Shape);
     }

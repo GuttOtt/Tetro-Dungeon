@@ -84,6 +84,7 @@ public class BaseUnit : MonoBehaviour, IUnit
     private UnitSkill _defaultSkill;
     private List<UnitSkill> _activeSkills = new List<UnitSkill>();
     private List<UnitSkill> _passiveSkills = new List<UnitSkill>();
+    private List<UnitSkill> _equipmentSkills = new List<UnitSkill>();
     
     private float _skillChanceMultiplier;
     #endregion
@@ -333,6 +334,11 @@ public class BaseUnit : MonoBehaviour, IUnit
         }
         foreach (UnitSkill skill in characterBlock.ActiveSkills) {
             _activeSkills.Add(skill);
+        }
+        foreach (UnitSkill skill in characterBlock.EquipmentSkills) {
+            _equipmentSkills.Add(skill);
+            skill.RegisterToUnitEvents(this);
+            Debug.Log($"Register Equipment Skill: {skill}");
         }
 
         _unitDrawer._healthBar.SetMaxHealth(MaxHP);
@@ -689,6 +695,8 @@ public class BaseUnit : MonoBehaviour, IUnit
         _range += equipmentStat.Range;
         _speed += equipmentStat.Speed;
     }
+
+
 
     #region Status
     [SerializeField] private List<Status> _statuses = new List<Status>();

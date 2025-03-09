@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfa9ff4014d8e443850d7e0e05970f3, type: 3}
+  m_Name: Fire Shield_Skill
+  m_EditorClassIdentifier: 
+  _skillName: "\uACF5\uD3EC"
+  _skillDescription: 
+  _skillChance: 1
+  _unitEvents: 03000000
+  _shouldInterrupt: 0
+  _statusConfig: {fileID: 11400000, guid: f1f43af8c5082ba40a9886a94e4f0d59, type: 2}
+  _targetType: 3
+  _statusValue: 
+  grantAmount: 1

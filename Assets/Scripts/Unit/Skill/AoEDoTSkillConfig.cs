@@ -79,8 +79,34 @@ public class AoEDotSkill : UnitSkill {
         }
     }
 
+    public override void RegisterToUnitEvents(BaseUnit unit) {
+        foreach (UnitEventTypes unitEvent in UnitEvents) {
+            switch (unitEvent) {
+                case UnitEventTypes.OnDying:
+                    unit.onDying += OnDyingHandler;
+                    break;
+            }
+        }
+    }
+
+    public override void UnregisterToUnitEvents(BaseUnit unit) {
+        foreach (UnitEventTypes unitEvent in UnitEvents) {
+            switch (unitEvent) {
+                case UnitEventTypes.OnDying:
+                    unit.onDying -= OnDyingHandler;
+                    break;
+            }
+        }
+    }
+
+
     public override void Activate(TurnContext turnContext, BaseUnit activator, BaseUnit target = null) {
         CreateAoE(turnContext, activator, target.CurrentCell);
+    }
+
+    private bool OnDyingHandler(BaseUnit activator, TurnContext turnContext) {
+        CreateAoE(turnContext, activator, activator.CurrentCell);
+        return ShouldInterrupt;
     }
 
     private async void CreateAoE(TurnContext turnContext, BaseUnit activator, Cell center) {

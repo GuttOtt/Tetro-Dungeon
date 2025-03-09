@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0aa8dd8c792f8459e64846e29e0100, type: 3}
+  m_Name: Scythe_Skill
+  m_EditorClassIdentifier: 
+  _skillName: 
+  _skillDescription: 
+  _skillChance: 1
+  _unitEvents: 00000000
+  _shouldInterrupt: 0
+  _area:
+    gridSize: {x: 3, y: 3}
+    cellSize: {x: 16, y: 16}
+    cells:
+    - row: 010101
+    - row: 010101
+    - row: 010101
+  _baseDamage: 10
+  _attackRatio: 0
+  _spellPowerRatio: 0
+  _damageType: 1
+  _duration: 5
+  _effectSprite: {fileID: 21300000, guid: 78393dc4487c1b343976f049b1d8fb62, type: 3}

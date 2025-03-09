@@ -77,6 +77,9 @@ public class GrantStatusSkill : UnitSkill {
                 case UnitEventTypes.OnBattleStart:
                     unit.onBattleStart += GrantStatus;
                     break;
+                case UnitEventTypes.OnDamageTaken:
+                    unit.onDamageTaken += GrantStatus;
+                    break;
                 case UnitEventTypes.OnDying:
                     unit.onDying += (activator, turnContext) => GrantStatus(activator, null, turnContext);
                     break;
@@ -119,6 +122,10 @@ public class GrantStatusSkill : UnitSkill {
         GrantStatus(activator, null, turnContext);
     }
 
+    private void GrantStatus(TurnContext turnContext, BaseUnit activator, Damage damageTaken) {
+        GrantStatus(activator, null, turnContext);
+    }
+
     private List<BaseUnit> GetTargets(BaseUnit activator,BaseUnit attackTarget, Board board) {
         List<BaseUnit> targets = new List<BaseUnit>();
 
@@ -144,6 +151,9 @@ public class GrantStatusSkill : UnitSkill {
                 foreach (IUnit unit in enemies) {
                     targets.Add(unit as BaseUnit);
                 }
+                break;
+            case TargetTypes.Activator:
+                targets.Add(activator);
                 break;
         }
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e72be19418f750428b2f4c078ad8419, type: 3}
+  m_Name: Fire Shield
+  m_EditorClassIdentifier: 
+  Name: 
+  Sprite: {fileID: 21300000, guid: b764b9e889d674049b0a84113f618c79, type: 3}
+  Shape:
+    gridSize: {x: 2, y: 2}
+    cellSize: {x: 16, y: 16}
+    cells:
+    - row: 0101
+    - row: 0101
+  _description: "\uC7A5\uCC29 \uC720\uB2DB\uC774 \uACF5\uACA9\uBC1B\uC744 \uB54C\uB9C8\uB2E4
+    \uBD88\uAE38\uC744 \uD37C\uB728\uB824 \uC7A5\uCC29\n3x3 \uBC94\uC704 \uB0B4\uC758
+    \uC801\uAD70\uC5D0\uAC8C \uD3ED\uBC1C \uC2A4\uD0DD\uC744 \uC801\uC6A9\uD569\uB2C8\uB2E4."
+  _synergyDict:
+    _serializedList:
+    - Key: 3
+      Value: 4
+  skills:
+  - {fileID: 11400000, guid: e4d221dd91fe9ce438dda604eb8dbb85, type: 2}
+  _stat:
+    _maxHP: 0
+    _attack: 0
+    _spellPower: 0
+    _defence: 10
+    _spellDefence: 10
+    _range: 0
+    _speed: 0

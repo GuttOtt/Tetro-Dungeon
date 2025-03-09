@@ -307,7 +307,7 @@ public class Board : MonoBehaviour
     /// maxDistance는 체크하는 최대 거리
     /// 상하좌우 한 칸의 거리는 1, 대각선은 루트 2로 가정함
     /// </summary>
-    public IUnit GetClosestUnit(Cell center, CharacterTypes characterType, int maxDistance) {
+    public IUnit GetClosestUnit(Cell center, CharacterTypes characterType, int maxDistance, int minDistance = 0) {
         List<IUnit> units = GetUnits(characterType);
 
         float temp = maxDistance;

@@ -192,4 +192,12 @@ public class EquipmentSystem : MonoBehaviour {
     public void UnplaceFromBoard(Equipment equipment) {
         OnUnplaceFromBoard?.Invoke(equipment);
     }
+
+    public void SetInputOn() {
+        _isInputOn = true;
+    }
+
+    public void SetInputOff() {
+        _isInputOn = false;
+    }   
 }

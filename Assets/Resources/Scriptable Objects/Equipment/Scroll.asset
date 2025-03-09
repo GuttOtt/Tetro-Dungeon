@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e72be19418f750428b2f4c078ad8419, type: 3}
+  m_Name: Scroll
+  m_EditorClassIdentifier: 
+  Name: "\uC2A4\uD06C\uB864"
+  Sprite: {fileID: 21300000, guid: b68d0c0f5912ab64fb68d352c9b80459, type: 3}
+  Shape:
+    gridSize: {x: 1, y: 2}
+    cellSize: {x: 16, y: 16}
+    cells:
+    - row: 01
+    - row: 01
+  _description: "\uC7A5\uCC29 \uC720\uB2DB\uC774 \uACF5\uACA9\uD560 \uB54C\uB9C8\uB2E4
+    \uB300\uC0C1\uC5D0\uAC8C \uC5D0\uB108\uC9C0 \uBCFC\uD2B8\uB97C \uBC1C\uC0AC\uD574\n10
+    + \uC8FC\uBB38\uB825\uC758 20%\uB9CC\uD07C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+  _synergyDict:
+    _serializedList:
+    - Key: 1
+      Value: 2
+  skills:
+  - {fileID: 11400000, guid: 67c0644671ed18c48ae56ad65b7b5b81, type: 2}
+  _stat:
+    _maxHP: 0
+    _attack: 0
+    _spellPower: 10
+    _defence: 0
+    _spellDefence: 0
+    _range: 0
+    _speed: 0

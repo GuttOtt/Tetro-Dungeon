@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour, IGameManager
     [SerializeField]
     private CharacterBlockSystem _characterBlockSystem;
 
+    [SerializeField] private EquipmentSystem _equipmentSystem;
+
     [SerializeField]
     private SceneChanger _sceneChanger;
     #endregion
@@ -79,6 +81,8 @@ public class GameManager : MonoBehaviour, IGameManager
 
     private async void StartBattleScene() {
         _characterBlockSystem.SetInputOff();
+        _equipmentSystem.SetInputOff();
+
         PlaceEnemyUnits();
         await PlacePlayerUnits();
 
@@ -111,12 +115,6 @@ public class GameManager : MonoBehaviour, IGameManager
             CharacterBlock block = marker.characterBlock;
             
             BaseUnit unit = _unitSystem.CreateUnit(block, CharacterTypes.Player);
-
-            //Equipments
-            List<Equipment> equipments = block.Equipments;
-            foreach (Equipment equipment in equipments) {
-                unit.Equip(equipment.Config);
-            }
 
             //Place unit in the manipulated marker's cell
             Cell cellToPlace = marker.cell;

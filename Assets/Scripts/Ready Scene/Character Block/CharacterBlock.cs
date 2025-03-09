@@ -19,6 +19,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
     //Equipment
     private List<Equipment> _equipments = new List<Equipment>();
+    private List<UnitSkill> equipmentSkills = new List<UnitSkill>();
 
     //Skill
     private UnitSkill _defaultSkill;
@@ -27,6 +28,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public UnitSkill DefaultSkill { get => _defaultSkill; }
     public List<UnitSkill> PassiveSkills { get => _passiveSkill; }
     public List<UnitSkill> ActiveSkills { get => _activeSkill; }
+    public List<UnitSkill> EquipmentSkills => equipmentSkills;
     public List<UnitSkill> Skills { 
         get {
             List<UnitSkill> allSkills = new List<UnitSkill>();
@@ -295,6 +297,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         _stat += equipment.Stat;
 
+        foreach (UnitSkill skill in equipment.Skills) {
+            equipmentSkills.Add(skill);
+        }
+
         UpdateAwakening();
     }
 
@@ -302,6 +308,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _equipments.Remove(equipment);
 
         _stat -= equipment.Stat;
+
+        foreach (UnitSkill skill in equipment.Skills) {
+            equipmentSkills.Remove(skill);
+        }
 
         UpdateAwakening();
     }
