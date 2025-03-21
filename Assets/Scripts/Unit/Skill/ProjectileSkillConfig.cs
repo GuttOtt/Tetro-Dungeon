@@ -13,6 +13,9 @@ public class ProjectileSkillConfig : SkillConfig {
     [SerializeField] private DamageTypes _damageType;
     [SerializeField] private float _attackRatio, _spellPowerRatio, _speed;
     [SerializeField] private int _targetAmount;
+    [SerializeField] private bool isDirectionBased = false;
+    [SerializeField] private int penetrateCount = 0;
+
 
     public Sprite ProjectileSprite { get { return _projectileSprite; }}
     public int BaseDamage { get { return _baseDamage;} }
@@ -21,6 +24,8 @@ public class ProjectileSkillConfig : SkillConfig {
     public int TargetAmount { get { return _targetAmount;} }
     public DamageTypes DamageType {get => _damageType;}
     public float Speed { get => _speed; }
+    public bool IsDirectionBased { get => isDirectionBased; }
+    public int PenetrateCount { get => penetrateCount; }
 }
 
 
@@ -30,6 +35,8 @@ public class ProjectileSkill : UnitSkill {
     [SerializeField] private DamageTypes _damageType;
     [SerializeField] private float _attackRatio, _spellPowerRatio, _speed;
     [SerializeField] private int _targetAmount;
+    [SerializeField] private bool isDirectionBased = false;
+    [SerializeField] private int penetrateCount = 0;
     private ProjectileSkillConfig _original;
 
     public Sprite ProjectileSprite { get { return _projectileSprite; } }
@@ -48,6 +55,8 @@ public class ProjectileSkill : UnitSkill {
         _spellPowerRatio = config.SpellPowerRatio;
         _targetAmount = config.TargetAmount;
         _speed = config.Speed;
+        isDirectionBased = config.IsDirectionBased;
+        penetrateCount = config.PenetrateCount;
     }
 
     public override void Decorate(SkillConfig skillConfig) {
@@ -150,7 +159,13 @@ public class ProjectileSkill : UnitSkill {
         int damageAmount = Utils.CalculateDamageAmount(unit, _baseDamage, _attackRatio, _spellPowerRatio);
         Damage damage = new Damage(_damageType, damageAmount);
 
-        proj.Init(turnContext, target, damage, unit.OnDamageDealt, _speed);
+        if (isDirectionBased) {
+            Vector2 direction = target.transform.position - unit.transform.position;
+            proj.Init(turnContext, direction, damage, unit.OnDamageDealt, 100, _speed, penetrateCount);
+        }
+        else {
+            proj.Init(turnContext, target, damage, unit.OnDamageDealt, _speed);
+        }
 
         return;
     }

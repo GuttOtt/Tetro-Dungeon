@@ -35,4 +35,4 @@ MonoBehaviour:
     _defence: 0
     _spellDefence: 0
     _range: 0
-    _speed: 0.01
+    _speed: 0.5

@@ -18,7 +18,7 @@ MonoBehaviour:
     \uB79C\uB364\uD55C \uC801 {TargetAmount}\uBA85\uC5D0\uAC8C \uD3ED\uD0C4\uC744
     \uB5A8\uC5B4\uB728\uB824 \uACF5\uACA9\uB825x{AttackRatio}\uB9CC\uD07C \uBB3C\uB9AC
     \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
-  _skillChance: 1
+  _skillChance: 0.2
   _unitEvents: 
   _shouldInterrupt: 0
   _targetAmount: 3

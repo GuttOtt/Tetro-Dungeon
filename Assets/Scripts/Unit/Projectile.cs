@@ -30,16 +30,20 @@ public class Projectile : MonoBehaviour {
         _isTargetBased = true;
     }
 
-    public void Init(TurnContext turnContext, Vector2 direction, Action<BaseUnit> onHit, float maxDistance, float speed = 7, int penetrateCount = 0) {
+    public void Init(TurnContext turnContext, Vector2 direction, Damage damage, Action<TurnContext, BaseUnit, Damage> onHit, float maxDistance = 100, float speed = 7, int penetrateCount = 0) {
         
         _target = null;
         _direction = direction;
         _speed = speed;
         _penetrateCount = penetrateCount;
         _maxDistance = maxDistance;
+        _onHit = onHit;
+        _damage = damage;
 
         _isTargetBased = false;
-        //SetRotation(direction);
+        SetRotation(direction);
+
+        Debug.Log("Projectile initialized with direction: " + direction);
     }
 
     private void Update() {
@@ -82,14 +86,15 @@ public class Projectile : MonoBehaviour {
 
     private void CheckHit() {
         BaseUnit hitUnit = Utils.Pick<BaseUnit>(transform.position);
+        TurnContext turncontext = TurnContextGenerator.Instance.GenerateTurnContext();
 
         if (hitUnit == null) return;
 
         if (_target != null) {
 
             if (hitUnit == _target) {
-                Damage dealtDamage = hitUnit.TakeDamage(_turnContext, _damage);
-                _onHit?.Invoke(_turnContext, hitUnit, dealtDamage);
+                Damage dealtDamage = hitUnit.TakeDamage(turncontext, _damage);
+                _onHit?.Invoke(turncontext, hitUnit, dealtDamage);
                 Destroy(gameObject);
             }
             else {
@@ -102,6 +107,9 @@ public class Projectile : MonoBehaviour {
             }
 
             _hitUnits.Add(hitUnit);
+            Damage dealtDamage = hitUnit.TakeDamage(turncontext, _damage);
+            Debug.Log("Projectile hit " + hitUnit.name + " for " + dealtDamage + " damage.");
+            _onHit?.Invoke(turncontext, hitUnit, dealtDamage);
 
             _penetrateCount--;
             if (_penetrateCount < 0) {

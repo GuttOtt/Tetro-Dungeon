@@ -50,7 +50,7 @@ public abstract class SkillConfig : ScriptableObject {
     [SerializeField] private string _skillName;
     [TextArea(3, 10)]
     [SerializeField] private string _skillDescription;
-    [SerializeField] private float _skillChance;
+    [SerializeField] private float _skillChance = 1;
     [SerializeField] private List<EnumTypes.UnitEventTypes> _unitEvents;
     [SerializeField] private bool _shouldInterrupt;
 
