@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Slime_Animation
+  m_Controller: {fileID: 9100000, guid: 78056dbf56c77924490e1b64eb6ca0f3, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b3095d471625e094fb35658912e39d11, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 09cdca74e2b21fd4f92a15783beecfe3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dc14a8f6bfeb11441806a8bcb3f549b4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2564955bafae3ac4cbaadcc957bc7688, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 388a1763b66a5da4ea7ea21e021eb713, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2e55256e971567843ac39a1dea2ae754, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 822ab3f0e1d13264abcf4bf25cf061c3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8bf2c95b9eb386b4daf4955bdaaeae1b, type: 2}

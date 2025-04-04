@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
+  m_Name: Pebble
+  m_EditorClassIdentifier: 
+  Name: "\uC870\uC57D\uB3CC"
+  Illust: {fileID: 0}
+  UnitTypeString: 
+  Shapes: []
+  SPUM_Prefabs: {fileID: 0}
+  Animator_Prefabs: {fileID: 8307051774195129244, guid: 3f2462aaf12db4648a24f60e1157cb46, type: 3}
+  _stat:
+    _maxHP: 400
+    _attack: 20
+    _spellPower: 0
+    _defence: 30
+    _spellDefence: 30
+    _range: 3
+    _speed: 0.9
+  _statForLevelUp:
+    _maxHP: 0
+    _attack: 0
+    _spellPower: 0
+    _defence: 0
+    _spellDefence: 0
+    _range: 0
+    _speed: 0
+  DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}
+  ActiveSkills:
+  - {fileID: 11400000, guid: 95155ce85f230f847a7fae3e375183c6, type: 2}
+  PassiveSkills: []
+  Synergies: []
+  Awakenings: []

@@ -10,7 +10,7 @@ public class StageManager : Singleton<StageManager> {
     private List<BossData> _allBossData = new List<BossData>();
     [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
-    private int _currentStageIndex = 0;
+    [SerializeField] private int _currentStageIndex = 0;
     //private int _stageAmount = 5;
 
     public StageData CurrentStage { 
@@ -93,6 +93,7 @@ public class StageManager : Singleton<StageManager> {
 [Serializable]
 public class StageData {
     public int stageIndex;
+    public EnemyData enemyData;
 }
 
 [Serializable]
@@ -102,7 +103,6 @@ public class StartingStageData : StageData {
 
 [Serializable]
 public class EnemyStageData : StageData {
-    public EnemyData enemyData;
 
     public EnemyStageData(EnemyData enemyData) {
         this.enemyData = enemyData;

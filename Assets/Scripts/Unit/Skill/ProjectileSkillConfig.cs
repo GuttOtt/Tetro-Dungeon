@@ -100,6 +100,10 @@ public class ProjectileSkill : UnitSkill {
                 case UnitEventTypes.OnAttacked:
                     unit.onAttacked += FireProjectiles;
                     break;
+                case UnitEventTypes.OnDying:
+                    unit.onDying += FireProjectiles;
+                    break;
+                    
             }
         }
     }
@@ -113,8 +117,25 @@ public class ProjectileSkill : UnitSkill {
                 case UnitEventTypes.OnAttacked:
                     unit.onAttacked -= FireProjectiles;
                     break;
+                case UnitEventTypes.OnDying:
+                    unit.onDying -= FireProjectiles;
+                    break;
             }
         }
+    }
+
+    // Overloaded method for Dying event
+    private bool FireProjectiles(BaseUnit unit, TurnContext turnContext) {
+        if (!CheckChance(1)) {
+            return false;
+        }
+
+        List<BaseUnit> targets = new List<BaseUnit>();
+        BaseUnit presentTarget = turnContext.Board.GetClosestUnit(unit.CurrentCell, unit.Owner.Opponent(), 100) as BaseUnit;
+
+        if (presentTarget == null) return false;
+
+        return FireProjectiles(unit, presentTarget, turnContext);
     }
 
     private bool FireProjectiles(BaseUnit unit, BaseUnit mainTarget, TurnContext turnContext) {

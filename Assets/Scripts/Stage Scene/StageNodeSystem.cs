@@ -73,19 +73,6 @@ public class StageNodeSystem : MonoBehaviour {
             _nodeDescriptionText.text = enemyData.Description;
             _nodeImage.sprite = enemyData.Sprite;
 
-            //Units
-            List<UnitConfig> unitConfigs = enemyData.UnitConfigs;
-            int unitCount = unitConfigs.Count;
-
-            for (int i = 0; i < _unitSlots.Count; i++) {
-                if (i < unitCount) {
-                    _unitSlots[i].gameObject.SetActive(true);
-                    _unitSlots[i].sprite = unitConfigs[i].Sprite;
-                }
-                else {
-                    _unitSlots[i].gameObject.SetActive(false);
-                }
-            }
         }
 
         //Move Button

@@ -250,7 +250,7 @@ public class Board : MonoBehaviour
         return enemyCells;
     }
 
-    public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes chracterType = CharacterTypes.None) {
+    public List<Cell> GetCellsInArea(bool[,] array, int top = 0, int left = 0, CharacterTypes characterType = CharacterTypes.None) {
         int xSize = array.GetLength(0);
         int ySize = array.GetLength(1);
 
@@ -294,6 +294,20 @@ public class Board : MonoBehaviour
         }
 
         return cellsInArea;
+    }
+
+    public List<Cell> GetEmptyCellsInArea(bool[,] array, int top = 0, int left = 0) {
+        List<Cell> cellsInArea = GetCellsInArea(array, top, left);
+
+        List<Cell> emptyCells = new List<Cell>();
+
+        foreach (Cell cell in cellsInArea) {
+            if (cell.Unit == null) {
+                emptyCells.Add(cell);
+            }
+        }
+
+        return emptyCells;
     }
     #endregion
 

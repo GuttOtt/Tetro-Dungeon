@@ -108,7 +108,7 @@ public class StandbyPhase : IPhase {
 
         //Decide Enemy Units
         EnemySystem enemySystem = phaseSystem.EnemySystem;
-        enemySystem.DecideUnitList();
+        //enemySystem.DecideUnitList();
     }
 
     public void ExitPhase(PhaseSystem phaseSystem) {

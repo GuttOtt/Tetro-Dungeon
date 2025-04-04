@@ -24,7 +24,7 @@ MonoBehaviour:
   _doubleAttackChancePercentPerSynergyCount:
     _serializedList:
     - Key: 5
-      Value: 100
+      Value: 5
     - Key: 10
       Value: 10
     - Key: 15

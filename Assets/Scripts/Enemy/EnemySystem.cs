@@ -5,6 +5,8 @@ using EnumTypes;
 using System.Runtime.CompilerServices;
 using System.Linq;
 using UnityEngine.UIElements;
+using Array2DEditor;
+using Unity.VisualScripting;
 
 public class EnemySystem : MonoBehaviour {
     #region private members
@@ -45,63 +47,50 @@ public class EnemySystem : MonoBehaviour {
         _gameManager.GetSystem<BattleSystem>().OnBattleBegin += ActivateBattleBeginEffect;
         _gameManager.GetSystem<BattleSystem>().OnTimePass += EffectCoolDown;
 
-        unitPool = Resources.LoadAll<UnitConfig>("Scriptable Objects/Unit").ToList();
         characterPool = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block/Enemy").ToList();
 
         InitByStageData();
     }
 
-    public void DecideUnitList() {
-        DecideUnitList(unitAmount);
-    }
+    public void CreateEnemyUnits() {
+        List<BaseUnit> units = new List<BaseUnit>();
 
-    public void DecideUnitList(int number) {
-        ClearUnitList();
+        // 유닛 생성
+        foreach (UnitPlacementConfig placementConfig in _enemyData.UnitPlacementConfigs) {
+            CharacterBlockConfig characterBlockConfig = placementConfig.chracterBlockConfig;
+            Array2DBool placableArea = placementConfig.placableArea;
+            int placeAmount = placementConfig.placeAmount;
+            int placeAmountPerDifficerty = (int) (placementConfig.placeAmountPerDifficerty * StageManager.Instance.CurrentStageIndex);
+            placeAmount += placeAmountPerDifficerty;
 
-        for (int i = 0; i < number; i++) {
-            //유닛 풀에서 랜덤으로 하나를 선택 후 Create
-            int r = Random.Range(0, characterPool.Count);
-            CharacterBlockConfig config = characterPool[r];
-            BaseUnit unit = _unitSystem.CreateUnit(config, CharacterTypes.Enemy);
-
-            unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
-            
-            //유닛을 unitList에 추가
-            unitList.Add(unit);
+            for (int i = 0; i < placeAmount; i++) {
+                BaseUnit unit = _unitSystem.CreateUnit(characterBlockConfig, CharacterTypes.Enemy);
+                PlaceUnit(unit, placableArea);
+                units.Add(unit);
+            }
         }
 
-        PlaceUnit();
+        // 장비 착용
+
     }
 
-    public void PlaceUnit() {
+    private void PlaceUnit(BaseUnit unit, Array2DBool placableArea) {
         Board board = _gameManager.GetSystem<Board>();
-        List<Cell> availableCells = board.GetAllEmptyCell(CharacterTypes.Enemy);
-
-        foreach (BaseUnit unit in unitList) {
-            //가능한 셀 중 랜덤으로 하나 선택
-            int r = Random.Range(0, availableCells.Count);
-            Cell cell = availableCells[r];
-
-            //선택한 셀에 유닛 소환
-            board.Place(cell, unit);
-            unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
-
-            availableCells.Remove(cell);
+        List<Cell> availableCells = board.GetEmptyCellsInArea(placableArea.GetCells(), 0, board.Column / 2);
+        
+        if (availableCells.Count == 0) {
+            Debug.LogError("EnemySystem: PlaceUnit - No available cell to place unit");
+            return;
         }
+        
+        Cell cellToPlace = availableCells[Random.Range(0, availableCells.Count)];
+        board.Place(cellToPlace, unit);
+        unit.GetComponent<SpriteRenderer>().color = new Color(1, 0.5f, 0.5f);
     }
+
 
     public void SetDifficulty(int difficulty) {
-        _buffTokensPerRound.Clear();
-
-        //난이도에 따라 버프 토큰의 수를 조정
-        for (int i = 0; i < difficulty; i++) {
-            _buffTokensPerRound.AddRange(_enemyData.BuffTokenPerDifficulty);
-        }
-
-        //만약 유닛이 있다면, 초기화 하고 난이도에 맞게 다시 소환
-        if (unitList != null && 0 < unitList.Count) {
-            DecideUnitList();
-        }
+        
     }
 
     private void ApplyBuffTokens() {
@@ -134,20 +123,6 @@ public class EnemySystem : MonoBehaviour {
         }
     }
 
-    private void ClearUnitList() {
-        if (unitList != null && 0 < unitList.Count) {
-            List<BaseUnit> temp = unitList.ToList();
-
-            foreach (BaseUnit unit in temp) {
-                if (unit != null && unit.gameObject != null) {
-                    unit.DestroySelf();
-                }
-            }
-        }
-
-        unitList.Clear();
-    }
-
     private void InitByStageData() {
         StageManager stageManager = StageManager.Instance;
 
@@ -160,8 +135,7 @@ public class EnemySystem : MonoBehaviour {
         }
 
         _enemyEffect = _enemyData.EnemyEffect;
-
-        unitPool = _enemyData.UnitConfigs;
+        characterPool = _enemyData.CharacterBlockConfigs;
 
         SetDifficulty(stageManager.CurrentStageIndex);
 

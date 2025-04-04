@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
+  m_Name: Golem And Pebbles
+  m_EditorClassIdentifier: 
+  Name: "\uACE8\uB818\uACFC \uB3CC\uBA69\uC774"
+  Sprite: {fileID: 0}
+  Description: "\uACE8\uB818\uACFC \uD790\uD558\uB294 \uB3CC\uBA69\uC774"
+  MaxLife: 0
+  EnemyEffect: {fileID: 0}
+  CharacterBlockConfigs: []
+  UnitPlacementConfigs:
+  - chracterBlockConfig: {fileID: 11400000, guid: ab41c9cc9ab9e0846a8e743f0bee45a2, type: 2}
+    placableArea:
+      gridSize: {x: 6, y: 5}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000000000000
+      - row: 000100000000
+      - row: 000000000000
+      - row: 000100000000
+      - row: 000000000000
+    placeAmount: 2
+    placeAmountPerDifficerty: 0
+  - chracterBlockConfig: {fileID: 11400000, guid: 70630403e88e7b4439980a4519ff77b5, type: 2}
+    placableArea:
+      gridSize: {x: 6, y: 5}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000001010000
+      - row: 000001010000
+      - row: 000001010000
+      - row: 000001010000
+      - row: 000001010000
+    placeAmount: 3
+    placeAmountPerDifficerty: 1

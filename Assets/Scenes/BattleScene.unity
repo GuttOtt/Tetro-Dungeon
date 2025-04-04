@@ -510,6 +510,37 @@ MonoBehaviour:
   _synergyText: {fileID: 102881405}
   _synergyDisplayPrefab: {fileID: 348914556115011421, guid: f176a240cbcca1848aaadc9aeb1e29d8, type: 3}
   _displayContainer: {fileID: 129823318}
+--- !u!1 &978312598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 978312599}
+  m_Layer: 0
+  m_Name: Stage System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &978312599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978312598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5743597, y: 3.5227807, z: 3.5483658}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1012803006
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,3 +1051,4 @@ SceneRoots:
   - {fileID: 1782678718}
   - {fileID: 715896374}
   - {fileID: 1866304674}
+  - {fileID: 978312599}

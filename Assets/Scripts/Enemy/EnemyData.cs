@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Array2DEditor;
 using UnityEngine;
 
 
@@ -16,15 +18,19 @@ public class EnemyData : ScriptableObject {
 
     [SerializeField]
     public int MaxLife;
-
-    [SerializeField]
-    public List<BuffToken> BuffTokenPerDifficulty;
     
     [SerializeField]
     public EnemyEffect EnemyEffect;
 
-    [SerializeField]
-    public List<UnitConfig> UnitConfigs = new List<UnitConfig>();
-
     public List<CharacterBlockConfig> CharacterBlockConfigs = new List<CharacterBlockConfig>();
+    public List<UnitPlacementConfig> UnitPlacementConfigs = new List<UnitPlacementConfig>();
+
+}
+
+[Serializable]
+public class UnitPlacementConfig {
+    [SerializeField] public CharacterBlockConfig chracterBlockConfig;
+    [SerializeField] public Array2DBool placableArea;
+    [SerializeField] public int placeAmount;
+    [SerializeField] public float placeAmountPerDifficerty;
 }

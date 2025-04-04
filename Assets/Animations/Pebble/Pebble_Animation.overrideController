@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pebble_Animation
+  m_Controller: {fileID: 9100000, guid: 78056dbf56c77924490e1b64eb6ca0f3, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b3095d471625e094fb35658912e39d11, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 20d6fb8ccc9e89e47888063ace277728, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 822ab3f0e1d13264abcf4bf25cf061c3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3e7324112e22088459697d27bd2e0650, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dc14a8f6bfeb11441806a8bcb3f549b4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9b97c953233a738469d3c65e3ad2a58e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 388a1763b66a5da4ea7ea21e021eb713, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9b97c953233a738469d3c65e3ad2a58e, type: 2}

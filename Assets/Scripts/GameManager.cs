@@ -145,7 +145,8 @@ public class GameManager : MonoBehaviour, IGameManager
     }
 
     private void PlaceEnemyUnits() {
-        _enemySystem.DecideUnitList();
+        //_enemySystem.DecideUnitList();
+        _enemySystem.CreateEnemyUnits();
     }
 
     public void RestartBattleScene() {
@@ -196,6 +197,7 @@ public class GameManager : MonoBehaviour, IGameManager
         _player.CurrentMoney += 10;
         Debug.Log("3초 후 다음 화면으로 넘어갑니다.");
         await UniTask.Delay(TimeSpan.FromSeconds(3));
+        StageManager.Instance.MoveForward();
         _sceneChanger.LoadReadyScene();
     }
 

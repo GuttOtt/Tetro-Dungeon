@@ -54,21 +54,6 @@ public class BattleSystem : MonoBehaviour
         _gameManager = transform.parent.GetComponent<GameManager>();
         _board = _gameManager.GetSystem<Board>();
         _synergySystem = _gameManager.GetSystem<SynergySystem>();
-
-
-        //Set Life
-        int playerLife = Player.Instance.CurrentLife;
-        int enemyLife = StageManager.Instance.CurrentEnemyData != null ? StageManager.Instance.CurrentEnemyData.MaxLife : _enemyMaxLife;
-
-        _lifeDic = new Dictionary<CharacterTypes, int>() {
-            { CharacterTypes.Player, playerLife},
-            { CharacterTypes.Enemy, enemyLife }
-        };
-
-        _lifeTextDic.Add(CharacterTypes.Player, _playerLifeText);
-        _lifeTextDic.Add(CharacterTypes.Enemy, _enemyLifeText);
-        UpdateLifeText(CharacterTypes.Player);
-        UpdateLifeText(CharacterTypes.Enemy);
     }
 
     public async UniTask StartBattle()
@@ -122,14 +107,11 @@ public class BattleSystem : MonoBehaviour
         List<IUnit> winnerUnits = _board.GetUnits(winner);
         foreach (IUnit unit in winnerUnits)
         {
-            LifeDamage(winner.Opponent(), unit.Attack);
             (unit as BaseUnit).DestroySelf();
             await UniTask.WaitForSeconds(0.1f);
         }
 
-        //한 쪽의 Life가 0이 됐다면 게임 승리 판정
         if (winner == CharacterTypes.Player) {
-            Player.Instance.CurrentLife = _lifeDic[CharacterTypes.Player];
             _gameManager.PlayerWin();
             return;
         }
@@ -216,17 +198,4 @@ public class BattleSystem : MonoBehaviour
         playerUnits = _board.PlayerUnits.ToList();
         enemyUnits = _board.EnemyUnits.ToList();
     }
-
-    #region Life Damage
-    private void LifeDamage(CharacterTypes characterType, int damage)
-    {
-        _lifeDic[characterType] -= damage;
-        UpdateLifeText(characterType);
-    }
-
-    private void UpdateLifeText(CharacterTypes charactertype)
-    {
-        _lifeTextDic[charactertype]?.SetText("Life: " + _lifeDic[charactertype].ToString());
-    }
-    #endregion
 }
