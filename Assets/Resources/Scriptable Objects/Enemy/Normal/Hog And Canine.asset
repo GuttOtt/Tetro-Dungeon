@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
+  m_Name: Hog And Canine
+  m_EditorClassIdentifier: 
+  Name: "\uB4E4\uAC1C\uC640 \uBA67\uB3FC\uC9C0"
+  Sprite: {fileID: 0}
+  Description: "\uC810\uD504\uD558\uB294 \uB4E4\uAC1C\uC640 \uC2A4\uD134\uAC70\uB294
+    \uBA67\uB3FC\uC9C0"
+  MaxLife: 0
+  EnemyEffect: {fileID: 0}
+  CharacterBlockConfigs: []
+  UnitPlacementConfigs:
+  - chracterBlockConfig: {fileID: 11400000, guid: c86c62233b15eb741af90928ccf9611d, type: 2}
+    placableArea:
+      gridSize: {x: 6, y: 5}
+      cellSize: {x: 16, y: 16}
+      cells:
+      - row: 000000000001
+      - row: 000000000001
+      - row: 000000000001
+      - row: 000000000001
+      - row: 000000000001
+    placeAmount: 3
+    placeAmountPerDifficerty: 0.5

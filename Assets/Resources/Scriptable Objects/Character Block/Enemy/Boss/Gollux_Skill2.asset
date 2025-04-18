@@ -9,16 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd8b7b6259dc6604aa0fbadff2b6db1e, type: 3}
-  m_Name: Pebble_Skill1
+  m_Script: {fileID: 11500000, guid: 8a8e0849b18a49f479092961c90087cc, type: 3}
+  m_Name: Gollux_Skill2
   m_EditorClassIdentifier: 
-  _skillName: "\uD790"
-  _skillDescription: "\uACF5\uACA9 \uC2DC \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uC720\uB2DB
-    \uD55C \uBA85\uC744 {BaseHealAmount}\uB9CC\uD07C \uCE58\uC720\uD569\uB2C8\uB2E4."
+  _skillName: 
+  _skillDescription: 
   _skillChance: 1
   _unitEvents: 02000000
   _shouldInterrupt: 0
-  _baseHealAmount: 10
+  _damageType: 0
+  _baseDamage: 0
+  _attackRatio: 0.5
   _spellPowerRatio: 0
-  _attackRatio: 0
-  _targetAmount: 1
+  _aoe:
+    size: {x: 3, y: 3}
+    data: 010101010101010101
+  _effectSprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  _isEffectOnCells: 1

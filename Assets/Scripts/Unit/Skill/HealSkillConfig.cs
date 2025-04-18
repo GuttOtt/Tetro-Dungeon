@@ -41,11 +41,11 @@ public class HealClosestSkill : UnitSkill {
         _healHandler = (activator, target, turnContext) => {
             return Heal(activator, turnContext);
         };
-        unit.onAttacking += _healHandler;
+        unit.onAttacked += _healHandler;
     }
 
     public override void UnregisterToUnitEvents(BaseUnit unit) {
-        unit.onAttacking -= _healHandler;
+        unit.onAttacked -= _healHandler;
     }
 
     public override void Decorate(SkillConfig config) {

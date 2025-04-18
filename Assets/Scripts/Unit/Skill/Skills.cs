@@ -23,7 +23,8 @@ public static class SkillFactory
         { typeof(GrantStatusSkillConfig), config => new GrantStatusSkill((GrantStatusSkillConfig)config) },
         { typeof(SummonSkillConfig), config => new SummonSkill((SummonSkillConfig)config) },
         { typeof(RandomTargetDamageSkillConfig), config => new RandomTargetDamageSkill((RandomTargetDamageSkillConfig)config) },
-        { typeof(AoEDotSkillConfig), config => new AoEDotSkill((AoEDotSkillConfig)config) }
+        { typeof(AoEDotSkillConfig), config => new AoEDotSkill((AoEDotSkillConfig)config) },
+        { typeof(MoveSkillConfig), config => new MoveSkill((MoveSkillConfig)config)}
     };
 
     public static UnitSkill CreateSkill(SkillConfig config)

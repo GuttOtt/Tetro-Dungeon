@@ -19,8 +19,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     [SerializeField] private int _id;
     public UnitConfig _config;
     public CharacterBlockConfig _characterBlockConfig;
-    private UnitSPUMControl _spumControl;
     private UnitAnimation unitAnimation;
+    private Transform unitAnimationTransform;
     
     private float _speed;
     private float _actionCoolDown;
@@ -213,25 +213,29 @@ public class BaseUnit : MonoBehaviour, IUnit
             unitAnimation.InitBySPUM(spum);
 
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
-            if (owner == CharacterTypes.Player) {
-                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            }
+            unitAnimationTransform = spum.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;
         }
         else if (config.Animator_Prefabs != null) {
             Animator animator = Instantiate(config.Animator_Prefabs, gameObject.transform);
             unitAnimation.InitByAnimator(animator);
-
+            
             animator.transform.localPosition = new Vector3(0, 0f, -1);
-            if (owner != CharacterTypes.Player) {
-                animator.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            }
+            unitAnimationTransform = animator.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;
         }
         else {
             Debug.LogError("SPUM과 Animator 중 하나는 반드시 있어야 합니다.");
+        }
+
+        //Facing
+        if (owner == CharacterTypes.Player) {
+            AdjustFacing(1);
+        }
+        else {
+            AdjustFacing(-1);
         }
 
         //Stats
@@ -293,9 +297,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             unitAnimation.InitBySPUM(spum);
 
             spum.transform.localPosition = new Vector3(0, -0.2f, -1);
-            if (owner == CharacterTypes.Player) {
-                spum.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            }
+            unitAnimationTransform = spum.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;
         }
@@ -304,14 +306,20 @@ public class BaseUnit : MonoBehaviour, IUnit
             unitAnimation.InitByAnimator(animator);
 
             animator.transform.localPosition = new Vector3(0, 0, -1);
-            if (owner != CharacterTypes.Player) {
-                animator.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            }
+            unitAnimationTransform = animator.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;
         }
         else {
             Debug.LogError("SPUM과 Animator 중 하나는 반드시 있어야 합니다.");
+        }
+
+        //Facing
+        if (owner == CharacterTypes.Player) {
+            AdjustFacing(1);
+        }
+        else {
+            AdjustFacing(-1);
         }
 
         //Stats
@@ -448,6 +456,16 @@ public class BaseUnit : MonoBehaviour, IUnit
             Debug.LogError("???????? ??? ??? ?????? ??????!");
         }
 
+        //Facing 
+        int facingDirection = 0;
+        if (moveCell.position.col > CurrentCell.position.col) {
+            facingDirection = 1;
+        }
+        else if (moveCell.position.col < CurrentCell.position.col) {
+            facingDirection = -1;
+        }
+        AdjustFacing(facingDirection);
+
         CurrentCell.UnitOut();
         moveCell.UnitIn(this);
         CurrentCell = movePath[1];
@@ -506,6 +524,39 @@ public class BaseUnit : MonoBehaviour, IUnit
 
         return shortestMovePath;
     }
+
+    public void ForceMove(Cell moveCell, float overshoot = 2f){
+        CurrentCell.UnitOut();
+        moveCell.UnitIn(this);
+        CurrentCell = moveCell;
+
+        //Transform 이동
+        var tween = transform.DOMove(moveCell.transform.position, Speed * 0.8f).SetEase(Ease.OutBack, overshoot);
+        tween.OnStart(() =>
+            unitAnimation?.ChangeState(PlayerState.MOVE)
+        );
+        tween.OnComplete(() =>
+            unitAnimation?.ChangeState(PlayerState.IDLE)
+        );
+    }
+
+    private void AdjustFacing(int direction) {
+        if (direction == 1) {
+            if (unitAnimation.IsUsingSPUM) {
+                unitAnimationTransform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
+            else {
+                unitAnimationTransform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+        else if (direction == -1) {if (unitAnimation.IsUsingSPUM) {
+                unitAnimationTransform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            else {
+                unitAnimationTransform.localRotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
+    }
     #endregion
 
     #region Attack
@@ -526,7 +577,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         if (mainTarget == null) {
         Debug.Log($"[{Name}, id: {_id}]의 타겟이 없습니다.");
         return;
-    }
+        }
 
         //OnAttack Invoke
         bool shouldInterrupt = false;
@@ -558,6 +609,16 @@ public class BaseUnit : MonoBehaviour, IUnit
             unitAnimation.PlayAttackAnimation(mainTarget);
             await UniTask.WaitUntil(() => unitAnimation.IsCurrentAnimationTimePassed(0.85f));
         }
+
+        //Facing
+        int facingDirection = 0;
+        if (mainTarget.CurrentCell.position.col > CurrentCell.position.col) {
+            facingDirection = 1;
+        }
+        else if (mainTarget.CurrentCell.position.col < CurrentCell.position.col) {
+            facingDirection = -1;
+        }
+        AdjustFacing(facingDirection);
 
         //스킬 발동
         Debug.Log($"[{Name}, id: {_id}]의 스킬 발동: {skill?.SkillName}를 [{mainTarget?.Name}, id: {mainTarget?.ID}]에게 사용.");

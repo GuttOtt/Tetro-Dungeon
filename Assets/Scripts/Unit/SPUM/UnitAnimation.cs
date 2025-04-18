@@ -7,6 +7,8 @@ public class UnitAnimation : MonoBehaviour {
     private UnitSPUMControl unitSPUMControl;
     private bool isUsingSPUM;
 
+    public bool IsUsingSPUM => isUsingSPUM;
+
     public void InitBySPUM(SPUM_Prefabs prefabs) {
         unitSPUMControl = gameObject.AddComponent<UnitSPUMControl>();
         unitSPUMControl.SetSPUM(prefabs);
