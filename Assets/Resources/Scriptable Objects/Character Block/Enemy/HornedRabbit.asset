@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df2a8ec562a466d458cf0f36f19fb91b, type: 3}
-  m_Name: Canine_Black
+  m_Name: HornedRabbit
   m_EditorClassIdentifier: 
-  Name: "\uB4E4\uAC1C"
+  Name: "\uBFD4\uD1A0\uB07C"
   Illust: {fileID: 0}
   UnitTypeString: 
   Shapes: []
   SPUM_Prefabs: {fileID: 0}
-  Animator_Prefabs: {fileID: 8307051774195129244, guid: a10b75beb1f74c840b0e0d42adddb1ad, type: 3}
+  Animator_Prefabs: {fileID: 8307051774195129244, guid: ddff1bb664833604d9f9a5315c07c6d7, type: 3}
   _stat:
-    _maxHP: 500
-    _attack: 50
+    _maxHP: 400
+    _attack: 20
     _spellPower: 0
     _defence: 20
-    _spellDefence: 20
-    _range: 1
-    _speed: 1.2
+    _spellDefence: 30
+    _range: 4
+    _speed: 1
   _statForLevelUp:
     _maxHP: 0
     _attack: 0
@@ -34,9 +34,8 @@ MonoBehaviour:
     _spellDefence: 0
     _range: 0
     _speed: 0
-  DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}
+  DefaultSkill: {fileID: 11400000, guid: bc1d986d084f9c24f9ddb22c2d5f1745, type: 2}
   ActiveSkills: []
-  PassiveSkills:
-  - {fileID: 11400000, guid: e43cc2025ea2c3f4f8ab9fbb5fb6b675, type: 2}
+  PassiveSkills: []
   Synergies: []
   Awakenings: []

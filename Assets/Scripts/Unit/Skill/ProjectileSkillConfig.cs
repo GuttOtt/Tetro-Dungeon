@@ -15,6 +15,8 @@ public class ProjectileSkillConfig : SkillConfig {
     [SerializeField] private int _targetAmount;
     [SerializeField] private bool isDirectionBased = false;
     [SerializeField] private int penetrateCount = 0;
+    [SerializeField] private int chainCount = 0;
+    [SerializeField] private int chainDistance = 0;
 
 
     public Sprite ProjectileSprite { get { return _projectileSprite; }}
@@ -26,6 +28,8 @@ public class ProjectileSkillConfig : SkillConfig {
     public float Speed { get => _speed; }
     public bool IsDirectionBased { get => isDirectionBased; }
     public int PenetrateCount { get => penetrateCount; }
+    public int ChainCount { get => chainCount; }
+    public int ChainDistance { get => chainDistance; }
 }
 
 
@@ -37,6 +41,8 @@ public class ProjectileSkill : UnitSkill {
     [SerializeField] private int _targetAmount;
     [SerializeField] private bool isDirectionBased = false;
     [SerializeField] private int penetrateCount = 0;
+    [SerializeField] private int chainCount = 0;
+    [SerializeField] private int chainDistance = 0;
     private ProjectileSkillConfig _original;
 
     public Sprite ProjectileSprite { get { return _projectileSprite; } }
@@ -57,6 +63,8 @@ public class ProjectileSkill : UnitSkill {
         _speed = config.Speed;
         isDirectionBased = config.IsDirectionBased;
         penetrateCount = config.PenetrateCount;
+        chainCount = config.ChainCount;
+        chainDistance = config.ChainDistance;
     }
 
     public override void Decorate(SkillConfig skillConfig) {
@@ -185,7 +193,7 @@ public class ProjectileSkill : UnitSkill {
             proj.Init(turnContext, direction, damage, unit.OnDamageDealt, 100, _speed, penetrateCount);
         }
         else {
-            proj.Init(turnContext, target, damage, unit.OnDamageDealt, _speed);
+            proj.Init(turnContext, target, damage, unit.OnDamageDealt, _speed, chainCount, chainDistance);
         }
 
         return;

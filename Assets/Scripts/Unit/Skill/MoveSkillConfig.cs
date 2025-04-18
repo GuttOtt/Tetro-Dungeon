@@ -90,6 +90,11 @@ public class MoveSkill : UnitSkill
     }
 
     private void MoveTargets(List<BaseUnit> targets, BaseUnit activator) {
+        if (!CheckChance(1)) {
+            Debug.Log("MoveTargets: Chance check failed.");
+            return;
+        }
+
         foreach (var target in targets) {
             switch (moveDirectionType) {
                 case MoveDirectionType.Forward:

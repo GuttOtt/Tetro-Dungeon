@@ -11,6 +11,9 @@ public class Projectile : MonoBehaviour {
     private Vector2 _direction;
     [SerializeField] private float _speed = 7;
     private int _penetrateCount = 0;
+    private int chainCount = 0;
+    private int chainDistance = 0;
+    private List<BaseUnit> chainedUnits = new List<BaseUnit>();
 
     private float _maxDistance = 1;
     private float _flyDistance = 0;
@@ -21,13 +24,15 @@ public class Projectile : MonoBehaviour {
 
     private List<BaseUnit> _hitUnits = new List<BaseUnit>();
 
-    public void Init(TurnContext turnContext, BaseUnit target, Damage damage, Action<TurnContext, BaseUnit, Damage> onHit, float speed = 7) {
+    public void Init(TurnContext turnContext, BaseUnit target, Damage damage, Action<TurnContext, BaseUnit, Damage> onHit, float speed = 7, int chainCount = 0, int chainDistance = 0) {
         _turnContext = turnContext;
         _target = target;
         _speed = speed;
         _onHit = onHit;
         _damage = damage;
         _isTargetBased = true;
+        this.chainCount = chainCount;
+        this.chainDistance = chainDistance;
     }
 
     public void Init(TurnContext turnContext, Vector2 direction, Damage damage, Action<TurnContext, BaseUnit, Damage> onHit, float maxDistance = 100, float speed = 7, int penetrateCount = 0) {
@@ -90,17 +95,33 @@ public class Projectile : MonoBehaviour {
 
         if (hitUnit == null) return;
 
+        // If it's target based
         if (_target != null) {
 
             if (hitUnit == _target) {
                 Damage dealtDamage = hitUnit.TakeDamage(turncontext, _damage);
                 _onHit?.Invoke(turncontext, hitUnit, dealtDamage);
-                Destroy(gameObject);
+
+                if (0 < chainCount) {
+                    BaseUnit newTarget = 
+                        turncontext.Board.GetClosestUnit(hitUnit.CurrentCell, hitUnit.Owner, chainDistance, 0, chainedUnits) as BaseUnit;
+
+                    if (newTarget == null) 
+                        Destroy(gameObject);
+
+                    _target = newTarget;
+                    chainedUnits.Add(newTarget);
+                    chainCount--;
+                }
+                else {
+                    Destroy(gameObject);
+                }
             }
             else {
                 return;
             }
         }
+        // If it's direction based
         else {
             if (_hitUnits.Contains(hitUnit)) {
                 return;
