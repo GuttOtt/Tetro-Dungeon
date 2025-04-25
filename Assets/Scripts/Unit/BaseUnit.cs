@@ -717,6 +717,8 @@ public class BaseUnit : MonoBehaviour, IUnit
             return damageDealt;
         }
 
+        unitAnimation.ChangeColor(Color.red, 0.2f).Forget();
+
         return reducedDamage;
     }
 

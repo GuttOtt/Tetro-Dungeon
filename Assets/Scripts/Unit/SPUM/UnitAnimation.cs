@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class UnitAnimation : MonoBehaviour {
@@ -69,6 +71,18 @@ public class UnitAnimation : MonoBehaviour {
             return unitSPUMControl.IsCurrentAnimationTimePassed(time);
         } else {
             return animatorControl.IsCurrentAnimationTimePassed(time);
+        }
+    }
+
+    public async UniTask ChangeColor(Color color, float duration) {
+        if (isUsingSPUM) {
+            unitSPUMControl.ChangeColor(color);
+            await UniTask.Delay((int)(duration * 1000));
+            unitSPUMControl.ResetColor();
+        } else {
+            animatorControl.ChangeColor(color);
+            await UniTask.Delay((int)(duration * 1000));
+            animatorControl.ChangeColor(Color.white);
         }
     }
 }

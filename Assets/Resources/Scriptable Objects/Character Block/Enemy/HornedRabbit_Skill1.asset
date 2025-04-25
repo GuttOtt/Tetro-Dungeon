@@ -24,7 +24,7 @@ MonoBehaviour:
   _damageType: 1
   _attackRatio: 1
   _spellPowerRatio: 0
-  _speed: 3
+  _speed: 5
   _targetAmount: 1
   isDirectionBased: 0
   penetrateCount: 0

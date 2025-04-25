@@ -9,6 +9,7 @@ public class UnitSPUMControl : MonoBehaviour
 {
     public SPUM_Prefabs _prefabs; //SPUM 프리펩
     private PlayerState _currentState; //현재 상태
+    private Dictionary<SpriteRenderer, Color> originalColors = new Dictionary<SpriteRenderer, Color>();
 
     public Dictionary<PlayerState, int> IndexPair = new();
 
@@ -23,6 +24,11 @@ public class UnitSPUMControl : MonoBehaviour
 
         foreach (PlayerState state in Enum.GetValues(typeof(PlayerState))) {
             IndexPair[state] = 0;
+        }
+
+        foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            originalColors[spriteRenderer] = spriteRenderer.color;
         }
     }
 
@@ -69,5 +75,17 @@ public class UnitSPUMControl : MonoBehaviour
     
     private void PlayStateAnimation(PlayerState state) {
         _prefabs.PlayAnimation(state, IndexPair[state]);
+    }
+
+    public void ChangeColor(Color color) {
+        foreach (var spriteRenderer in originalColors.Keys) {
+            spriteRenderer.color = color;
+        }
+    }
+
+    public void ResetColor() {
+        foreach (var spriteRenderer in originalColors.Keys) {
+            spriteRenderer.color = originalColors[spriteRenderer];
+        }
     }
 }
