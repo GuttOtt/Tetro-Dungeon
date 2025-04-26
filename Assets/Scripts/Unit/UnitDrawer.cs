@@ -78,7 +78,6 @@ public class UnitDrawer : MonoBehaviour
         _mpText?.SetText(attack.ToString());
         _attackText?.SetText(config.Stat.MaxHP.ToString());
         _rangeText?.SetText(config.Stat.MaxHP.ToString());
-        _synergyText?.SetText(config.Synergies[0].ToString());
 
         //_tooltip_name?.SetText(config.Name);
         //_tooltip_effect?.SetText(config.EffectDescription);

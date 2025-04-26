@@ -26,12 +26,6 @@ MonoBehaviour:
       - row: 000000
       - row: 000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList:
-      - Key: 3
-        Value: 1
-      - Key: 5
-        Value: 3
   - Level: 2
     Shape:
       gridSize: {x: 3, y: 4}
@@ -42,8 +36,6 @@ MonoBehaviour:
       - row: 000000
       - row: 000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 3
     Shape:
       gridSize: {x: 3, y: 4}
@@ -54,8 +46,6 @@ MonoBehaviour:
       - row: 000000
       - row: 000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 4
     Shape:
       gridSize: {x: 3, y: 4}
@@ -66,8 +56,6 @@ MonoBehaviour:
       - row: 010000
       - row: 000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 5
     Shape:
       gridSize: {x: 3, y: 4}
@@ -78,8 +66,6 @@ MonoBehaviour:
       - row: 010000
       - row: 010000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   SPUM_Prefabs: {fileID: 611441874240292822, guid: 1d098eefce16655469140a06beeae8f1, type: 3}
   Animator_Prefabs: {fileID: 0}
   _stat:
@@ -102,6 +88,41 @@ MonoBehaviour:
   ActiveSkills: []
   PassiveSkills:
   - {fileID: 11400000, guid: 50e511909c7b7d84f877550bccaef564, type: 2}
-  Synergies: []
+  SynergyPerLevels:
+  - Level: 1
+    SynergyDic:
+      _serializedList:
+      - Key: 3
+        Value: 2
+      - Key: 5
+        Value: 2
+  - Level: 2
+    SynergyDic:
+      _serializedList:
+      - Key: 3
+        Value: 3
+      - Key: 5
+        Value: 2
+  - Level: 3
+    SynergyDic:
+      _serializedList:
+      - Key: 3
+        Value: 3
+      - Key: 5
+        Value: 3
+  - Level: 4
+    SynergyDic:
+      _serializedList:
+      - Key: 3
+        Value: 4
+      - Key: 5
+        Value: 3
+  - Level: 5
+    SynergyDic:
+      _serializedList:
+      - Key: 3
+        Value: 4
+      - Key: 5
+        Value: 4
   Awakenings:
   - {fileID: 11400000, guid: 2a8f4d453197e2b47ad9728cd32f7a5f, type: 2}

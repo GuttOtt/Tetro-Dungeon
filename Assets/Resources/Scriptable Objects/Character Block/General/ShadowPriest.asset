@@ -26,12 +26,6 @@ MonoBehaviour:
       - row: 000100
       - row: 000100
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList:
-      - Key: 4
-        Value: 2
-      - Key: 5
-        Value: 2
   - Level: 2
     Shape:
       gridSize: {x: 3, y: 4}
@@ -42,8 +36,6 @@ MonoBehaviour:
       - row: 000100
       - row: 000100
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 3
     Shape:
       gridSize: {x: 3, y: 4}
@@ -54,8 +46,6 @@ MonoBehaviour:
       - row: 000100
       - row: 000100
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 4
     Shape:
       gridSize: {x: 3, y: 4}
@@ -66,8 +56,6 @@ MonoBehaviour:
       - row: 010100
       - row: 000100
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 5
     Shape:
       gridSize: {x: 3, y: 4}
@@ -78,8 +66,6 @@ MonoBehaviour:
       - row: 010101
       - row: 000100
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   SPUM_Prefabs: {fileID: 5424395608338233103, guid: a5a77e2197d7d944b916d28a76d7203b, type: 3}
   Animator_Prefabs: {fileID: 0}
   _stat:
@@ -102,6 +88,41 @@ MonoBehaviour:
   ActiveSkills:
   - {fileID: 11400000, guid: be4ea56836e8ec747afb26e2f8fd278b, type: 2}
   PassiveSkills: []
-  Synergies: []
+  SynergyPerLevels:
+  - Level: 1
+    SynergyDic:
+      _serializedList:
+      - Key: 4
+        Value: 2
+      - Key: 5
+        Value: 2
+  - Level: 2
+    SynergyDic:
+      _serializedList:
+      - Key: 4
+        Value: 3
+      - Key: 5
+        Value: 2
+  - Level: 3
+    SynergyDic:
+      _serializedList:
+      - Key: 4
+        Value: 3
+      - Key: 5
+        Value: 3
+  - Level: 4
+    SynergyDic:
+      _serializedList:
+      - Key: 4
+        Value: 4
+      - Key: 5
+        Value: 3
+  - Level: 5
+    SynergyDic:
+      _serializedList:
+      - Key: 4
+        Value: 4
+      - Key: 5
+        Value: 4
   Awakenings:
   - {fileID: 11400000, guid: 39ee7568a2e7bde489e63c8f614efcb7, type: 2}

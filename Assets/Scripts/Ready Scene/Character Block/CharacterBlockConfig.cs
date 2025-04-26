@@ -34,7 +34,8 @@ public class CharacterBlockConfig : ScriptableObject
     public List<SkillConfig> PassiveSkills;
     #endregion
 
-    public List<SynergyValuePair> Synergies;
+    public List<SynergyPerLevel> SynergyPerLevels = new List<SynergyPerLevel>();
+
 
     public List<Awakening> Awakenings;
 
@@ -46,7 +47,7 @@ public class CharacterBlockConfig : ScriptableObject
         return Shapes[lvl-1].CenterIndex;
     }
     public SerializedDictionary<SynergyTypes, int> GetSynergyDict(int lvl) {
-        return Shapes[lvl-1].SynergyDic;
+        return SynergyPerLevels.Find(x => x.Level == lvl)?.SynergyDic;
     }
 }
 
@@ -56,7 +57,6 @@ public class LevelShapePair
     public int Level;
     public Array2DBool Shape;
     public Vector2Int CenterIndex;
-    public SerializedDictionary<SynergyTypes, int> SynergyDic;
 
     public LevelShapePair() {
         Level = 0;
@@ -65,7 +65,7 @@ public class LevelShapePair
 }
 
 [Serializable]
-public class SynergyValuePair {
-    public SynergyTypes SynergyType;
-    public int Value;
+public class SynergyPerLevel {
+    public int Level;
+    public SerializedDictionary<SynergyTypes, int> SynergyDic;
 }

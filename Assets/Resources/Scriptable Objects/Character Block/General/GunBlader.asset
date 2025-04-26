@@ -25,12 +25,6 @@ MonoBehaviour:
       - row: 00010000
       - row: 00000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList:
-      - Key: 2
-        Value: 2
-      - Key: 6
-        Value: 2
   - Level: 2
     Shape:
       gridSize: {x: 4, y: 3}
@@ -40,8 +34,6 @@ MonoBehaviour:
       - row: 00010100
       - row: 00000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 3
     Shape:
       gridSize: {x: 4, y: 3}
@@ -51,8 +43,6 @@ MonoBehaviour:
       - row: 00010100
       - row: 00000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 4
     Shape:
       gridSize: {x: 4, y: 3}
@@ -62,8 +52,6 @@ MonoBehaviour:
       - row: 01010100
       - row: 00000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   - Level: 5
     Shape:
       gridSize: {x: 4, y: 3}
@@ -73,8 +61,6 @@ MonoBehaviour:
       - row: 01010101
       - row: 00000000
     CenterIndex: {x: 1, y: 1}
-    SynergyDic:
-      _serializedList: []
   SPUM_Prefabs: {fileID: 9168085276705221729, guid: 1ff4efc8006e91a4293b07e794f851c1, type: 3}
   Animator_Prefabs: {fileID: 0}
   _stat:
@@ -97,6 +83,41 @@ MonoBehaviour:
   ActiveSkills: []
   PassiveSkills:
   - {fileID: 11400000, guid: e56aa5ad4c2d8294cb622318c8347535, type: 2}
-  Synergies: []
+  SynergyPerLevels:
+  - Level: 1
+    SynergyDic:
+      _serializedList:
+      - Key: 2
+        Value: 2
+      - Key: 6
+        Value: 2
+  - Level: 2
+    SynergyDic:
+      _serializedList:
+      - Key: 2
+        Value: 2
+      - Key: 6
+        Value: 3
+  - Level: 3
+    SynergyDic:
+      _serializedList:
+      - Key: 2
+        Value: 3
+      - Key: 6
+        Value: 3
+  - Level: 4
+    SynergyDic:
+      _serializedList:
+      - Key: 2
+        Value: 3
+      - Key: 6
+        Value: 4
+  - Level: 5
+    SynergyDic:
+      _serializedList:
+      - Key: 2
+        Value: 4
+      - Key: 6
+        Value: 4
   Awakenings:
   - {fileID: 11400000, guid: 4f16b90a97cf2804da858a0c081153ee, type: 2}

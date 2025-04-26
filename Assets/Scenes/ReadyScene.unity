@@ -2606,7 +2606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allEnemyData: []
-  _stageEnums: 0100000001000000
+  _stageEnums: 010000000100000001000000010000000100000002000000
   _stages: []
   _currentStageIndex: 0
 --- !u!4 &750510572

@@ -57,8 +57,7 @@ public class CharacterBlockSystem : MonoBehaviour {
             return null;
         }
 
-        characterBlock.Unplace();
-        OnUnplace?.Invoke(characterBlock);
+        UnplaceBlock(characterBlock);
         _inventorySystem.Remove(characterBlock);
         
         //Get Data
@@ -154,13 +153,18 @@ public class CharacterBlockSystem : MonoBehaviour {
         selectedBlock.ChangeEquipmentSortingLayer(draggingEquipmentLayerID);
 
         //Unplace
-        if (selectedBlock.IsPlaced) {
-            OnUnplace?.Invoke(selectedBlock);
-            foreach(Equipment equipment in selectedBlock.Equipments) {
+        UnplaceBlock(_selectedBlock);
+    }
+
+    private void UnplaceBlock(CharacterBlock characterBlock) {
+        //Unplace
+        if (characterBlock.IsPlaced) {
+            OnUnplace?.Invoke(characterBlock);
+            foreach(Equipment equipment in characterBlock.Equipments) {
                 _equipmentSystem.UnplaceFromBoard(equipment);
             }
         }
-        selectedBlock.Unplace();
+        characterBlock.Unplace();
     }
 
     private void MoveSelectedBlock() {

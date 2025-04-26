@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager> {
     [SerializeField] private List<EnemyData> _allEnemyData = new List<EnemyData>();
-    private List<BossData> _allBossData = new List<BossData>();
+    private List<EnemyData> _allBossData = new List<EnemyData>();
     [SerializeField] private List<StageEnum> _stageEnums = new List<StageEnum>();
     [SerializeField] public List<StageData> _stages = new List<StageData>();
     [SerializeField] private int _currentStageIndex = 0;
@@ -37,7 +37,7 @@ public class StageManager : Singleton<StageManager> {
         base.Awake();
 
         _allEnemyData = Resources.LoadAll<EnemyData>("Scriptable Objects/Enemy/Normal").ToList();
-        _allBossData = Resources.LoadAll<BossData>("Scriptable Objects/Enemy/Boss").ToList();
+        _allBossData = Resources.LoadAll<EnemyData>("Scriptable Objects/Enemy/Boss").ToList();
 
         InitStages();
     }
