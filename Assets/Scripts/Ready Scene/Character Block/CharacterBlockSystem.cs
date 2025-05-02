@@ -211,7 +211,7 @@ public class CharacterBlockSystem : MonoBehaviour {
                 }
                 else {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
-                    _selectedBlock.Place();
+                    Place(_selectedBlock);
                 }
             }
         }
@@ -242,22 +242,36 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     private bool TryPlace(CharacterBlock block) {
-        if (block.IsPlacable()) {
-            block.Place();
-            _inventorySystem.Remove(block);
-            OnPlace?.Invoke(block);
-
-            foreach(Equipment equipment in block.Equipments) {
-                _equipmentSystem.PlaceOnBoard(equipment);
-            }
-            return true;
-        }
-        else {
+        if (!block.IsPlacable()) {
             return false;
         }
+
+        if (_shopSystem.ContainsItem(block)) {
+            if (!_shopSystem.IsAffordable(block)) {
+                Debug.Log("돈이 부족합니다.");
+                return false;
+            }
+            _shopSystem.Buy(block);
+        }
+
+        Place(block);
+
+        return true;
     }
 
-    public List<CharacterBlockData> GetCharacterBlockDatasOnBoard() {
+    private void Place(CharacterBlock block)
+    {
+        block.Place();
+        _inventorySystem.Remove(block);
+        OnPlace?.Invoke(block);
+
+        foreach(Equipment equipment in block.Equipments) {
+            _equipmentSystem.PlaceOnBoard(equipment);
+        }
+
+    }
+
+  public List<CharacterBlockData> GetCharacterBlockDatasOnBoard() {
         List<CharacterBlockData> datas = new List<CharacterBlockData>();
 
         foreach (CharacterBlock block in _characterBlocks) {

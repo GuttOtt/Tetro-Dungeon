@@ -8,7 +8,7 @@ using TMPro;
 public class ShopSystem : MonoBehaviour
 {
     private List<CharacterBlockConfig> _characterBlockPool = new List<CharacterBlockConfig>();
-    private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
+    [SerializeField] private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
 
     private List<EquipmentConfig> _equipmentPool = new List<EquipmentConfig>();
     private List<Equipment> _equipments = new List<Equipment>();
@@ -17,6 +17,12 @@ public class ShopSystem : MonoBehaviour
 
     private Player _player;
 
+    [Header("Shop Settings")]
+    [SerializeField] private int rerollCost = 2;
+    [SerializeField] private int characterBlockCost = 8;
+    [SerializeField] private int equipmentCost = 5;
+
+    [Header("GameObject References")]
     [SerializeField] private SpriteRenderer[] _characterBlockSlots;
     [SerializeField] private SpriteRenderer[] _equipmentBlockSlots;
     [SerializeField] private TMP_Text[] _characterCostTexts;
@@ -63,9 +69,9 @@ public class ShopSystem : MonoBehaviour
         _characterBlocks.Add(characterBlock);
 
         //Cost
-        int cost = Random.Range(5, 6);
+        int cost = characterBlockCost;
         _itemCostPair.Add(characterBlock, cost);
-        //_characterCostTexts[slotNumber].text = cost.ToString();
+        _characterCostTexts[slotNumber].text = cost.ToString()+"G";
     }
 
     public void RemoveCharacterBlock(CharacterBlock characterBlock) {
@@ -83,9 +89,9 @@ public class ShopSystem : MonoBehaviour
         _equipments.Add(equipment);
 
         //Cost
-        int cost = Random.Range(3, 4);
+        int cost = equipmentCost;
         _itemCostPair.Add(equipment, cost);
-        //_equipmentCostTexts[slotNumber].text = cost.ToString();
+        _equipmentCostTexts[slotNumber].text = cost.ToString()+"G";
     }
 
     public void RemoveEquipment(Equipment equipment) {
@@ -124,5 +130,28 @@ public class ShopSystem : MonoBehaviour
 
     public void UpdateMoneyText() {
         _moneyText.text = "Money: "+_player.CurrentMoney.ToString();
+    }
+
+    public void Reroll() {
+        if (_player.CurrentMoney >= rerollCost) {
+            _player.CurrentMoney -= rerollCost;
+            UpdateMoneyText();
+
+            for (int i = 0; i < _characterBlocks.Count; i++) {
+                Destroy(_characterBlocks[i].gameObject);
+            }
+
+            for (int i = 0; i < _equipments.Count; i++) {
+                Destroy(_equipments[i].gameObject);
+            }
+
+            _characterBlocks.Clear();
+            _equipments.Clear();
+
+            StartSelling();
+        }
+        else {
+            Debug.Log("돈이 부족합니다.");
+        }
     }
 }

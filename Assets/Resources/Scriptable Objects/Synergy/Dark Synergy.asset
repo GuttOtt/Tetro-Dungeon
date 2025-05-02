@@ -20,15 +20,14 @@ MonoBehaviour:
   description: "\uC5B4\uB460\n\n\uC544\uAD70 \uC720\uB2DB\uC774 \uACF5\uACA9 \uC2DC,
     \uC77C\uC815 \uD655\uB960\uB85C \uC801\uC5D0\uAC8C \uACF5\uD3EC \uB514\uBC84\uD504\uB97C
     \uC801\uC6A9\uD569\uB2C8\uB2E4. \uACF5\uD3EC\uC5D0 \uAC78\uB9B0 \uC801\uC740
-    \uB2E4\uC74C \uD589\uB3D9 \uC2DC \uD574\uB2F9 \uC720\uB2DB\uC73C\uB85C\uBD80\uD130
-    \uD55C \uCE78 \uBB3C\uB7EC\uB0A9\uB2C8\uB2E4.\n\n(5) 5% \uD655\uB960\uB85C \uACF5\uD3EC
-    \uBD80\uC5EC\n(10) 10% \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC\n(15) 15%
-    \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC"
+    \uD589\uB3D9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\n(5) 5% \uD655\uB960\uB85C
+    \uACF5\uD3EC \uBD80\uC5EC\n(10) 10% \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC\n(15)
+    15% \uD655\uB960\uB85C \uACF5\uD3EC \uBD80\uC5EC"
   _fearStatusConfig: {fileID: 11400000, guid: 33dafe0d6de9b6e41a2981dc93d0e097, type: 2}
   _fearChancePercentPerSynergyCount:
     _serializedList:
     - Key: 5
-      Value: 50
+      Value: 5
     - Key: 10
       Value: 10
     - Key: 15

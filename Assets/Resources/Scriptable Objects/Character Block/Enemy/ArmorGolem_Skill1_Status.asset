@@ -16,7 +16,7 @@ MonoBehaviour:
   _description: 
   _unitEvents: 
   _skills: []
-  _isStackable: 0
+  _isStackable: 1
   _iconSprite: {fileID: 21300000, guid: 74be1f74d63e9f94c8529dc0863c4e40, type: 3}
   _constStatBuff:
     _maxHP: 0

@@ -139,7 +139,7 @@ public class EquipmentSystem : MonoBehaviour {
                 }
                 else {
                     _selectedEquipment.transform.position = _selectedPos;
-                    _selectedEquipment.Place();
+                    Place(_selectedEquipment);
                 }
             }
         }
@@ -154,24 +154,36 @@ public class EquipmentSystem : MonoBehaviour {
     }
 
     private bool TryPlace() {
-        if (_selectedEquipment == null)
+        if (_selectedEquipment == null || !_selectedEquipment.IsPlacable())
             return false;
 
-        if (_selectedEquipment.IsPlacable()) {
-            _selectedEquipment.Place();
-            _inventorySystem.Remove(_selectedEquipment);
-            OnPlace?.Invoke(_selectedEquipment);
-            if (_selectedEquipment.CharacterBlock.IsPlaced) {
-                OnPlaceOnBoard?.Invoke(_selectedEquipment);
+        if (_shopSystem.ContainsItem(_selectedEquipment))
+        {
+            if (!_shopSystem.IsAffordable(_selectedEquipment))
+            {
+                Debug.Log("Not enough money to buy this equipment.");
+                return false;
             }
-            return true;
+            _shopSystem.Buy(_selectedEquipment);
         }
-        else {
-            return false;
+
+        Place(_selectedEquipment);
+
+        return true;
+    }
+
+    private void Place(Equipment equipment)
+    {
+        equipment.Place();
+        _inventorySystem.Remove(equipment);
+        OnPlace?.Invoke(equipment);
+
+        if (equipment.CharacterBlock.IsPlaced) {
+            OnPlaceOnBoard?.Invoke(equipment);
         }
     }
 
-    private void SpinEquipment() {
+  private void SpinEquipment() {
         if (_selectedEquipment == null) return;
 
         bool isClockwise;

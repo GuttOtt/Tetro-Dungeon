@@ -30,7 +30,7 @@ MonoBehaviour:
       - row: 000000000001
       - row: 000000000001
       - row: 000000000001
-    placeAmount: 2
+    placeAmount: 1
     placeAmountPerDifficerty: 0.5
   - chracterBlockConfig: {fileID: 11400000, guid: 8435632897e085a47acbe11e847fc174, type: 2}
     placableArea:
@@ -42,5 +42,5 @@ MonoBehaviour:
       - row: 010000000000
       - row: 010000000000
       - row: 010000000000
-    placeAmount: 3
+    placeAmount: 1
     placeAmountPerDifficerty: 0.5

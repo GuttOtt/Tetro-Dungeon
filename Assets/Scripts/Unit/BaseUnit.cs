@@ -541,6 +541,10 @@ public class BaseUnit : MonoBehaviour, IUnit
     }
 
     private void AdjustFacing(int direction) {
+        if (unitAnimation == null || unitAnimationTransform == null) {
+            return;
+        }
+
         if (direction == 1) {
             if (unitAnimation.IsUsingSPUM) {
                 unitAnimationTransform.localRotation = Quaternion.Euler(0, 180, 0);
@@ -667,7 +671,8 @@ public class BaseUnit : MonoBehaviour, IUnit
     public void ChangeCurrentHP(int value) => CurrentHP += value;
 
     public void ChangeMaxHP(int value) {
-        float ratio = CurrentHP / MaxHP;
+        float ratio = CurrentHP / (float) MaxHP;
+        Debug.Log($"CurrentHP: {CurrentHP}, MaxHP: {MaxHP}, ratio: {ratio}");
         _maxHP += value;
         CurrentHP = (int)(_maxHP * ratio);
     }

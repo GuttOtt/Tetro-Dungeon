@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccccab2552173bc43a17174f6f78ca9c, type: 3}
-  m_Name: Orc And Board
+  m_Name: Orc And Boar
   m_EditorClassIdentifier: 
   Name: "\uC624\uD06C\uB791 \uBA67\uB3FC\uC9C0"
   Sprite: {fileID: 0}
@@ -29,7 +29,7 @@ MonoBehaviour:
       - row: 010100000000
       - row: 000000000000
       - row: 000000000000
-    placeAmount: 3
+    placeAmount: 1
     placeAmountPerDifficerty: 1
   - chracterBlockConfig: {fileID: 11400000, guid: 8435632897e085a47acbe11e847fc174, type: 2}
     placableArea:
@@ -41,5 +41,5 @@ MonoBehaviour:
       - row: 000001010000
       - row: 000000000000
       - row: 000000000000
-    placeAmount: 3
+    placeAmount: 1
     placeAmountPerDifficerty: 1

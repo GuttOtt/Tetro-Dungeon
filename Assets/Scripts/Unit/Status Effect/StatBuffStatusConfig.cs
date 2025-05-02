@@ -26,9 +26,10 @@ public class StatBuffStatus : Status {
 
     public override void ApplyTo(StatusApplicationContext context) {
         BaseUnit unit = context.TargetUnit;
-        Stat unitStat = unit.Stat;
+        Stat unitStat = unit.Stat.DeepCopy();
         _buffedStat = unitStat.PercentageMultiply(PercentStatBuff) + _constStatBuff;
         unit.GainStat(_buffedStat);
+        Debug.Log($"StatBuffStatus applied to {unit.Name}: MaxHP: {unit.MaxHP}, CurrentHP: {unit.CurrentHP}, Def: {unit.Defence}");
     }
 
     public override void RemoveFrom(BaseUnit unit) {

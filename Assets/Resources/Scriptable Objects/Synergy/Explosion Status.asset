@@ -18,7 +18,7 @@ MonoBehaviour:
   _skills: []
   _isStackable: 1
   _iconSprite: {fileID: 21300000, guid: 742a3a93019905f4cb8d2cdf408b7024, type: 3}
-  _maxCount: 3
+  _maxCount: 10
   _explosionArea:
     gridSize: {x: 3, y: 3}
     cellSize: {x: 16, y: 16}

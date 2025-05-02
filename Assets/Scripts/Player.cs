@@ -117,7 +117,7 @@ namespace Assets.Scripts
 
             _characterBlockConfigs = Resources.LoadAll<CharacterBlockConfig>("Scriptable Objects/Character Block/General").ToList();
             _equipmentConfigs = Resources.LoadAll<EquipmentConfig>("Scriptable Objects/Equipment").ToList();
-            SetInitialInventory();
+            //SetInitialInventory();
 
             _currentMoney = initialMoney;
         }
