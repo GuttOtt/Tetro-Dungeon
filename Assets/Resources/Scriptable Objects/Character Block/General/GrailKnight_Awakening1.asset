@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _condition:
     _synergyDic:
-      _serializedList: []
+      _serializedList:
+      - Key: 2
+        Value: 1
+      - Key: 5
+        Value: 1
   description: "1. \uC870\uAC74: [\uC2E0\uC131] \uC544\uC774\uD15C\uACFC [\uAC80]
     \uC544\uC774\uD15C\uC744 \uCC29\uC6A9 \uD6A8\uACFC: \uB300\uC2E0 \uC544\uAD70
     \uC804\uC6D0\uC5D0\uAC8C \uACF5\uACA9\uB825 10%, \uCD5C\uB300 \uCCB4\uB825 10%

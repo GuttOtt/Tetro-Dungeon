@@ -77,11 +77,11 @@ MonoBehaviour:
     _range: 1
     _speed: 1
   _statForLevelUp:
-    _maxHP: 60
-    _attack: 5
-    _spellPower: 5
-    _defence: 5
-    _spellDefence: 6
+    _maxHP: 120
+    _attack: 10
+    _spellPower: 10
+    _defence: 10
+    _spellDefence: 12
     _range: 0
     _speed: 0.05
   DefaultSkill: {fileID: 11400000, guid: ef1b20e383a487d4f8bd5a7aa7f31a74, type: 2}

@@ -24,13 +24,13 @@ MonoBehaviour:
       gridSize: {x: 6, y: 5}
       cellSize: {x: 16, y: 16}
       cells:
-      - row: 000100000000
+      - row: 000000000000
       - row: 000100000000
       - row: 000000000000
       - row: 000100000000
-      - row: 000100000000
-    placeAmount: 1
-    placeAmountPerDifficerty: 0.5
+      - row: 000000000000
+    placeAmount: 2
+    placeAmountPerDifficerty: 0
   - chracterBlockConfig: {fileID: 11400000, guid: 70630403e88e7b4439980a4519ff77b5, type: 2}
     placableArea:
       gridSize: {x: 6, y: 5}
@@ -41,5 +41,5 @@ MonoBehaviour:
       - row: 000001010000
       - row: 000001010000
       - row: 000001010000
-    placeAmount: 1
-    placeAmountPerDifficerty: 1
+    placeAmount: 0
+    placeAmountPerDifficerty: 2

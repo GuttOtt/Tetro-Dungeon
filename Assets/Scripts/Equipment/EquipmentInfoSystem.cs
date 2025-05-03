@@ -15,6 +15,7 @@ public class EquipmentInfoSystem : MonoBehaviour
     [SerializeField] private GameObject _panel;
     [SerializeField] private SimpleMonoButton _closeButton;
     [SerializeField] private SpriteRenderer _equipmentSprite;
+    [SerializeField] private EquipmentSystem equipmentSystem;
 
     private void Start()
     {
@@ -43,6 +44,8 @@ public class EquipmentInfoSystem : MonoBehaviour
     public void DrawInfo(Equipment equipment)
     {
         _panel.SetActive(true);
+
+        equipmentSystem.SetInputOff();
 
         // Name
         _nameText.text = equipment.Config.Name;
@@ -77,5 +80,6 @@ public class EquipmentInfoSystem : MonoBehaviour
     private void ClosePanel()
     {
         _panel.SetActive(false);
+        equipmentSystem.SetInputOn();
     }
 }

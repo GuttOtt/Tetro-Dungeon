@@ -21,7 +21,7 @@ public class UnitSystem : MonoBehaviour
 
       
 
-    public BaseUnit CreateUnit(CharacterBlockConfig config, CharacterTypes owner) {
+    public BaseUnit CreateUnit(CharacterBlockConfig config, CharacterTypes owner, int level = 1) {
         GameObject unitGO = Instantiate(_unitPrefab);
 
         //유닛 패턴 생성
@@ -44,6 +44,11 @@ public class UnitSystem : MonoBehaviour
 
         unit.Init(this, config, owner, id);
         _units.Add(unit);
+
+        // 레벨에 따른 스탯 증가
+        Stat statForLevelUp = config.StatForLevelUp;
+        Stat statGain = statForLevelUp * (level - 1);
+        unit.GainStat(statGain);
 
         unit.OnDestroy += () => DestroyUnit(unit);
 

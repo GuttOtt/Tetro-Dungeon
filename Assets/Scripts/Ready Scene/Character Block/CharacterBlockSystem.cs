@@ -1,11 +1,6 @@
 using Assets.Scripts;
-using AYellowpaper.SerializedCollections.Editor.Data;
-using Cysharp.Threading.Tasks.Triggers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.FullSerializer;
-using UnityEditor;
 using UnityEngine;
 
 public class CharacterBlockSystem : MonoBehaviour {
@@ -68,7 +63,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         CharacterBlock newBlock = CreateCharacterBlock(data, false);
         _inventorySystem.Add(newBlock);
 
-        //Maintain Position if it's in the inventory
+        //Maintain Position if it was in the inventory
         if (_inventorySystem.IsInsideArea(characterBlock)) {
             newBlock.transform.position = characterBlock.transform.position;
         }
@@ -123,6 +118,10 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     #region Selection and Dragging Control
+    public void SetInputOn() {
+        _isInputOn = true;
+    }
+
     public void SetInputOff() {
         _isInputOn = false;
     }

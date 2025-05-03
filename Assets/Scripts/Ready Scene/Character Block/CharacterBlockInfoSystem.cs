@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +41,7 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [Header("References")]
     [SerializeField] private SimpleMonoButton _closeButton;
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
+    [SerializeField] private EquipmentSystem equipmentSystem;
 
     private CharacterBlock currentCharacterBlock;
 
@@ -73,6 +73,10 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     public void DrawInfo(CharacterBlock characterBlock) {
         _panel.SetActive(true);
         currentCharacterBlock = characterBlock;
+        
+        //Set Inputs Off
+        _characterBlockSystem.SetInputOff();
+        equipmentSystem.SetInputOff();
 
         //Lelvel Up
         _levelUpButton.onClick = null;
@@ -170,5 +174,7 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
     public void ClosePanel() {
         _panel.SetActive(false);
+        _characterBlockSystem.SetInputOn();
+        equipmentSystem.SetInputOn();
     }
 }

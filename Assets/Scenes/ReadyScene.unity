@@ -744,6 +744,7 @@ MonoBehaviour:
   _panel: {fileID: 37110340}
   _closeButton: {fileID: 1364179673}
   _equipmentSprite: {fileID: 1365120046}
+  equipmentSystem: {fileID: 748715679}
 --- !u!4 &266619008
 Transform:
   m_ObjectHideFlags: 0
@@ -5990,6 +5991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945bd3234b5597d468054cd0281da3ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterBlocks: []
   rerollCost: 2
   characterBlockCost: 8
   equipmentCost: 5
@@ -6524,6 +6526,7 @@ MonoBehaviour:
   _awakeningsText: {fileID: 517456684}
   _closeButton: {fileID: 1608435730}
   _characterBlockSystem: {fileID: 1386957424}
+  equipmentSystem: {fileID: 748715679}
 --- !u!1 &1608435727
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Spellsword_Decorator1
   m_EditorClassIdentifier: 
   _skillName: 
-  _skillDescription: 
+  _skillDescription: "1. \uC870\uAC74: [\uAC80] \uC544\uC774\uD15C\uACFC [\uB9C8\uBC95\uC0AC]
+    \uC544\uC774\uD15C\uC744 \uCC29\uC6A9\n\uD6A8\uACFC: \uC2A4\uD0AC\uC758 \uC8FC\uBB38\uB825
+    \uACC4\uC218\uAC00 1.0\uB85C \uC0C1\uC2B9\uD569\uB2C8\uB2E4."
   _skillChance: 0
   _unitEvents: 
   _shouldInterrupt: 0

@@ -1,20 +1,12 @@
 using Assets.Scripts;
 using Assets.Scripts.Reward;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.CompilerServices;
 using EnumTypes;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
-//�������� ���� �÷ο� ���� ��
-//System ���� ������Ʈ ��Ʈ ���
 public class GameManager : MonoBehaviour, IGameManager
 {
     #region private members

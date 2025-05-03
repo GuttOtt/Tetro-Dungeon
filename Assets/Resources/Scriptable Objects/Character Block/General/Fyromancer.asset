@@ -65,18 +65,18 @@ MonoBehaviour:
   Animator_Prefabs: {fileID: 0}
   _stat:
     _maxHP: 520
-    _attack: 55
+    _attack: 40
     _spellPower: 50
     _defence: 30
     _spellDefence: 30
     _range: 3
     _speed: 0.95
   _statForLevelUp:
-    _maxHP: 50
-    _attack: 5
-    _spellPower: 5
-    _defence: 5
-    _spellDefence: 5
+    _maxHP: 120
+    _attack: 10
+    _spellPower: 15
+    _defence: 8
+    _spellDefence: 8
     _range: 0
     _speed: 0.05
   DefaultSkill: {fileID: 11400000, guid: a25fbc7e4998d674bba5be6ebd8cfe41, type: 2}

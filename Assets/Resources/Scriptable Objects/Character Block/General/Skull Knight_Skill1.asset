@@ -20,5 +20,5 @@ MonoBehaviour:
   _unitEvents: 
   _shouldInterrupt: 1
   _restoringHP: 0
-  _restoringHPRatio: 1
+  _restoringHPRatio: 0.5
   _reviveCount: 1
