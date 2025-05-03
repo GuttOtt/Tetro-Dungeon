@@ -43,4 +43,4 @@ MonoBehaviour:
       - row: 010000000000
       - row: 010000000000
     placeAmount: 1
-    placeAmountPerDifficerty: 1
+    placeAmountPerDifficerty: 0.5

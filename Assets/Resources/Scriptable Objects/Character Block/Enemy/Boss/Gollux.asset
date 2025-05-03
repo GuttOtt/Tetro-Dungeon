@@ -25,7 +25,7 @@ MonoBehaviour:
     _defence: 100
     _spellDefence: 100
     _range: 1
-    _speed: 0.5
+    _speed: 0.4
   _statForLevelUp:
     _maxHP: 0
     _attack: 0
@@ -39,5 +39,5 @@ MonoBehaviour:
   PassiveSkills:
   - {fileID: 11400000, guid: b2a16bdbd1ad0274994a45bebd10738f, type: 2}
   - {fileID: 11400000, guid: 831c9e285fbbfd74b86e56d3a0543bfc, type: 2}
-  Synergies: []
+  SynergyPerLevels: []
   Awakenings: []
