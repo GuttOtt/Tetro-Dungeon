@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,7 +121,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c628532f67469b488b0057be2c63ae2
+      internalID: 1266162753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e81da895b8f7a34196fd3c9f2e556a6
+      internalID: -1000566572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fa108a0426fb6b4a95c4a7dd36cc778
+      internalID: -359698117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f91f17a50dcb2d4ebe568ed8b00cb7f
+      internalID: 489316886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7365a1e2b0935a243ab86ae00c3de134
+      internalID: -488725049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Move_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d87e7687ca2a444478279d4c9ca4d6be
+      internalID: 119916103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +258,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rabbit_Horned_Move_0: -467778907
+      Rabbit_Horned_Move_1: -907349712
+      Rabbit_Horned_Move_10: 691622443
+      Rabbit_Horned_Move_11: -853560864
+      Rabbit_Horned_Move_12: 1266162753
+      Rabbit_Horned_Move_13: -1000566572
+      Rabbit_Horned_Move_14: -359698117
+      Rabbit_Horned_Move_15: 489316886
+      Rabbit_Horned_Move_16: -488725049
+      Rabbit_Horned_Move_17: 119916103
+      Rabbit_Horned_Move_18: -913008321
+      Rabbit_Horned_Move_19: 1808981673
+      Rabbit_Horned_Move_2: -1311802182
+      Rabbit_Horned_Move_20: -131453030
+      Rabbit_Horned_Move_21: -189321734
+      Rabbit_Horned_Move_22: -1524945688
+      Rabbit_Horned_Move_23: 564139911
+      Rabbit_Horned_Move_3: -1111059083
+      Rabbit_Horned_Move_4: 1306108737
+      Rabbit_Horned_Move_5: 34957873
+      Rabbit_Horned_Move_6: 744667046
+      Rabbit_Horned_Move_7: -190655135
+      Rabbit_Horned_Move_8: -1397776538
+      Rabbit_Horned_Move_9: -1961574984
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

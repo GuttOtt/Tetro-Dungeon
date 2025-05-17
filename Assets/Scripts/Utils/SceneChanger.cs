@@ -32,4 +32,8 @@ public class SceneChanger : Singleton<SceneChanger>
     public void LoadGameOverScene() {
         SceneManager.LoadScene("GameOverScene");
     }
+
+    public void LoadUpscaylScene() {
+        SceneManager.LoadScene("UpscaylScene");
+    }
 }

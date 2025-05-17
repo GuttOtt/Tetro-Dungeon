@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndingScene.unity
     guid: c2579e04c787b5a43a0b4c2bbe3b8626
+  - enabled: 1
+    path: Assets/Scenes/UpscaylScene.unity
+    guid: f700a2b65a1e6ba4e9d9e304ae064a99
   m_configObjects: {}

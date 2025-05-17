@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,7 +121,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Rabbit_Horned_Idle_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f3a38747f37d4b4b827005531b0fbbc
+      internalID: 1492690297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Idle_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feddc17bc923a3240b772cb7296799c8
+      internalID: 219797301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Idle_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1dfb4d15828160458a67e5c5091cccf
+      internalID: 1283878419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Idle_11
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea56eaff11a6bdd458c769c42fd64a55
+      internalID: 1203838836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +216,23 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rabbit_Horned_Idle_0: -1922903174
+      Rabbit_Horned_Idle_1: -549466589
+      Rabbit_Horned_Idle_10: 1283878419
+      Rabbit_Horned_Idle_11: 1203838836
+      Rabbit_Horned_Idle_12: -1526197165
+      Rabbit_Horned_Idle_13: -694627977
+      Rabbit_Horned_Idle_14: 1971204532
+      Rabbit_Horned_Idle_15: -1480145719
+      Rabbit_Horned_Idle_2: 291189027
+      Rabbit_Horned_Idle_3: -1486883803
+      Rabbit_Horned_Idle_4: -2133922621
+      Rabbit_Horned_Idle_5: -100439713
+      Rabbit_Horned_Idle_6: -1662928318
+      Rabbit_Horned_Idle_7: 2046374435
+      Rabbit_Horned_Idle_8: 1492690297
+      Rabbit_Horned_Idle_9: 219797301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

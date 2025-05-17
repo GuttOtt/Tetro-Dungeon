@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,7 +121,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44b92a602b47b9640b472661f8506d18
+      internalID: -1787498455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cda312243e44f22498cc1120790bde6a
+      internalID: -394782059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dacc89c5c4b62b944ba4bb7af1aedc55
+      internalID: 1853596526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a3757f2a4a4c04e8fed0b3b78f2721
+      internalID: -1468572998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_16
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32fd6f1680b9f54895764c58e462b55
+      internalID: 2005677626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rabbit_Horned_Attack_17
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd6531f99f90da4397fdd8257e7023d
+      internalID: -1179861402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -132,7 +258,31 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rabbit_Horned_Attack_0: 1233431566
+      Rabbit_Horned_Attack_1: -1384272720
+      Rabbit_Horned_Attack_10: 1489172528
+      Rabbit_Horned_Attack_11: 1277771523
+      Rabbit_Horned_Attack_12: -1787498455
+      Rabbit_Horned_Attack_13: -394782059
+      Rabbit_Horned_Attack_14: 1853596526
+      Rabbit_Horned_Attack_15: -1468572998
+      Rabbit_Horned_Attack_16: 2005677626
+      Rabbit_Horned_Attack_17: -1179861402
+      Rabbit_Horned_Attack_18: -760254917
+      Rabbit_Horned_Attack_19: 1592101681
+      Rabbit_Horned_Attack_2: 790410448
+      Rabbit_Horned_Attack_20: -1823741643
+      Rabbit_Horned_Attack_21: 1602422861
+      Rabbit_Horned_Attack_22: 688818539
+      Rabbit_Horned_Attack_23: 100524238
+      Rabbit_Horned_Attack_3: 1642551251
+      Rabbit_Horned_Attack_4: 2054194286
+      Rabbit_Horned_Attack_5: 438727472
+      Rabbit_Horned_Attack_6: -322923803
+      Rabbit_Horned_Attack_7: -12480139
+      Rabbit_Horned_Attack_8: -1262432745
+      Rabbit_Horned_Attack_9: 1210516703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
