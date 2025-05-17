@@ -11,9 +11,9 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        newGameButton.onClick.AddListener(OnNewGameButtonClicked);
-        loadGameButton.onClick.AddListener(OnLoadGameButtonClicked);
-        quitButton.onClick.AddListener(OnQuitButtonClicked);
+        newGameButton?.onClick.AddListener(OnNewGameButtonClicked);
+        loadGameButton?.onClick.AddListener(OnLoadGameButtonClicked);
+        quitButton?.onClick.AddListener(OnQuitButtonClicked);
     }
 
     private void OnNewGameButtonClicked()

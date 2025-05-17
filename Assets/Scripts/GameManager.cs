@@ -205,10 +205,19 @@ public class GameManager : MonoBehaviour, IGameManager
     public async void PlayerWin() {
         Debug.Log("플레이어 승리! 10Gold 획득.");
         _player.CurrentMoney += 10;
+
         Debug.Log("3초 후 다음 화면으로 넘어갑니다.");
+
         await UniTask.Delay(TimeSpan.FromSeconds(3));
-        StageManager.Instance.MoveForward();
-        _sceneChanger.LoadReadyScene();
+        
+        if (StageManager.Instance.IsLastStage) {
+            Debug.Log("모든 스테이지를 클리어했습니다.");
+            _sceneChanger.LoadEndingScene();
+        }
+        else {
+            StageManager.Instance.MoveForward();
+            _sceneChanger.LoadReadyScene();
+        }
     }
 
     public void PlayerLose() {

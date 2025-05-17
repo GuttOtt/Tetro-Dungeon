@@ -16,19 +16,6 @@ public class SceneChanger : Singleton<SceneChanger>
     {
         SceneManager.LoadScene("BattleScene");
     }
-    public void LoadDeckEditScene()
-    {
-        SceneManager.LoadScene("DeckEdit");
-    }
-
-    public void LoadItemEditScene()
-    {
-        SceneManager.LoadScene("ItemEdit");
-    }
-    public void LoadCombinationScene()
-    {
-        SceneManager.LoadScene("Combination");
-    }
 
     public void LoadStageScene() {
         SceneManager.LoadScene("Stage");
@@ -36,5 +23,13 @@ public class SceneChanger : Singleton<SceneChanger>
 
     public void LoadReadyScene() {
         SceneManager.LoadScene("ReadyScene");
+    }
+
+    public void LoadEndingScene() {
+        SceneManager.LoadScene("EndingScene");
+    }
+
+    public void LoadGameOverScene() {
+        SceneManager.LoadScene("GameOverScene");
     }
 }

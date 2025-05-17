@@ -23,6 +23,7 @@ public class StageManager : Singleton<StageManager> {
     }
     public List<StageData> Stages { get => _stages; }
     public int CurrentStageIndex {  get => _currentStageIndex; }
+    public bool IsLastStage { get => _currentStageIndex == _stages.Count - 1; }
     public EnemyData CurrentEnemyData {
         get {
             if (CurrentStage is not EnemyStageData) 
