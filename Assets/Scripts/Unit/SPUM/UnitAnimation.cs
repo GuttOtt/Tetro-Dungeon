@@ -85,4 +85,12 @@ public class UnitAnimation : MonoBehaviour {
             animatorControl.ChangeColor(Color.white);
         }
     }
+
+    private void OnDestroy() {
+        if (isUsingSPUM) {
+            Destroy(unitSPUMControl);
+        } else {
+            Destroy(animatorControl);
+        }
+    }
 }

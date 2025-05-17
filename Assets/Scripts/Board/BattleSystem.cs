@@ -32,7 +32,7 @@ public class BattleSystem : MonoBehaviour
     private Dictionary<CharacterTypes, TMP_Text> _lifeTextDic = new Dictionary<CharacterTypes, TMP_Text>();
 
     //배틀 UniTask를 중단하기 위한 CancellationToken
-    private CancellationTokenSource battleCancel = new CancellationTokenSource();
+    private CancellationTokenSource battleCancellationToken = new CancellationTokenSource();
 
     [SerializeField]
     private float _battleSpeed = 1; //1이 디폴트
@@ -58,6 +58,8 @@ public class BattleSystem : MonoBehaviour
 
     public async UniTask StartBattle()
     {
+        battleCancellationToken = new CancellationTokenSource();
+
         if (_isProcessing)
             return;
 
@@ -67,9 +69,6 @@ public class BattleSystem : MonoBehaviour
 
         _isProcessing = true;
         CharacterTypes winner = CharacterTypes.None;
-
-        //배틀 시작 시 발생하는 Synergy 효과들 발동
-        //await _synergySystem.OnBattleBeginEffects((_gameManager as GameManager).CreateTurnContext());
 
         //Trigger OnStartBattle of Units
         List<IUnit> playerUnits = _board.PlayerUnits.ToList();
@@ -84,6 +83,11 @@ public class BattleSystem : MonoBehaviour
         //한 쪽의 유닛이 전부 사라질 때까지 전투
         while (true)
         {
+            if (battleCancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
+
             if (_board.GetUnits(CharacterTypes.Enemy).Count == 0)
             {
                 winner = CharacterTypes.Player;
@@ -168,9 +172,19 @@ public class BattleSystem : MonoBehaviour
 
     private void StopBattle()
     {
-
+        battleCancellationToken.Cancel();
+        battleCancellationToken.Dispose();
     }
-    private bool CheckMovable(IUnit unit, CharacterTypes attackTurn)
+
+    private void OnDestroy()
+    {
+        if (battleCancellationToken != null)
+        {
+            StopBattle();
+        }   
+    }
+
+  private bool CheckMovable(IUnit unit, CharacterTypes attackTurn)
     {
         if (unit.Owner != attackTurn)
         {

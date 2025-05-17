@@ -59,7 +59,7 @@ public class UnitAnimatorControl : MonoBehaviour {
     }
 
     public void ChangeColor(Color color) {
-        SpriteRenderer sr = animator.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr = animator?.GetComponent<SpriteRenderer>();
         if (sr == null) {
             Debug.LogWarning("SpriteRenderer not found on the animator's GameObject.");
             return;

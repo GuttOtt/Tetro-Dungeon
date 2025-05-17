@@ -43,7 +43,7 @@ namespace Assets.Scripts
         #endregion
 
         //Money and Life
-        [SerializeField] private int initialMoney = 10;
+        [SerializeField] private int initialMoney = 25;
         private int _currentMoney;
         [SerializeField] private int _currentLife = 500;
 
@@ -121,11 +121,6 @@ namespace Assets.Scripts
             _currentMoney = initialMoney;
         }
 
-        public BlockCard CreateBlockCard(Polyomino polyomino, TroopEffect troopEffect, StatDecorator statDecorator)
-        {
-            return new BlockCard(polyomino, troopEffect, statDecorator);
-        }
-
         public BlockCard CreateRandomBlockCard()
         {
             Polyomino polyomino = Polyomino.GetRandomPolyomino();
@@ -140,54 +135,8 @@ namespace Assets.Scripts
             return _unitPool[Random.Range(0, _unitPool.Count)];
         }
 
-        public void SetDeck(int deckAmount)
-        {
-            for (int i = 0; i < deckAmount; i++)
-            {
-                UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-                BlockCard blockCard = CreateRandomBlockCard();
-
-                CardData card = new(config, blockCard);
-                _deck.Add(card);
-            }
-
-            _deck.Shuffle();
-        }
-
-        public void SetDeck(Deck deck)
-        {
-            foreach(var card in deck.Decks)
-            {
-                if (card != null)
-                {
-                    _configs.Add(card.UnitConfig);
-                }
-            }
-        }
-
         public void SetDeck(List<CardData> cardData) => _deck = cardData;
 
-        public void SetExtraDeck(int deckAmount)
-        {
-            for (int i = 0; i < deckAmount; i++)
-            {
-                UnitConfig config = _unitPool[Random.Range(0, _unitPool.Count)];
-                BlockCard blockCard = CreateRandomBlockCard();
-                CardData card = new(config, blockCard);
-
-                AddUnitConfig(config);
-                AddBlockCard(blockCard);
-                //_extraDeck.Add(card);
-            }
-
-            _extraDeck.Shuffle();
-        }
         public void SetExtraDeck(List<CardData> cardData) => _extraDeck = cardData;
-        public void AddBlockCard(BlockCard block) => _blockCards.Add(block);
-        public void AddUnitConfig(UnitConfig config) => _configs.Add(config);
-
-        public void SaveItemInUse(List<Item> items) {
-            _itemInUse = items.ToList();
-        }
     }
 }

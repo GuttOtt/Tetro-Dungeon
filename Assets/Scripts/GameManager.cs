@@ -1,14 +1,18 @@
 using Assets.Scripts;
 using Assets.Scripts.Reward;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
 using EnumTypes;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IGameManager
 {
+    private CancellationTokenSource _cancellationTokenSource;
+
     #region private members
     #region Systems
     [SerializeField]
@@ -68,22 +72,33 @@ public class GameManager : MonoBehaviour, IGameManager
         Debug.Log($"Current Scene: {SceneManager.GetActiveScene().name}");
 
         if (SceneManager.GetActiveScene().name == "BattleScene")
-            StartBattleScene();
+            StartBattleScene().Forget();
     }
 
-    private async void StartBattleScene() {
+    private void Awake()
+    {
+        _cancellationTokenSource = new CancellationTokenSource();
+    }
+
+    private void OnDestroy()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
+    }
+
+    private async UniTask StartBattleScene() {
         _characterBlockSystem.SetInputOff();
         _equipmentSystem.SetInputOff();
 
         PlaceEnemyUnits();
-        await PlacePlayerUnits();
+        await PlacePlayerUnits(_cancellationTokenSource.Token);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(3));
+        await UniTask.Delay(TimeSpan.FromSeconds(3), cancellationToken: _cancellationTokenSource.Token);
 
         _battleSystem.StartBattle().Forget();
     }
 
-    private async UniTask PlacePlayerUnits() {
+    private async UniTask PlacePlayerUnits(CancellationToken cancellationToken) {
         List<CharacterBlock> blocks = new List<CharacterBlock>();
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
@@ -91,9 +106,10 @@ public class GameManager : MonoBehaviour, IGameManager
             blocks.Add(block);
         }
 
-        await UniTask.WaitForSeconds(1f);
+        await UniTask.WaitForSeconds(1f, cancellationToken: cancellationToken);
 
         foreach (CharacterBlock block in blocks) {
+            cancellationToken.ThrowIfCancellationRequested();
             foreach (BlockPart blockPart in block.BlockParts) {
                 blockPart.Cell = blockPart.PickCell();
                 Debug.Log($"BlockPart {blockPart.name} is placed at {blockPart.Cell}");
@@ -101,9 +117,10 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         // BaseUnitMarker를 생성하고 드래그 앤 드랍으로 유닛의 위치를 조절
-        List<BaseUnitMarker> markers = await ManipulatePlayerUnitPos(blocks);
+        List<BaseUnitMarker> markers = await ManipulatePlayerUnitPos(blocks, cancellationToken);
 
         foreach (BaseUnitMarker marker in markers) {
+            cancellationToken.ThrowIfCancellationRequested();
             CharacterBlock block = marker.characterBlock;
             
             BaseUnit unit = _unitSystem.CreateUnit(block, CharacterTypes.Player);
@@ -119,10 +136,11 @@ public class GameManager : MonoBehaviour, IGameManager
         Debug.Log($"현재 보드의 모든 플레이어 유닛: {_board.GetUnits(CharacterTypes.Player).Count}");
     }
 
-    private async UniTask<List<BaseUnitMarker>> ManipulatePlayerUnitPos(List<CharacterBlock> characterBlocks) {
+    private async UniTask<List<BaseUnitMarker>> ManipulatePlayerUnitPos(List<CharacterBlock> characterBlocks, CancellationToken cancellationToken) {
         // BaseUnitMarker들을 생성
         List<BaseUnitMarker> markers = new List<BaseUnitMarker>();
         foreach (CharacterBlock block in characterBlocks) {
+            cancellationToken.ThrowIfCancellationRequested();
             Vector2Int centerCellPos = block.CenterCellPos;
             Cell centerCell = _board.GetCell(centerCellPos.x, centerCellPos.y);
             BaseUnitMarker marker = Instantiate(_baseUnitMarkerPrefab, centerCell.transform);
@@ -131,7 +149,7 @@ public class GameManager : MonoBehaviour, IGameManager
         }
 
         // 엔터키 입력을 기다림
-        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.Return), cancellationToken: cancellationToken);
 
         return markers;
     }
