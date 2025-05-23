@@ -221,7 +221,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             Animator animator = Instantiate(config.Animator_Prefabs, gameObject.transform);
             unitAnimation.InitByAnimator(animator);
             
-            animator.transform.localPosition = new Vector3(0, 0.3f, -1);
+            animator.transform.localPosition = new Vector3(0, 0.1f, -1);
             unitAnimationTransform = animator.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;
@@ -305,7 +305,7 @@ public class BaseUnit : MonoBehaviour, IUnit
             Animator animator = Instantiate(config.Animator_Prefabs, gameObject.transform);
             unitAnimation.InitByAnimator(animator);
 
-            animator.transform.localPosition = new Vector3(0, 0.3f, -1);
+            animator.transform.localPosition = new Vector3(0, 0.1f, -1);
             unitAnimationTransform = animator.transform;
 
             GetComponent<SpriteRenderer>().sprite = null;

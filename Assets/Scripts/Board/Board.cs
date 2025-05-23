@@ -64,11 +64,9 @@ public class Board : MonoBehaviour
 
                 if (column / 2 <= x && !_isAllPlayerCell) {
                     cell.Init(x, y, CharacterTypes.Enemy);
-                    cell.GetComponent<SpriteRenderer>().color = Color.red;
                 }
                 else {
                     cell.Init(x, y, CharacterTypes.Player);
-                    cell.GetComponent<SpriteRenderer>().color = Color.blue;
                 }
             }
         }

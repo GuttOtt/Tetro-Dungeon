@@ -38,4 +38,9 @@ public class GameMenuManager : Singleton<GameMenuManager>
         gameMenuUI.SetActive(false);
         Time.timeScale = 1; // Resume the game
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
