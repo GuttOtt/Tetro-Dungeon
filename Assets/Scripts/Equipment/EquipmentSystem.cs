@@ -113,31 +113,45 @@ public class EquipmentSystem : MonoBehaviour {
         //Placing
         bool isPlaced = TryPlace();
         if (!isPlaced) {
+            // 판매 처리
+            if (_shopSystem.IsInsideShopArea(_selectedEquipment) && !_shopSystem.ContainsItem(_selectedEquipment))
+            {
+                _shopSystem.Sell(_selectedEquipment);
+            }
+
             //Inventory에 있었던 경우
-            if (_inventorySystem.ContainsItem(_selectedEquipment)) {
-                if (!_inventorySystem.IsInsideArea(_selectedEquipment)) {
+            else if (_inventorySystem.ContainsItem(_selectedEquipment))
+            {
+                if (!_inventorySystem.IsInsideArea(_selectedEquipment))
+                {
                     _selectedEquipment.transform.position = _selectedPos;
                 }
             }
             //Shop에 있는 상태였을 경우
-            else if (_shopSystem.ContainsItem(_selectedEquipment)) {
+            else if (_shopSystem.ContainsItem(_selectedEquipment))
+            {
                 //Shop -> Inventory
                 if (_inventorySystem.IsInsideArea(_selectedEquipment)
-                    && _shopSystem.IsAffordable(_selectedEquipment)) {
+                    && _shopSystem.IsAffordable(_selectedEquipment))
+                {
                     _shopSystem.Buy(_selectedEquipment);
                     _inventorySystem.Add(_selectedEquipment);
                 }
-                else {
+                else
+                {
                     _selectedEquipment.transform.position = _selectedPos;
                 }
             }
             //Place 되어 있던 상태일 때
-            else {
-                if (_inventorySystem.IsInsideArea(_selectedEquipment)) {
+            else
+            {
+                if (_inventorySystem.IsInsideArea(_selectedEquipment))
+                {
                     _selectedEquipment.Unplace();
                     _inventorySystem.Add(_selectedEquipment);
                 }
-                else {
+                else
+                {
                     _selectedEquipment.transform.position = _selectedPos;
                     Place(_selectedEquipment);
                 }
