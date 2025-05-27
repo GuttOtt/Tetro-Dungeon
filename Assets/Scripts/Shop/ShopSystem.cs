@@ -184,7 +184,7 @@ public class ShopSystem : MonoBehaviour
     {
         Vector3 blockPos = characterBlock.transform.position;
         blockPos.z = 0;
-        Bounds areaBounds = GetComponent<Collider2D>().bounds;
+        Bounds areaBounds = area.bounds;
 
         return areaBounds.Contains(blockPos);
     }
@@ -204,12 +204,12 @@ public class ShopSystem : MonoBehaviour
         {
             CharacterBlock characterBlock = item as CharacterBlock;
             RemoveCharacterBlock(characterBlock);
-            _player.CurrentMoney += 3;
         }
         else if (item is Equipment)
         {
             Equipment equipment = (Equipment)item;
             RemoveEquipment(equipment);
+            _player.CurrentMoney += 3;
         }
         
         UpdateMoneyText();

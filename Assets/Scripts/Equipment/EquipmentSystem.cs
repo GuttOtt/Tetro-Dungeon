@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipmentSystem : MonoBehaviour {
+public class EquipmentSystem : MonoBehaviour
+{
     private List<Equipment> _equipments = new List<Equipment>();
     [SerializeField] private Equipment _euipmentPrefab;
     private Equipment _selectedEquipment;
@@ -20,7 +21,8 @@ public class EquipmentSystem : MonoBehaviour {
     public Action<Equipment> OnPlaceOnBoard;
     public Action<Equipment> OnUnplaceFromBoard;
 
-    void Update() {
+    void Update()
+    {
         Select();
         UnSelect();
         MoveSelectedEquipment();
@@ -28,7 +30,8 @@ public class EquipmentSystem : MonoBehaviour {
     }
 
 
-    public Equipment CreateEquipment(EquipmentConfig config) {
+    public Equipment CreateEquipment(EquipmentConfig config)
+    {
         Equipment newEquipment = Instantiate(_euipmentPrefab);
         newEquipment.Init(config);
         _equipments.Add(newEquipment);
@@ -36,12 +39,14 @@ public class EquipmentSystem : MonoBehaviour {
         return newEquipment;
     }
 
-    public Equipment CreateEquipment(EquipmentData data) {
+    public Equipment CreateEquipment(EquipmentData data)
+    {
         Equipment newEquipment = CreateEquipment(data.Config);
         return newEquipment;
     }
 
-    public Equipment CreateEquipment(EquipmentData data, CharacterBlock characterBlock) {
+    public Equipment CreateEquipment(EquipmentData data, CharacterBlock characterBlock)
+    {
         Equipment newEquipment = CreateEquipment(data.Config);
 
 
@@ -54,7 +59,8 @@ public class EquipmentSystem : MonoBehaviour {
         Vector2Int location = data.Location;
         newEquipment.Place(characterBlock, location);
         OnPlace?.Invoke(newEquipment);
-        if (characterBlock.IsPlaced) {
+        if (characterBlock.IsPlaced)
+        {
             OnPlaceOnBoard?.Invoke(newEquipment);
         }
 
@@ -62,8 +68,10 @@ public class EquipmentSystem : MonoBehaviour {
         return newEquipment;
     }
 
-    private void Select() {
-        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedEquipment != null) {
+    private void Select()
+    {
+        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedEquipment != null)
+        {
             return;
         }
 
@@ -84,10 +92,12 @@ public class EquipmentSystem : MonoBehaviour {
 
         //마커 보이게
         _selectedEquipment.SetMarkersOn(true);
-        
+
         //Unplace
-        if (selectedEquipment.IsPlaced) {
-            if (selectedEquipment.CharacterBlock.IsPlaced){
+        if (selectedEquipment.IsPlaced)
+        {
+            if (selectedEquipment.CharacterBlock.IsPlaced)
+            {
                 OnUnplaceFromBoard?.Invoke(selectedEquipment);
             }
             OnUnplace?.Invoke(selectedEquipment);
@@ -95,7 +105,8 @@ public class EquipmentSystem : MonoBehaviour {
         selectedEquipment.Unplace();
     }
 
-    private void MoveSelectedEquipment() {
+    private void MoveSelectedEquipment()
+    {
         if (_selectedEquipment == null) return;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -103,7 +114,8 @@ public class EquipmentSystem : MonoBehaviour {
         _selectedEquipment.transform.position = mousePosition;
     }
 
-    private void UnSelect() {
+    private void UnSelect()
+    {
         if (!Input.GetMouseButtonUp(0) || _selectedEquipment == null) return;
 
         //SortingLayer 원래대로 되돌리기
@@ -112,11 +124,14 @@ public class EquipmentSystem : MonoBehaviour {
 
         //Placing
         bool isPlaced = TryPlace();
-        if (!isPlaced) {
+        if (!isPlaced)
+        {
             // 판매 처리
             if (_shopSystem.IsInsideShopArea(_selectedEquipment) && !_shopSystem.ContainsItem(_selectedEquipment))
             {
                 _shopSystem.Sell(_selectedEquipment);
+                Debug.Log("Sold equipment: " + _selectedEquipment.name);
+                DestroyEquipment(_selectedEquipment);
             }
 
             //Inventory에 있었던 경우
@@ -157,7 +172,8 @@ public class EquipmentSystem : MonoBehaviour {
                 }
             }
         }
-        else {
+        else
+        {
             Debug.Log("Placed");
         }
 
@@ -167,7 +183,8 @@ public class EquipmentSystem : MonoBehaviour {
         _selectedEquipment = null;
     }
 
-    private bool TryPlace() {
+    private bool TryPlace()
+    {
         if (_selectedEquipment == null || !_selectedEquipment.IsPlacable())
             return false;
 
@@ -192,12 +209,14 @@ public class EquipmentSystem : MonoBehaviour {
         _inventorySystem.Remove(equipment);
         OnPlace?.Invoke(equipment);
 
-        if (equipment.CharacterBlock.IsPlaced) {
+        if (equipment.CharacterBlock.IsPlaced)
+        {
             OnPlaceOnBoard?.Invoke(equipment);
         }
     }
 
-  private void SpinEquipment() {
+    private void SpinEquipment()
+    {
         if (_selectedEquipment == null) return;
 
         bool isClockwise;
@@ -211,19 +230,32 @@ public class EquipmentSystem : MonoBehaviour {
         _selectedEquipment.Spin(isClockwise);
     }
 
-    public void PlaceOnBoard(Equipment equipment) {
+    public void PlaceOnBoard(Equipment equipment)
+    {
         OnPlaceOnBoard?.Invoke(equipment);
     }
 
-    public void UnplaceFromBoard(Equipment equipment) {
+    public void UnplaceFromBoard(Equipment equipment)
+    {
         OnUnplaceFromBoard?.Invoke(equipment);
     }
 
-    public void SetInputOn() {
+    public void SetInputOn()
+    {
         _isInputOn = true;
     }
 
-    public void SetInputOff() {
+    public void SetInputOff()
+    {
         _isInputOn = false;
-    }   
+    }
+    
+    public void DestroyEquipment(Equipment equipment)
+    {
+        if (_equipments.Contains(equipment))
+        {
+            _equipments.Remove(equipment);
+            Destroy(equipment.gameObject);
+        }
+    }
 }

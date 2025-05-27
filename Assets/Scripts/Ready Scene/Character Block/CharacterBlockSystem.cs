@@ -184,31 +184,57 @@ public class CharacterBlockSystem : MonoBehaviour {
         //Placing
         bool isPlaced = TryPlace();
         if (!isPlaced) {
+            // 판매 처리
+            if (_shopSystem.IsInsideShopArea(_selectedBlock) && !_shopSystem.ContainsItem(_selectedBlock))
+            {
+                _shopSystem.Sell(_selectedBlock);
+                _inventorySystem.Remove(_selectedBlock);
+
+                // characterBlock이 보유한 Equipment들을 판매
+                foreach (Equipment equipment in _selectedBlock.Equipments)
+                {
+                    _shopSystem.Sell(equipment);
+                    _equipmentSystem.DestroyEquipment(equipment);
+                }
+
+                Debug.Log("Sold characterBlock: " + _selectedBlock.name);
+
+                _characterBlocks.Remove(_selectedBlock);
+                Destroy(_selectedBlock.gameObject);
+            }
             //Inventory에 있었던 블럭일 경우
-            if (_inventorySystem.ContainsItem(_selectedBlock)) {
-                if (!_inventorySystem.IsInsideArea(_selectedBlock)) {
+            else if (_inventorySystem.ContainsItem(_selectedBlock))
+            {
+                if (!_inventorySystem.IsInsideArea(_selectedBlock))
+                {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
                 }
             }
             //Shop에 있는 상태였을 경우
-            else if (_shopSystem.ContainsItem(_selectedBlock)) {
+            else if (_shopSystem.ContainsItem(_selectedBlock))
+            {
                 //Shop -> Inventory
                 if (_inventorySystem.IsInsideArea(_selectedBlock)
-                    && _shopSystem.IsAffordable(_selectedBlock)) {
+                    && _shopSystem.IsAffordable(_selectedBlock))
+                {
                     _shopSystem.Buy(_selectedBlock);
                     _inventorySystem.Add(_selectedBlock);
                 }
-                else {
+                else
+                {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
                 }
             }
             //Place 되어 있던 상태일 때
-            else {
-                if (_inventorySystem.IsInsideArea(_selectedBlock)) {
+            else
+            {
+                if (_inventorySystem.IsInsideArea(_selectedBlock))
+                {
                     _selectedBlock.Unplace();
                     _inventorySystem.Add(_selectedBlock);
                 }
-                else {
+                else
+                {
                     _selectedBlock.transform.position = _selectedBlockOriginalPos;
                     Place(_selectedBlock);
                 }
