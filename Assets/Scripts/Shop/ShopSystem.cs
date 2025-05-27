@@ -35,6 +35,11 @@ public class ShopSystem : MonoBehaviour
 
     [SerializeField] private TMP_Text _moneyText;
 
+    [Header("Selling Price Settings")]
+    [SerializeField] private int characterBlockSellPrice = 5;
+    [SerializeField] private int characterBlockSellPricePerLevel = 1;
+    [SerializeField] private int equipmentSellPrice = 3;
+
     private void Awake()
     {
         _player = Player.Instance;
@@ -204,12 +209,13 @@ public class ShopSystem : MonoBehaviour
         {
             CharacterBlock characterBlock = item as CharacterBlock;
             RemoveCharacterBlock(characterBlock);
+            _player.CurrentMoney += characterBlockSellPrice + (characterBlock.CurrentLevel - 1) * characterBlockSellPricePerLevel;
         }
         else if (item is Equipment)
         {
             Equipment equipment = (Equipment)item;
             RemoveEquipment(equipment);
-            _player.CurrentMoney += 3;
+            _player.CurrentMoney += equipmentSellPrice;
         }
         
         UpdateMoneyText();
