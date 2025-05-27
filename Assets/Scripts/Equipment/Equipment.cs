@@ -106,16 +106,25 @@ public class Equipment : MonoBehaviour, IItem {
     public bool IsPlacable() {
         CharacterBlock character = null;
 
-        foreach (BlockPart_Equipment blockPart in _blockParts) {
+        foreach (BlockPart_Equipment blockPart in _blockParts)
+        {
             BlockPart characterBlockPart = blockPart.PickBlockPart();
-            if (characterBlockPart == null) {
+            if (characterBlockPart == null)
+            {
                 return false;
             }
 
-            if (character == null) {
+            if (character == null)
+            {
                 character = characterBlockPart.CharacterBlock;
             }
-            else if (character != characterBlockPart.CharacterBlock) {
+            else if (character != characterBlockPart.CharacterBlock)
+            {
+                return false;
+            }
+            
+            if (blockPart.PickBlockPartEquipment() != null)
+            {
                 return false;
             }
         }

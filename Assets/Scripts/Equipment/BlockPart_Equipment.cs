@@ -22,8 +22,13 @@ public class BlockPart_Equipment : MonoBehaviour {
     public BlockPart PickBlockPart() {
         return Utils.Pick<BlockPart>(transform.position);
     }
+    
+    public BlockPart_Equipment PickBlockPartEquipment() {
+        return Utils.Pick<BlockPart_Equipment>(transform.position, this);
+    }
 
-    public void SetMarkerOn(bool isOn) {
+    public void SetMarkerOn(bool isOn)
+    {
         _marker.enabled = isOn;
     }
 
