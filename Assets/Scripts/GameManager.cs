@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour, IGameManager
         List<CharacterBlock> blocks = new List<CharacterBlock>();
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
-            CharacterBlock block = _characterBlockSystem.CreateCharacterBlock(data, true);
+            CharacterBlock block = await _characterBlockSystem.CreateCharacterBlock(data, true);
             blocks.Add(block);
         }
 

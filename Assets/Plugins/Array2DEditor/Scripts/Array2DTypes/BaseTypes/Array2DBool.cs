@@ -12,5 +12,6 @@ namespace Array2DEditor
         {
             return cells[idx];
         }
+
     }
 }

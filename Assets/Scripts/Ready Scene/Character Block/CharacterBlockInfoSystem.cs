@@ -43,6 +43,8 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
     [SerializeField] private EquipmentSystem equipmentSystem;
 
+    public CharacterBlock CurrentCharacterBlock => currentCharacterBlock;
+
     private CharacterBlock currentCharacterBlock;
 
     private void Start() {
@@ -79,8 +81,6 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         equipmentSystem.SetInputOff();
 
         //Lelvel Up
-        _levelUpButton.onClick = null;
-        _levelUpButton.onClick += () => HandleLevelUpButton();
         _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
 
         //Name
@@ -162,19 +162,12 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         }
     }
 
-    private void HandleLevelUpButton() {
-        CharacterBlock levelUpBlock = _characterBlockSystem.LevelUp(currentCharacterBlock);
 
-        //Level Up에 성공했을 경우.
-        if (levelUpBlock != null) {
-            DrawInfo(levelUpBlock);
-            currentCharacterBlock = levelUpBlock;
-        }
-    }
-
-    public void ClosePanel() {
+    public void ClosePanel()
+    {
         _panel.SetActive(false);
         _characterBlockSystem.SetInputOn();
         equipmentSystem.SetInputOn();
+        Debug.Log("Close Panel");
     }
 }

@@ -5878,7 +5878,9 @@ MonoBehaviour:
   _equipmentSystem: {fileID: 748715679}
   _shopSystem: {fileID: 1454246118}
   _board: {fileID: 1299432548}
-  _levelUpButton: {fileID: 0}
+  levelUpButton: {fileID: 2103685241}
+  blockPartMarkerPrefab: {fileID: -1499475513227522855, guid: 400205b6abdc78841b36f86a018a5163, type: 3}
+  characterBlockInfoSystem: {fileID: 1589071452}
 --- !u!4 &1386957425
 Transform:
   m_ObjectHideFlags: 0

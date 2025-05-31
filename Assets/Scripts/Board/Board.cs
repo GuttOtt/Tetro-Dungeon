@@ -179,16 +179,43 @@ public class Board : MonoBehaviour
         return nearbyCells;
     }
 
-    public List<UnitBlock> GetNearbyBlocks(UnitBlock unitBlock) {
+    /// <summary>
+    /// cell의 이웃 셀을 반환합니다.
+    /// 이웃 셀은 상하좌우만 포함되며, 대각선을 포함하지 않습니다.
+    /// /// </summary>
+    public List<Cell> GetNeighbors(Cell cell)
+    {
+        List<Cell> neighbors = new List<Cell>();
+
+        int x = cell.position.col;
+        int y = cell.position.row;
+
+        // 상
+        if (y > 0) neighbors.Add(cells[x, y - 1]);
+        // 하
+        if (y < row - 1) neighbors.Add(cells[x, y + 1]);
+        // 좌
+        if (x > 0) neighbors.Add(cells[x - 1, y]);
+        // 우
+        if (x < column - 1) neighbors.Add(cells[x + 1, y]);
+
+        return neighbors;
+    }
+
+    public List<UnitBlock> GetNearbyBlocks(UnitBlock unitBlock)
+    {
         List<UnitBlock> nearbyBlocks = new List<UnitBlock>();
 
-        foreach (Cell cell in unitBlock.Cells) {
+        foreach (Cell cell in unitBlock.Cells)
+        {
             List<Cell> nearbyCells = GetNearbyCells(cell, false);
 
-            foreach (Cell nearbyCell in nearbyCells) {
+            foreach (Cell nearbyCell in nearbyCells)
+            {
                 UnitBlock nearbyBlock = _unitBlockSystem.GetUnitBlock(nearbyCell);
 
-                if (nearbyBlock != null && !nearbyBlocks.Contains(nearbyBlock) && nearbyBlock != unitBlock) {
+                if (nearbyBlock != null && !nearbyBlocks.Contains(nearbyBlock) && nearbyBlock != unitBlock)
+                {
                     nearbyBlocks.Add(nearbyBlock);
                 }
             }
