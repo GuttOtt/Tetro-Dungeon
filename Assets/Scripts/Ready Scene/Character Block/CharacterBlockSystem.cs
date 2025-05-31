@@ -30,7 +30,10 @@ public class CharacterBlockSystem : MonoBehaviour {
 
     void Start()
     {
-        levelUpButton.onClick += HandleLevelUpButton;
+        if (levelUpButton != null)
+        {
+            levelUpButton.onClick += HandleLevelUpButton;
+        }
     }
 
   void Update() {
