@@ -1,5 +1,6 @@
 using Array2DEditor;
 using AYellowpaper.SerializedCollections;
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using EnumTypes;
 using Extensions;
@@ -9,12 +10,14 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterBlock : MonoBehaviour, IItem {
+public class CharacterBlock : MonoBehaviour, IItem
+{
     //Basic Infos
     private string _name;
     private Sprite _illust;
-    [SerializeField]private int _level;
-    private Array2DBool _currentShape;
+    [SerializeField] private int _level;
+    private int id;
+    private bool[,] currentShape;
     private CharacterBlockConfig _config;
 
     //Equipment
@@ -29,8 +32,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public List<UnitSkill> PassiveSkills { get => _passiveSkill; }
     public List<UnitSkill> ActiveSkills { get => _activeSkill; }
     public List<UnitSkill> EquipmentSkills => equipmentSkills;
-    public List<UnitSkill> Skills { 
-        get {
+    public List<UnitSkill> Skills
+    {
+        get
+        {
             List<UnitSkill> allSkills = new List<UnitSkill>();
             allSkills.AddRange(_activeSkill);
             allSkills.AddRange(_passiveSkill);
@@ -39,7 +44,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     }
     public int LevelUpCost { get => CurrentLevel + 4; }
     public SerializedDictionary<SynergyTypes, int> SynergyDict { get => _config.GetSynergyDict(_level); }
-    
+
 
     //Serialized Fields
     [SerializeField] private SpriteRenderer _illustRenderer;
@@ -52,6 +57,7 @@ public class CharacterBlock : MonoBehaviour, IItem {
     private int _spinDegree = 0;
     private BlockPart _centerBlockPart;
 
+
     //Awakenings
     private List<Awakening> _awakenings;
     public List<Awakening> Awakenings { get => _awakenings; }
@@ -59,8 +65,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public Dictionary<Awakening, bool> AwakeningActivation { get => _awakeningActivation; }
 
     public bool IsPlaced { get => _isPlaced; }
-    public Vector2Int CenterCellPos {
-        get {
+    public Vector2Int CenterCellPos
+    {
+        get
+        {
             Cell centerCell = _centerBlockPart.PickCell();
             if (centerCell == null)
                 return default(Vector2Int);
@@ -73,23 +81,28 @@ public class CharacterBlock : MonoBehaviour, IItem {
     public List<Equipment> Equipments { get => _equipments; }
     public int SpinDegree { get => _spinDegree; }
     public List<BlockPart> BlockParts { get => _blockParts; }
+    public int ID => id;
 
     #region Stats
     private Stat _stat;
-    
+
     public Stat Stat { get => _stat.DeepCopy(); }
     public Stat OriginalStat { get => Config.Stat; }
-    public int CurrentLevel{get=>_level;}
+    public int CurrentLevel { get => _level; }
     public List<Cell> Cells { get => _blockParts.Select(blockPart => blockPart.Cell).ToList(); }
+
+    public bool[,] CurrentShape { get => currentShape; }
     #endregion
 
 
-    public void Init(CharacterBlockConfig config, int id, int currentLvl = 1) {
+    public void Init(CharacterBlockConfig config, int id, int currentLvl = 1)
+    {   
         _config = config;
         _name = config.name;
         _illust = config.Illust;
         _level = currentLvl;
         _illustRenderer.sprite = _illust;
+        this.id = id;
 
         //Stats
         _stat = config.Stat;
@@ -102,32 +115,38 @@ public class CharacterBlock : MonoBehaviour, IItem {
 
         //Awakenings
         _awakenings = config.Awakenings.ToList();
-        foreach (Awakening awakening in _awakenings) {
+        foreach (Awakening awakening in _awakenings)
+        {
             _awakeningActivation.Add(awakening, false);
         }
 
-        CreateBlockParts(config.GetShape(currentLvl), id + 1);
+        CreateBlockParts(config.GetShape(1), id + 1);
         _illustRenderer.sortingOrder = id + 1;
     }
 
-    public void AddActiveSkill(UnitSkill skill) {
+    public void AddActiveSkill(UnitSkill skill)
+    {
         _activeSkill.Add(skill);
     }
 
-    public void AddPassiveSkill(UnitSkill skill) {
+    public void AddPassiveSkill(UnitSkill skill)
+    {
         _passiveSkill.Add(skill);
     }
 
-    public void RemovePassiveSkill(UnitSkill skill) {
+    public void RemovePassiveSkill(UnitSkill skill)
+    {
         _passiveSkill.Remove(skill);
     }
 
-    public void RemoveActiveSkill(UnitSkill skill) {
+    public void RemoveActiveSkill(UnitSkill skill)
+    {
         _activeSkill.Remove(skill);
-    }  
+    }
 
-    private void CreateBlockParts(Array2DBool shape, int sortingOrderFront) {
-        _currentShape = shape;
+    private void CreateBlockParts(Array2DBool shape, int sortingOrderFront)
+    {
+        currentShape = shape.GetCells();
 
         int x = shape.GridSize.x;
         int y = shape.GridSize.y;
@@ -141,69 +160,121 @@ public class CharacterBlock : MonoBehaviour, IItem {
         int xCenter = centerIndex.x;
         int yCenter = centerIndex.y;
 
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                if (shape.GetCell(i, j) == true) {
+        for (int i = 0; i < x; i++)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                if (shape.GetCell(i, j) == true)
+                {
                     Vector2 localPosition = new Vector2(xOrigin + i * blockSize.x, yOrigin - j * blockSize.y);
                     Vector2Int location = new Vector2Int(i, j);
-                    BlockPart newBlockPart = CreateBlock(localPosition, sortingOrderFront, location);
-                    _blockParts.Add(newBlockPart);
+                    BlockPart newBlockPart = AddBlockPart(localPosition, location);
 
-                    if (xCenter == i && yCenter == j) {
+                    if (xCenter == i && yCenter == j)
+                    {
                         _centerBlockPart = newBlockPart;
                     }
                 }
             }
         }
 
-        if (_centerBlockPart == null) {
+        if (_centerBlockPart == null)
+        {
             Debug.LogError("CharacterBlock의 Center가 지정되어 있지 않습니다. CharacterBlockConfig를 확인해주세요." +
                 $"CharacterBlock : {_config.name}");
         }
     }
 
-    private BlockPart CreateBlock(Vector2 localPosition, int frontSortingOrder, Vector2Int location) {
+    public BlockPart AddBlockPart(Vector2 localPosition, Vector2Int location)
+    {
         BlockPart blockPart = Instantiate(_blockPartPrefab, transform);
-        blockPart.Init(this, frontSortingOrder, location);
+        blockPart.Init(this, id + 1, location);
         blockPart.transform.localPosition = localPosition;
         blockPart.transform.parent = _blockPartsRoot;
+
+        currentShape[location.x, location.y] = true;
+        _blockParts.Add(blockPart);
 
         return blockPart;
     }
 
-    public void Spin(bool isClockwise) {
+    public BlockPart AddBlockPart(Vector2Int location)
+    {
+        int x = currentShape.GetLength(0);
+        int y = currentShape.GetLength(1);
+
+        Vector2 blockSize = _blockPartPrefab.Size;
+
+        float xOrigin = x % 2 == 0 ? -(x / 2 - 0.5f) * blockSize.x : -(x / 2) * blockSize.x;
+        float yOrigin = y % 2 == 0 ? (y / 2 - 0.5f) * blockSize.y : (y / 2) * blockSize.y;
+
+        Vector2 localPosition = new Vector2(xOrigin + location.x * blockSize.x, yOrigin - location.y * blockSize.y);
+
+        return AddBlockPart(localPosition, location);
+    }
+
+    public void Spin(bool isClockwise)
+    {
         int spinDegree = 0;
 
-        if (!isClockwise) {
+        if (!isClockwise)
+        {
             spinDegree = -90;
+            //Shape와 BlockPart들의 Location 변경
+            int originalCol = currentShape.GetLength(0);
+            int originalRow = currentShape.GetLength(1);
+            foreach (BlockPart blockPart in _blockParts)
+            {
+                Vector2Int newLocation = new Vector2Int(blockPart.Location.y, originalCol - blockPart.Location.x - 1);
+                blockPart.SetLocation(newLocation);
+            }
+            currentShape = Utils.RotateLeft<bool>(currentShape);
         }
-        else {
+        else
+        {
             spinDegree = 90;
+            //Shape와 BlockPart들의 Location 변경
+            int originalCol = currentShape.GetLength(0);
+            int originalRow = currentShape.GetLength(1);
+            foreach (BlockPart blockPart in _blockParts)
+            {
+                Vector2Int newLocation = new Vector2Int(originalRow - 1 - blockPart.Location.y, blockPart.Location.x);
+                blockPart.SetLocation(newLocation);
+            }
+            currentShape = Utils.RotateRight<bool>(currentShape);
         }
 
         transform.Rotate(0, 0, -spinDegree);
         _spinDegree += spinDegree;
 
-        foreach(Equipment equipment in _equipments) {
+        foreach (Equipment equipment in _equipments)
+        {
             equipment.SpinDegree += spinDegree;
         }
     }
 
-    public void Spin(int spinDegree) {
-        if (spinDegree < 0) {
-            for (int i = 0; i < -spinDegree / 90; i++) {
+    public void Spin(int spinDegree)
+    {
+        if (spinDegree < 0)
+        {
+            for (int i = 0; i < -spinDegree / 90; i++)
+            {
                 Spin(false);
             }
         }
-        else if (0 < spinDegree) {
-            for (int i = 0; i < spinDegree / 90; i++) {
+        else if (0 < spinDegree)
+        {
+            for (int i = 0; i < spinDegree / 90; i++)
+            {
                 Spin(true);
             }
         }
     }
 
-    public void Place() {
-        foreach (BlockPart blockPart in _blockParts) {
+    public void Place()
+    {
+        foreach (BlockPart blockPart in _blockParts)
+        {
             Cell cellUnder = blockPart.PickCell();
             blockPart.Cell = cellUnder;
         }
@@ -218,11 +289,10 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _isPlaced = true;
     }
 
-    public void Place(Cell centerCell) {
-        foreach (BlockPart blockPart in _blockParts) {
-            Cell cellUnder = blockPart.PickCell();
-            blockPart.Cell = cellUnder;
-        }
+    public async UniTask Place(Cell centerCell)
+    {
+        // Force physics update to ensure block part positions are updated
+        await UniTask.NextFrame();
 
         Vector3 centerCellPos = centerCell.transform.position;
         Vector3 centerBlockPartPos = CenterBlockPart.transform.position;
@@ -230,14 +300,25 @@ public class CharacterBlock : MonoBehaviour, IItem {
         Vector3 vectorDifference = centerBlockPartPos - centerCellPos;
         transform.position -= vectorDifference;
 
+        await UniTask.NextFrame();
+
+        foreach (BlockPart blockPart in _blockParts)
+        {
+            Cell cellUnder = blockPart.PickCell();
+            blockPart.Cell = cellUnder;
+        }
+
         _isPlaced = true;
     }
 
-    public bool IsPlacable() {
-        foreach (BlockPart blockPart in _blockParts) {
+    public bool IsPlacable()
+    {
+        foreach (BlockPart blockPart in _blockParts)
+        {
             Cell cellUnder = blockPart.PickCell();
             BlockPart blockUnder = blockPart.PickBlockPart();
-            if (cellUnder == null || blockUnder != null) {
+            if (cellUnder == null || blockUnder != null)
+            {
                 return false;
             }
         }
@@ -245,10 +326,13 @@ public class CharacterBlock : MonoBehaviour, IItem {
         return true;
     }
 
-    public void Unplace() {
-        foreach (BlockPart blockPart in _blockParts) {
+    public void Unplace()
+    {
+        foreach (BlockPart blockPart in _blockParts)
+        {
             Cell cell = blockPart.Cell;
-            if (cell != null) {
+            if (cell != null)
+            {
                 blockPart.Cell = null;
             }
         }
@@ -256,34 +340,57 @@ public class CharacterBlock : MonoBehaviour, IItem {
         _isPlaced = false;
     }
 
-    public void ChangeSortingLayer(int sortingLayerID) {
+    public void ChangeSortingLayer(int sortingLayerID)
+    {
         _illustRenderer.sortingLayerID = sortingLayerID;
-        
-        foreach (BlockPart blockPart in _blockParts) {
+
+        foreach (BlockPart blockPart in _blockParts)
+        {
             blockPart.SetSortingLayer(sortingLayerID);
         }
     }
 
-    public void ChangeEquipmentSortingLayer(int sortingLayerID) {
-        foreach (Equipment equipment in _equipments) {
+    public void ChangeEquipmentSortingLayer(int sortingLayerID)
+    {
+        foreach (Equipment equipment in _equipments)
+        {
             equipment.ChangeSortingLayer(sortingLayerID);
         }
     }
 
-    public CharacterBlockData GetData() {
+    public CharacterBlockData GetData()
+    {
+        // Equipment
         List<EquipmentData> equipmentDatas = new List<EquipmentData>();
 
-        foreach (Equipment equipment in _equipments) {
+        foreach (Equipment equipment in _equipments)
+        {
             EquipmentData data = equipment.GetData();
             equipmentDatas.Add(data);
         }
 
-        return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree, equipmentDatas);
+        // Shape
+        bool[,] shape = currentShape;
+        int spinAmount = _spinDegree % 360 / 90;
+        bool isClockwise = 0 <= _spinDegree;
+        for (int i = 0; i < spinAmount; i++)
+        {
+            if (isClockwise)
+                shape = Utils.RotateRight<bool>(shape);
+
+            else
+                shape = Utils.RotateLeft<bool>(shape);
+        }
+
+        return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree, shape, equipmentDatas);
     }
 
-    public BlockPart GetBlockPart(int x, int y) {
-        foreach (BlockPart blockPart in _blockParts) {
-            if (blockPart.Location.x == x && blockPart.Location.y == y) {
+    public BlockPart GetBlockPart(int x, int y)
+    {
+        foreach (BlockPart blockPart in _blockParts)
+        {
+            if (blockPart.Location.x == x && blockPart.Location.y == y)
+            {
                 return blockPart;
             }
         }
@@ -291,35 +398,52 @@ public class CharacterBlock : MonoBehaviour, IItem {
         return null;
     }
 
-    public void Equip(Equipment equipment) {
+    public void Equip(Equipment equipment)
+    {
         _equipments.Add(equipment);
         equipment.transform.SetParent(transform);
 
         _stat += equipment.Stat;
 
-        foreach (UnitSkill skill in equipment.Skills) {
+        foreach (UnitSkill skill in equipment.Skills)
+        {
             equipmentSkills.Add(skill);
         }
 
         UpdateAwakening();
     }
 
-    public void Unequip(Equipment equipment) {
+    public void Unequip(Equipment equipment)
+    {
         _equipments.Remove(equipment);
 
         _stat -= equipment.Stat;
 
-        foreach (UnitSkill skill in equipment.Skills) {
+        foreach (UnitSkill skill in equipment.Skills)
+        {
             equipmentSkills.Remove(skill);
         }
 
         UpdateAwakening();
     }
 
-    private void UpdateAwakening() {
-        foreach (Awakening awakening in _awakenings) {
+    private void UpdateAwakening()
+    {
+        foreach (Awakening awakening in _awakenings)
+        {
             bool isActivated = awakening.UpdateActivation(this);
             _awakeningActivation[awakening] = isActivated;
         }
+    }
+
+    public void SetShape(bool[,] shape)
+    {
+        currentShape = shape;
+    }
+
+    public void GainLevel()
+    {
+        _level++;
+        _stat += Config.StatForLevelUp;    
     }
 }

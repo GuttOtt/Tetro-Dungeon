@@ -61,26 +61,7 @@ namespace Assets.Scripts
         public List<CharacterBlockData> CharacterBlocksInventory { get => _characterBlocksInventory; }
         public List<EquipmentData> EquipmentsInventory { get => _equipmentsInventory; }
 
-        private void SetInitialInventory() {
-            //랜덤으로 캐릭터 블럭 3개 생성
-            for (int i = 0; i < 3; i++) {
-                CharacterBlockConfig config = _characterBlockConfigs[Random.Range(0, _characterBlockConfigs.Count)];
-                int level = 1;
-
-                CharacterBlocksInventory.Add(new CharacterBlockData(config, level));
-            }
-
-            //랜덤으로 아이템 3개 생성
-            for (int i = 0; i < 3; i++) {
-                EquipmentConfig config = _equipmentConfigs[Random.Range(0, _equipmentConfigs.Count)];
-
-                EquipmentData data = new EquipmentData();
-                data.Config = config;
-
-                EquipmentsInventory.Add(data);
-            }
-        }
-
+        
         public void SaveCharacterBlockDataOnInventroy(List<CharacterBlockData> datas) {
             _characterBlocksInventory = datas.ToList();
         }

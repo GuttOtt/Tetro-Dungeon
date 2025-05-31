@@ -8,6 +8,6 @@ public class SimpleMonoButton : MonoBehaviour, IPointerClickHandler {
     public Action onClick;
 
     public void OnPointerClick(PointerEventData eventData) {
-        onClick.Invoke();
+        onClick?.Invoke();
     }
 }

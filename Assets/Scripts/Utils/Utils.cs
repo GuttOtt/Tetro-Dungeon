@@ -24,7 +24,8 @@ public static class Utils {
     }
 
     public static T Pick<T>(Vector3 origin, T exception = default(T)) {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector3.forward, 1);
+        // Cast a ray downwards to find the Cell below the BlockPart
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector3.back, 100); // Increased distance and changed direction
 
         List<GameObject> targetList = new List<GameObject>();
 
@@ -32,7 +33,10 @@ public static class Utils {
             GameObject hitObject = hit.collider.gameObject;
             T component = hitObject.GetComponent<T>();
 
-            if (component != null && !EqualityComparer<T>.Default.Equals(component, exception)) {
+            Debug.Log($"Component T: {component}");
+
+            if (component != null && !EqualityComparer<T>.Default.Equals(component, exception))
+            {
                 return component;
             }
         }
@@ -164,6 +168,14 @@ public static class Utils {
             }
         }
 
+        //rotated 배열을 Debug.Logging
+        Debug.Log("Right Rotated Array:");
+        for (int x = 0; x < rotated.GetLength(0); x++) {
+            for (int y = 0; y < rotated.GetLength(1); y++) {
+                Debug.Log($"({x}, {y}): {rotated[x, y]} ");
+            }
+        }
+
         return rotated;
     }
 
@@ -176,6 +188,14 @@ public static class Utils {
         for (int x = 0; x < rotated.GetLength(0); x++) {
             for (int y = 0; y < rotated.GetLength(1); y++) {
                 rotated[x, y] = original[lengthX - 1 - y, x];
+            }
+        }
+
+        //rotated 배열을 Debug.Logging
+        Debug.Log("Left Rotated Array:");
+        for (int x = 0; x < rotated.GetLength(0); x++) {
+            for (int y = 0; y < rotated.GetLength(1); y++) {
+                Debug.Log($"({x}, {y}): {rotated[x, y]} ");
             }
         }
 

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class BlockPart : MonoBehaviour
 {
     [SerializeField] private SpriteMask _spriteMask;
     private CharacterBlock _characterBlock;
-    private Vector2Int _location = new Vector2Int();
+    [SerializeField] private Vector2Int _location = new Vector2Int();
 
     public Cell Cell;
 
@@ -25,10 +26,9 @@ public class BlockPart : MonoBehaviour
 
     public Cell PickCell()
     {
-        var position = transform.position;
-        Debug.Log($"Picking cell at position: {position}");
-        var cell = Utils.Pick<Cell>(position);
-        Debug.Log($"Picked cell: {cell}");
+        Vector3 position = transform.position;
+        Cell cell = Utils.Pick<Cell>(position);
+        Debug.Log(position);
         return cell;
     }
 
@@ -46,5 +46,10 @@ public class BlockPart : MonoBehaviour
     {
         _spriteMask.frontSortingLayerID = sortingLayerID;
         _spriteMask.backSortingLayerID = sortingLayerID;
+    }
+
+    public void SetLocation(Vector2Int location)
+    {
+        _location = location;
     }
 }

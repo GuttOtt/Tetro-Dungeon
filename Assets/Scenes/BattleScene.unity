@@ -636,7 +636,9 @@ MonoBehaviour:
   _equipmentSystem: {fileID: 338031943}
   _shopSystem: {fileID: 0}
   _board: {fileID: 1508344150}
-  _levelUpButton: {fileID: 0}
+  levelUpButton: {fileID: 0}
+  blockPartMarkerPrefab: {fileID: 0}
+  characterBlockInfoSystem: {fileID: 0}
 --- !u!1 &1508344149
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +671,7 @@ MonoBehaviour:
   _isAllPlayerCell: 0
   row: 5
   column: 12
-  cellPrefab: {fileID: 96261189083401699, guid: c6c5db39558882a4c872e7ac1ee72d74, type: 3}
+  cellPrefab: {fileID: 96261189083401699, guid: 30081f11619da7742a4ed23820bf3cf4, type: 3}
   _cellHighlighter: {fileID: 0}
 --- !u!4 &1508344151
 Transform:
