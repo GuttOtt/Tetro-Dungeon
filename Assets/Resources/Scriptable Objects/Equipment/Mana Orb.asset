@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Mana Orb
   m_EditorClassIdentifier: 
   Name: "\uB9C8\uB098 \uC624\uBE0C"
-  Sprite: {fileID: 21300000, guid: 14a1aedd0e523a94d9948dcc21d8e88b, type: 3}
+  Sprite: {fileID: 21300000, guid: dca1e3f9728822b47ac3f52e9b5ab65e, type: 3}
   Shape:
     gridSize: {x: 1, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 01
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 1
       Value: 1
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 0

@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: Cross
   m_EditorClassIdentifier: 
   Name: "\uC2ED\uC790\uAC00"
-  Sprite: {fileID: 21300000, guid: c1816ffc0e33285429980efd0f3cce14, type: 3}
+  Sprite: {fileID: 21300000, guid: 4633da062867a9a4090eb83fa7e94cf8, type: 3}
   Shape:
     gridSize: {x: 1, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 01
     - row: 01
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 5
       Value: 2
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 0

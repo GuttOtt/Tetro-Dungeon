@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Name: "\uD53C\uC2A4\uD1A8"
-  Sprite: {fileID: 21300000, guid: f61a789ee0cfd6342995ddb388c904ce, type: 3}
+  Sprite: {fileID: 21300000, guid: 8e720b0a785c86d4f973f1b15327de38, type: 3}
   Shape:
     gridSize: {x: 2, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 6
       Value: 2
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 0

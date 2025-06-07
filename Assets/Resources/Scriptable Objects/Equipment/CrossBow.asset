@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CrossBow
   m_EditorClassIdentifier: 
   Name: "\uC11D\uAD81"
-  Sprite: {fileID: 21300000, guid: e06c148fc2dfc734f8949fcbac1f3f09, type: 3}
+  Sprite: {fileID: 21300000, guid: d412927aef60d374faca11426bc9ac9b, type: 3}
   Shape:
     gridSize: {x: 3, y: 2}
     cellSize: {x: 16, y: 16}
