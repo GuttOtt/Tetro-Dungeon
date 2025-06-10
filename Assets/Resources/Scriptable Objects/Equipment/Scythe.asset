@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scythe
   m_EditorClassIdentifier: 
   Name: "\uC804\uD22C\uC6A9 \uB0AB"
-  Sprite: {fileID: 21300000, guid: 00c691d744260e04cb60ece0f346b69e, type: 3}
+  Sprite: {fileID: 21300000, guid: 8da1e193878538c4db4f994128f646f6, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}

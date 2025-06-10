@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Arrow
   m_EditorClassIdentifier: 
   Name: "\uD654\uC0B4"
-  Sprite: {fileID: 21300000, guid: da62a20276b93dc468e12f2adad93458, type: 3}
+  Sprite: {fileID: 21300000, guid: 8802426f1ca44144ab5703b42c10addc, type: 3}
   Shape:
     gridSize: {x: 2, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 6
       Value: 2
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 10

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scroll
   m_EditorClassIdentifier: 
   Name: "\uC2A4\uD06C\uB864"
-  Sprite: {fileID: 21300000, guid: b68d0c0f5912ab64fb68d352c9b80459, type: 3}
+  Sprite: {fileID: 21300000, guid: 3fb457258ec51f145b5127a9832d89f3, type: 3}
   Shape:
     gridSize: {x: 1, y: 2}
     cellSize: {x: 16, y: 16}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fire Shield
   m_EditorClassIdentifier: 
   Name: 
-  Sprite: {fileID: 21300000, guid: b764b9e889d674049b0a84113f618c79, type: 3}
+  Sprite: {fileID: 21300000, guid: 9ee8e99aba39645468c18cd842457b70, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}

@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Wood Shild
   m_EditorClassIdentifier: 
   Name: "\uB098\uBB34 \uBC29\uD328"
-  Sprite: {fileID: 21300000, guid: 55931a01413fe3741a73a823987fb184, type: 3}
+  Sprite: {fileID: 21300000, guid: 447d55feade0df740a078661da8cca69, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0101
+  _description: 
   _synergyDict:
     _serializedList: []
+  skills: []
   _stat:
     _maxHP: 7
     _attack: 0

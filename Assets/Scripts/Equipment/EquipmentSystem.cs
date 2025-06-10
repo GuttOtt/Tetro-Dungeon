@@ -23,7 +23,7 @@ public class EquipmentSystem : MonoBehaviour
 
     void Update()
     {
-        Select();
+        HandleMouseButtonDown();
         UnSelect();
         MoveSelectedEquipment();
         SpinEquipment();
@@ -68,13 +68,18 @@ public class EquipmentSystem : MonoBehaviour
         return newEquipment;
     }
 
-    private void Select()
+    private void HandleMouseButtonDown()
     {
         if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedEquipment != null)
         {
             return;
         }
 
+        Select();
+    }
+
+    public void Select()
+    {
         BlockPart_Equipment selectedBlockPart = Utils.Pick<BlockPart_Equipment>();
         if (selectedBlockPart == null) return;
 
@@ -155,6 +160,7 @@ public class EquipmentSystem : MonoBehaviour
                 else
                 {
                     _selectedEquipment.transform.position = _selectedPos;
+                    _selectedEquipment.gameObject.SetActive(false);
                 }
             }
             //Place 되어 있던 상태일 때

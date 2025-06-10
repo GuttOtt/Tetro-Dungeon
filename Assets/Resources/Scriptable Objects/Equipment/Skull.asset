@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: Skull
   m_EditorClassIdentifier: 
   Name: "\uB450\uAC1C\uACE8"
-  Sprite: {fileID: 21300000, guid: c86920ae322ddf84bb4e644e5595ef89, type: 3}
+  Sprite: {fileID: 21300000, guid: 7873a6874115be4428be00d099d05add, type: 3}
   Shape:
     gridSize: {x: 2, y: 2}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 0101
     - row: 0101
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 4
       Value: 4
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 0

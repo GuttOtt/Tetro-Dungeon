@@ -54,7 +54,7 @@ public class CharacterBlock : MonoBehaviour, IItem
     //Placing and spining
     private List<BlockPart> _blockParts = new List<BlockPart>();
     [SerializeField] private bool _isPlaced = false;
-    private int _spinDegree = 0;
+    [SerializeField] private int _spinDegree = 0;
     private BlockPart _centerBlockPart;
 
 
@@ -373,6 +373,7 @@ public class CharacterBlock : MonoBehaviour, IItem
         bool[,] shape = currentShape;
         int spinAmount = _spinDegree % 360 / 90;
         bool isClockwise = 0 <= _spinDegree;
+        Debug.Log($"spinAmount: {spinAmount}, isClockwise: {isClockwise}");
         for (int i = 0; i < spinAmount; i++)
         {
             if (isClockwise)

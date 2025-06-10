@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Long Sword
   m_EditorClassIdentifier: 
   Name: "\uB871\uC18C\uB4DC"
-  Sprite: {fileID: 21300000, guid: 08ea319a8dcfefe4fbac50821d7c5ef9, type: 3}
+  Sprite: {fileID: 21300000, guid: 18fcccf023ed373408ad264d59d8b7aa, type: 3}
   Shape:
     gridSize: {x: 3, y: 1}
     cellSize: {x: 16, y: 16}
     cells:
     - row: 010101
+  _description: 
   _synergyDict:
     _serializedList:
     - Key: 2
       Value: 3
+  skills: []
   _stat:
     _maxHP: 0
     _attack: 15

@@ -7,7 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CharacterBlockSystem : MonoBehaviour {
+public class CharacterBlockSystem : MonoBehaviour
+{
     [SerializeField] private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
     [SerializeField] private CharacterBlock _characterBlockPrefab;
     private CharacterBlock _selectedBlock;
@@ -36,11 +37,12 @@ public class CharacterBlockSystem : MonoBehaviour {
         }
     }
 
-  void Update() {
+    void Update()
+    {
         SelectBlock();
         MoveSelectedBlock();
         UnSelectBlock();
-        SpinBlock();
+        SpinSelectedBlock();
 
         //Level up Debugging
         BlockPart selectedBlockPart = Utils.Pick<BlockPart>();
@@ -61,7 +63,7 @@ public class CharacterBlockSystem : MonoBehaviour {
         CharacterBlock currentBlock = characterBlockInfoSystem.CurrentCharacterBlock;
         characterBlockInfoSystem.ClosePanel();
         await LevelUp(currentBlock);
-    } 
+    }
 
     public async UniTask<bool> LevelUp(CharacterBlock characterBlock)
     {
@@ -151,7 +153,7 @@ public class CharacterBlockSystem : MonoBehaviour {
 
     private bool IsValidInShape(BlockPart blockPart, bool[,] shape, Vector2Int offset)
     {
-        
+
         Vector2Int centerLocation = blockPart.Location;
         Vector2Int newLocation = new Vector2Int(centerLocation.x + offset.x, centerLocation.y + offset.y);
 
@@ -190,19 +192,21 @@ public class CharacterBlockSystem : MonoBehaviour {
 
 
     int idCount = 0;
-    public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel) {
+    public CharacterBlock CreateCharacterBlock(CharacterBlockConfig config, int currentLevel)
+    {
         CharacterBlock newBlock = Instantiate(_characterBlockPrefab);
         newBlock.Init(config, idCount, currentLevel);
         idCount++;
-        
+
         _characterBlocks.Add(newBlock);
 
         return newBlock;
     }
 
-    public async UniTask<CharacterBlock> CreateCharacterBlock(CharacterBlockData data, bool isOnBoard = false) {
+    public async UniTask<CharacterBlock> CreateCharacterBlock(CharacterBlockData data, bool isOnBoard = false)
+    {
         CharacterBlock newBlock = CreateCharacterBlock(data.Config, data.Level);
-        
+
         //Shape
         bool[,] originalShape = newBlock.Config.GetShape(1).GetCells();
         bool[,] currentShape = data.Shape;
@@ -216,7 +220,7 @@ public class CharacterBlockSystem : MonoBehaviour {
                     newBlock.AddBlockPart(new Vector2Int(x, y));
                     Debug.Log("AddBlockPart");
                 }
-            }    
+            }
         }
 
         //Spin
@@ -234,8 +238,10 @@ public class CharacterBlockSystem : MonoBehaviour {
 
         //Equipments
         List<EquipmentData> equipmentDatas = data.Equipments;
-        if (equipmentDatas != null) {
-            foreach (EquipmentData equipmentData in equipmentDatas) {
+        if (equipmentDatas != null)
+        {
+            foreach (EquipmentData equipmentData in equipmentDatas)
+            {
                 _equipmentSystem.CreateEquipment(equipmentData, newBlock);
             }
         }
@@ -244,16 +250,20 @@ public class CharacterBlockSystem : MonoBehaviour {
     }
 
     #region Selection and Dragging Control
-    public void SetInputOn() {
+    public void SetInputOn()
+    {
         _isInputOn = true;
     }
 
-    public void SetInputOff() {
+    public void SetInputOff()
+    {
         _isInputOn = false;
     }
 
-    private void SelectBlock() {
-        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedBlock != null) {
+    private void SelectBlock()
+    {
+        if (!_isInputOn || !Input.GetMouseButtonDown(0) || _selectedBlock != null)
+        {
             return;
         }
 
@@ -281,18 +291,22 @@ public class CharacterBlockSystem : MonoBehaviour {
         UnplaceBlock(_selectedBlock);
     }
 
-    private void UnplaceBlock(CharacterBlock characterBlock) {
+    private void UnplaceBlock(CharacterBlock characterBlock)
+    {
         //Unplace
-        if (characterBlock.IsPlaced) {
+        if (characterBlock.IsPlaced)
+        {
             OnUnplace?.Invoke(characterBlock);
-            foreach(Equipment equipment in characterBlock.Equipments) {
+            foreach (Equipment equipment in characterBlock.Equipments)
+            {
                 _equipmentSystem.UnplaceFromBoard(equipment);
             }
         }
         characterBlock.Unplace();
     }
 
-    private void MoveSelectedBlock() {
+    private void MoveSelectedBlock()
+    {
         if (_selectedBlock == null) return;
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -300,7 +314,8 @@ public class CharacterBlockSystem : MonoBehaviour {
         _selectedBlock.transform.position = mousePosition;
     }
 
-    private void UnSelectBlock() {
+    private void UnSelectBlock()
+    {
         if (!Input.GetMouseButtonUp(0) || _selectedBlock == null) return;
 
         //SortingLayer 원래대로 되돌리기
@@ -309,7 +324,8 @@ public class CharacterBlockSystem : MonoBehaviour {
 
         //Placing
         bool isPlaced = TryPlace();
-        if (!isPlaced) {
+        if (!isPlaced)
+        {
             // 판매 처리
             if (_shopSystem.IsInsideShopArea(_selectedBlock) && !_shopSystem.ContainsItem(_selectedBlock))
             {
@@ -344,8 +360,16 @@ public class CharacterBlockSystem : MonoBehaviour {
         _selectedBlock = null;
     }
 
-    private void SpinBlock() {
+    private void SpinSelectedBlock()
+    {
         if (_selectedBlock == null) return;
+
+        SpinBlock(_selectedBlock);
+    }
+
+    public void SpinBlock(CharacterBlock block)
+    {
+        if (block == null) return;
 
         bool isClockwise;
         if (Input.GetKeyDown(KeyCode.Q))
@@ -355,24 +379,29 @@ public class CharacterBlockSystem : MonoBehaviour {
         else
             return;
 
-        _selectedBlock.Spin(isClockwise);
+        block.Spin(isClockwise);
     }
     #endregion
 
-    private bool TryPlace() {
+    private bool TryPlace()
+    {
         if (_selectedBlock == null)
             return false;
 
         return TryPlace(_selectedBlock);
     }
 
-    private bool TryPlace(CharacterBlock block) {
-        if (!block.IsPlacable()) {
+    public bool TryPlace(CharacterBlock block)
+    {
+        if (!block.IsPlacable())
+        {
             return false;
         }
 
-        if (_shopSystem.ContainsItem(block)) {
-            if (!_shopSystem.IsAffordable(block)) {
+        if (_shopSystem.ContainsItem(block))
+        {
+            if (!_shopSystem.IsAffordable(block))
+            {
                 Debug.Log("돈이 부족합니다.");
                 return false;
             }
@@ -390,21 +419,31 @@ public class CharacterBlockSystem : MonoBehaviour {
         _inventorySystem.Remove(block);
         OnPlace?.Invoke(block);
 
-        foreach(Equipment equipment in block.Equipments) {
+        foreach (Equipment equipment in block.Equipments)
+        {
             _equipmentSystem.PlaceOnBoard(equipment);
         }
 
     }
 
-  public List<CharacterBlockData> GetCharacterBlockDatasOnBoard() {
+    public List<CharacterBlockData> GetCharacterBlockDatasOnBoard()
+    {
         List<CharacterBlockData> datas = new List<CharacterBlockData>();
 
-        foreach (CharacterBlock block in _characterBlocks) {
-            if (block.IsPlaced) {
+        foreach (CharacterBlock block in _characterBlocks)
+        {
+            if (block.IsPlaced)
+            {
                 datas.Add(block.GetData());
             }
         }
 
         return datas;
+    }
+
+    public void DestroyBlock(CharacterBlock block)
+    {
+        _characterBlocks.Remove(block);
+        Destroy(block.gameObject);
     }
 }

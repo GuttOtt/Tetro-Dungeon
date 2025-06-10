@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using Assets.Scripts;
 using TMPro;
+using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
+using Cysharp.Threading.Tasks.Triggers;
 
 public class ShopSystem : MonoBehaviour
 {
@@ -17,6 +20,8 @@ public class ShopSystem : MonoBehaviour
 
     private Player _player;
 
+    private ShopCharacterSlot selectedCharacterSlot;
+
     [SerializeField] private BoxCollider2D area;
 
     [Header("Shop Settings")]
@@ -24,10 +29,13 @@ public class ShopSystem : MonoBehaviour
     [SerializeField] private int characterBlockCost = 8;
     [SerializeField] private int equipmentCost = 5;
 
+    [Header("Slots")]
+    [SerializeField] private List<ShopCharacterSlot> characterSlots;
+    [SerializeField] private List<ShopEquipmentSlot> equipmentSlots;
+
+
     [Header("GameObject References")]
-    [SerializeField] private SpriteRenderer[] _characterBlockSlots;
     [SerializeField] private SpriteRenderer[] _equipmentBlockSlots;
-    [SerializeField] private TMP_Text[] _characterCostTexts;
     [SerializeField] private TMP_Text[] _equipmentCostTexts;
 
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
@@ -49,6 +57,7 @@ public class ShopSystem : MonoBehaviour
 
     private void Start()
     {
+        InitSlots();
         StartSelling();
         UpdateMoneyText();
     }
@@ -63,57 +72,120 @@ public class ShopSystem : MonoBehaviour
         }
     }
 
+    private void InitSlots()
+    {
+        for (int i = 0; i < characterSlots.Count; i++)
+        {
+            characterSlots[i].onClick += HandleCharacterSlotMouseDown;
+        }
+
+        for (int i = 0; i < equipmentSlots.Count; i++)
+        {
+            equipmentSlots[i].onClick += HandleEquipmentSlotMouseDown;
+        }
+    
+    }
+
     public void StartSelling()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < characterSlots.Count; i++)
         {
             AddCharacterBlock(i);
+        }
+        for (int i = 0; i < equipmentSlots.Count; i++)
+        {
             AddEquipment(i);
         }
     }
 
+    #region Character Block
     private void AddCharacterBlock(int slotNumber)
     {
         CharacterBlockConfig config = _characterBlockPool[Random.Range(0, _characterBlockPool.Count)];
-        CharacterBlock characterBlock = _characterBlockSystem.CreateCharacterBlock(config, 1);
-
-        characterBlock.transform.parent = _characterBlockSlots[slotNumber].transform;
-        characterBlock.transform.localPosition = Vector3.back;
-
-        _characterBlocks.Add(characterBlock);
-
-        //Cost
-        int cost = characterBlockCost;
-        _itemCostPair.Add(characterBlock, cost);
-        _characterCostTexts[slotNumber].text = cost.ToString() + "G";
+        characterSlots[slotNumber].SetCharacterBlock(config, characterBlockCost);
     }
 
-    public void RemoveCharacterBlock(CharacterBlock characterBlock)
+    private void HandleCharacterSlotMouseDown(ShopCharacterSlot slot)
     {
-        _characterBlocks.Remove(characterBlock);
+        selectedCharacterSlot = slot;
+        CharacterBlockConfig config = slot.CharacterBlockConfig;
+
+        // 임시 블럭 생성
+        CharacterBlock tempBlock = _characterBlockSystem.CreateCharacterBlock(config, 1);
+        
+        int draggingLayerID = SortingLayer.NameToID("Dragging");
+        tempBlock.ChangeSortingLayer(draggingLayerID);
+
+        _characterBlockSystem.SetInputOff();
+        DragCharacterSlot(slot, tempBlock).Forget();
     }
 
+    private async UniTask DragCharacterSlot(ShopCharacterSlot slot, CharacterBlock tempBlock)
+    {
+        while (!Input.GetMouseButtonUp(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            tempBlock.transform.position = mousePosition;
 
+            _characterBlockSystem.SpinBlock(tempBlock);
+
+            await UniTask.Yield();
+        }
+
+        if (_characterBlockSystem.TryPlace(tempBlock))
+        {
+            _player.CurrentMoney -= slot.Cost;
+            UpdateMoneyText();
+            EmptyCharacterSlot(slot);
+        }
+        else
+        {
+            _characterBlockSystem.DestroyBlock(tempBlock);
+        }
+
+        selectedCharacterSlot = null;
+        _characterBlockSystem.SetInputOn();
+        
+        //SortingLayer 원래대로 되돌리기
+        int illustLyaerID = SortingLayer.NameToID("Illust");
+        tempBlock.ChangeSortingLayer(illustLyaerID);
+    }
+
+    private void EmptyCharacterSlot(ShopCharacterSlot slot)
+    {
+        slot.SetEmpty();
+    }
+    #endregion
+
+    #region Equipment
     private void AddEquipment(int slotNumber)
     {
         EquipmentConfig config = _equipmentPool[Random.Range(0, _equipmentPool.Count)];
         Equipment equipment = _equipmentSystem.CreateEquipment(config);
 
-        equipment.transform.parent = _equipmentBlockSlots[slotNumber].transform;
-        equipment.transform.localPosition = Vector3.back;
+        ShopEquipmentSlot slot = equipmentSlots[slotNumber];
+        slot.SetEquipment(equipment, equipmentCost);
+    }
 
-        _equipments.Add(equipment);
+    private void HandleEquipmentSlotMouseDown(ShopEquipmentSlot slot)
+    {
+        Equipment equipment = slot.Equipment;
+        equipment.gameObject.SetActive(true);
 
-        //Cost
-        int cost = equipmentCost;
-        _itemCostPair.Add(equipment, cost);
-        _equipmentCostTexts[slotNumber].text = cost.ToString() + "G";
+        _equipmentSystem.Select();
     }
 
     public void RemoveEquipment(Equipment equipment)
     {
         _equipments.Remove(equipment);
     }
+
+    private void EmptyEquipmentSlot(ShopEquipmentSlot slot)
+    {
+        slot.SetEmpty();
+    }
+    #endregion
+
     public bool ContainsItem(CharacterBlock characterBlock)
     {
         return _characterBlocks.Contains(characterBlock);
@@ -121,7 +193,15 @@ public class ShopSystem : MonoBehaviour
 
     public bool ContainsItem(Equipment equipment)
     {
-        return _equipments.Contains(equipment);
+        foreach (ShopEquipmentSlot s in equipmentSlots)
+        {
+            if (s.Equipment == equipment)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public bool IsAffordable(IItem item)
@@ -136,19 +216,49 @@ public class ShopSystem : MonoBehaviour
             return false;
     }
 
+    public bool IsAffordable(Equipment equipment)
+    {
+        foreach (ShopEquipmentSlot s in equipmentSlots)
+        {
+            if (s.Equipment == equipment)
+            {
+                return s.Cost <= _player.CurrentMoney;
+            }
+        }
+
+        Debug.LogError("해당 equipment가 shop에 존재하지 않습니다.");
+        return false;
+    }
+
+
     public void Buy(IItem item)
     {
+        int cost = 0;
         if (item is CharacterBlock)
         {
             CharacterBlock characterBlock = item as CharacterBlock;
-            RemoveCharacterBlock(characterBlock);
+            EmptyCharacterSlot(selectedCharacterSlot);
         }
         else if (item is Equipment)
         {
             Equipment equipment = (Equipment)item;
-            RemoveEquipment(equipment);
+            ShopEquipmentSlot slot = null;
+            foreach (ShopEquipmentSlot s in equipmentSlots)
+            {
+                if (s.Equipment == equipment)
+                {
+                    slot = s;
+                    cost = s.Cost;
+                    break;
+                }
+            }
+            EmptyEquipmentSlot(slot);
         }
-        _player.CurrentMoney -= _itemCostPair[item];
+        else
+        {
+            Debug.LogError("해당 equipment가 shop에 존재하지 않습니다.");
+        }
+        _player.CurrentMoney -= cost;
         UpdateMoneyText();
     }
 
@@ -174,8 +284,15 @@ public class ShopSystem : MonoBehaviour
                 Destroy(_equipments[i].gameObject);
             }
 
-            _characterBlocks.Clear();
-            _equipments.Clear();
+            foreach (ShopCharacterSlot s in characterSlots)
+            {
+                EmptyCharacterSlot(s);
+            }
+
+            foreach (ShopEquipmentSlot s in equipmentSlots)
+            {
+                EmptyEquipmentSlot(s);
+            }
 
             StartSelling();
         }
@@ -208,7 +325,6 @@ public class ShopSystem : MonoBehaviour
         if (item is CharacterBlock)
         {
             CharacterBlock characterBlock = item as CharacterBlock;
-            RemoveCharacterBlock(characterBlock);
             _player.CurrentMoney += characterBlockSellPrice + (characterBlock.CurrentLevel - 1) * characterBlockSellPricePerLevel;
         }
         else if (item is Equipment)
