@@ -35,8 +35,6 @@ public class ShopSystem : MonoBehaviour
 
 
     [Header("GameObject References")]
-    [SerializeField] private SpriteRenderer[] _equipmentBlockSlots;
-    [SerializeField] private TMP_Text[] _equipmentCostTexts;
 
     [SerializeField] private CharacterBlockSystem _characterBlockSystem;
     [SerializeField] private EquipmentSystem _equipmentSystem;
@@ -264,7 +262,7 @@ public class ShopSystem : MonoBehaviour
 
     public void UpdateMoneyText()
     {
-        _moneyText.text = "Money: " + _player.CurrentMoney.ToString();
+        _moneyText.text = _player.CurrentMoney.ToString();
     }
 
     public void Reroll()

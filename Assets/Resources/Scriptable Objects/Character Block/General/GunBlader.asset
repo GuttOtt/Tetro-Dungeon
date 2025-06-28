@@ -18,48 +18,13 @@ MonoBehaviour:
   Shapes:
   - Level: 1
     Shape:
-      gridSize: {x: 4, y: 3}
+      gridSize: {x: 3, y: 4}
       cellSize: {x: 16, y: 16}
       cells:
-      - row: 01010100
-      - row: 00010000
-      - row: 00000000
-    CenterIndex: {x: 1, y: 1}
-  - Level: 2
-    Shape:
-      gridSize: {x: 4, y: 3}
-      cellSize: {x: 16, y: 16}
-      cells:
-      - row: 01010100
-      - row: 00010100
-      - row: 00000000
-    CenterIndex: {x: 1, y: 1}
-  - Level: 3
-    Shape:
-      gridSize: {x: 4, y: 3}
-      cellSize: {x: 16, y: 16}
-      cells:
-      - row: 01010101
-      - row: 00010100
-      - row: 00000000
-    CenterIndex: {x: 1, y: 1}
-  - Level: 4
-    Shape:
-      gridSize: {x: 4, y: 3}
-      cellSize: {x: 16, y: 16}
-      cells:
-      - row: 01010101
-      - row: 01010100
-      - row: 00000000
-    CenterIndex: {x: 1, y: 1}
-  - Level: 5
-    Shape:
-      gridSize: {x: 4, y: 3}
-      cellSize: {x: 16, y: 16}
-      cells:
-      - row: 01010101
-      - row: 01010101
-      - row: 00000000
+      - row: 010101
+      - row: 000100
+      - row: 000000
+      - row: 000000
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 9168085276705221729, guid: 1ff4efc8006e91a4293b07e794f851c1, type: 3}
   Animator_Prefabs: {fileID: 0}

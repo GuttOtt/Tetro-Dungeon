@@ -7,8 +7,11 @@ public class InventorySystem : MonoBehaviour {
     [SerializeField] private BoxCollider2D _area;
     private List<CharacterBlock> _characterBlocks = new List<CharacterBlock>();
     private List<Equipment> _equipments = new List<Equipment>();
+    private List<ShopEquipmentSlot> equipmentSlots = new List<ShopEquipmentSlot>();
 
-    public void Add(CharacterBlock characterBlock) {
+
+    public void Add(CharacterBlock characterBlock)
+    {
         _characterBlocks.Add(characterBlock);
         //characterBlock.transform.SetParent(_area.transform);
         ArrangeTransform(characterBlock.transform);

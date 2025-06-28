@@ -2931,17 +2931,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &724505196 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4173176374674018649, guid: e83e78368055b834c8d6cc5359ab27d7, type: 3}
-  m_PrefabInstance: {fileID: 4951125004724998281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &748715677
 GameObject:
   m_ObjectHideFlags: 0
@@ -5971,11 +5960,6 @@ MonoBehaviour:
   - {fileID: 1052463490}
   - {fileID: 1398816278}
   - {fileID: 1905836128}
-  _equipmentBlockSlots: []
-  _equipmentCostTexts:
-  - {fileID: 724505196}
-  - {fileID: 0}
-  - {fileID: 0}
   _characterBlockSystem: {fileID: 1386957424}
   _equipmentSystem: {fileID: 748715679}
   _moneyText: {fileID: 1921358001}
@@ -6330,7 +6314,7 @@ Transform:
   m_GameObject: {fileID: 1548036690}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -78.2, y: -26.4, z: -406}
+  m_LocalPosition: {x: -80, y: 0, z: -406}
   m_LocalScale: {x: 533.52, y: 536.75995, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7601,8 +7585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1731, y: -76}
-  m_SizeDelta: {x: 155.92, y: 36.38}
+  m_AnchoredPosition: {x: -1725, y: -118}
+  m_SizeDelta: {x: 125, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1921358001
 MonoBehaviour:
@@ -7658,8 +7642,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
