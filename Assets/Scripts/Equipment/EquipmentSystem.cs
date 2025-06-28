@@ -160,6 +160,7 @@ public class EquipmentSystem : MonoBehaviour
             {
                 _shopSystem.Sell(_selectedEquipment);
                 Debug.Log("Sold equipment: " + _selectedEquipment.name);
+                selectedSlot?.SetEmpty();
                 DestroyEquipment(_selectedEquipment);
             }
 
@@ -180,7 +181,6 @@ public class EquipmentSystem : MonoBehaviour
                         selectedSlot.SetEquipment(hoveredSlotEquipment);
                     }
                 }
-
                 else
                 {
                     selectedSlot.SetEquipment(_selectedEquipment);

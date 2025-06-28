@@ -300,9 +300,10 @@ public class ShopSystem : MonoBehaviour
     public bool IsInsideShopArea(Equipment equipment)
     {
         Vector3 blockPos = equipment.transform.position;
-        blockPos.z = 0;
         Bounds areaBounds = area.bounds;
+        blockPos.z = areaBounds.min.z;
 
+        Debug.Log($"area: {areaBounds.min}, {areaBounds.max}");
         return areaBounds.Contains(blockPos);
     }
     
