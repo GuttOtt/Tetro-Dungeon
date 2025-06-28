@@ -26,7 +26,7 @@ public class ShopEquipmentSlot : MonoBehaviour
         }
     }
 
-    public void SetEquipment(Equipment equipment, int cost)
+    public void SetEquipment(Equipment equipment, int cost = 0)
     {
         this.equipment = equipment;
         equipment.transform.parent = transform;
@@ -34,7 +34,7 @@ public class ShopEquipmentSlot : MonoBehaviour
         equipment.gameObject.SetActive(false);
 
         this.cost = cost;
-        costText.text = cost.ToString() + "G";
+        costText?.SetText(cost.ToString() + "G");
 
         illust.sprite = equipment.Config.Sprite;
         Vector2 spriteSize = illust.sprite.bounds.size;
@@ -48,7 +48,7 @@ public class ShopEquipmentSlot : MonoBehaviour
     public void SetEmpty()
     {
         equipment = null;
-        costText.text = "";
+        costText?.SetText("");
         illust.sprite = null;
         shapeDrawer.Clear();
     }

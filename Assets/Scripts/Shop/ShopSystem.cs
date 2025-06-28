@@ -76,11 +76,6 @@ public class ShopSystem : MonoBehaviour
         {
             characterSlots[i].onClick += HandleCharacterSlotMouseDown;
         }
-
-        for (int i = 0; i < equipmentSlots.Count; i++)
-        {
-            equipmentSlots[i].onClick += HandleEquipmentSlotMouseDown;
-        }
     
     }
 
@@ -165,13 +160,6 @@ public class ShopSystem : MonoBehaviour
         slot.SetEquipment(equipment, equipmentCost);
     }
 
-    private void HandleEquipmentSlotMouseDown(ShopEquipmentSlot slot)
-    {
-        Equipment equipment = slot.Equipment;
-        equipment.gameObject.SetActive(true);
-
-        _equipmentSystem.Select();
-    }
 
     public void RemoveEquipment(Equipment equipment)
     {
