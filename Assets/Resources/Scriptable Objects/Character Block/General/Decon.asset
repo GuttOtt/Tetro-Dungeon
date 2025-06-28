@@ -21,10 +21,10 @@ MonoBehaviour:
       gridSize: {x: 3, y: 4}
       cellSize: {x: 16, y: 16}
       cells:
-      - row: 010101
-      - row: 010101
-      - row: 010101
-      - row: 010101
+      - row: 010100
+      - row: 010100
+      - row: 000000
+      - row: 000000
     CenterIndex: {x: 1, y: 1}
   SPUM_Prefabs: {fileID: 8756109509709580060, guid: 61544935ea7267a4181724c740cb1419, type: 3}
   Animator_Prefabs: {fileID: 0}
