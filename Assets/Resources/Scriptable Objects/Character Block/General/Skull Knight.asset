@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skull Knight
   m_EditorClassIdentifier: 
   Name: "\uD574\uACE8\uAE30\uC0AC"
-  Illust: {fileID: 21300000, guid: e33f60bb2edc3db4e847c5d59d7b63f2, type: 3}
+  Illust: {fileID: 21300000, guid: 51cc7dcd8bfe5bc45b05a677999d5dff, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

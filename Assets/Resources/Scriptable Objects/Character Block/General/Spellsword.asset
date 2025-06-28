@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spellsword
   m_EditorClassIdentifier: 
   Name: "\uB9C8\uAC80\uC0AC"
-  Illust: {fileID: 21300000, guid: 2a4d4ae11605b4540a53a8d66523b01a, type: 3}
+  Illust: {fileID: 21300000, guid: 500659ef860326c4996ebb3e488a9e37, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

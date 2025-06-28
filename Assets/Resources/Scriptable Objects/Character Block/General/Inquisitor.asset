@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Inquisitor
   m_EditorClassIdentifier: 
   Name: "\uC774\uB2E8\uC2EC\uD310\uAD00"
-  Illust: {fileID: 21300000, guid: 0a067f618cc5fce459d876fd6b5ec2dc, type: 3}
+  Illust: {fileID: 21300000, guid: 6e044ed8dbb8dc84fb1235277464e0c0, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

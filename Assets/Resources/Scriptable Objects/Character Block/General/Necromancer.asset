@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Necromancer
   m_EditorClassIdentifier: 
   Name: "\uB124\uD06C\uB85C\uB9E8\uC11C"
-  Illust: {fileID: 21300000, guid: 4944b79ec34ebe041b63596cc4b472d8, type: 3}
+  Illust: {fileID: 21300000, guid: 261b676912563ee4cb4d4e69814fb76a, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

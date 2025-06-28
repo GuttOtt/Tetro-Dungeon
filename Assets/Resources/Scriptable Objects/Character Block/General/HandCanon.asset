@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HandCanon
   m_EditorClassIdentifier: 
   Name: "\uD578\uB4DC \uCE90\uB10C"
-  Illust: {fileID: 21300000, guid: e18be56bf85257c45abfe928b6e7b129, type: 3}
+  Illust: {fileID: 21300000, guid: dbe54066536dc0348b3af5bcd659de83, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

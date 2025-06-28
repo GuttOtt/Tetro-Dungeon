@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VampireHunter
   m_EditorClassIdentifier: 
   Name: "\uBC40\uD30C\uC774\uC5B4 \uD5CC\uD130"
-  Illust: {fileID: 21300000, guid: 204472e596d758049b1584df63d86422, type: 3}
+  Illust: {fileID: 21300000, guid: eb71ff5f6d8d70c4799b93cf64657136, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

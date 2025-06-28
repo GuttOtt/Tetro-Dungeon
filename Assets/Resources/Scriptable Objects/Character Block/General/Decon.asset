@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Decon
   m_EditorClassIdentifier: 
   Name: "\uACAC\uC2B5 \uC0AC\uC81C"
-  Illust: {fileID: 21300000, guid: d48ddb5a8923ecc44bb7096508ed3720, type: 3}
+  Illust: {fileID: 21300000, guid: 9e5df292b4467b34cb75eeabc60d0ec1, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 2

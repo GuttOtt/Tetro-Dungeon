@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodElf
   m_EditorClassIdentifier: 
   Name: "\uC6B0\uB4DC\uC5D8\uD504"
-  Illust: {fileID: 21300000, guid: 6935802b69946714dadb8512bec2c0e2, type: 3}
+  Illust: {fileID: 21300000, guid: 2d83b23101edf9e49b37ccd2342c1dbd, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

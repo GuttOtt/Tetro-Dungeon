@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunBlader
   m_EditorClassIdentifier: 
   Name: "\uCD1D\uAC80\uC0AC"
-  Illust: {fileID: 21300000, guid: cae6baaa77435fe41bdd6af82c9fe92c, type: 3}
+  Illust: {fileID: 21300000, guid: 614ed3347ecafe549b988e09edcb452d, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

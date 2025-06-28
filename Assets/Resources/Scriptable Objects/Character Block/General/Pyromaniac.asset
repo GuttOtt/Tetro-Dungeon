@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pyromaniac
   m_EditorClassIdentifier: 
   Name: "\uBC29\uD654\uAD11"
-  Illust: {fileID: 21300000, guid: d85e52eec57f1964386fa3264e4f1c4e, type: 3}
+  Illust: {fileID: 21300000, guid: 8cadd6cd8b8a2114f8ece713958eb20f, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1

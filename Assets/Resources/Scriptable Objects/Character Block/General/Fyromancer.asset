@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fyromancer
   m_EditorClassIdentifier: 
   Name: "\uD654\uC5FC\uC220\uC0AC"
-  Illust: {fileID: 21300000, guid: 460f08fc2584b234a8c3e7b9d1ccb0d2, type: 3}
+  Illust: {fileID: 21300000, guid: 76ebb9ce0d8487241b997f97cc236c1d, type: 3}
   UnitTypeString: 
   Shapes:
   - Level: 1
