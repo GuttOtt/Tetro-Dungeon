@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using EnumTypes;
 using Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting.FullSerializer;
@@ -373,15 +374,35 @@ public class CharacterBlock : MonoBehaviour, IItem
         bool[,] shape = currentShape;
         int spinAmount = _spinDegree % 360 / 90;
         bool isClockwise = 0 <= _spinDegree;
+        spinAmount = Mathf.Abs(spinAmount);
+
         Debug.Log($"spinAmount: {spinAmount}, isClockwise: {isClockwise}");
+        
+        Debug.Log($"Original shape:");
+        for (int i = 0; i < shape.GetLength(0); i++)
+        {
+            for (int j = 0; j < shape.GetLength(1); j++)
+            {
+                Debug.Log($"shape[{i}][{j}]: {shape[i, j]}");
+            }
+        }
         for (int i = 0; i < spinAmount; i++)
         {
             if (isClockwise)
-                shape = Utils.RotateRight<bool>(shape);
+                shape = Utils.RotateLeft<bool>(shape);
 
             else
-                shape = Utils.RotateLeft<bool>(shape);
+                shape = Utils.RotateRight<bool>(shape);
         }
+        Debug.Log($"Rotated shape:");
+        for (int i = 0; i < shape.GetLength(0); i++)
+        {
+            for (int j = 0; j < shape.GetLength(1); j++)
+            {
+                Debug.Log($"shape[{i}][{j}]: {shape[i, j]}");
+            }
+        }
+        
 
         return new CharacterBlockData(_config, _level, CenterCellPos, _spinDegree, shape, equipmentDatas);
     }
