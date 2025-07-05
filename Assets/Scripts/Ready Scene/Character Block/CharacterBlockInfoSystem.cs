@@ -56,11 +56,15 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     {
         CharacterBlock charaterBlock = GetRightClockedBlock();
         ShopCharacterSlot slot = GetRightClickedSlot();
+        BaseUnit unit = GetRightClickedUnit();
+
 
         if (charaterBlock != null)
             DrawInfo(charaterBlock);
         else if (slot != null)
             DrawInfo(slot);
+        else if (unit != null)
+            DrawInfo(unit);
     }
 
     private CharacterBlock GetRightClockedBlock() {
@@ -88,6 +92,99 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         return slot;
     }
 
+    private BaseUnit GetRightClickedUnit()
+    {
+        if (!Input.GetMouseButtonDown(1))
+            return null;
+
+        BaseUnit unit = Utils.Pick<BaseUnit>();
+        if (unit == null)
+            return null;
+
+        return unit;
+    }
+
+    private void DrawInfo(BaseUnit unit)
+    {
+        _panel.SetActive(true);
+
+        CharacterBlockConfig config = unit.Config;
+
+        //Set Inputs Off
+        _characterBlockSystem?.SetInputOff();
+        equipmentSystem?.SetInputOff();
+
+        //Name
+        _nameText.text = config.Name;
+
+        Stat stat = unit.Stat;
+        DrawStat(stat);
+        DrawLevel(unit.Level);
+        
+        _illustImage.sprite = config.Illust;
+
+        DrawSpum(config.SPUM_Prefabs);
+
+        //Skill
+        foreach (SkillDescriptor descriptor in _skillDescriptors)
+        {
+            Destroy(descriptor.gameObject);
+        }
+        _skillDescriptors.Clear();
+
+        List<UnitSkill> skills = unit.Skills;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i] == null) continue;
+
+            SkillDescriptor descriptor = Instantiate(_skillDescriptorPrefab, _panel.transform);
+            descriptor.DescribeSkill(skills[i]);
+            _skillDescriptors.Add(descriptor);
+
+            Vector3 localPos = _skillDescriptorOrigin + i * _skillDescriptorGap;
+            descriptor.transform.localPosition = localPos;
+        }
+
+        // Synergies
+        string synergyText = "";
+        foreach (var synergy in unit.SynergyDict)
+        {
+            if (synergy.Key != EnumTypes.SynergyTypes.None && synergy.Value > 0)
+            {
+                synergyText += $"{synergy.Key}: {synergy.Value} ";
+            }
+        }
+        _synergyText.text = synergyText;
+
+        /*
+        // Awakenings
+        string awakeningsText = "";
+        foreach (var awakening in unit.Awakenings)
+        {
+            if (awakening != null)
+            {
+                // 만약 해당 awakening의 활성화 결과가 true라면 초록색 리치 텍스트로 표시
+                bool isActive = false;
+
+                if (characterBlock.AwakeningActivation.ContainsKey(awakening))
+                {
+                    isActive = characterBlock.AwakeningActivation[awakening];
+                }
+
+                if (isActive)
+                {
+                    awakeningsText += $"<color=green>{awakening.description}</color>\n";
+                }
+                else
+                {
+                    awakeningsText += $"{awakening.description}\n";
+                }
+            }
+        }
+        _awakeningsText.text = awakeningsText;
+        */
+    }
+
     private void DrawInfo(ShopCharacterSlot slot)
     {
         _panel.SetActive(true);
@@ -104,26 +201,15 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
         //Stats
         Stat stat = config.Stat;
-        //_hpText.text = characterBlock
-        _attackText.text = stat.Attack.ToString();
-        _spellPowerText.text = stat.SpellPower.ToString();
-        _defenceText.text = stat.Defence.ToString();
-        _spellDefenceText.text = stat.SpellDefence.ToString();
-        _speedText.text = stat.Speed.ToString();
-        _rangeText.text = stat.Range.ToString();
-        _levelText.text = "Lvl. 1";
+        DrawStat(stat);
+
+        //Level
+        DrawLevel(1);
 
         //Illust
         _illustImage.sprite = config.Illust;
 
         //SPUM
-        if (_spum != null)
-        {
-            Destroy(_spum.gameObject);
-        }
-
-        _illustImage.sprite = config.Illust;
-
         DrawSpum(config.SPUM_Prefabs);
 
         //Skill
@@ -175,13 +261,17 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         currentCharacterBlock = characterBlock;
 
         //Set Inputs Off
-        _characterBlockSystem.SetInputOff();
-        equipmentSystem.SetInputOff();
+        _characterBlockSystem?.SetInputOff();
+        equipmentSystem?.SetInputOff();
 
         //Lelvel Up
-        _levelUpButton.gameObject.SetActive(true);
-        _levelUpCostText.gameObject.SetActive(true);
-        _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
+        if (_levelUpButton != null && _levelUpCostText != null)
+        {
+            _levelUpButton.gameObject.SetActive(true);
+            _levelUpCostText.gameObject.SetActive(true);
+            _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
+            
+        }
 
         _nameText.text = characterBlock.Config.Name;
 
@@ -271,11 +361,14 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
     private void DrawSpum(SPUM_Prefabs spumPrefab)
     {
-        
         if (_spum != null)
         {
             Destroy(_spum.gameObject);
         }
+
+        if (spumPrefab == null)
+            return;
+        
         _spum = Instantiate(spumPrefab, _spumRoot.transform);
 
         _spum.transform.localPosition = Vector3.zero;
@@ -288,8 +381,8 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
     public void ClosePanel()
     {
         _panel.SetActive(false);
-        _characterBlockSystem.SetInputOn();
-        equipmentSystem.SetInputOn();
+        _characterBlockSystem?.SetInputOn();
+        equipmentSystem?.SetInputOn();
         Debug.Log("Close Panel");
     }
 }

@@ -134,11 +134,11 @@ public class SynergySystem : MonoBehaviour {
     }
 
     private void ArrangeSynergyDisplays() {
-        float y = 300;
-        float yOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.height + 5;
+        float x = 0;
+        float xOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.width + 5;
         foreach (var synergy in _synergyDisplays) {
-            synergy.Value.transform.localPosition = new Vector3(0, y, 0);
-            y -= yOffset;
+            synergy.Value.transform.localPosition = new Vector3(x, 0, 0);
+            x += xOffset;
         }
     }
 

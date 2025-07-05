@@ -78,6 +78,18 @@ public class BaseUnit : MonoBehaviour, IUnit
     public float AttackDamageReductionRate { get => 1f / (1 + Defence / 100f); }
     public float SpellDamageReductionRate { get => 1f / (1 + SpellDefence / 100f); }
     public Stat Stat { get => new Stat(_maxHP, Attack, SpellPower, Defence, SpellDefence, Speed, Range);}
+    public int Level { get; private set; }
+    public CharacterBlockConfig Config => _characterBlockConfig;
+    public List<UnitSkill> Skills
+    {
+        get
+        {
+            List<UnitSkill> skills = new List<UnitSkill>();
+            skills.AddRange(_activeSkills);
+            skills.AddRange(_passiveSkills);
+            return skills;
+        }
+    }
     #endregion
 
     #region Skills
@@ -197,6 +209,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         //System
         _unitSystem = unitSystem;
         _id = id;
+        Level = 1;
 
         //Config
         _characterBlockConfig = config;
@@ -280,6 +293,7 @@ public class BaseUnit : MonoBehaviour, IUnit
         //System
         _unitSystem = unitSystem;
         _id = id;
+        Level = characterBlock.CurrentLevel;
 
         //Config
         CharacterBlockConfig config = characterBlock.Config;
