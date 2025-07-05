@@ -36,9 +36,6 @@ public class InventorySystem : MonoBehaviour
 
     public void Add(CharacterBlock characterBlock)
     {
-        _characterBlocks.Add(characterBlock);
-        //characterBlock.transform.SetParent(_area.transform);
-        ArrangeTransform(characterBlock.transform);
     }
 
     public void Remove(CharacterBlock characterBlock)

@@ -28,6 +28,7 @@ public class ShopEquipmentSlot : MonoBehaviour
 
     public void SetEquipment(Equipment equipment, int cost = 0)
     {
+        SetEmpty();
         this.equipment = equipment;
         equipment.transform.parent = transform;
         equipment.transform.localPosition = Vector3.zero;

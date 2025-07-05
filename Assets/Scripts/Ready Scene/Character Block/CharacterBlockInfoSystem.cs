@@ -52,11 +52,15 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         _closeButton.onClick += ClosePanel;
     }
 
-    private void Update() {
+    private void Update()
+    {
         CharacterBlock charaterBlock = GetRightClockedBlock();
+        ShopCharacterSlot slot = GetRightClickedSlot();
 
-        if (charaterBlock != null) 
+        if (charaterBlock != null)
             DrawInfo(charaterBlock);
+        else if (slot != null)
+            DrawInfo(slot);
     }
 
     private CharacterBlock GetRightClockedBlock() {
@@ -72,57 +76,69 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
         return characterBlock;
     }
 
-    public void DrawInfo(CharacterBlock characterBlock) {
+    private ShopCharacterSlot GetRightClickedSlot()
+    {
+        if (!Input.GetMouseButtonDown(1))
+            return null;
+
+        ShopCharacterSlot slot = Utils.Pick<ShopCharacterSlot>();
+        if (slot == null)
+            return null;
+
+        return slot;
+    }
+
+    private void DrawInfo(ShopCharacterSlot slot)
+    {
         _panel.SetActive(true);
-        currentCharacterBlock = characterBlock;
-        
+        CharacterBlockConfig config = slot.CharacterBlockConfig;
+        _levelUpButton.gameObject.SetActive(false);
+        _levelUpCostText.text = "";
+
         //Set Inputs Off
         _characterBlockSystem.SetInputOff();
         equipmentSystem.SetInputOff();
 
-        //Lelvel Up
-        _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
-
         //Name
-        _nameText.text = characterBlock.Config.Name;
+        _nameText.text = config.Name;
 
         //Stats
-        Stat stat = characterBlock.Stat;
-        //_hpText.text = characterBlock.MaxHP.ToString();
+        Stat stat = config.Stat;
+        //_hpText.text = characterBlock
         _attackText.text = stat.Attack.ToString();
         _spellPowerText.text = stat.SpellPower.ToString();
         _defenceText.text = stat.Defence.ToString();
         _spellDefenceText.text = stat.SpellDefence.ToString();
         _speedText.text = stat.Speed.ToString();
         _rangeText.text = stat.Range.ToString();
-        _levelText.text = "Lvl. " + characterBlock.CurrentLevel.ToString();
-
+        _levelText.text = "Lvl. 1";
 
         //Illust
-        _illustImage.sprite = characterBlock.Config.Illust;
+        _illustImage.sprite = config.Illust;
 
         //SPUM
-        if (_spum != null) {
+        if (_spum != null)
+        {
             Destroy(_spum.gameObject);
         }
-        SPUM_Prefabs spumPrefab = characterBlock.Config.SPUM_Prefabs;
-        _spum = Instantiate(spumPrefab, _spumRoot.transform);
-        
-        _spum.transform.localPosition = Vector3.zero;
 
-        int uiSortingLayer = SortingLayer.NameToID("UI");
-        _spum.SetSortingLayer(uiSortingLayer);
+        _illustImage.sprite = config.Illust;
+
+        DrawSpum(config.SPUM_Prefabs);
 
         //Skill
-        foreach (SkillDescriptor descriptor in _skillDescriptors) {
+        foreach (SkillDescriptor descriptor in _skillDescriptors)
+        {
             Destroy(descriptor.gameObject);
         }
         _skillDescriptors.Clear();
 
-         // Synergies
+        // Synergies
         string synergyText = "";
-        foreach (var synergy in characterBlock.SynergyDict) {
-            if (synergy.Key != EnumTypes.SynergyTypes.None && synergy.Value > 0) {
+        foreach (var synergy in config.BaseSynergyDict)
+        {
+            if (synergy.Key != EnumTypes.SynergyTypes.None && synergy.Value > 0)
+            {
                 synergyText += $"{synergy.Key}: {synergy.Value} ";
             }
         }
@@ -130,27 +146,18 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
 
         // Awakenings
         string awakeningsText = "";
-        foreach (var awakening in characterBlock.Awakenings) {
-            if (awakening != null) {
-                // 만약 해당 awakening의 활성화 결과가 true라면 초록색 리치 텍스트로 표시
-                bool isActive = false;
-
-                if (characterBlock.AwakeningActivation.ContainsKey(awakening)) {
-                    isActive = characterBlock.AwakeningActivation[awakening];
-                }
-
-                if (isActive) {
-                    awakeningsText += $"<color=green>{awakening.description}</color>\n";
-                }
-                else {
-                    awakeningsText += $"{awakening.description}\n";
-                }
+        foreach (var awakening in config.Awakenings)
+        {
+            if (awakening != null)
+            {
+                awakeningsText += $"{awakening.description}\n";
             }
         }
         _awakeningsText.text = awakeningsText;
 
-        List<UnitSkill> skills = characterBlock.Skills;
-        for (int i = 0; i < skills.Count; i++) {
+        List<SkillConfig> skills = config.Skills;
+        for (int i = 0; i < skills.Count; i++)
+        {
             if (skills[i] == null) continue;
 
             SkillDescriptor descriptor = Instantiate(_skillDescriptorPrefab, _panel.transform);
@@ -160,6 +167,121 @@ public class CharacterBlockInfoSystem : MonoBehaviour {
             Vector3 localPos = _skillDescriptorOrigin + i * _skillDescriptorGap;
             descriptor.transform.localPosition = localPos;
         }
+    }
+
+    public void DrawInfo(CharacterBlock characterBlock)
+    {
+        _panel.SetActive(true);
+        currentCharacterBlock = characterBlock;
+
+        //Set Inputs Off
+        _characterBlockSystem.SetInputOff();
+        equipmentSystem.SetInputOff();
+
+        //Lelvel Up
+        _levelUpButton.gameObject.SetActive(true);
+        _levelUpCostText.gameObject.SetActive(true);
+        _levelUpCostText.text = characterBlock.LevelUpCost.ToString();
+
+        _nameText.text = characterBlock.Config.Name;
+
+        Stat stat = characterBlock.Stat;
+        DrawStat(stat);
+        DrawLevel(characterBlock.CurrentLevel);
+        
+        _illustImage.sprite = characterBlock.Config.Illust;
+
+        DrawSpum(characterBlock.Config.SPUM_Prefabs);
+
+        //Skill
+        foreach (SkillDescriptor descriptor in _skillDescriptors)
+        {
+            Destroy(descriptor.gameObject);
+        }
+        _skillDescriptors.Clear();
+
+        List<UnitSkill> skills = characterBlock.Skills;
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i] == null) continue;
+
+            SkillDescriptor descriptor = Instantiate(_skillDescriptorPrefab, _panel.transform);
+            descriptor.DescribeSkill(skills[i]);
+            _skillDescriptors.Add(descriptor);
+
+            Vector3 localPos = _skillDescriptorOrigin + i * _skillDescriptorGap;
+            descriptor.transform.localPosition = localPos;
+        }
+
+        // Synergies
+        string synergyText = "";
+        foreach (var synergy in characterBlock.SynergyDict)
+        {
+            if (synergy.Key != EnumTypes.SynergyTypes.None && synergy.Value > 0)
+            {
+                synergyText += $"{synergy.Key}: {synergy.Value} ";
+            }
+        }
+        _synergyText.text = synergyText;
+
+        // Awakenings
+        string awakeningsText = "";
+        foreach (var awakening in characterBlock.Awakenings)
+        {
+            if (awakening != null)
+            {
+                // 만약 해당 awakening의 활성화 결과가 true라면 초록색 리치 텍스트로 표시
+                bool isActive = false;
+
+                if (characterBlock.AwakeningActivation.ContainsKey(awakening))
+                {
+                    isActive = characterBlock.AwakeningActivation[awakening];
+                }
+
+                if (isActive)
+                {
+                    awakeningsText += $"<color=green>{awakening.description}</color>\n";
+                }
+                else
+                {
+                    awakeningsText += $"{awakening.description}\n";
+                }
+            }
+        }
+        _awakeningsText.text = awakeningsText;
+
+        
+    }
+
+    private void DrawStat(Stat stat)
+    {
+        //_hpText.text = characterBlock.MaxHP.ToString();
+        _attackText.text = stat.Attack.ToString();
+        _spellPowerText.text = stat.SpellPower.ToString();
+        _defenceText.text = stat.Defence.ToString();
+        _spellDefenceText.text = stat.SpellDefence.ToString();
+        _speedText.text = stat.Speed.ToString();
+        _rangeText.text = stat.Range.ToString();
+    }
+
+    private void DrawLevel(int level)
+    {
+        _levelText.text = "Lvl. " + level.ToString();
+    }
+
+    private void DrawSpum(SPUM_Prefabs spumPrefab)
+    {
+        
+        if (_spum != null)
+        {
+            Destroy(_spum.gameObject);
+        }
+        _spum = Instantiate(spumPrefab, _spumRoot.transform);
+
+        _spum.transform.localPosition = Vector3.zero;
+
+        int uiSortingLayer = SortingLayer.NameToID("UI");
+        _spum.SetSortingLayer(uiSortingLayer);
     }
 
 

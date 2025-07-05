@@ -32,9 +32,26 @@ public class CharacterBlockConfig : ScriptableObject
     public SkillConfig DefaultSkill;
     public List<SkillConfig> ActiveSkills;
     public List<SkillConfig> PassiveSkills;
+    public List<SkillConfig> Skills
+    {
+        get
+        {
+            List<SkillConfig> allSkills = new List<SkillConfig>();
+            allSkills.AddRange(ActiveSkills);
+            allSkills.AddRange(PassiveSkills);
+            return allSkills;
+        }
+    }
     #endregion
 
     public List<SynergyPerLevel> SynergyPerLevels = new List<SynergyPerLevel>();
+    public Dictionary<SynergyTypes, int> BaseSynergyDict
+    {
+        get
+        {
+            return SynergyPerLevels[0].SynergyDic;
+        }
+    }
 
 
     public List<Awakening> Awakenings;

@@ -22,11 +22,12 @@ public class ReadySceneManager : MonoBehaviour {
     {
         if (_player == null) 
             _player = Player.Instance;
-
+        /*
         foreach (CharacterBlockData data in _player.CharacterBlocksInventory) {
             CharacterBlock block = await _characterBlockSystem.CreateCharacterBlock(data);
             _inventorySystem.Add(block);
         }
+        */
 
         foreach (CharacterBlockData data in _player.CharacterBlocksOnBoard) {
             Debug.Log("Create CharacterBlocks on board by datas");
