@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Dark Synergy
   m_EditorClassIdentifier: 
   _synergyType: 4
+  iconSprite: {fileID: 21300000, guid: be742d5106104784cbd6f96b927d0290, type: 3}
   _minSynergyCount: 5
   _synergyValue: 0
   _coolTime: 0

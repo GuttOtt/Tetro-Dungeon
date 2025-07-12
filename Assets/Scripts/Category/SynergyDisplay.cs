@@ -9,6 +9,7 @@ public class SynergyDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text _synergyText;
     [SerializeField] private Image _synergyImage;
+    [SerializeField] private Image synergyIcon;
     [SerializeField] private GameObject _descriptionPanel;
     [SerializeField] private TMP_Text _descriptionText;
     private SynergyTypes _synergyType;
@@ -26,6 +27,13 @@ public class SynergyDisplay : MonoBehaviour
 
         // 이벤트 트리거 설정
         EventTrigger trigger = _synergyImage.gameObject.AddComponent<EventTrigger>();
+
+        // 아이콘
+        if (_synergyData.IconSprite != null)
+        {
+            synergyIcon.sprite = _synergyData.IconSprite;
+            Debug.Log("Sprite Changed");
+        }
         
         EventTrigger.Entry enterEntry = new EventTrigger.Entry();
         enterEntry.eventID = EventTriggerType.PointerEnter;
