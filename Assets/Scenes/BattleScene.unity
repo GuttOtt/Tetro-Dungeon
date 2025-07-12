@@ -779,7 +779,7 @@ MonoBehaviour:
     _serializedList: []
   _allSynergyList: []
   _synergyText: {fileID: 102881405}
-  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: f176a240cbcca1848aaadc9aeb1e29d8, type: 3}
+  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: d9139e0fbc9313a45a6c07894d294809, type: 3}
   _displayContainer: {fileID: 129823318}
 --- !u!1 &978312598
 GameObject:

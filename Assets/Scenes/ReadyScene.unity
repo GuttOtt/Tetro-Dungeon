@@ -1274,6 +1274,7 @@ MonoBehaviour:
   battleSystem: {fileID: 0}
   characterBlockSystem: {fileID: 1386957424}
   equipmentSystem: {fileID: 748715679}
+  synergyGridSize: {x: 3, y: 5}
   _synergyDic:
     _serializedList: []
   _allSynergyList: []
