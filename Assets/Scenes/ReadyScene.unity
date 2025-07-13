@@ -1279,7 +1279,7 @@ MonoBehaviour:
     _serializedList: []
   _allSynergyList: []
   _synergyText: {fileID: 937876904}
-  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: f176a240cbcca1848aaadc9aeb1e29d8, type: 3}
+  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: d9139e0fbc9313a45a6c07894d294809, type: 3}
   _displayContainer: {fileID: 644825336}
 --- !u!4 &595286409
 Transform:
@@ -2037,7 +2037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -366.95905, y: -44.00006}
+  m_AnchoredPosition: {x: -366.95898, y: -44}
   m_SizeDelta: {x: 175, y: 63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &909708027
