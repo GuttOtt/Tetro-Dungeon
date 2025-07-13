@@ -13,6 +13,7 @@ public class SynergySystem : MonoBehaviour {
     [SerializeField] private BattleSystem battleSystem;
     [SerializeField] private CharacterBlockSystem characterBlockSystem;
     [SerializeField] private EquipmentSystem equipmentSystem;
+    [SerializeField] private Vector2Int synergyGridSize = new Vector2Int(10, 5);
 
     [SerializeField] private SerializedDictionary<SynergyTypes, int> _synergyDic = 
         new SerializedDictionary<SynergyTypes, int>();
@@ -133,12 +134,19 @@ public class SynergySystem : MonoBehaviour {
         ArrangeSynergyDisplays();
     }
 
-    private void ArrangeSynergyDisplays() {
-        float x = 0;
+    private void ArrangeSynergyDisplays()
+    {
+        int index = 0;
         float xOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.width + 5;
-        foreach (var synergy in _synergyDisplays) {
-            synergy.Value.transform.localPosition = new Vector3(x, 0, 0);
-            x += xOffset;
+        float yOffset = _synergyDisplayPrefab.GetComponent<RectTransform>().rect.height + 5;
+
+        foreach (var synergy in _synergyDisplays)
+        {
+            int col = index % synergyGridSize.x;
+            int row = index / synergyGridSize.x;
+            index++;
+
+            synergy.Value.transform.localPosition = new Vector3(col * xOffset, -row * yOffset, 0);
         }
     }
 
