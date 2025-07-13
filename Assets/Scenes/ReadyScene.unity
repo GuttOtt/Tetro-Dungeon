@@ -1279,7 +1279,7 @@ MonoBehaviour:
     _serializedList: []
   _allSynergyList: []
   _synergyText: {fileID: 937876904}
-  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: d9139e0fbc9313a45a6c07894d294809, type: 3}
+  _synergyDisplayPrefab: {fileID: 348914556115011421, guid: df3a5a4aaf6681c4295dd890d6ebf887, type: 3}
   _displayContainer: {fileID: 644825336}
 --- !u!4 &595286409
 Transform:
