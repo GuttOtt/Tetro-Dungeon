@@ -14,7 +14,8 @@ public class CharacterBlockConfig : ScriptableObject
     public Sprite Illust;
     public string UnitTypeString;
     public LevelShapePair[] Shapes;
-    public int MaxLevel { get => Shapes.Length; }
+    [SerializeField] private int maxLevel = 5;
+    public int MaxLevel { get => maxLevel; }
 
     public SPUM_Prefabs SPUM_Prefabs;
     public Animator Animator_Prefabs;
@@ -61,7 +62,7 @@ public class CharacterBlockConfig : ScriptableObject
     }
 
     public Vector2Int GetCenterIndex(int lvl) {
-        return Shapes[lvl-1].CenterIndex;
+        return Shapes[0].CenterIndex;
     }
     public SerializedDictionary<SynergyTypes, int> GetSynergyDict(int lvl) {
         return SynergyPerLevels.Find(x => x.Level == lvl)?.SynergyDic;
