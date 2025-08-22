@@ -144,6 +144,8 @@ public class CharacterBlockSystem : MonoBehaviour
         localPosition = Quaternion.AngleAxis(characterBlock.SpinDegree, Vector3.forward) * localPosition;
         BlockPart newBlockPart = characterBlock.AddBlockPart(localPosition, clickedLocation);
 
+        characterBlock.Place(); // 추가된 blockPart도 place 처리 하기 위함
+
         // 5. BlockPart 마커 제거
         foreach (BlockPartMarker marker in blockPartMarkers)
         {
