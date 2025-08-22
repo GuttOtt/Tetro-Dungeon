@@ -205,12 +205,7 @@ public class EquipmentSystem : MonoBehaviour
             //Place 되어 있던 상태일 때
             else
             {
-                if (_inventorySystem.IsInsideArea(_selectedEquipment))
-                {
-                    _selectedEquipment.Unplace();
-                    _inventorySystem.Add(_selectedEquipment);
-                }
-                else // 원래대로 되돌림
+                if (!_inventorySystem.TryAddOnHoveredSlot(_selectedEquipment)) // 슬롯에 배치를 시도하고, 실패하면 원래대로 되돌림
                 {
                     _selectedEquipment.transform.position = _selectedPos;
                     Place(_selectedEquipment);

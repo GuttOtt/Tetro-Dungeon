@@ -34,9 +34,6 @@ public class InventorySystem : MonoBehaviour
 
     }
 
-    public void Add(CharacterBlock characterBlock)
-    {
-    }
 
     public void Remove(CharacterBlock characterBlock)
     {
@@ -61,6 +58,9 @@ public class InventorySystem : MonoBehaviour
         InventoryEquipmentSlot hoveredSlot = GetHoveredSlot();
         if (hoveredSlot == null || hoveredSlot.Equipment != null) return false;
 
+        if (equipment.IsPlaced)
+            equipment.Unplace();
+            
         hoveredSlot.SetEquipment(equipment);
 
         return true;
@@ -106,15 +106,6 @@ public class InventorySystem : MonoBehaviour
                 break;
             }
         }
-    }
-
-    public bool IsInsideArea(CharacterBlock characterBlock)
-    {
-        Vector3 blockPos = characterBlock.transform.position;
-        blockPos.z = 0;
-        Bounds areaBounds = _area.bounds;
-
-        return areaBounds.Contains(blockPos);
     }
 
     public bool IsInsideArea(Equipment equipment)
